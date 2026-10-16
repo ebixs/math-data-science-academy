@@ -67,3 +67,5 @@
 | فصل ۰۷: SQL برای تحلیل داده | PostgreSQL documentation, SQLite documentation, IBM SQL learning | فیلتر، تجمیع، JOIN، NULL، CTE و کنترل کیفیت پرس‌وجو |
 
 | فصل ۰۸: مبانی یادگیری ماشین | Google Machine Learning Crash Course, scikit-learn User Guide, IBM Machine Learning | تقسیم داده، نشت اطلاعات، بیش‌برازش، معیارها و ارزیابی مدل |
+
+| فصل ۰۹: تحلیل اکتشافی داده | pandas User Guide, Matplotlib Tutorials, IBM EDA | کیفیت داده، توزیع، مصورسازی، نرخ‌ها و تفسیر محدودیت‌ها |
