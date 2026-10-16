@@ -64,12 +64,15 @@ chmod +x start_local.command
 ## کتابخانهٔ آموزشی عمیق
 
 - [برنامهٔ درسی جامع و ترتیب پیش‌نیازها](CURRICULUM.md)
-- [فصل ۰۰: حساب پایه و اعداد — کتابچهٔ کامل](chapters/00-arithmetic-foundations.md)
-- [فصل ۰۱: جبر و مدل‌سازی — کتابچهٔ کامل](chapters/01-algebra-and-modeling.md)
-- [فصل ۰۲: هندسه و اندازه‌گیری — کتابچهٔ کامل](chapters/02-geometry-and-measurement.md)
+- [منابع آموزشی و نقشهٔ تطبیق محتوا](SOURCES.md)
+- [فصل ۰۰: حساب پایه و اعداد](chapters/00-arithmetic-foundations.md)
+- [فصل ۰۱: جبر و مدل‌سازی](chapters/01-algebra-and-modeling.md)
+- [فصل ۰۲: هندسه و اندازه‌گیری](chapters/02-geometry-and-measurement.md)
+- [فصل ۰۳: احتمال و آمار](chapters/03-probability-and-statistics.md)
+- [فصل ۰۴: جبر خطی](chapters/04-linear-algebra.md)
+- [فصل ۰۵: پایتون برای تحلیل داده](chapters/05-python-data-analysis.md)
+- [فصل ۰۶: حسابان و بهینه‌سازی](chapters/06-calculus-optimization.md)
+- [فصل ۰۷: SQL برای تحلیل داده](chapters/07-sql-for-data-analysis.md)
+- [فصل ۰۸: مبانی یادگیری ماشین](chapters/08-machine-learning-foundations.md)
 
-فصل‌ها به‌صورت مستقل و مرحله‌به‌مرحله توسعه می‌یابند. هر فصل شامل توضیح مفهومی، مثال حل‌شده، تمرین‌های چندسطحی، مسئله‌های چندمرحله‌ای، پاسخ‌نامه و پروژه است. این برنامه مستقل است و وابستگی یا تأیید رسمی Harvard، IBM یا Cambridge را ادعا نمی‌کند.
-
-- [فصل ۰۷ — SQL برای تحلیل داده](chapters/07-sql-for-data-analysis.md)
-
-- [فصل ۰۸ — مبانی یادگیری ماشین](chapters/08-machine-learning-foundations.md)
+کتابچه‌ها نسخه‌های مستقل اولیه‌اند و به‌صورت مرحله‌به‌مرحله توسعه می‌یابند. پیش از اعلام تکمیل نهایی، مثال‌ها، پاسخ‌نامه‌ها، کدها و تعاملات برنامه باید بازبینی شوند. پیوند منابع به معنی تأیید رسمی آکادمی از سوی دانشگاه‌ها یا شرکت‌ها نیست.
