@@ -33,6 +33,7 @@ chmod +x start_local.command
 - [فصل ۰۳ — احتمال و آمار](chapters/03-probability-and-statistics.md)
 - [فصل ۰۴ — جبر خطی](chapters/04-linear-algebra.md)
 - [فصل ۰۵ — پایتون برای تحلیل داده](chapters/05-python-data-analysis.md)
+- [فصل ۰۶ — حسابان و بهینه‌سازی](chapters/06-calculus-optimization.md)
 
 ## امکانات
 
