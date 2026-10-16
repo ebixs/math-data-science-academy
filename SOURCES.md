@@ -43,6 +43,7 @@
 | فصل ۰۱: جبر | OpenStax Prealgebra 2e و College Algebra 2e | معادلات، نامعادلات، دستگاه‌ها، توابع و مدل‌سازی؛ تمرین‌های پایه تا چالشی |
 | فصل ۰۲: هندسه | OpenStax Prealgebra 2e | واحدها، شکل‌ها، مساحت، حجم، فاصله و بررسی معقول‌بودن جواب |
 | فصل ۰۳: احتمال و آمار | Harvard probability courses, Cambridge statistics resources, OpenStax Introductory Statistics | نمونه‌گیری، توصیف داده، احتمال، خطای معیار، فاصلهٔ اطمینان و آزمون فرض |
+| فصل ۰۴: جبر خطی | MIT OpenCourseWare 18.06, Harvard and Cambridge data-science materials | بردار، ماتریس، ضرب داخلی، دستگاه معادلات و کاهش بُعد |
 | توابع و نمودارها | OpenStax College Algebra 2e | دامنه و برد، تبدیل نمودار، توابع چندجمله‌ای، نمایی و لگاریتمی |
 | احتمال و آمار | Harvard CS109 و دورهٔ احتمال هاروارد؛ Cambridge | نمونه‌گیری، توزیع‌ها، استنباط، فاصلهٔ اطمینان، آزمون فرض و سوگیری |
 | پایتون و تحلیل داده | Harvard CS50P و IBM | تمرین کدنویسی، کار با دادهٔ جدولی، پاک‌سازی، مصورسازی و گزارش |
