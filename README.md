@@ -31,6 +31,7 @@ chmod +x start_local.command
 - [فصل ۰۱ — جبر و مدل‌سازی](chapters/01-algebra-and-modeling.md)
 - [فصل ۰۲ — هندسه و اندازه‌گیری](chapters/02-geometry-and-measurement.md)
 - [فصل ۰۳ — احتمال و آمار](chapters/03-probability-and-statistics.md)
+- [فصل ۰۴ — جبر خطی](chapters/04-linear-algebra.md)
 
 ## امکانات
 
