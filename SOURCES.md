@@ -65,3 +65,5 @@
 | فصل ۰۶: حسابان و بهینه‌سازی | OpenStax Calculus Volume 1, MIT OpenCourseWare 18.01SC | تابع، حد، مشتق، اکسترمم و گرادیان کاهشی |
 
 | فصل ۰۷: SQL برای تحلیل داده | PostgreSQL documentation, SQLite documentation, IBM SQL learning | فیلتر، تجمیع، JOIN، NULL، CTE و کنترل کیفیت پرس‌وجو |
+
+| فصل ۰۸: مبانی یادگیری ماشین | Google Machine Learning Crash Course, scikit-learn User Guide, IBM Machine Learning | تقسیم داده، نشت اطلاعات، بیش‌برازش، معیارها و ارزیابی مدل |
