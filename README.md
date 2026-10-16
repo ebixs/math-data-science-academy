@@ -23,6 +23,14 @@ chmod +x start_local.command
 
 روی `start_local.bat` دوبار کلیک کن. Python 3 باید نصب باشد.
 
+## محتوای آموزشی و منابع
+
+- [برنامهٔ درسی جامع](CURRICULUM.md)
+- [منابع دانشگاهی و نقشهٔ تطبیق محتوا](SOURCES.md)
+- [فصل ۰۰ — حساب پایه](chapters/00-arithmetic-foundations.md)
+- [فصل ۰۱ — جبر و مدل‌سازی](chapters/01-algebra-and-modeling.md)
+- [فصل ۰۲ — هندسه و اندازه‌گیری](chapters/02-geometry-and-measurement.md)
+
 ## امکانات
 
 - ۱۲ درس آغازین با توضیح پایه، مثال و کاربرد در علم داده
