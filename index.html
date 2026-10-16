@@ -327,7 +327,7 @@ const curriculumLinks=[
 ];
 const oldOpen=window.openLesson;window.openLesson=function(id){
  oldOpen(id);const d=explanations[id];if(!d)return;
- const box=document.createElement("section");box.className="card";box.style.marginTop="12px";
+ const prior=$("content").querySelector(".university-lesson-expansion");if(prior)prior.remove();const box=document.createElement("section");box.className="card university-lesson-expansion";box.style.marginTop="12px";
  const esc=v=>String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
  box.innerHTML="<h3>آموزش تکمیلی دانشگاهی: "+esc(d.title)+"</h3>"+
  "<h4>۱. مفهوم و مبانی</h4><p>"+esc(d.concept)+"</p>"+
@@ -341,7 +341,6 @@ const oldOpen=window.openLesson;window.openLesson=function(id){
  $("content").appendChild(box);S.lessonNotes=S.lessonNotes||{};$("lessonNote").value=S.lessonNotes[id]||"";
  $("saveLessonNote").onclick=()=>{S.lessonNotes[id]=$("lessonNote").value;save();$("lessonNoteStatus").textContent="یادداشت ذخیره شد.";};
 };
-const oldOpen=window.openLesson;window.openLesson=function(id){oldOpen(id);const d=explanations[id];if(!d)return;const box=document.createElement("section");box.className="card";box.style.marginTop="12px";box.innerHTML="<h3>یادگیری عمیق‌تر: "+d[0]+"</h3><p>"+d[1]+"</p><div class='formula'>"+d[2]+"</div><div class='example'><b>ارتباط با علم داده:</b> "+d[3]+"</div><h4>تمرین تشریحی این درس</h4><p>"+d[4]+"</p><label class='muted' for='lessonNote'>یادداشت اختصاصی این درس</label><textarea id='lessonNote' rows='4' style='width:100%;font:inherit;border:1px solid var(--line);border-radius:10px;padding:10px' placeholder='راه‌حل خودت یا سؤال باقی‌مانده را بنویس...'></textarea><p><button class='btn' id='saveLessonNote'>ذخیره یادداشت درس</button> <span id='lessonNoteStatus' class='muted'></span></p>";$("content").appendChild(box);S.lessonNotes=S.lessonNotes||{};$("lessonNote").value=S.lessonNotes[id]||"";$("saveLessonNote").onclick=()=>{S.lessonNotes[id]=$("lessonNote").value;save();$("lessonNoteStatus").textContent="یادداشت ذخیره شد.";};};
 $("studyNotes").value=S.notes||"";
 $("saveNotes").onclick=()=>{S.notes=$("studyNotes").value;save();$("storageStatus").textContent="یادداشت‌ها ذخیره شدند.";};
 $("studyNotes").addEventListener("input",()=>{S.notes=$("studyNotes").value;try{localStorage.setItem("academyProgress",JSON.stringify(S));}catch(e){}});
