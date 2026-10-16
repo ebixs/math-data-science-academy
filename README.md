@@ -32,6 +32,7 @@ chmod +x start_local.command
 - [فصل ۰۲ — هندسه و اندازه‌گیری](chapters/02-geometry-and-measurement.md)
 - [فصل ۰۳ — احتمال و آمار](chapters/03-probability-and-statistics.md)
 - [فصل ۰۴ — جبر خطی](chapters/04-linear-algebra.md)
+- [فصل ۰۵ — پایتون برای تحلیل داده](chapters/05-python-data-analysis.md)
 
 ## امکانات
 
