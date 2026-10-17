@@ -55,7 +55,21 @@
     <div class="graph-controls"><label>شروع <input id="lineMin" type="number" value="-5" step="0.5"></label><label>پایان <input id="lineMax" type="number" value="5" step="0.5"></label><label>نقطه <input id="linePoint" type="number" value="1.5" step="0.25"></label><button class="btn" id="drawNumberLine">نمایش خط اعداد</button></div>
     <div id="numberLineVisual" class="number-line" role="img" aria-label="خط اعداد"></div><p id="numberLineText" class="muted"></p>
   </div>
-  <div class="section"><h2>۵. هندسه و اندازه‌گیری</h2><span class="muted">پارامترها را تغییر بده و نتیجه را ببین</span></div>
+
+  <div class="section"><h2>۵. حل‌گر معادلهٔ خطی</h2><span class="muted">حل معادلهٔ یک‌متغیره از نوع خطی</span></div>
+  <div class="card math-tool">
+    <p>هر دو طرف معادله را وارد کن. نمونه: <code>2*x+3 = 11</code></p>
+    <div class="graph-controls"><label>سمت چپ <input id="eqLeft" value="2*x+3" dir="ltr"></label><strong>=</strong><label>سمت راست <input id="eqRight" value="11" dir="ltr"></label><button class="btn" id="solveEquation">حل معادله</button></div>
+    <div id="equationResult" class="math-result" aria-live="polite">جواب و مراحل حل اینجا نمایش داده می‌شود.</div>
+  </div>
+  <div class="section"><h2>۶. تختهٔ هندسهٔ تعاملی</h2><span class="muted">نقطه‌ها را انتخاب کن و چندضلعی بساز</span></div>
+  <div class="card math-tool">
+    <p>روی گره‌های صفحه کلیک کن تا رأس‌های چندضلعی انتخاب شوند. مساحت چندضلعی با فرمول کفشدوزکی و محیط آن از طول ضلع‌ها محاسبه می‌شود.</p>
+    <div class="graph-controls"><label>اندازهٔ شبکه <select id="geoSize"><option value="5">۵ × ۵</option><option value="7" selected>۷ × ۷</option><option value="9">۹ × ۹</option></select></label><button class="btn" id="geoUndo">حذف آخرین نقطه</button><button class="btn alt" id="geoClear">پاک‌کردن</button></div>
+    <svg id="geoBoard" viewBox="0 0 420 360" role="img" aria-label="تختهٔ هندسه با گره‌های قابل انتخاب" style="width:100%;max-height:430px;border:1px solid var(--line);border-radius:12px;background:#fff;touch-action:manipulation"></svg>
+    <div id="geoResult" class="example">برای شروع، حداقل سه نقطه انتخاب کن.</div>
+  </div>
+  <div class="section"><h2>۷. هندسه و اندازه‌گیری</h2><span class="muted">پارامترها را تغییر بده و نتیجه را ببین</span></div>
   <div class="card math-tool">
     <div class="fraction-controls"><label>شکل <select id="shapeType"><option value="rect">مستطیل</option><option value="tri">مثلث</option><option value="circle">دایره</option><option value="cube">مکعب</option></select></label><label>اندازهٔ اول <input id="shapeA" type="number" min="0.1" value="6" step="0.5"></label><label>اندازهٔ دوم / ارتفاع <input id="shapeB" type="number" min="0.1" value="4" step="0.5"></label><button class="btn" id="calcShape">محاسبه</button></div>
     <div id="shapeVisual" class="shape-visual"></div><div id="shapeResult" class="example"></div>
@@ -611,6 +625,35 @@ function shape(){
 }
 $("calcShape").addEventListener("click",shape);$("shapeType").addEventListener("change",()=>{const type=$("shapeType").value;$("shapeA").previousElementSibling.textContent=type==="circle"?"شعاع":type==="cube"?"طول ضلع":"اندازهٔ اول";shape();});
 calculate();graph();fraction();numberLine();shape();
+})();
+</script>
+
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+function solveLinear(){
+ const l=$("eqLeft").value.trim(),r=$("eqRight").value.trim(),out=$("equationResult");
+ try{
+  const f=x=>parseMath(l,{x})-parseMath(r,{x}),b=f(0),at1=f(1),at2=f(2),a=at1-b;
+  if(Math.abs((at2-b)-2*a)>1e-7*Math.max(1,Math.abs(at2),Math.abs(b)))throw Error("این ابزار فقط معادله‌های خطی را حل می‌کند.");
+  if(Math.abs(a)<1e-10){out.textContent=Math.abs(b)<1e-10?"هر دو طرف در نمونه‌های بررسی‌شده برابرند؛ معادله ممکن است بی‌نهایت جواب داشته باشد.":"ضریب x صفر است و تساوی برقرار نمی‌شود؛ معادله جواب ندارد.";return;}
+  const x=-b/a;out.innerHTML='<div class="math-value" dir="ltr">x = '+fmt(x)+'</div><ol><li>معادله را به شکل f(x) = سمت چپ − سمت راست = ۰ تبدیل کن.</li><li>در x=0 مقدار ثابت به دست می‌آید: '+fmt(b)+'.</li><li>ضریب x از f(1)−f(0) به دست می‌آید: '+fmt(a)+'.</li><li>حل ax+b=0: x=−b/a='+fmt(x)+'.</li><li>جایگذاری جواب را در معادلهٔ اصلی بررسی کن.</li></ol>';
+ }catch(e){out.textContent="خطا: "+e.message;}
+}
+$("solveEquation").addEventListener("click",solveLinear);
+let geoPoints=[],geoN=7;
+function renderGeo(){
+ const svg=$("geoBoard"),NS="http://www.w3.org/2000/svg",w=420,h=360,pad=35,dx=(w-pad*2)/(geoN-1),dy=(h-pad*2)/(geoN-1);svg.innerHTML="";
+ const el=(tag,attrs)=>{const n=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));svg.appendChild(n);return n;};
+ for(let r=0;r<geoN;r++)for(let c=0;c<geoN;c++){const x=pad+c*dx,y=pad+r*dy;el("line",{x1:x,y1:pad,x2:x,y2:h-pad,stroke:"#e6eaf2","stroke-width":"1"});el("line",{x1:pad,y1:y,x2:w-pad,y2:y,stroke:"#e6eaf2","stroke-width":"1"});}
+ if(geoPoints.length>1){const points=geoPoints.map(p=>(pad+p.c*dx)+","+(pad+p.r*dy)).join(" ");el(geoPoints.length>2?"polygon":"polyline",{points,fill:geoPoints.length>2?"rgba(87,89,217,.15)":"none",stroke:"#5759d9","stroke-width":"3","stroke-linejoin":"round"});}
+ geoPoints.forEach((p,i)=>{const x=pad+p.c*dx,y=pad+p.r*dy;el("circle",{cx:x,cy:y,r:8,fill:"#d84c76",stroke:"#fff","stroke-width":"2"});const t=el("text",{x:x+10,y:y-10,fill:"#17233b","font-size":"12"});t.textContent=String(i+1);});
+ for(let r=0;r<geoN;r++)for(let c=0;c<geoN;c++){const exists=geoPoints.some(p=>p.r===r&&p.c===c);const circle=el("circle",{cx:pad+c*dx,cy:pad+r*dy,r:exists?0:5,fill:"#078b86",stroke:"#078b86",cursor:"pointer","data-r":r,"data-c":c});circle.addEventListener("click",()=>{if(geoPoints.some(p=>p.r===r&&p.c===c))return;geoPoints.push({r,c});renderGeo();});}
+ let area=0,per=0;if(geoPoints.length>=2){for(let i=0;i<geoPoints.length;i++){const p=geoPoints[i],q=geoPoints[(i+1)%geoPoints.length];per+=Math.hypot(q.c-p.c,q.r-p.r);}if(geoPoints.length>=3)for(let i=0;i<geoPoints.length;i++){const p=geoPoints[i],q=geoPoints[(i+1)%geoPoints.length];area+=p.c*q.r-q.c*p.r;}area=Math.abs(area)/2;}
+ $("geoResult").textContent=geoPoints.length<3?"رأس‌های انتخاب‌شده: "+geoPoints.length+"؛ برای محاسبهٔ مساحت حداقل سه نقطه لازم است.":("تعداد رأس‌ها: "+geoPoints.length+" · مساحت شبکه‌ای: "+fmt(area)+" واحد مربع · محیط تقریبی/دقیق شبکه‌ای: "+fmt(per)+" واحد");
+}
+$("geoSize").addEventListener("change",()=>{geoN=Number($("geoSize").value);geoPoints=[];renderGeo();});$("geoUndo").addEventListener("click",()=>{geoPoints.pop();renderGeo();});$("geoClear").addEventListener("click",()=>{geoPoints=[];renderGeo();});renderGeo();
 })();
 </script>
 </body></html>
