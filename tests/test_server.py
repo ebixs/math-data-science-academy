@@ -34,7 +34,7 @@ class ProgressAPITests(unittest.TestCase):
 
     def request(self, method, path, payload=None):
         conn = HTTPConnection("127.0.0.1", self.port, timeout=3)
-        body = None if payload is None else json.dumps(payload, ensure_ascii=False)
+        body = None if payload is None else json.dumps(payload, ensure_ascii=False).encode("utf-8")
         headers = {"Content-Type": "application/json"} if body is not None else {}
         conn.request(method, path, body=body, headers=headers)
         response = conn.getresponse()
