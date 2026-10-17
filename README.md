@@ -37,6 +37,7 @@ chmod +x start_local.command
 - [فصل ۰۷ — SQL برای تحلیل داده](chapters/07-sql-for-data-analysis.md)
 - [فصل ۰۸ — مبانی یادگیری ماشین](chapters/08-machine-learning-foundations.md)
 - [فصل ۰۹ — تحلیل اکتشافی داده](chapters/09-exploratory-data-analysis.md)
+- [فصل ۱۰ — مهندسی ویژگی و ارزیابی مدل](chapters/10-feature-engineering-model-evaluation.md)
 
 ## امکانات برنامه
 
@@ -63,7 +64,7 @@ chmod +x start_local.command
 python3 scripts/validate_curriculum.py
 ```
 
-این بررسی وجود ۱۰ فصل، نشانگرهای آزمون/پاسخ‌نامه/پروژه، جفت بودن حصارهای کد Markdown و چند نشانهٔ ساختاری را می‌سنجد. این ابزار جایگزین اجرای واقعی برنامه، بازبینی مستقل همهٔ پاسخ‌ها یا آزمون مرورگر نیست.
+این بررسی وجود ۱۱ فصل، نشانگرهای آزمون/پاسخ‌نامه/پروژه، جفت بودن حصارهای کد Markdown و چند نشانهٔ ساختاری را می‌سنجد. این ابزار جایگزین اجرای واقعی برنامه، بازبینی مستقل همهٔ پاسخ‌ها یا آزمون مرورگر نیست.
 
 ## ساختار مهم مخزن
 
