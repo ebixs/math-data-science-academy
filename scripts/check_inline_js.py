@@ -16,7 +16,7 @@ errors = []
 checked = 0
 for html in HTML_FILES:
     source = html.read_text(encoding="utf-8")
-    blocks = re.findall(r"<script\\b([^>]*)>(.*?)</script\\s*>", source, re.IGNORECASE | re.DOTALL)
+    blocks = re.findall(r"<script\b([^>]*)>(.*?)</script\s*>", source, re.IGNORECASE | re.DOTALL)
     inline = [(attrs, body) for attrs, body in blocks if "src=" not in attrs.lower() and body.strip()]
     if not inline:
         print(f"WARNING: no inline JavaScript blocks in {html.name}")
@@ -33,10 +33,10 @@ for html in HTML_FILES:
                 check=False,
             )
         if result.returncode:
-            errors.append(f"{html.name}, script block {index}:\\n{result.stderr.strip()}")
+            errors.append(f"{html.name}, script block {index}:\n{result.stderr.strip()}")
 
 if errors:
-    print("\\n".join(errors))
+    print("\n".join(errors))
     sys.exit(1)
 
 print(f"PASS: JavaScript syntax valid in {checked} inline script block(s) across {len(HTML_FILES)} HTML page(s)")
