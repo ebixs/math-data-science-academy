@@ -40,6 +40,7 @@ chmod +x start_local.command
 - [فصل ۱۰ — مهندسی ویژگی و ارزیابی مدل](chapters/10-feature-engineering-model-evaluation.md)
 - [فصل ۱۱ — استنباط آماری و آزمون A/B](chapters/11-inferential-statistics-ab-testing.md)
 - [فصل ۱۲ — توزیع‌های احتمال و شبیه‌سازی](chapters/12-probability-distributions-simulation.md)
+- [فصل ۱۳ — رگرسیون خطی و لجستیک](chapters/13-linear-and-logistic-regression.md)
 
 ## امکانات برنامه
 
@@ -67,7 +68,7 @@ python3 scripts/validate_curriculum.py
 python3 scripts/check_inline_js.py
 ```
 
-این بررسی وجود ۱۳ فصل، نشانگرهای آزمون/پاسخ‌نامه/پروژه و ساختار Markdown را می‌سنجد؛ ابزار دوم نحو JavaScript در بلوک‌های درون‌خطی را با Node.js بررسی می‌کند. این بررسی‌ها جایگزین اجرای واقعی برنامه، بازبینی مستقل همهٔ پاسخ‌ها یا آزمون مرورگر نیستند.
+این بررسی وجود ۱۴ فصل، نشانگرهای آزمون/پاسخ‌نامه/پروژه و ساختار Markdown را می‌سنجد؛ ابزار دوم نحو JavaScript در بلوک‌های درون‌خطی را با Node.js بررسی می‌کند. این بررسی‌ها جایگزین اجرای واقعی برنامه، بازبینی مستقل همهٔ پاسخ‌ها یا آزمون مرورگر نیستند.
 
 ## ساختار مهم مخزن
 
