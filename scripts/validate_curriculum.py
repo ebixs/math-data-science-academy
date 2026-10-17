@@ -55,10 +55,12 @@ if not index.is_file():
     errors.append("Missing index.html")
 else:
     html = index.read_text(encoding="utf-8")
-    for number in range(18):
-        chapter = f"{number:02d}-"
-        if chapter not in html:
-            warnings.append(f"index.html: no visible reference to chapter prefix {chapter}")
+    for filename in CHAPTERS:
+        relative = f"chapters/{filename}"
+        if relative not in html:
+            errors.append(f"index.html: missing chapter link {relative}")
+        elif f'href="{relative}"' not in html and f"href='{relative}'" not in html:
+            errors.append(f"index.html: chapter path appears but is not an href: {relative}")
 
 readme = ROOT / "README.md"
 if not readme.is_file():
