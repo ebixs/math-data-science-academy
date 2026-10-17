@@ -16,6 +16,7 @@ CHAPTERS = [
     "07-sql-for-data-analysis.md",
     "08-machine-learning-foundations.md",
     "09-exploratory-data-analysis.md",
+    "10-feature-engineering-model-evaluation.md",
 ]
 REQUIRED_MARKERS = {
     "end-of-chapter assessment": re.compile(r"آزمون پایان فصل|آزمون پایانی|آزمون پایان"),
@@ -47,7 +48,7 @@ if not index.is_file():
     errors.append("Missing index.html")
 else:
     html = index.read_text(encoding="utf-8")
-    for number in range(10):
+    for number in range(11):
         chapter = f"{number:02d}-"
         if chapter not in html:
             warnings.append(f"index.html: no visible reference to chapter prefix {chapter}")
