@@ -24,3 +24,5 @@ jobs:
         run: python scripts/validate_curriculum.py
       - name: Check inline JavaScript syntax
         run: python scripts/check_inline_js.py
+      - name: Test local progress API
+        run: python -m unittest discover -s tests -v
