@@ -21,6 +21,7 @@ CHAPTERS = [
     "12-probability-distributions-simulation.md",
     "13-linear-and-logistic-regression.md",
     "14-trees-and-ensembles.md",
+    "15-clustering-and-pca.md",
 ]
 REQUIRED_MARKERS = {
     "end-of-chapter assessment": re.compile(r"آزمون پایان فصل|آزمون پایانی|آزمون پایان"),
@@ -52,7 +53,7 @@ if not index.is_file():
     errors.append("Missing index.html")
 else:
     html = index.read_text(encoding="utf-8")
-    for number in range(15):
+    for number in range(16):
         chapter = f"{number:02d}-"
         if chapter not in html:
             warnings.append(f"index.html: no visible reference to chapter prefix {chapter}")
