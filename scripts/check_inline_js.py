@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Syntax-check inline JavaScript blocks in every top-level HTML page using Node.js."""
+"""Syntax-check inline JavaScript blocks in every top-level HTML page and the app's own
+JavaScript files (assets/, desktop/, sw.js; vendored libraries excluded) using Node.js."""
 from pathlib import Path
 import re
 import subprocess
@@ -19,7 +20,6 @@ for html in HTML_FILES:
     blocks = re.findall(r"<script\b([^>]*)>(.*?)</script\s*>", source, re.IGNORECASE | re.DOTALL)
     inline = [(attrs, body) for attrs, body in blocks if "src=" not in attrs.lower() and body.strip()]
     if not inline:
-        print(f"WARNING: no inline JavaScript blocks in {html.name}")
         continue
     for index, (_, body) in enumerate(inline, start=1):
         checked += 1
@@ -35,8 +35,16 @@ for html in HTML_FILES:
         if result.returncode:
             errors.append(f"{html.name}, script block {index}:\n{result.stderr.strip()}")
 
+JS_FILES = [p for p in sorted(ROOT.glob("assets/**/*.js")) + sorted(ROOT.glob("desktop/*.js")) + sorted(ROOT.glob("*.js"))
+            if "vendor" not in p.parts]
+for js in JS_FILES:
+    result = subprocess.run(["node", "--check", str(js)], capture_output=True, text=True, check=False)
+    checked += 1
+    if result.returncode:
+        errors.append(f"{js.relative_to(ROOT)}:\n{result.stderr.strip()}")
+
 if errors:
     print("\n".join(errors))
     sys.exit(1)
 
-print(f"PASS: JavaScript syntax valid in {checked} inline script block(s) across {len(HTML_FILES)} HTML page(s)")
+print(f"PASS: JavaScript syntax valid in {checked} script block(s)/file(s) across {len(HTML_FILES)} HTML page(s) and {len(JS_FILES)} JS file(s)")

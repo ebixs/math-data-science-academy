@@ -24,5 +24,9 @@ jobs:
         run: python scripts/validate_curriculum.py
       - name: Check inline JavaScript syntax
         run: python scripts/check_inline_js.py
+      - name: Test math engine (answers + KaTeX rendering of every step)
+        run: node tests/engine.test.js
+      - name: Test desktop request handler
+        run: node tests/desktop.test.js
       - name: Test local progress API
         run: python -m unittest discover -s tests -v

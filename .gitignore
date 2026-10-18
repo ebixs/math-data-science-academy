@@ -2,3 +2,8 @@ __pycache__/
 *.py[cod]
 .DS_Store
 data/progress.json
+
+# bundled at desktop build time
+assets/vendor/pyodide/
+node_modules/
+dist/
