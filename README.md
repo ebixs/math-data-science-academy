@@ -44,7 +44,7 @@ node desktop/fetch-pyodide.mjs   # (اختیاری) پایتون آفلاین ب
 npm run dist:mac              # یا dist:win
 ```
 
-با push یک برچسب نسخه (مثلاً `v1.0.1`)، GitHub Actions نصب‌کننده‌های مک و ویندوز را می‌سازد و در Releases منتشر می‌کند.
+با تغییر `version` در `package.json` و push روی شاخهٔ main (یا push یک برچسب مثل `v1.0.1`، یا اجرای دستی workflow «Build desktop apps» در تب Actions)، GitHub Actions نصب‌کننده‌های مک و ویندوز را می‌سازد و در Releases منتشر می‌کند.
 
 ## برنامهٔ درسی و کتابچه‌ها
 
