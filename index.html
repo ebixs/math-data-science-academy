@@ -1,16 +1,61 @@
 <!doctype html>
 <html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>آکادمی ریاضی و علم داده</title>
-<style>
-:root{--bg:#f4f6fb;--card:#fff;--ink:#17233b;--muted:#66758d;--line:#dfe6f0;--accent:#5759d9;--soft:#eef0ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.9 Tahoma,Arial,sans-serif}.top{background:#172554;color:#fff;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px}.top h1{font-size:20px;margin:0}.top p{font-size:12px;margin:0;color:#d4dbff}.layout{max-width:1150px;margin:auto;padding:22px;display:grid;grid-template-columns:210px 1fr;gap:18px}.side,.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:16px}.side{align-self:start;position:sticky;top:12px}.nav{display:block;border:0;background:transparent;color:var(--muted);padding:10px;border-radius:10px;width:100%;text-align:right}.nav.active,.nav:hover{background:var(--soft);color:var(--accent)}.hero{padding:28px;border-radius:18px;background:linear-gradient(120deg,#252d68,#5659d9,#078b86);color:white}.hero h2{font-size:clamp(23px,3vw,33px);margin:4px 0}.hero p{color:#e4e7ff}.btn{border:0;border-radius:10px;background:var(--accent);color:white;padding:9px 14px;cursor:pointer;font:inherit}.btn.alt{background:var(--soft);color:var(--accent)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}.stat strong{display:block;font-size:24px}.muted{color:var(--muted);font-size:12px}.section{display:flex;align-items:center;justify-content:space-between;margin:22px 0 12px;gap:10px}.section h2{font-size:19px;margin:0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.lesson{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;min-height:175px}.lesson h3{font-size:14px;margin:5px 0}.lesson p{font-size:12px;color:var(--muted);flex:1;margin:0 0 10px}.emoji{font-size:24px}.page{display:none}.page.active{display:block}.formula{direction:ltr;text-align:center;background:#f0f3fa;padding:13px;border-radius:10px;font:22px Georgia,serif;margin:12px 0}.example{background:#eaf9f5;border-right:3px solid #119b8c;padding:10px;margin:12px 0}.option{display:block;border:1px solid var(--line);border-radius:9px;padding:9px;margin:8px 0;cursor:pointer}.feedback{display:none;padding:10px;border-radius:9px;margin-top:10px}.feedback.show{display:block}.good{background:#e4f8ef;color:#087d58}.bad{background:#fff0ed;color:#b83b2a}.bar{height:8px;background:#e8edf5;border-radius:9px;overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#119b8c)}.roadmap{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.search{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font:inherit}.foot{text-align:center;color:var(--muted);font-size:11px;padding:22px}@media(max-width:800px){.layout{grid-template-columns:1fr;padding:12px}.side{position:static;display:flex;overflow:auto;padding:7px}.nav{white-space:nowrap;width:auto}.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.grid,.roadmap{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.hero{padding:20px}.top{padding:13px}}
-
-.curriculum-unit{border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0;background:var(--card)}.curriculum-unit h4{margin:0 0 8px}.curriculum-unit p{margin:8px 0}.curriculum-unit .worked{background:var(--soft);border-radius:10px;padding:12px;white-space:pre-wrap}.curriculum-unit details{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}.curriculum-unit summary{cursor:pointer;font-weight:700}.curriculum-progress{font-size:13px;color:var(--muted)}
-
-.practice-workshop{margin:14px 0;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--soft)}.practice-workshop .activity{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0}.practice-workshop textarea{width:100%;max-width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);font:inherit;resize:vertical}.practice-workshop label{display:block;font-weight:700;margin:8px 0}.practice-workshop .practice-save{border:0;border-radius:9px;padding:9px 14px;margin-top:10px;background:var(--accent);color:white;cursor:pointer}.practice-workshop .practice-status{display:block;color:var(--muted);font-size:13px;margin-top:6px}.practice-workshop .self-check{font-size:13px;color:var(--muted)}
-.math-tool{margin-bottom:18px}.math-tool label{font-weight:700}.math-tool input,.math-tool select{font:inherit;border:1px solid var(--line);border-radius:9px;padding:8px;max-width:100%;background:white;color:var(--ink)}.keypad{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:14px}.keypad button{border:1px solid var(--line);background:#f7f8fc;border-radius:10px;padding:10px;font:inherit;cursor:pointer;direction:ltr}.keypad button:hover{background:var(--soft);border-color:var(--accent)}.math-result{background:#f3f7ff;border:1px solid var(--line);border-radius:12px;padding:16px;min-height:72px;white-space:pre-wrap;direction:rtl}.math-result .math-value{font-size:24px;font-weight:700;color:var(--accent);direction:ltr;text-align:left}.math-result ol{margin-bottom:0}.graph-controls,.fraction-controls{display:flex;flex-wrap:wrap;align-items:end;gap:12px;margin:12px 0}.graph-controls label,.fraction-controls label{display:flex;flex-direction:column;gap:5px}.graph-controls input,.fraction-controls input{width:110px}#graphCanvas{width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#fff;display:block}.fraction-visual{min-height:110px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;padding:14px;overflow:hidden}.fraction-bar{display:flex;gap:2px;max-width:100%;flex-wrap:wrap;justify-content:center}.fraction-cell{width:clamp(16px,3vw,34px);height:42px;border:1px solid #858eb0;border-radius:3px;background:#f4f6fb}.fraction-cell.filled{background:#6b6de3}.fraction-circle{width:180px;height:180px;max-width:60vw;max-height:60vw}.number-line{position:relative;margin:30px 8px 45px;height:60px;border-top:3px solid #58627a}.number-line .tick{position:absolute;top:-8px;width:2px;height:17px;background:#58627a}.number-line .tick span{position:absolute;top:16px;left:50%;transform:translateX(-50%);font-size:12px;white-space:nowrap}.number-line .point{position:absolute;top:-11px;width:14px;height:14px;border-radius:50%;background:#d84c76;border:2px solid white;box-shadow:0 0 0 1px #d84c76;transform:translateX(-50%)}.shape-visual{min-height:140px;display:flex;align-items:center;justify-content:center;padding:18px;background:#f8faff;border-radius:12px}.shape-visual svg{max-width:100%;height:auto}.shape-visual svg *{vector-effect:non-scaling-stroke}@media(max-width:600px){.keypad{gap:5px}.keypad button{padding:8px 2px}.graph-controls,.fraction-controls{align-items:stretch}.graph-controls input,.fraction-controls input{width:100%}.math-tool input{min-width:0}.number-line .tick span{font-size:10px}}
-</style></head><body>
-<header class="top"><div><h1>∑ آکادمی ریاضی و علم داده</h1><p>از پایه‌های ریاضی تا مدل‌های یادگیری ماشین</p></div><button class="btn alt" id="reset">بازنشانی پیشرفت</button></header>
-<div class="layout"><aside class="side"><button class="nav active" data-page="home">⌂ داشبورد</button><button class="nav" data-page="courses">▤ درس‌ها و تمرین‌ها</button><button class="nav" data-page="roadmap">⌁ نقشه راه دیتا ساینس</button><button class="nav" data-page="practice">✎ تمرینگاه هوشمند</button><button class="nav" data-page="mathlab">∑ آزمایشگاه ریاضی</button><a class="nav" href="math-tools.html" style="display:block;text-decoration:none">▦ کارگاه ابزارهای تعاملی</a><button class="nav" data-page="progress">◷ پیشرفت من</button><p class="muted">هر روز ۳۰ دقیقه: مفهوم، مثال، تمرین و مرور.</p></aside><main>
-<section class="page active" id="page-home"><div class="hero"><div>LEARN · PRACTICE · BUILD</div><h2>از ریاضی پایه تا تفکر یک دانشمند داده</h2><p>مفاهیم را قدم‌به‌قدم یاد بگیر، آزمون بده و مسیر آمار، جبر خطی، پایتون و یادگیری ماشین را دنبال کن.</p><button class="btn alt" id="continue">ادامه یادگیری ←</button></div><div class="stats"><div class="card stat"><span class="muted">پیشرفت کل</span><strong id="pct">۰٪</strong></div><div class="card stat"><span class="muted">درس‌های تکمیل‌شده</span><strong id="done">۰</strong></div><div class="card stat"><span class="muted">پاسخ‌های صحیح</span><strong id="correct">۰</strong></div></div><div class="section"><h2>شروع سریع</h2><button class="btn alt" data-goto="courses">همه درس‌ها</button></div><div id="homeLessons" class="grid"></div></section>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="assets/theme.css">
+</head><body>
+<header class="topbar">
+<a class="brand" href="#" data-page="home" aria-label="آکادمی ریاضی و علم داده"><span class="brand-mark">∑</span><span class="brand-text">آکادمی ریاضی و علم داده</span></a>
+<nav class="mainnav" aria-label="بخش‌های اصلی">
+<button class="nav active" data-page="home"><svg class="i" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg><span>خانه</span></button>
+<button class="nav" data-page="courses"><svg class="i" viewBox="0 0 24 24"><path d="M2 5h7a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H2z"/><path d="M22 5h-7a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span>درس‌ها</span></button>
+<button class="nav" data-page="practice"><svg class="i" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><span>تمرینگاه</span></button>
+<button class="nav" data-page="mathlab"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h8"/></svg><span>آزمایشگاه</span></button>
+<a class="nav" href="math-tools.html"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>ابزارها</span></a>
+<button class="nav" data-page="roadmap"><svg class="i" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg><span>نقشه راه</span></button>
+<button class="nav" data-page="progress"><svg class="i" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg><span>پیشرفت</span></button>
+</nav>
+<div class="top-actions">
+<label class="topsearch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="globalSearch" type="search" placeholder="جست‌وجوی مبحث..." aria-label="جست‌وجوی مبحث"></label>
+<div class="rel"><button class="iconbtn" id="bellBtn" aria-label="اعلان‌ها" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg><i class="dot" id="bellDot" hidden></i></button>
+<div class="menu" id="bellMenu" role="menu"></div></div>
+<div class="rel"><button class="avatar" id="avatarBtn" aria-label="حساب کاربری" aria-expanded="false"><b id="avatarInitial">؟</b><svg class="i" viewBox="0 0 24 24" style="width:16px"><path d="m6 9 6 6 6-6"/></svg></button>
+<div class="menu" id="avatarMenu" role="menu">
+<div class="note"><b id="menuName">دوست من</b><small id="menuLevel"></small></div>
+<form id="nameForm"><input id="nameInput" maxlength="30" placeholder="نام تو" aria-label="نام"><button class="btn" type="submit">ثبت</button></form>
+<hr>
+<button class="item" data-page="progress">گزارش پیشرفت من</button>
+<button class="item" data-page="practice">یادداشت‌ها و پشتیبان‌گیری</button>
+<hr>
+<button class="item danger" id="reset">بازنشانی پیشرفت</button>
+</div></div>
+</div>
+</header>
+<main class="shell">
+<section class="page active" id="page-home">
+<div class="welcome"><div><h1>خوش برگشتی، <span class="hl" id="welcomeName">دوست من</span></h1><p>بیا شتاب یادگیری‌ات را حفظ کنیم.</p></div>
+<figure class="quote"><span class="qm">«</span><div><span id="quoteText"></span><cite id="quoteBy"></cite></div></figure></div>
+<div class="dash">
+<article class="card dcard"><div class="dcard-h"><svg class="i" viewBox="0 0 24 24"><path d="M12 2 20.5 7v10L12 22l-8.5-5V7z"/><path d="m12 8 1.2 2.6 2.8.3-2.1 1.9.6 2.8L12 14.2l-2.5 1.4.6-2.8L8 10.9l2.8-.3z"/></svg>پیشرفت XP<button class="more" data-page="progress" aria-label="جزئیات پیشرفت">⋯</button></div>
+<div class="ring-wrap"><svg viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#67e8f9"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs><circle class="track" cx="60" cy="60" r="50" fill="none" stroke-width="8"/><circle class="fill" id="ringFill" cx="60" cy="60" r="50" fill="none" stroke-width="8" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="314.16"/></svg>
+<div class="ring-center"><span>سطح</span><strong id="levelNum">۱</strong><span class="star">✦</span></div></div>
+<p class="xp-line">سطح <span id="levelNum2">۱</span> · <b id="xpTotal">۰ XP</b></p><p class="xp-sub" id="xpToNext"></p></article>
+<article class="card dcard"><div class="dcard-h"><svg class="i" viewBox="0 0 24 24"><path d="M12 22c4 0 7-2.7 7-6.8 0-3.6-2.4-5.8-4-8.2-.6 2-1.6 3-3 3.5C12.5 7 11 4.5 9 2c-.3 3.6-4 6.5-4 11.2C5 18.6 8 22 12 22z"/></svg>استریک ۱۲ هفته<button class="more" data-page="practice" aria-label="تمرین امروز">⋯</button></div>
+<p class="streak-big"><b id="streakNum">۰</b> روز پیاپی</p><p class="muted" id="streakMsg" style="margin:0">امروز اولین قدم را بردار! 🔥</p>
+<div class="heat"><div class="heat-days"><span>ش</span><span>ی</span><span>د</span><span>س</span><span>چ</span><span>پ</span><span>ج</span></div><div class="heat-grid" id="heatGrid" role="img" aria-label="فعالیت ۱۲ هفتهٔ اخیر"></div>
+<div class="heat-weeks" id="heatWeeks"></div><div class="heat-cap">۱۲ هفته</div></div>
+<div class="legend"><span>کمتر</span><i style="background:rgba(56,189,248,.08)"></i><i style="background:#0e4f63"></i><i style="background:#0e7490"></i><i style="background:#06b6d4"></i><i style="background:#67e8f9"></i><span>بیشتر</span></div></article>
+<article class="card dcard next-card"><div class="dcard-h"><svg class="i" viewBox="0 0 24 24"><path d="M2 5h7a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H2z"/><path d="M22 5h-7a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg>درس بعدی<button class="more" data-page="courses" aria-label="همهٔ درس‌ها">⋯</button></div>
+<div class="next-art" id="nextArt"></div><span class="next-k">قدم بعدی:</span><h2 class="next-title" id="nextTitle"></h2><p class="next-desc" id="nextDesc"></p>
+<button class="btn big" id="continue">شروع <span aria-hidden="true">←</span></button></article>
+</div>
+<div class="stats">
+<div class="card stat"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v9h-9"/></svg></span><div><span class="muted">پیشرفت کل</span><strong id="pct">۰٪</strong></div></div>
+<div class="card stat"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></svg></span><div><span class="muted">درس‌های تکمیل‌شده</span><strong id="done">۰</strong></div></div>
+<div class="card stat"><span class="ic"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><div><span class="muted">پاسخ‌های صحیح</span><strong id="correct">۰</strong></div></div>
+</div>
+<div class="section"><h2>شروع سریع</h2><button class="btn alt" data-goto="courses">همه درس‌ها ←</button></div><div id="homeLessons" class="grid"></div>
+<p class="tagline"><svg class="i" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>قدم‌های کوچک امروز، پیشرفت بزرگ فردا.</p>
+</section>
 <section class="page" id="page-courses"><div class="section"><h2>درس‌ها و تمرین‌ها</h2><span class="muted">۱۲ حوزهٔ اصلی · ۱۶۸ درس خرد و مرحله‌ای</span></div><input id="search" class="search" placeholder="جست‌وجوی درس..."><p id="filters"></p><div id="allLessons" class="grid"></div></section>
 <section class="page" id="page-lesson"><div class="section"><button class="btn alt" data-goto="courses">← بازگشت</button><span id="meta" class="muted"></span></div><article id="content" class="card"></article><div class="card" style="margin-top:12px"><h3>آزمون کوتاه</h3><p id="question"></p><div id="options"></div><button class="btn" id="check">بررسی پاسخ</button><div id="feedback" class="feedback"></div><p><button class="btn alt" id="mark">علامت‌گذاری به‌عنوان تکمیل‌شده</button> <button class="btn" id="next">درس بعدی ←</button></p></div></section>
 <section class="page" id="page-roadmap"><div class="section"><h2>نقشه راه از صفر تا Data Scientist</h2></div><div id="roadmap" class="roadmap"></div>
@@ -66,7 +111,7 @@
   <div class="card math-tool">
     <p>روی گره‌های صفحه کلیک کن تا رأس‌های چندضلعی انتخاب شوند. مساحت چندضلعی با فرمول کفشدوزکی و محیط آن از طول ضلع‌ها محاسبه می‌شود.</p>
     <div class="graph-controls"><label>اندازهٔ شبکه <select id="geoSize"><option value="5">۵ × ۵</option><option value="7" selected>۷ × ۷</option><option value="9">۹ × ۹</option></select></label><button class="btn" id="geoUndo">حذف آخرین نقطه</button><button class="btn alt" id="geoClear">پاک‌کردن</button></div>
-    <svg id="geoBoard" viewBox="0 0 420 360" role="img" aria-label="تختهٔ هندسه با گره‌های قابل انتخاب" style="width:100%;max-height:430px;border:1px solid var(--line);border-radius:12px;background:#fff;touch-action:manipulation"></svg>
+    <svg id="geoBoard" viewBox="0 0 420 360" role="img" aria-label="تختهٔ هندسه با گره‌های قابل انتخاب" style="width:100%;max-height:430px;border:1px solid var(--line);border-radius:12px;background:#0a1524;touch-action:manipulation"></svg>
     <div id="geoResult" class="example">برای شروع، حداقل سه نقطه انتخاب کن.</div>
   </div>
   <div class="section"><h2>۷. هندسه و اندازه‌گیری</h2><span class="muted">پارامترها را تغییر بده و نتیجه را ببین</span></div>
@@ -76,7 +121,7 @@
   </div>
   <div class="card" style="margin-top:16px"><h3>گسترش بعدی آزمایشگاه</h3><p>این بخش پایهٔ ابزارهای تعاملی است. مرحله‌های بعدی می‌توانند شامل حل‌گر نمادین عمیق‌تر، دستگاه معادلات، ماتریس و بردار، احتمال شبیه‌سازی‌شده، توزیع‌ها و رگرسیون باشند. ابزارها باید با آزمون‌های مستقل و توضیح محدودیت‌ها توسعه داده شوند.</p></div>
 </section>
-<section class="page" id="page-progress"><div class="section"><h2>پیشرفت من</h2></div><div class="card"><p id="summary"></p><div id="domain"></div><h3>پیشنهاد بعدی</h3><p id="suggestion" class="muted"></p></div></section><div class="foot">نسخه آفلاین · پیشرفت در مرورگر ذخیره می‌شود · بدون نیاز به اینترنت</div></main></div>
+<section class="page" id="page-progress"><div class="section"><h2>پیشرفت من</h2></div><div class="card"><p id="summary"></p><div id="domain"></div><h3>پیشنهاد بعدی</h3><p id="suggestion" class="muted"></p></div></section><div class="foot">نسخه آفلاین · پیشرفت در مرورگر ذخیره می‌شود · بدون نیاز به اینترنت</div></main>
 <script>
 const L=[
 ["numbers","اعداد، عملیات و کسرها","پایه","🔢","پایه محاسبات","ترتیب عملیات: پرانتز، توان، ضرب و تقسیم، سپس جمع و تفریق.","3 + 2 × 4 = 11","نتیجه 5 + 3 × 2 چیست؟",["16","11","13"],1,"ابتدا ضرب: ۳×۲=۶، سپس ۵+۶=۱۱."],
@@ -422,6 +467,7 @@ fetch("/api/progress").then(r=>{if(!r.ok)throw Error("missing");return r.json();
 <script>
 /* Expanded, prerequisite-first curriculum: detailed micro-lessons for all 12 subjects. */
 (function(){
+const $=id=>document.getElementById(id);
 const C={
 numbers:{name:"حساب پایه و اعداد",units:[
 ["شناخت اعداد و خط اعداد","اعداد طبیعی برای شمارش، اعداد صحیح برای بدهی و دماهای منفی، اعداد گویا برای کسرها و اعداد حقیقی برای همه این مقدارها و رادیکال‌های حقیقی به کار می‌روند. روی خط اعداد، هرچه به راست برویم مقدار بزرگ‌تر می‌شود. قدرمطلق فاصله از صفر است و همیشه نامنفی است.","−3 < −1 < 0 < 2. قدرمطلق |−5|=5 است، چون فاصلهٔ −5 تا صفر پنج واحد است.","۱) کدام بزرگ‌تر است: −4 یا −2؟ ۲) |−9| را حساب کن.","۱) −2 بزرگ‌تر است؛ روی خط اعداد سمت راست‌تر قرار دارد. ۲) جواب 9 است."],
@@ -592,11 +638,11 @@ function graph(){
  const canvas=$("graphCanvas"),ctx=canvas.getContext("2d"),xmin=Number($("xMin").value),xmax=Number($("xMax").value),ymin=Number($("yMin").value),ymax=Number($("yMax").value),expr=$("graphInput").value;
  if(!(xmax>xmin&&ymax>ymin)){ $("graphStatus").textContent="بازهٔ کمینه و بیشینه را درست وارد کن.";return;}
  const w=canvas.width,h=canvas.height,px=x=>(x-xmin)/(xmax-xmin)*w,py=y=>h-(y-ymin)/(ymax-ymin)*h;
- ctx.clearRect(0,0,w,h);ctx.fillStyle="#fff";ctx.fillRect(0,0,w,h);ctx.strokeStyle="#e6eaf2";ctx.lineWidth=1;
+ ctx.clearRect(0,0,w,h);ctx.fillStyle="#0a1524";ctx.fillRect(0,0,w,h);ctx.strokeStyle="#1b2b42";ctx.lineWidth=1;
  for(let x=Math.ceil(xmin);x<=xmax;x++){const X=px(x);ctx.beginPath();ctx.moveTo(X,0);ctx.lineTo(X,h);ctx.stroke();}
  for(let y=Math.ceil(ymin);y<=ymax;y++){const Y=py(y);ctx.beginPath();ctx.moveTo(0,Y);ctx.lineTo(w,Y);ctx.stroke();}
- ctx.strokeStyle="#667085";ctx.lineWidth=2;if(xmin<=0&&xmax>=0){ctx.beginPath();ctx.moveTo(px(0),0);ctx.lineTo(px(0),h);ctx.stroke();}if(ymin<=0&&ymax>=0){ctx.beginPath();ctx.moveTo(0,py(0));ctx.lineTo(w,py(0));ctx.stroke();}
- ctx.strokeStyle="#5759d9";ctx.lineWidth=3;ctx.beginPath();let drawing=false,valid=0;
+ ctx.strokeStyle="#5b7290";ctx.lineWidth=2;if(xmin<=0&&xmax>=0){ctx.beginPath();ctx.moveTo(px(0),0);ctx.lineTo(px(0),h);ctx.stroke();}if(ymin<=0&&ymax>=0){ctx.beginPath();ctx.moveTo(0,py(0));ctx.lineTo(w,py(0));ctx.stroke();}
+ ctx.strokeStyle="#22d3ee";ctx.lineWidth=3;ctx.beginPath();let drawing=false,valid=0;
  for(let j=0;j<=w;j++){const x=xmin+j/w*(xmax-xmin);let y;try{y=parseMath(expr,{x});}catch(e){drawing=false;continue;}if(!Number.isFinite(y)||y<ymin-(ymax-ymin)*3||y>ymax+(ymax-ymin)*3){drawing=false;continue;}const Y=py(y);if(!drawing){ctx.moveTo(j,Y);drawing=true;}else ctx.lineTo(j,Y);valid++;}
  ctx.stroke();$("graphStatus").textContent=valid?"نمودار f(x) = "+expr+" رسم شد. مقدارهای خارج از بازه یا نقاط تعریف‌نشده نمایش داده نمی‌شوند.":"تابع قابل رسم نیست؛ عبارت و دامنه را بررسی کن.";
 }
@@ -605,7 +651,7 @@ function fraction(){
  const n=Math.max(0,Math.min(100,Math.floor(Number($("fracNum").value)||0))),d=Math.max(1,Math.min(100,Math.floor(Number($("fracDen").value)||1))),model=$("fracModel").value,visual=$("fractionVisual"),filled=n%d;
  $("fracNum").value=n;$("fracDen").value=d;visual.innerHTML="";
  if(model==="bar"){const bars=Math.max(1,Math.ceil(n/d));for(let k=0;k<bars;k++){const row=document.createElement("div");row.className="fraction-bar";for(let j=0;j<d;j++){const cell=document.createElement("span");cell.className="fraction-cell"+(k*d+j<n?" filled":"");cell.title=(k*d+j<n?"بخش رنگ‌شده":"بخش خالی");row.appendChild(cell);}visual.appendChild(row);}}
- else {const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");svg.setAttribute("viewBox","0 0 200 200");svg.setAttribute("class","fraction-circle");for(let j=0;j<d;j++){const start=-Math.PI/2+j*2*Math.PI/d,end=-Math.PI/2+(j+1)*2*Math.PI/d;const p=document.createElementNS(svg.namespaceURI,"path");let path;if(d===1)path="M100 100 L100 10 A90 90 0 1 1 99.99 10 Z";else path="M100 100 L"+(100+90*Math.cos(start))+" "+(100+90*Math.sin(start))+" A90 90 0 "+(end-start>Math.PI?1:0)+" 1 "+(100+90*Math.cos(end))+" "+(100+90*Math.sin(end))+" Z";p.setAttribute("d",path);p.setAttribute("fill",j<filled?"#6b6de3":"#f2f4fa");p.setAttribute("stroke","#fff");p.setAttribute("stroke-width","2");svg.appendChild(p);}visual.appendChild(svg);}
+ else {const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");svg.setAttribute("viewBox","0 0 200 200");svg.setAttribute("class","fraction-circle");for(let j=0;j<d;j++){const start=-Math.PI/2+j*2*Math.PI/d,end=-Math.PI/2+(j+1)*2*Math.PI/d;const p=document.createElementNS(svg.namespaceURI,"path");let path;if(d===1)path="M100 100 L100 10 A90 90 0 1 1 99.99 10 Z";else path="M100 100 L"+(100+90*Math.cos(start))+" "+(100+90*Math.sin(start))+" A90 90 0 "+(end-start>Math.PI?1:0)+" 1 "+(100+90*Math.cos(end))+" "+(100+90*Math.sin(end))+" Z";p.setAttribute("d",path);p.setAttribute("fill",j<filled?"#22d3ee":"#13243a");p.setAttribute("stroke","#0a1524");p.setAttribute("stroke-width","2");svg.appendChild(p);}visual.appendChild(svg);}
  const gcd=(a,b)=>b?gcd(b,a%b):a||1,g=gcd(n,d);$("fractionText").textContent="کسر: "+n+"/"+d+" = "+(n/g)+"/"+(d/g)+" · مقدار اعشاری: "+fmt(n/d)+" · عدد مخلوط: "+Math.floor(n/d)+(filled?" و "+filled+"/"+d:"");
 }
 $("drawFraction").addEventListener("click",fraction);$("fracNum").addEventListener("input",fraction);$("fracDen").addEventListener("input",fraction);$("fracModel").addEventListener("change",fraction);
@@ -617,10 +663,10 @@ function numberLine(){
 $("drawNumberLine").addEventListener("click",numberLine);["lineMin","lineMax","linePoint"].forEach(id=>$(id).addEventListener("change",numberLine));
 function shape(){
  const type=$("shapeType").value,a=Math.max(.1,Number($("shapeA").value)||.1),b=Math.max(.1,Number($("shapeB").value)||.1);let area,per,vol=null,label,svg="";
- if(type==="rect"){area=a*b;per=2*(a+b);label="مستطیل";svg='<rect x="35" y="25" width="220" height="130" rx="4" fill="#dfe3ff" stroke="#5759d9" stroke-width="3"/><text x="145" y="175" text-anchor="middle" fill="#17233b">طول '+a+'</text><text x="270" y="95" fill="#17233b">عرض '+b+'</text>';}
- else if(type==="tri"){area=a*b/2;per=null;label="مثلث (قاعده و ارتفاع)";svg='<path d="M35 160 L255 160 L190 25 Z" fill="#dff6ed" stroke="#078b86" stroke-width="3"/><text x="145" y="185" text-anchor="middle" fill="#17233b">قاعده '+a+'</text><text x="195" y="90" fill="#17233b">ارتفاع '+b+'</text>';}
- else if(type==="circle"){area=Math.PI*a*a;per=2*Math.PI*a;label="دایره";svg='<circle cx="145" cy="95" r="70" fill="#e7e8ff" stroke="#5759d9" stroke-width="3"/><line x1="145" y1="95" x2="215" y2="95" stroke="#17233b" stroke-width="2"/><text x="175" y="85" fill="#17233b">r='+a+'</text>'; }
- else {area=6*a*a;vol=a*a*a;per=null;label="مکعب";svg='<path d="M65 60 L165 25 L245 65 L145 100 Z M65 60 L65 155 L145 195 L145 100 M145 100 L245 65 L245 160 L145 195 M65 155 L165 120 L245 160 M165 25 L165 120" fill="#e4f5ef" stroke="#078b86" stroke-width="2"/><text x="110" y="48" fill="#17233b">ضلع '+a+'</text>';}
+ if(type==="rect"){area=a*b;per=2*(a+b);label="مستطیل";svg='<rect x="35" y="25" width="220" height="130" rx="4" fill="rgba(34,211,238,.12)" stroke="#22d3ee" stroke-width="3"/><text x="145" y="175" text-anchor="middle" fill="#e6f1ff">طول '+a+'</text><text x="270" y="95" fill="#e6f1ff">عرض '+b+'</text>';}
+ else if(type==="tri"){area=a*b/2;per=null;label="مثلث (قاعده و ارتفاع)";svg='<path d="M35 160 L255 160 L190 25 Z" fill="rgba(45,212,191,.12)" stroke="#2dd4bf" stroke-width="3"/><text x="145" y="185" text-anchor="middle" fill="#e6f1ff">قاعده '+a+'</text><text x="195" y="90" fill="#e6f1ff">ارتفاع '+b+'</text>';}
+ else if(type==="circle"){area=Math.PI*a*a;per=2*Math.PI*a;label="دایره";svg='<circle cx="145" cy="95" r="70" fill="rgba(34,211,238,.12)" stroke="#22d3ee" stroke-width="3"/><line x1="145" y1="95" x2="215" y2="95" stroke="#e6f1ff" stroke-width="2"/><text x="175" y="85" fill="#e6f1ff">r='+a+'</text>'; }
+ else {area=6*a*a;vol=a*a*a;per=null;label="مکعب";svg='<path d="M65 60 L165 25 L245 65 L145 100 Z M65 60 L65 155 L145 195 L145 100 M145 100 L245 65 L245 160 L145 195 M65 155 L165 120 L245 160 M165 25 L165 120" fill="rgba(45,212,191,.12)" stroke="#2dd4bf" stroke-width="2"/><text x="110" y="48" fill="#e6f1ff">ضلع '+a+'</text>';}
  $("shapeVisual").innerHTML='<svg viewBox="0 0 310 210" role="img" aria-label="'+label+'">'+svg+'</svg>';let result="شکل: "+label+" · مساحت سطح/ناحیه: "+fmt(area);if(per!==null)result+=" · محیط/محیط دایره: "+fmt(per);if(vol!==null)result+=" · حجم: "+fmt(vol);if(type==="tri")result+=" · محیط با قاعده و ارتفاع به‌تنهایی قابل محاسبه نیست."; $("shapeResult").textContent=result;
 }
 $("calcShape").addEventListener("click",shape);$("shapeType").addEventListener("change",()=>{const type=$("shapeType").value;$("shapeA").previousElementSibling.textContent=type==="circle"?"شعاع":type==="cube"?"طول ضلع":"اندازهٔ اول";shape();});
@@ -646,14 +692,123 @@ let geoPoints=[],geoN=7;
 function renderGeo(){
  const svg=$("geoBoard"),NS="http://www.w3.org/2000/svg",w=420,h=360,pad=35,dx=(w-pad*2)/(geoN-1),dy=(h-pad*2)/(geoN-1);svg.innerHTML="";
  const el=(tag,attrs)=>{const n=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));svg.appendChild(n);return n;};
- for(let r=0;r<geoN;r++)for(let c=0;c<geoN;c++){const x=pad+c*dx,y=pad+r*dy;el("line",{x1:x,y1:pad,x2:x,y2:h-pad,stroke:"#e6eaf2","stroke-width":"1"});el("line",{x1:pad,y1:y,x2:w-pad,y2:y,stroke:"#e6eaf2","stroke-width":"1"});}
- if(geoPoints.length>1){const points=geoPoints.map(p=>(pad+p.c*dx)+","+(pad+p.r*dy)).join(" ");el(geoPoints.length>2?"polygon":"polyline",{points,fill:geoPoints.length>2?"rgba(87,89,217,.15)":"none",stroke:"#5759d9","stroke-width":"3","stroke-linejoin":"round"});}
- geoPoints.forEach((p,i)=>{const x=pad+p.c*dx,y=pad+p.r*dy;el("circle",{cx:x,cy:y,r:8,fill:"#d84c76",stroke:"#fff","stroke-width":"2"});const t=el("text",{x:x+10,y:y-10,fill:"#17233b","font-size":"12"});t.textContent=String(i+1);});
- for(let r=0;r<geoN;r++)for(let c=0;c<geoN;c++){const exists=geoPoints.some(p=>p.r===r&&p.c===c);const circle=el("circle",{cx:pad+c*dx,cy:pad+r*dy,r:exists?0:5,fill:"#078b86",stroke:"#078b86",cursor:"pointer","data-r":r,"data-c":c});circle.addEventListener("click",()=>{if(geoPoints.some(p=>p.r===r&&p.c===c))return;geoPoints.push({r,c});renderGeo();});}
+ for(let r=0;r<geoN;r++)for(let c=0;c<geoN;c++){const x=pad+c*dx,y=pad+r*dy;el("line",{x1:x,y1:pad,x2:x,y2:h-pad,stroke:"#1b2b42","stroke-width":"1"});el("line",{x1:pad,y1:y,x2:w-pad,y2:y,stroke:"#1b2b42","stroke-width":"1"});}
+ if(geoPoints.length>1){const points=geoPoints.map(p=>(pad+p.c*dx)+","+(pad+p.r*dy)).join(" ");el(geoPoints.length>2?"polygon":"polyline",{points,fill:geoPoints.length>2?"rgba(34,211,238,.15)":"none",stroke:"#22d3ee","stroke-width":"3","stroke-linejoin":"round"});}
+ geoPoints.forEach((p,i)=>{const x=pad+p.c*dx,y=pad+p.r*dy;el("circle",{cx:x,cy:y,r:8,fill:"#f472b6",stroke:"#0a1524","stroke-width":"2"});const t=el("text",{x:x+10,y:y-10,fill:"#e6f1ff","font-size":"12"});t.textContent=String(i+1);});
+ for(let r=0;r<geoN;r++)for(let c=0;c<geoN;c++){const exists=geoPoints.some(p=>p.r===r&&p.c===c);const circle=el("circle",{cx:pad+c*dx,cy:pad+r*dy,r:exists?0:5,fill:"#2dd4bf",stroke:"#2dd4bf",cursor:"pointer","data-r":r,"data-c":c});circle.addEventListener("click",()=>{if(geoPoints.some(p=>p.r===r&&p.c===c))return;geoPoints.push({r,c});renderGeo();});}
  let area=0,per=0;if(geoPoints.length>=2){for(let i=0;i<geoPoints.length;i++){const p=geoPoints[i],q=geoPoints[(i+1)%geoPoints.length];per+=Math.hypot(q.c-p.c,q.r-p.r);}if(geoPoints.length>=3)for(let i=0;i<geoPoints.length;i++){const p=geoPoints[i],q=geoPoints[(i+1)%geoPoints.length];area+=p.c*q.r-q.c*p.r;}area=Math.abs(area)/2;}
  $("geoResult").textContent=geoPoints.length<3?"رأس‌های انتخاب‌شده: "+geoPoints.length+"؛ برای محاسبهٔ مساحت حداقل سه نقطه لازم است.":("تعداد رأس‌ها: "+geoPoints.length+" · مساحت شبکه‌ای: "+fmt(area)+" واحد مربع · محیط تقریبی/دقیق شبکه‌ای: "+fmt(per)+" واحد");
 }
 $("geoSize").addEventListener("change",()=>{geoN=Number($("geoSize").value);geoPoints=[];renderGeo();});$("geoUndo").addEventListener("click",()=>{geoPoints.pop();renderGeo();});$("geoClear").addEventListener("click",()=>{geoPoints=[];renderGeo();});renderGeo();
+})();
+</script>
+<script>
+/* Dashboard: XP, levels, daily streak heatmap, next lesson, top-bar menus */
+(function(){
+"use strict";
+const $=id=>document.getElementById(id),fa=n=>new Intl.NumberFormat("fa-IR").format(n);
+const xpb=(n,pre="")=>"<bdi dir=\"ltr\">"+pre+fa(n)+" XP</bdi>";
+const XP_LESSON=120,XP_CORRECT=30,XP_PRACTICE=20;
+const quotes=[
+ ["قطره قطره جمع گردد، وانگهی دریا شود.","ضرب‌المثل فارسی"],
+ ["توانا بود هر که دانا بود.","فردوسی"],
+ ["پرسیدن عیب نیست، ندانستن عیب است.","ضرب‌المثل فارسی"],
+ ["رهرو آن است که آهسته و پیوسته رود.","ضرب‌المثل فارسی"],
+ ["در ریاضیات، هنرِ طرح پرسش ارزشمندتر از حل آن است.","گئورگ کانتور"],
+ ["کار نیکو کردن از پر کردن است.","ضرب‌المثل فارسی"],
+ ["عدد، زبانی است که جهان با آن سخن می‌گوید.","برگرفته از اندیشهٔ فیثاغورسیان"]
+];
+const dayKey=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const state=()=>(typeof S==="object"&&S)?S:{};
+function xpOf(s){return (s.done||[]).length*XP_LESSON+Number(s.correct||0)*XP_CORRECT+(s.practiceAnswered||[]).length*XP_PRACTICE;}
+const levelStart=l=>50*l*(l-1); /* سطح ۱: ۰، سطح ۲: ۱۰۰، سطح ۳: ۳۰۰ ... */
+function levelOf(xp){let l=1;while(levelStart(l+1)<=xp)l++;return l;}
+function activity(){const s=state();if(!s.activity||typeof s.activity!=="object"||Array.isArray(s.activity))s.activity={};return s.activity;}
+function streak(){const a=activity(),d=new Date();let n=0;if(!a[dayKey(d)])d.setDate(d.getDate()-1);while(a[dayKey(d)]){n++;d.setDate(d.getDate()-1);}return n;}
+function curveFor(cat){
+ const W=320,H=170,cx=160,cy=118,sx=24,sy=22;let f,label;
+ switch(cat){
+  case "جبر":f=x=>.55*x*x-1.6;label="y = ax² + bx + c";break;
+  case "پایه":f=x=>.6*x+.4;label="y = mx + b";break;
+  case "هندسه":f=null;label="A = ½ · b · h";break;
+  case "احتمال":case "آمار":f=x=>4.2*Math.exp(-x*x/2)-1.4;label="N(μ, σ²)";break;
+  case "حسابان":f=x=>.12*x*x*x-.9*x;label="f′(x) = lim Δy/Δx";break;
+  case "برنامه‌نویسی":f=x=>1.4*Math.sin(x*1.3);label="mean = sum / len";break;
+  default:f=null;label="ŷ = w·x + b";
+ }
+ let grid="";for(let i=-6;i<=6;i++){grid+=`<line x1="${cx+i*sx}" y1="18" x2="${cx+i*sx}" y2="${H-8}" />`;}for(let j=-4;j<=2;j++){grid+=`<line x1="20" y1="${cy+j*sy}" x2="${W-20}" y2="${cy+j*sy}" />`;}
+ let body="";
+ if(f){let p="";for(let i=0;i<=120;i++){const x=-3.4+i*6.8/120,y=f(x),X=cx+x*sx*1.6,Y=cy-y*sy;if(Y<6||Y>H-4)continue;p+=(p?"L":"M")+X.toFixed(1)+" "+Y.toFixed(1);}body=`<path d="${p}" class="cv"/>`;}
+ else if(cat==="هندسه"){body=`<path d="M92 ${cy} L228 ${cy} L190 40 Z" class="cv" fill="rgba(34,211,238,.08)"/><line x1="190" y1="40" x2="190" y2="${cy}" stroke="#67e8f9" stroke-dasharray="4 4"/>`;}
+ else{const pts=[[-2.6,-1.2],[-2,-.6],[-1.4,-.9],[-.8,-.1],[-.2,.1],[.4,.7],[1,.4],[1.6,1.3],[2.2,1.1],[2.8,1.9]];body=`<path d="M${cx-3*sx*1.6} ${cy+1.5*sy} L${cx+3*sx*1.6} ${cy-2.2*sy}" class="cv"/>`+pts.map(([x,y])=>`<circle cx="${cx+x*sx*1.6}" cy="${cy-y*sy}" r="4" fill="#67e8f9"/>`).join("");}
+ return `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><filter id="glw" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+ <g stroke="rgba(56,189,248,.13)" stroke-width="1">${grid}</g>
+ <g stroke="rgba(230,241,255,.55)" stroke-width="1.4"><line x1="20" y1="${cy}" x2="${W-20}" y2="${cy}"/><line x1="${cx}" y1="12" x2="${cx}" y2="${H-6}"/></g>
+ <g fill="none" stroke="#22d3ee" stroke-width="4" stroke-linecap="round" filter="url(#glw)" style="--x:0">${body}</g>
+ <g><rect x="${W-130}" y="22" width="118" height="28" rx="7" fill="rgba(8,20,34,.9)" stroke="rgba(34,211,238,.35)"/><text x="${W-71}" y="41" text-anchor="middle" fill="#67e8f9" font-size="12" font-family="ui-monospace,monospace" direction="ltr">${label}</text></g></svg>`;
+}
+function nextLesson(){const s=state();return (L.find(l=>!(s.done||[]).includes(l[0])))||null;}
+function renderDash(){
+ const s=state();if(!$("ringFill"))return;
+ const xp=xpOf(s),lv=levelOf(xp),a=levelStart(lv),b=levelStart(lv+1),frac=(xp-a)/(b-a);
+ $("levelNum").textContent=fa(lv);$("levelNum2").textContent=fa(lv);$("xpTotal").innerHTML=xpb(xp);
+ $("xpToNext").innerHTML=xpb(b-xp)+" تا سطح "+fa(lv+1);
+ $("ringFill").style.strokeDashoffset=(314.16*(1-Math.max(.02,frac))).toFixed(2);
+ const name=(typeof s.name==="string"&&s.name.trim())||"دوست من";
+ $("welcomeName").textContent=name;$("menuName").textContent=name;$("avatarInitial").textContent=name.trim().charAt(0)||"؟";
+ $("menuLevel").innerHTML="سطح "+fa(lv)+" · "+xpb(xp);
+ /* استریک و نقشهٔ حرارتی: ستون‌ها هفته‌ها (شنبه تا جمعه) */
+ const act=activity(),st=streak(),today=new Date();today.setHours(0,0,0,0);
+ $("streakNum").textContent=fa(st);
+ $("streakMsg").textContent=act[dayKey(today)]?"عالی! امروز هم تمرین کردی 🔥":(st?"ادامه بده! امروز یک تمرین کوتاه انجام بده 🔥":"امروز اولین قدم را بردار! 🔥");
+ const dow=(today.getDay()+1)%7,start=new Date(today);start.setDate(start.getDate()-dow-7*11);
+ let cells="";for(let i=0;i<84;i++){const d=new Date(start);d.setDate(start.getDate()+i);const k=dayKey(d),v=act[k]||0,future=d>today,lvl=future?0:v>=6?4:v>=4?3:v>=2?2:v>=1?1:0;
+  cells+=`<i data-l="${lvl}"${k===dayKey(today)?' class="today"':""}${future?' style="opacity:.25"':""} title="${d.toLocaleDateString("fa-IR")} — ${fa(v)} فعالیت"></i>`;}
+ $("heatGrid").innerHTML=cells;
+ $("heatWeeks").innerHTML=Array.from({length:12},(_,i)=>`<span>${i%2===0?fa(i+1):""}</span>`).join("");
+ /* درس بعدی */
+ const n=nextLesson();
+ if(n){$("nextTitle").textContent=n[2]+" · "+n[1];$("nextDesc").textContent=n[4]+" — "+n[7];$("nextArt").innerHTML=curveFor(n[2]);$("continue").firstChild.textContent="شروع ";}
+ else{$("nextTitle").textContent="همهٔ درس‌های آغازین تمام شد!";$("nextDesc").textContent="حالا وقت ساختن یک پروژهٔ واقعی با Python و انتشار آن در GitHub است.";$("nextArt").innerHTML=curveFor("داده‌کاوی");$("continue").firstChild.textContent="مرور دوباره ";}
+ /* اعلان‌ها */
+ const notes=[];
+ if(!act[dayKey(today)])notes.push(["امروز هنوز تمرین نکرده‌ای",st?"برای حفظ استریک "+fa(st)+" روزه یک سؤال حل کن.":"با یک تمرین کوتاه استریک را شروع کن.","practice"]);
+ if(n)notes.push(["درس پیشنهادی: "+n[1],n[4],"courses"]);
+ notes.push(["تا سطح "+fa(lv+1)+": "+xpb(b-xp),"هر درس "+fa(XP_LESSON)+" و هر پاسخ صحیح "+fa(XP_CORRECT)+" XP دارد.","progress"]);
+ $("bellMenu").innerHTML=notes.map(x=>`<button class="item" data-go="${x[2]}"><span class="note" style="padding:0">${x[0]}<small>${x[1]}</small></span></button>`).join("");
+ $("bellMenu").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{closeMenus();go(b.dataset.go);});
+ $("bellDot").hidden=!!act[dayKey(today)];
+ const q=quotes[Math.floor(today.getTime()/864e5)%quotes.length];$("quoteText").textContent=q[0];$("quoteBy").textContent="— "+q[1];
+}
+function toast(html){let t=$("xpToast");if(!t){t=document.createElement("div");t.id="xpToast";t.className="toast";t.setAttribute("role","status");document.body.appendChild(t);}t.innerHTML=html;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2600);}
+/* ثبت فعالیت هنگام افزایش XP */
+let lastXp=xpOf(state()),lastLv=levelOf(lastXp);
+const prevSave=window.save;
+window.save=function(){
+ const s=state(),xp=xpOf(s);
+ if(xp>lastXp){const a=activity(),k=dayKey(new Date());a[k]=(a[k]||0)+1;const lv=levelOf(xp);toast(lv>lastLv?"🎉 به <b>سطح "+fa(lv)+"</b> رسیدی!":"<b>"+xpb(xp-lastXp,"+")+"</b> · ادامه بده!");lastLv=lv;}
+ lastXp=xp;
+ if(typeof prevSave==="function")prevSave.apply(this,arguments);
+ renderDash();
+};
+const prevStats=window.stats;
+window.stats=function(){if(typeof prevStats==="function")prevStats.apply(this,arguments);const x=xpOf(state());if(x<lastXp){lastXp=x;lastLv=levelOf(x);}renderDash();};
+/* منوها */
+function closeMenus(){document.querySelectorAll(".menu.open").forEach(m=>m.classList.remove("open"));document.querySelectorAll("[aria-expanded=true]").forEach(b=>b.setAttribute("aria-expanded","false"));}
+function toggle(btn,menu){const open=!menu.classList.contains("open");closeMenus();if(open){menu.classList.add("open");btn.setAttribute("aria-expanded","true");}}
+$("bellBtn").onclick=e=>{e.stopPropagation();toggle($("bellBtn"),$("bellMenu"));};
+$("avatarBtn").onclick=e=>{e.stopPropagation();$("nameInput").value=state().name||"";toggle($("avatarBtn"),$("avatarMenu"));};
+document.querySelectorAll(".menu").forEach(m=>m.addEventListener("click",e=>e.stopPropagation()));
+$("avatarMenu").querySelectorAll("[data-page],#reset").forEach(b=>b.addEventListener("click",closeMenus));
+document.addEventListener("click",closeMenus);document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenus();});
+$("nameForm").onsubmit=e=>{e.preventDefault();state().name=$("nameInput").value.trim().slice(0,30);window.save();closeMenus();};
+/* جست‌وجوی سراسری */
+const gs=$("globalSearch");
+gs.addEventListener("keydown",e=>{if(e.key==="Enter"){go("courses");$("search").value=gs.value;courses();}});
+gs.addEventListener("input",()=>{if(document.getElementById("page-courses").classList.contains("active")){$("search").value=gs.value;courses();}});
+document.querySelector(".brand").addEventListener("click",e=>e.preventDefault());
+renderDash();
+const pg=decodeURIComponent(location.hash.slice(1));if(pg&&pg!=="home"&&pg!=="lesson"&&document.getElementById("page-"+pg))go(pg);
 })();
 </script>
 </body></html>
