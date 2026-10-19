@@ -46,6 +46,20 @@
       }
       document.documentElement.classList.remove("i18n-pending");
     },
+    /* Developer credit and copyright notice, shown at the bottom of every page. */
+    CREDIT: {
+      fa: { dev: "توسعه‌دهنده: ابراهیم سلیمی", rights: "تمامی حقوق نشر و استفادهٔ این نرم‌افزار محفوظ است و انتشار این نرم‌افزار بدون اطلاع سازنده پیگرد قانونی دارد." },
+      en: { dev: "Developer: Ebrahim Salimi", rights: "All publication and usage rights of this software are reserved. Publishing this software without the developer's knowledge is subject to legal action." },
+    },
+    credit: function () {
+      if (typeof document === "undefined" || document.querySelector(".credit")) return;
+      var c = I.CREDIT[lang], f = document.createElement("footer");
+      f.className = "credit"; f.setAttribute("role", "contentinfo");
+      var d = document.createElement("strong"); d.textContent = c.dev;
+      var r = document.createElement("span"); r.textContent = "© " + I.digits(String(new Date().getFullYear())) + " — " + c.rights;
+      f.appendChild(d); f.appendChild(r);
+      document.body.appendChild(f);
+    },
     /* A compact language switch button (shows the other language). */
     toggle: function () {
       var b = document.createElement("button");
@@ -64,6 +78,7 @@
     h.lang = lang; h.dir = I.dir; h.classList.add("i18n-pending", "lang-" + lang);
     document.addEventListener("DOMContentLoaded", function () {
       I.apply();
+      I.credit();
       var slot = document.querySelector("[data-lang-slot]");
       if (slot && !slot.querySelector(".lang-btn")) slot.insertBefore(I.toggle(), slot.firstChild);
     });

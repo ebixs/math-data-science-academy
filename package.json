@@ -3,7 +3,8 @@
   "productName": "Math Data Science Academy",
   "version": "1.0.0",
   "description": "آکادمی ریاضی و علم داده — آموزش ریاضی از صفر تا علم داده با حل‌گر گام‌به‌گام، ابزارهای تعاملی و دفترچهٔ پایتون",
-  "author": "ebixs <ebrahimsalimi123@gmail.com>",
+  "author": "Ebrahim Salimi <ebrahimsalimi123@gmail.com>",
+  "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://github.com/ebixs/math-data-science-academy",
   "private": true,
   "main": "desktop/main.js",
@@ -22,7 +23,7 @@
   "build": {
     "appId": "io.github.ebixs.mathacademy",
     "productName": "Math Data Science Academy",
-    "copyright": "© ebixs",
+    "copyright": "© 2026 Ebrahim Salimi (ابراهیم سلیمی). All rights reserved.",
     "directories": {
       "output": "dist",
       "buildResources": "build"
