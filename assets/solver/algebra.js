@@ -4,6 +4,7 @@
 (function (root) {
   "use strict";
   const E = root.MathEngine;
+  const tr = (fa, en) => (E.lang() === "en" && en !== undefined ? en : fa);
   const { Q, N, MathError, tex, simp, pretty, evalNum, evalExact, step, bgcd, blcm, iroot } = E;
   const q = (n, d = 1) => Q.of(n, d);
   const fa = E.fa;
@@ -31,7 +32,7 @@
     }
     pow(k) { let r = Poly.const(1); for (let i = 0; i < k; i++) r = r.mul(this); return r; }
     divmod(b) {
-      if (b.isZero()) throw new MathError("تقسیم بر چندجمله‌ای صفر");
+      if (b.isZero()) throw new MathError(tr("تقسیم بر چندجمله‌ای صفر", "Division by the zero polynomial"));
       let r = new Poly(this.c), quo = [];
       const db = b.deg(), lb = b.lead();
       while (!r.isZero() && r.deg() >= db) {
@@ -86,7 +87,7 @@
     add(b) { return new Rat(this.n.mul(b.d).add(b.n.mul(this.d)), this.d.mul(b.d)).norm(); }
     sub(b) { return new Rat(this.n.mul(b.d).sub(b.n.mul(this.d)), this.d.mul(b.d)).norm(); }
     mul(b) { return new Rat(this.n.mul(b.n), this.d.mul(b.d)).norm(); }
-    div(b) { if (b.n.isZero()) throw new MathError("تقسیم بر صفر"); return new Rat(this.n.mul(b.d), this.d.mul(b.n)).norm(); }
+    div(b) { if (b.n.isZero()) throw new MathError(tr("تقسیم بر صفر", "Division by zero")); return new Rat(this.n.mul(b.d), this.d.mul(b.n)).norm(); }
     neg() { return new Rat(this.n.neg(), this.d); }
     pow(k) { if (k >= 0) return new Rat(this.n.pow(k), this.d.pow(k)); return new Rat(this.d.pow(-k), this.n.pow(-k)).norm(); }
     norm() { /* make denominator monic, keep factors (no gcd) */
@@ -306,7 +307,7 @@
     if (!k.isOne()) gcfParts.push(k.toTeX());
     if (low > 0) gcfParts.push(low === 1 ? v : v + "^{" + low + "}");
     if (low > 0) { factors.push({ p: Poly.x(), m: low }); R = new Poly(R.c.slice(low)); }
-    if (gcfParts.length && R.deg() >= 1) steps.push(step("فاکتورگیری از عامل مشترک", T(P.toAst(v)) + " = " + gcfParts.join(" ") + T(N.num(q(1))).replace(/^1$/, "") + "\\left(" + R.tex(v) + "\\right)", "بزرگ‌ترین عامل مشترک همهٔ جمله‌ها بیرون کشیده می‌شود."));
+    if (gcfParts.length && R.deg() >= 1) steps.push(step(tr("فاکتورگیری از عامل مشترک", "Factor out the common factor"), T(P.toAst(v)) + " = " + gcfParts.join(" ") + T(N.num(q(1))).replace(/^1$/, "") + "\\left(" + R.tex(v) + "\\right)", tr("بزرگ‌ترین عامل مشترک همهٔ جمله‌ها بیرون کشیده می‌شود.", "The greatest common factor of all terms is pulled out.")));
     const work = [R];
     const done = [];
     while (work.length) {
@@ -319,7 +320,7 @@
         if (A && B) {
           const xa = n === 1 ? Poly.x() : Poly.x(n);
           const f1 = xa.scale(A).sub(Poly.const(B)), f2 = xa.scale(A).add(Poly.const(B));
-          steps.push(step("اتحاد مزدوج (تفاضل دو مربع)", F.tex(v) + " = \\left(" + f1.tex(v) + "\\right)\\left(" + f2.tex(v) + "\\right)", "از اتحاد a² − b² = (a − b)(a + b) استفاده می‌کنیم."));
+          steps.push(step(tr("اتحاد مزدوج (تفاضل دو مربع)", "Difference of two squares"), F.tex(v) + " = \\left(" + f1.tex(v) + "\\right)\\left(" + f2.tex(v) + "\\right)", tr("از اتحاد a² − b² = (a − b)(a + b) استفاده می‌کنیم.", "We use the identity a² − b² = (a − b)(a + b).")));
           work.push(f1, f2); continue;
         }
       }
@@ -329,7 +330,7 @@
         if (A && B) {
           const lin = Poly.x().scale(A).add(Poly.const(B)), quad = new Poly([B.mul(B), A.mul(B).neg(), A.mul(A)]);
           const sum = F.co(0).sign() > 0;
-          steps.push(step(sum ? "اتحاد مجموع مکعب‌ها" : "اتحاد تفاضل مکعب‌ها", F.tex(v) + " = \\left(" + lin.tex(v) + "\\right)\\left(" + quad.tex(v) + "\\right)", sum ? "a³ + b³ = (a + b)(a² − ab + b²)" : "a³ − b³ = (a − b)(a² + ab + b²)"));
+          steps.push(step(sum ? tr("اتحاد مجموع مکعب‌ها", "Sum of cubes identity") : tr("اتحاد تفاضل مکعب‌ها", "Difference of cubes identity"), F.tex(v) + " = \\left(" + lin.tex(v) + "\\right)\\left(" + quad.tex(v) + "\\right)", sum ? "a³ + b³ = (a + b)(a² − ab + b²)" : "a³ − b³ = (a − b)(a² + ab + b²)"));
           work.push(lin, quad); continue;
         }
       }
@@ -342,14 +343,14 @@
           const f1 = new Poly([r1.neg().mul(q(r1.d)), q(r1.d)]), f2 = new Poly([r2.neg().mul(q(r2.d)), q(r2.d)]);
           const rest = a.div(q(r1.d * r2.d));
           if (r1.eq(r2)) {
-            steps.push(step("مربع کامل", F.tex(v) + " = " + (rest.isOne() ? "" : rest.toTeX()) + "\\left(" + f1.tex(v) + "\\right)^{2}", "عبارت مربع کامل است: a² ± 2ab + b² = (a ± b)²"));
+            steps.push(step(tr("مربع کامل", "Perfect square"), F.tex(v) + " = " + (rest.isOne() ? "" : rest.toTeX()) + "\\left(" + f1.tex(v) + "\\right)^{2}", tr("عبارت مربع کامل است: a² ± 2ab + b² = (a ± b)²", "The expression is a perfect square: a² ± 2ab + b² = (a ± b)²")));
             if (!rest.isOne()) k = k.mul(rest);
             done.push(f1, f1); continue;
           }
           const ac = a.mul(c);
-          const note = a.isOne() ? "دو عدد پیدا می‌کنیم که حاصل‌ضربشان " + qTex(c) + " و مجموعشان " + qTex(b) + " باشد: " + r1.neg().toTeX() + " و " + r2.neg().toTeX() + "."
-            : "روش ac: دو عدد با حاصل‌ضرب ac = " + qTex(ac) + " و مجموع b = " + qTex(b) + " پیدا می‌کنیم و جملهٔ وسط را می‌شکنیم.";
-          steps.push(step("تجزیهٔ سه‌جمله‌ای درجه دو", F.tex(v) + " = " + (rest.isOne() ? "" : rest.toTeX()) + "\\left(" + f1.tex(v) + "\\right)\\left(" + f2.tex(v) + "\\right)", note));
+          const note = a.isOne() ? tr("دو عدد پیدا می‌کنیم که حاصل‌ضربشان ", "We look for two numbers whose product is ") + qTex(c) + tr(" و مجموعشان ", " and whose sum is ") + qTex(b) + tr(" باشد: ", ": ") + r1.neg().toTeX() + tr(" و ", " and ") + r2.neg().toTeX() + "."
+            : tr("روش ac: دو عدد با حاصل‌ضرب ac = ", "ac method: find two numbers with product ac = ") + qTex(ac) + tr(" و مجموع b = ", " and sum b = ") + qTex(b) + tr(" پیدا می‌کنیم و جملهٔ وسط را می‌شکنیم.", ", then split the middle term.");
+          steps.push(step(tr("تجزیهٔ سه‌جمله‌ای درجه دو", "Factor the quadratic trinomial"), F.tex(v) + " = " + (rest.isOne() ? "" : rest.toTeX()) + "\\left(" + f1.tex(v) + "\\right)\\left(" + f2.tex(v) + "\\right)", note));
           if (!rest.isOne()) k = k.mul(rest);
           done.push(f1, f2); continue;
         }
@@ -360,7 +361,7 @@
       if (rr.length) {
         const r = rr[0], lin = new Poly([r.neg().mul(q(r.d)), q(r.d)]);
         const [quo] = F.divmod(lin);
-        steps.push(step("قضیهٔ ریشهٔ گویا و تقسیم چندجمله‌ای", "P\\left(" + r.toTeX() + "\\right) = 0 \\;\\Rightarrow\\; " + F.tex(v) + " = \\left(" + lin.tex(v) + "\\right)\\left(" + quo.tex(v) + "\\right)", "نامزدهای ریشه به شکل ±(مقسوم‌علیه جملهٔ ثابت)/(مقسوم‌علیه ضریب اول) هستند. با آزمودن آن‌ها، " + r.toTeX() + " ریشه است؛ پس (" + lin.tex(v) + ") عامل است و با تقسیم، عامل دیگر به دست می‌آید."));
+        steps.push(step(tr("قضیهٔ ریشهٔ گویا و تقسیم چندجمله‌ای", "Rational root theorem and polynomial division"), "P\\left(" + r.toTeX() + "\\right) = 0 \\;\\Rightarrow\\; " + F.tex(v) + " = \\left(" + lin.tex(v) + "\\right)\\left(" + quo.tex(v) + "\\right)", tr("نامزدهای ریشه به شکل ±(مقسوم‌علیه جملهٔ ثابت)/(مقسوم‌علیه ضریب اول) هستند. با آزمودن آن‌ها، ", "Candidate roots have the form ±(divisor of the constant term)/(divisor of the leading coefficient). Testing them, ") + r.toTeX() + tr(" ریشه است؛ پس (", " is a root; so (") + lin.tex(v) + tr(") عامل است و با تقسیم، عامل دیگر به دست می‌آید.", ") is a factor, and dividing gives the other factor.")));
         work.push(lin, quo); continue;
       }
       /* biquadratic a x^4 + b x^2 + c */
@@ -369,7 +370,7 @@
         const sub = [];
         const fr = factorPoly(inner, "u", sub);
         if (fr.factors.length > 1 || (fr.factors[0] && fr.factors[0].m > 1)) {
-          steps.push(step("تغییر متغیر u = " + v + "²", F.tex(v) + " \\;\\to\\; " + inner.tex("u"), "عبارت فقط توان‌های زوج دارد."));
+          steps.push(step(tr("تغییر متغیر u = ", "Substitute u = ") + v + "²", F.tex(v) + " \\;\\to\\; " + inner.tex("u"), tr("عبارت فقط توان‌های زوج دارد.", "The expression has only even powers.")));
           fr.factors.forEach(f => { const back = new Poly(f.p.c.flatMap((x, i) => i === 0 ? [x] : [q(0), x])); for (let i = 0; i < f.m; i++) work.push(back); });
           k = k.mul(fr.k); continue;
         }
@@ -424,10 +425,10 @@
     const n = best.n;
     let val, desc, title;
     const exactOrFl = (x, flv) => x ? N.num(x) : N.fl(flv);
-    if (n.t === "const") { val = N.fl(evalNum(n)); title = "مقدار ثابت"; desc = T(n) + " \\approx " + E.trimNum(val.v, 6); }
-    else if (n.t === "neg") { val = n.a.t === "num" ? N.num(n.a.q.neg()) : N.fl(-n.a.v); title = "قرینه"; desc = T(n) + " = " + T(val); }
+    if (n.t === "const") { val = N.fl(evalNum(n)); title = tr("مقدار ثابت", "Constant value"); desc = T(n) + " \\approx " + E.trimNum(val.v, 6); }
+    else if (n.t === "neg") { val = n.a.t === "num" ? N.num(n.a.q.neg()) : N.fl(-n.a.v); title = tr("قرینه", "Negation"); desc = T(n) + " = " + T(val); }
     else if (n.t === "fact") {
-      const ex = evalExact(n); val = ex ? N.num(ex) : N.fl(evalNum(n)); title = "فاکتوریل";
+      const ex = evalExact(n); val = ex ? N.num(ex) : N.fl(evalNum(n)); title = tr("فاکتوریل", "Factorial");
       const k = ex && n.a.t === "num" ? Number(n.a.q.n) : 0;
       desc = T(n) + " = " + (k > 1 && k <= 8 ? Array.from({ length: k }, (_, i) => k - i).join(" \\times ") + " = " : "") + T(val);
     } else if (n.t === "fn") {
@@ -435,32 +436,32 @@
       let exactStr = null;
       if (!ex && E.nd && root.nerdamer) { try { const s = root.nerdamer(E.str(n)).toString(); if (/^-?\d+(\/\d+)?$/.test(s)) exactStr = Q.parse(s.split("/")[0]).div(Q.parse(s.split("/")[1] || "1")); } catch (e) { } }
       val = ex ? N.num(ex) : exactStr ? N.num(exactStr) : N.fl(evalNum(n));
-      title = { sqrt: "ریشهٔ دوم", abs: "قدرمطلق", ln: "لگاریتم طبیعی", log: "لگاریتم", sin: "سینوس", cos: "کسینوس", tan: "تانژانت" }[n.n] || "محاسبهٔ تابع";
-      if (val.t === "fl" && !Number.isFinite(val.v)) throw new MathError("مقدار " + T(n) + " تعریف نشده است (خارج از دامنه).");
+      title = { sqrt: tr("ریشهٔ دوم", "Square root"), abs: tr("قدرمطلق", "Absolute value"), ln: tr("لگاریتم طبیعی", "Natural logarithm"), log: tr("لگاریتم", "Logarithm"), sin: tr("سینوس", "Sine"), cos: tr("کسینوس", "Cosine"), tan: tr("تانژانت", "Tangent") }[n.n] || tr("محاسبهٔ تابع", "Evaluate the function");
+      if (val.t === "fl" && !Number.isFinite(val.v)) throw new MathError(tr("مقدار ", "The value ") + T(n) + tr(" تعریف نشده است (خارج از دامنه).", " is undefined (outside the domain)."));
       desc = T(n) + (val.t === "fl" ? " \\approx " : " = ") + T(val);
     } else {
       const L = n.l, R = n.r, op = n.op;
-      title = { "+": "جمع", "-": "تفریق", "*": "ضرب", "/": "تقسیم", "^": "توان" }[op];
+      title = { "+": tr("جمع", "Add"), "-": tr("تفریق", "Subtract"), "*": tr("ضرب", "Multiply"), "/": tr("تقسیم", "Divide"), "^": tr("توان", "Power") }[op];
       if (L.t === "num" && R.t === "num") {
         const a = L.q, b = R.q;
-        if (op === "/" && b.isZero()) throw new MathError("تقسیم بر صفر تعریف نشده است.");
+        if (op === "/" && b.isZero()) throw new MathError(tr("تقسیم بر صفر تعریف نشده است.", "Division by zero is undefined."));
         if (op === "^") { const ex = evalExact(n); val = exactOrFl(ex, evalNum(n)); }
         else val = N.num(op === "+" ? a.add(b) : op === "-" ? a.sub(b) : op === "*" ? a.mul(b) : a.div(b));
         if ((op === "+" || op === "-") && (!a.isInt() || !b.isInt())) {
           const D = blcm(a.d, b.d);
           desc = T(n) + " = \\frac{" + a.n * (D / a.d) + "}{" + D + "} " + op + " \\frac{" + b.n * (D / b.d) + "}{" + D + "} = " + T(val);
-          title += " کسرها با مخرج مشترک " + fa(D.toString());
+          title += tr(" کسرها با مخرج مشترک ", " fractions with common denominator ") + fa(D.toString());
         } else if (op === "*" && (!a.isInt() || !b.isInt())) {
-          desc = T(n) + " = \\frac{" + a.n + " \\times " + (b.n < 0n ? "(" + b.n + ")" : b.n) + "}{" + a.d + " \\times " + b.d + "} = " + T(val); title += " کسرها: صورت در صورت، مخرج در مخرج";
+          desc = T(n) + " = \\frac{" + a.n + " \\times " + (b.n < 0n ? "(" + b.n + ")" : b.n) + "}{" + a.d + " \\times " + b.d + "} = " + T(val); title += tr(" کسرها: صورت در صورت، مخرج در مخرج", " fractions: numerator × numerator, denominator × denominator");
         } else if (op === "/" && (!a.isInt() || !b.isInt())) {
-          desc = T(n) + " = " + T(N.num(a)) + " \\times " + T(N.num(b.inv())) + " = " + T(val); title += " کسرها: ضرب در معکوس";
+          desc = T(n) + " = " + T(N.num(a)) + " \\times " + T(N.num(b.inv())) + " = " + T(val); title += tr(" کسرها: ضرب در معکوس", " fractions: multiply by the reciprocal");
         } else if (op === "^" && b.isInt() && b.n > 1n && b.n <= 6n && a.isInt()) {
           desc = T(n) + " = " + Array(Number(b.n)).fill(a.sign() < 0 ? "(" + a.n + ")" : a.n.toString()).join(" \\times ") + " = " + T(val);
         } else desc = T(n) + " = " + T(val);
       } else {
         const x = valNum(L), y = valNum(R);
         const r = op === "+" ? x + y : op === "-" ? x - y : op === "*" ? x * y : op === "/" ? x / y : Math.pow(x, y);
-        if (!Number.isFinite(r)) throw new MathError("نتیجه تعریف نشده است.");
+        if (!Number.isFinite(r)) throw new MathError(tr("نتیجه تعریف نشده است.", "The result is undefined."));
         val = N.fl(r); desc = T(n) + " \\approx " + E.trimNum(r, 8);
       }
     }
@@ -497,7 +498,7 @@
     const mp = toMPoly(a);
     if (!mp) {
       const r = E.expandAst(a);
-      return { answer: T(r), steps: [step("بسط با موتور نمادین", T(a) + " = " + T(r), "این عبارت شامل توابع است؛ بسط به‌صورت مستقیم انجام شد.")] };
+      return { answer: T(r), steps: [step(tr("بسط با موتور نمادین", "Expand with the symbolic engine"), T(a) + " = " + T(r), tr("این عبارت شامل توابع است؛ بسط به‌صورت مستقیم انجام شد.", "This expression contains functions; it was expanded directly."))] };
     }
     /* describe each product of sums */
     (function walk(n) {
@@ -506,21 +507,21 @@
       const isSum = x => x.t === "bin" && (x.op === "+" || x.op === "-");
       if (n.op === "^" && isSum(n.l)) {
         const e = evalExact(n.r);
-        if (e && e.eq(q(2))) { const r = toMPoly(n); steps.push(step("اتحاد مربع دوجمله‌ای", T(n) + " = " + T(r.toAst()), "(a ± b)² = a² ± 2ab + b²")); }
-        else if (e && e.eq(q(3))) { const r = toMPoly(n); steps.push(step("اتحاد مکعب دوجمله‌ای", T(n) + " = " + T(r.toAst()), "(a ± b)³ = a³ ± 3a²b + 3ab² ± b³")); }
-        else if (e) { const r = toMPoly(n); steps.push(step("بسط توان", T(n) + " = " + T(r.toAst()), "با ضرب متوالی یا بسط دوجمله‌ای نیوتن")); }
+        if (e && e.eq(q(2))) { const r = toMPoly(n); steps.push(step(tr("اتحاد مربع دوجمله‌ای", "Square of a binomial"), T(n) + " = " + T(r.toAst()), "(a ± b)² = a² ± 2ab + b²")); }
+        else if (e && e.eq(q(3))) { const r = toMPoly(n); steps.push(step(tr("اتحاد مکعب دوجمله‌ای", "Cube of a binomial"), T(n) + " = " + T(r.toAst()), "(a ± b)³ = a³ ± 3a²b + 3ab² ± b³")); }
+        else if (e) { const r = toMPoly(n); steps.push(step(tr("بسط توان", "Expand the power"), T(n) + " = " + T(r.toAst()), tr("با ضرب متوالی یا بسط دوجمله‌ای نیوتن", "By repeated multiplication or the binomial theorem"))); }
       }
       if (n.op === "*" && (isSum(n.l) || isSum(n.r))) {
         const L = toMPoly(n.l), R = toMPoly(n.r); if (!L || !R) return;
         const la = splitTerms(L.toAst()), ra = splitTerms(R.toAst());
         if (la.length * ra.length <= 12) {
           const prods = []; la.forEach(x => ra.forEach(y => prods.push(T(x) === "1" ? T(y) : T(y) === "1" ? T(x) : (needP(x) ? "\\left(" + T(x) + "\\right)" : T(x)) + " \\cdot " + (needP(y) ? "\\left(" + T(y) + "\\right)" : T(y)))));
-          steps.push(step("خاصیت توزیع‌پذیری (پخش)", T(n) + " = " + prods.join(" + ") + " = " + T(toMPoly(n).toAst()), "هر جملهٔ اول در هر جملهٔ دوم ضرب می‌شود."));
+          steps.push(step(tr("خاصیت توزیع‌پذیری (پخش)", "Distributive property"), T(n) + " = " + prods.join(" + ") + " = " + T(toMPoly(n).toAst()), tr("هر جملهٔ اول در هر جملهٔ دوم ضرب می‌شود.", "Every term of the first factor multiplies every term of the second.")));
         }
       }
     })(a);
     const res = mp.toAst();
-    steps.push(step("جمع جمله‌های متشابه", T(a) + " = " + T(res), "جمله‌هایی که متغیر و توان یکسان دارند با هم جمع می‌شوند."));
+    steps.push(step(tr("جمع جمله‌های متشابه", "Combine like terms"), T(a) + " = " + T(res), tr("جمله‌هایی که متغیر و توان یکسان دارند با هم جمع می‌شوند.", "Terms with the same variables and powers are added together.")));
     return { answer: T(res), steps, result: res };
   }
   const needP = x => x.t === "num" ? x.q.sign() < 0 : x.t === "neg";
@@ -537,15 +538,15 @@
     v = v || E.pickVar([a]);
     const P = vs.length <= 1 ? toPoly(a, v) : null;
     if (P) {
-      if (P.deg() < 1) return { answer: T(a), steps: [step("عبارت ثابت", T(a), "عبارت متغیری ندارد.")] };
+      if (P.deg() < 1) return { answer: T(a), steps: [step(tr("عبارت ثابت", "Constant expression"), T(a), tr("عبارت متغیری ندارد.", "The expression has no variable."))] };
       const steps = [];
       const expanded = P.toAst(v);
-      if (T(expanded) !== T(a)) steps.push(step("نوشتن به شکل استاندارد", T(a) + " = " + T(expanded), "جمله‌ها از بزرگ‌ترین توان مرتب می‌شوند."));
+      if (T(expanded) !== T(a)) steps.push(step(tr("نوشتن به شکل استاندارد", "Write in standard form"), T(a) + " = " + T(expanded), tr("جمله‌ها از بزرگ‌ترین توان مرتب می‌شوند.", "Terms are ordered from the highest power down.")));
       const fr = factorPoly(P, v, steps);
       const ans = factorsTex(fr.k, fr.factors, v);
       const irreducible = fr.factors.filter(f => f.p.deg() >= 2);
-      if (!steps.length || (fr.factors.length === 1 && fr.factors[0].m === 1 && fr.k.isOne())) steps.push(step("بررسی تجزیه", ans, "این چندجمله‌ای روی اعداد گویا تجزیه‌پذیر نیست."));
-      else steps.push(step("نتیجهٔ تجزیه", T(a) + " = " + ans, irreducible.length ? "عامل‌های درجهٔ دو یا بالاتر باقی‌مانده روی اعداد گویا تجزیه نمی‌شوند." : null));
+      if (!steps.length || (fr.factors.length === 1 && fr.factors[0].m === 1 && fr.k.isOne())) steps.push(step(tr("بررسی تجزیه", "Check factoring"), ans, tr("این چندجمله‌ای روی اعداد گویا تجزیه‌پذیر نیست.", "This polynomial cannot be factored over the rational numbers.")));
+      else steps.push(step(tr("نتیجهٔ تجزیه", "Factored result"), T(a) + " = " + ans, irreducible.length ? tr("عامل‌های درجهٔ دو یا بالاتر باقی‌مانده روی اعداد گویا تجزیه نمی‌شوند.", "The remaining factors of degree two or higher do not factor over the rational numbers.") : null));
       return { answer: ans, steps };
     }
     /* multivariate: common factor + nerdamer */
@@ -559,19 +560,19 @@
       const cm = new MPoly(); const ck = new Q(g, L); cm.t.set(monoKey(common), ck);
       if (!(ck.isOne() && monoKey(common) === "")) {
         let rest = new MPoly(); mp.t.forEach((k, key) => { const m = parseKey(key); Object.keys(common).forEach(v2 => m[v2] -= common[v2]); const one = new MPoly(); one.t.set(monoKey(m), k.div(ck)); rest = rest.add(one); });
-        steps.push(step("فاکتورگیری از عامل مشترک", T(a) + " = " + T(cm.toAst()) + "\\left(" + T(rest.toAst()) + "\\right)", "بزرگ‌ترین عامل مشترک ضریب‌ها و متغیرها بیرون کشیده می‌شود."));
+        steps.push(step(tr("فاکتورگیری از عامل مشترک", "Factor out the common factor"), T(a) + " = " + T(cm.toAst()) + "\\left(" + T(rest.toAst()) + "\\right)", tr("بزرگ‌ترین عامل مشترک ضریب‌ها و متغیرها بیرون کشیده می‌شود.", "The greatest common factor of the coefficients and variables is pulled out.")));
         let restF = null; try { restF = E.casAst("factor(" + E.str(rest.toAst()) + ")"); } catch (e) { }
         const rf = restF && T(restF) !== T(rest.toAst()) ? T(restF) : "\\left(" + T(rest.toAst()) + "\\right)";
-        if (restF && T(restF) !== T(rest.toAst())) steps.push(step("تجزیهٔ عامل باقی‌مانده", T(rest.toAst()) + " = " + T(restF), null));
+        if (restF && T(restF) !== T(rest.toAst())) steps.push(step(tr("تجزیهٔ عامل باقی‌مانده", "Factor the remaining factor"), T(rest.toAst()) + " = " + T(restF), null));
         const ans = T(cm.toAst()) + (rf.startsWith("\\left(") ? "" : " ") + rf;
         return { answer: ans, steps };
       }
     }
     try {
       const r = E.casAst("factor(" + E.str(a) + ")");
-      steps.push(step("تجزیهٔ کامل", T(a) + " = " + T(r), null));
+      steps.push(step(tr("تجزیهٔ کامل", "Complete factorization"), T(a) + " = " + T(r), null));
       return { answer: T(r), steps };
-    } catch (e) { throw new MathError("تجزیهٔ این عبارت ممکن نشد."); }
+    } catch (e) { throw new MathError(tr("تجزیهٔ این عبارت ممکن نشد.", "Could not factor this expression.")); }
   }
   E.factorSteps = factorSteps;
 
@@ -583,15 +584,15 @@
       const v = vs[0], R = toRat(a, v);
       if (R && !R.isPoly()) {
         const nf = factorPoly(R.n, v, []), df = factorPoly(R.d, v, []);
-        steps.push(step("ترکیب کسرها در یک کسر", T(a) + " = \\frac{" + R.n.tex(v) + "}{" + R.d.tex(v) + "}", "با مخرج مشترک، همهٔ جمله‌ها را یک کسر می‌کنیم."));
-        steps.push(step("تجزیهٔ صورت و مخرج", "\\frac{" + factorsTex(nf.k, nf.factors, v) + "}{" + factorsTex(df.k, df.factors, v) + "}", null));
+        steps.push(step(tr("ترکیب کسرها در یک کسر", "Combine into a single fraction"), T(a) + " = \\frac{" + R.n.tex(v) + "}{" + R.d.tex(v) + "}", tr("با مخرج مشترک، همهٔ جمله‌ها را یک کسر می‌کنیم.", "Using a common denominator, all terms become one fraction.")));
+        steps.push(step(tr("تجزیهٔ صورت و مخرج", "Factor numerator and denominator"), "\\frac{" + factorsTex(nf.k, nf.factors, v) + "}{" + factorsTex(df.k, df.factors, v) + "}", null));
         const g = polyGcd(R.n, R.d);
         const red = R.reduce();
         const restr = realRootsExact(R.d).map(r => v + " \\ne " + r.tex);
-        if (g.deg() > 0) steps.push(step("حذف عامل‌های مشترک", "\\frac{" + red.n.tex(v) + "}{" + red.d.tex(v) + "}", "عامل (" + g.tex(v) + ") از صورت و مخرج حذف می‌شود" + (restr.length ? "؛ با شرط " + restr.join("، ") : "") + "."));
+        if (g.deg() > 0) steps.push(step(tr("حذف عامل‌های مشترک", "Cancel common factors"), "\\frac{" + red.n.tex(v) + "}{" + red.d.tex(v) + "}", tr("عامل (", "The factor (") + g.tex(v) + tr(") از صورت و مخرج حذف می‌شود", ") cancels from the numerator and denominator") + (restr.length ? tr("؛ با شرط ", "; provided ") + restr.join(tr("، ", ", ")) : "") + "."));
         const nf2 = factorPoly(red.n, v, []), df2 = factorPoly(red.d, v, []);
         let ans = red.d.isConst() ? T(red.n.scale(red.d.co(0).inv()).toAst(v)) : "\\frac{" + factorsTex(nf2.k, nf2.factors, v) + "}{" + factorsTex(df2.k, df2.factors, v) + "}";
-        return { answer: ans, steps, note: restr.length ? "دامنه: " + restr.join("، ") : null };
+        return { answer: ans, steps, note: restr.length ? tr("دامنه: ", "Domain: ") + restr.join(tr("، ", ", ")) : null };
       }
       if (R && R.isPoly()) {
         const res = R.n.toAst(v);
@@ -600,7 +601,7 @@
     }
     if (toMPoly(a)) return expandSteps(a);
     const r = E.simplifyAst(a);
-    steps.push(step("ساده‌سازی", T(a) + " = " + T(r), "با قواعد جبری و اتحادهای مثلثاتی/لگاریتمی"));
+    steps.push(step(tr("ساده‌سازی", "Simplify"), T(a) + " = " + T(r), tr("با قواعد جبری و اتحادهای مثلثاتی/لگاریتمی", "Using algebraic rules and trigonometric/logarithmic identities")));
     return { answer: T(r), steps };
   }
   E.simplifySteps = simplifySteps;
@@ -633,55 +634,55 @@
     /* clear fractional coefficients */
     let D = 1n; [Lp, Rp].forEach(p => p.c.forEach(c => { D = blcm(D, c.d); }));
     if (containsParenProduct(L) || containsParenProduct(R)) {
-      steps.push(step("باز کردن پرانتزها", eqTex(Lp.toAst(v), Rp.toAst(v)), "با خاصیت توزیع‌پذیری پرانتزها را باز و جمله‌های متشابه را جمع می‌کنیم."));
+      steps.push(step(tr("باز کردن پرانتزها", "Expand the parentheses"), eqTex(Lp.toAst(v), Rp.toAst(v)), tr("با خاصیت توزیع‌پذیری پرانتزها را باز و جمله‌های متشابه را جمع می‌کنیم.", "Use the distributive property to remove parentheses and combine like terms.")));
     } else if (T(Lp.toAst(v)) !== T(L) || T(Rp.toAst(v)) !== T(R)) {
-      steps.push(step("ساده کردن هر طرف", eqTex(Lp.toAst(v), Rp.toAst(v)), "جمله‌های متشابه هر طرف را با هم جمع می‌کنیم."));
+      steps.push(step(tr("ساده کردن هر طرف", "Simplify each side"), eqTex(Lp.toAst(v), Rp.toAst(v)), tr("جمله‌های متشابه هر طرف را با هم جمع می‌کنیم.", "Combine like terms on each side.")));
     }
     if (D > 1n) {
       const k = new Q(D); Lp = Lp.scale(k); Rp = Rp.scale(k);
-      steps.push(step("حذف مخرج‌ها", eqTex(Lp.toAst(v), Rp.toAst(v)), "دو طرف را در مخرج مشترک " + fa(D.toString()) + " ضرب می‌کنیم."));
+      steps.push(step(tr("حذف مخرج‌ها", "Clear the denominators"), eqTex(Lp.toAst(v), Rp.toAst(v)), tr("دو طرف را در مخرج مشترک ", "Multiply both sides by the common denominator ") + fa(D.toString()) + tr(" ضرب می‌کنیم.", ".")));
     }
     const a = Lp.co(1), b = Lp.co(0), c = Rp.co(1), d = Rp.co(0);
     if (!c.isZero()) {
       const cx = new Poly([q(0), c]);
       Lp = Lp.sub(cx); Rp = Rp.sub(cx);
-      steps.push(step((c.sign() > 0 ? "تفریق " : "جمع ") + T(N.mul(N.num(c.abs()), N.v(v))).replace("1 " + v, v) + (c.sign() > 0 ? " از" : " با") + " دو طرف", eqTex(Lp.toAst(v), Rp.toAst(v)), "جمله‌های دارای " + v + " را به سمت چپ می‌بریم."));
+      steps.push(step((c.sign() > 0 ? tr("تفریق ", "Subtract ") : tr("جمع ", "Add ")) + T(N.mul(N.num(c.abs()), N.v(v))).replace("1 " + v, v) + (c.sign() > 0 ? tr(" از", " from") : tr(" با", " to")) + tr(" دو طرف", " both sides"), eqTex(Lp.toAst(v), Rp.toAst(v)), tr("جمله‌های دارای ", "Move the terms containing ") + v + tr(" را به سمت چپ می‌بریم.", " to the left side.")));
     }
     if (!b.isZero()) {
       Lp = Lp.sub(Poly.const(b)); Rp = Rp.sub(Poly.const(b));
-      steps.push(step((b.sign() > 0 ? "تفریق " + b.toTeX() + " از" : "جمع " + b.neg().toTeX() + " با") + " دو طرف", eqTex(Lp.toAst(v), Rp.toAst(v)), "عددهای ثابت را به سمت راست می‌بریم."));
+      steps.push(step((b.sign() > 0 ? tr("تفریق ", "Subtract ") + b.toTeX() + tr(" از", " from") : tr("جمع ", "Add ") + b.neg().toTeX() + tr(" با", " to")) + tr(" دو طرف", " both sides"), eqTex(Lp.toAst(v), Rp.toAst(v)), tr("عددهای ثابت را به سمت راست می‌بریم.", "Move the constants to the right side.")));
     }
     const A = Lp.co(1), B = Rp.co(0);
     if (A.isZero()) {
-      if (B.isZero()) { steps.push(step("نتیجه", "0 = 0", "تساوی همیشه برقرار است؛ هر عدد حقیقی جواب است.")); return { answer: v + " \\in \\mathbb{R}", sols: "all" }; }
-      steps.push(step("نتیجه", "0 = " + B.toTeX(), "این تساوی هرگز برقرار نیست؛ معادله جواب ندارد.")); return { answer: "\\varnothing", sols: [] };
+      if (B.isZero()) { steps.push(step(tr("نتیجه", "Result"), "0 = 0", tr("تساوی همیشه برقرار است؛ هر عدد حقیقی جواب است.", "The equality always holds; every real number is a solution."))); return { answer: v + " \\in \\mathbb{R}", sols: "all" }; }
+      steps.push(step(tr("نتیجه", "Result"), "0 = " + B.toTeX(), tr("این تساوی هرگز برقرار نیست؛ معادله جواب ندارد.", "This equality never holds; the equation has no solution."))); return { answer: "\\varnothing", sols: [] };
     }
     const x = B.div(A);
-    if (!A.isOne()) steps.push(step("تقسیم دو طرف بر " + A.toTeX(), v + " = \\frac{" + B.toTeX() + "}{" + A.toTeX() + "} = " + x.toTeX(), "ضریب " + v + " را حذف می‌کنیم."));
+    if (!A.isOne()) steps.push(step(tr("تقسیم دو طرف بر ", "Divide both sides by ") + A.toTeX(), v + " = \\frac{" + B.toTeX() + "}{" + A.toTeX() + "} = " + x.toTeX(), tr("ضریب ", "This removes the coefficient of ") + v + tr(" را حذف می‌کنیم.", ".")));
     return { answer: v + " = " + x.toTeX() + (x.isInt() ? "" : (x.toDecimal() ? " = " + x.toDecimal() : " \\approx " + E.trimNum(x.num(), 6))), sols: [N.num(x)], exact: [x] };
   }
 
   function quadraticSteps(P, v, steps) {
     const a = P.co(2), b = P.co(1), c = P.co(0);
-    steps.push(step("شکل استاندارد", P.tex(v) + " = 0", "a = " + a.toTeX() + "، b = " + b.toTeX() + "، c = " + c.toTeX()));
+    steps.push(step(tr("شکل استاندارد", "Standard form"), P.tex(v) + " = 0", "a = " + a.toTeX() + tr("، b = ", ", b = ") + b.toTeX() + tr("، c = ", ", c = ") + c.toTeX()));
     if (b.isZero()) {
       const rhs = c.neg().div(a);
-      steps.push(step("جداسازی " + v + "²", v + "^{2} = " + rhs.toTeX(), "جملهٔ ثابت را به طرف دیگر می‌بریم و بر a تقسیم می‌کنیم."));
+      steps.push(step(tr("جداسازی ", "Isolate ") + v + "²", v + "^{2} = " + rhs.toTeX(), tr("جملهٔ ثابت را به طرف دیگر می‌بریم و بر a تقسیم می‌کنیم.", "Move the constant term to the other side and divide by a.")));
       if (rhs.sign() < 0) {
         const { k, m } = sqrtQ(rhs.neg());
-        steps.push(step("جذر دو طرف", v + " = \\pm\\sqrt{" + rhs.toTeX() + "}", "مربع هیچ عدد حقیقی منفی نیست؛ جواب‌ها مختلط‌اند."));
+        steps.push(step(tr("جذر دو طرف", "Take the square root of both sides"), v + " = \\pm\\sqrt{" + rhs.toTeX() + "}", tr("مربع هیچ عدد حقیقی منفی نیست؛ جواب‌ها مختلط‌اند.", "The square of a real number is never negative; the solutions are complex.")));
         const z = surdTexFraction(q(0), k, m, true);
-        return { answer: v + " = " + z, sols: [], complex: true, note: "معادله جواب حقیقی ندارد." };
+        return { answer: v + " = " + z, sols: [], complex: true, note: tr("معادله جواب حقیقی ندارد.", "The equation has no real solution.") };
       }
       const { k, m } = sqrtQ(rhs);
-      steps.push(step("جذر دو طرف", v + " = \\pm\\sqrt{" + rhs.toTeX() + "} = " + surdTexFraction(q(0), k, m, false), "یادت باشد هر عدد مثبت دو ریشهٔ دوم دارد: مثبت و منفی."));
+      steps.push(step(tr("جذر دو طرف", "Take the square root of both sides"), v + " = \\pm\\sqrt{" + rhs.toTeX() + "} = " + surdTexFraction(q(0), k, m, false), tr("یادت باشد هر عدد مثبت دو ریشهٔ دوم دارد: مثبت و منفی.", "Remember: every positive number has two square roots, one positive and one negative.")));
       const sols = rhs.isZero() ? [N.num(q(0))] : [surdAst(q(0), k, m, -1), surdAst(q(0), k, m, 1)];
       return { answer: rhs.isZero() ? v + " = 0" : v + " = " + surdTexFraction(q(0), k, m, false), sols };
     }
     if (c.isZero()) {
       const r = b.neg().div(a);
-      steps.push(step("فاکتورگیری از " + v, v + "\\left(" + new Poly([b, a]).tex(v) + "\\right) = 0", "از هر دو جمله " + v + " فاکتور می‌گیریم."));
-      steps.push(step("خاصیت حاصل‌ضرب صفر", v + " = 0 \\quad \\text{یا} \\quad " + new Poly([b, a]).tex(v) + " = 0", "اگر حاصل‌ضرب صفر باشد، دست‌کم یکی از عامل‌ها صفر است."));
+      steps.push(step(tr("فاکتورگیری از ", "Factor out ") + v, v + "\\left(" + new Poly([b, a]).tex(v) + "\\right) = 0", tr("از هر دو جمله ", "Factor ") + v + tr(" فاکتور می‌گیریم.", " out of both terms.")));
+      steps.push(step(tr("خاصیت حاصل‌ضرب صفر", "Zero-product property"), v + tr(" = 0 \\quad \\text{یا} \\quad ", " = 0 \\quad \\text{or} \\quad ") + new Poly([b, a]).tex(v) + " = 0", tr("اگر حاصل‌ضرب صفر باشد، دست‌کم یکی از عامل‌ها صفر است.", "If a product is zero, at least one of the factors is zero.")));
       const s = [q(0), r].sort((x, y) => x.cmp(y));
       return { answer: v + " = " + s.map(x => x.toTeX()).join(",\\; " + v + " = "), sols: s.map(x => N.num(x)) };
     }
@@ -690,20 +691,20 @@
     if (sq) {
       const fr = factorPoly(P, v, []);
       const r1 = b.neg().sub(sq).div(a.mul(q(2))), r2 = b.neg().add(sq).div(a.mul(q(2)));
-      steps.push(step("تجزیه", factorsTex(fr.k, fr.factors, v) + " = 0", a.isOne() ? "دو عدد با حاصل‌ضرب " + c.toTeX() + " و مجموع " + b.toTeX() + " پیدا می‌کنیم." : "با روش ac یا مبین، سه‌جمله‌ای را تجزیه می‌کنیم."));
-      if (r1.eq(r2)) { steps.push(step("ریشهٔ مضاعف", v + " = " + r1.toTeX(), "Δ = 0 است؛ معادله یک ریشهٔ تکراری دارد.")); return { answer: v + " = " + r1.toTeX(), sols: [N.num(r1)] }; }
-      steps.push(step("خاصیت حاصل‌ضرب صفر", fr.factors.map(f => f.p.tex(v) + " = 0").join(" \\quad \\text{یا} \\quad "), "هر عامل را برابر صفر قرار می‌دهیم."));
+      steps.push(step(tr("تجزیه", "Factor"), factorsTex(fr.k, fr.factors, v) + " = 0", a.isOne() ? tr("دو عدد با حاصل‌ضرب ", "Find two numbers with product ") + c.toTeX() + tr(" و مجموع ", " and sum ") + b.toTeX() + tr(" پیدا می‌کنیم.", ".") : tr("با روش ac یا مبین، سه‌جمله‌ای را تجزیه می‌کنیم.", "Factor the trinomial with the ac method or the discriminant.")));
+      if (r1.eq(r2)) { steps.push(step(tr("ریشهٔ مضاعف", "Double root"), v + " = " + r1.toTeX(), tr("Δ = 0 است؛ معادله یک ریشهٔ تکراری دارد.", "Δ = 0; the equation has one repeated root."))); return { answer: v + " = " + r1.toTeX(), sols: [N.num(r1)] }; }
+      steps.push(step(tr("خاصیت حاصل‌ضرب صفر", "Zero-product property"), fr.factors.map(f => f.p.tex(v) + " = 0").join(tr(" \\quad \\text{یا} \\quad ", " \\quad \\text{or} \\quad ")), tr("هر عامل را برابر صفر قرار می‌دهیم.", "Set each factor equal to zero.")));
       const s = [r1, r2].sort((x, y) => x.cmp(y));
       return { answer: v + " = " + s.map(x => x.toTeX()).join(",\\; " + v + " = "), sols: s.map(x => N.num(x)) };
     }
-    steps.push(step("فرمول کلی (دلتا)", v + " = \\frac{-b \\pm \\sqrt{\\Delta}}{2a}, \\quad \\Delta = b^{2} - 4ac", "عبارت روی اعداد گویا تجزیه نمی‌شود؛ از فرمول کلی استفاده می‌کنیم."));
-    steps.push(step("محاسبهٔ Δ", "\\Delta = \\left(" + b.toTeX() + "\\right)^{2} - 4\\left(" + a.toTeX() + "\\right)\\left(" + c.toTeX() + "\\right) = " + disc.toTeX(), disc.sign() > 0 ? "Δ > 0 ⇒ دو ریشهٔ حقیقی متمایز" : "Δ < 0 ⇒ ریشهٔ حقیقی ندارد (دو ریشهٔ مختلط)"));
+    steps.push(step(tr("فرمول کلی (دلتا)", "Quadratic formula"), v + " = \\frac{-b \\pm \\sqrt{\\Delta}}{2a}, \\quad \\Delta = b^{2} - 4ac", tr("عبارت روی اعداد گویا تجزیه نمی‌شود؛ از فرمول کلی استفاده می‌کنیم.", "The expression does not factor over the rationals; we use the quadratic formula.")));
+    steps.push(step(tr("محاسبهٔ Δ", "Compute Δ"), "\\Delta = \\left(" + b.toTeX() + "\\right)^{2} - 4\\left(" + a.toTeX() + "\\right)\\left(" + c.toTeX() + "\\right) = " + disc.toTeX(), disc.sign() > 0 ? tr("Δ > 0 ⇒ دو ریشهٔ حقیقی متمایز", "Δ > 0 ⇒ two distinct real roots") : tr("Δ < 0 ⇒ ریشهٔ حقیقی ندارد (دو ریشهٔ مختلط)", "Δ < 0 ⇒ no real roots (two complex roots)")));
     const { k, m } = sqrtQ(disc.abs());
     const A = b.neg().div(a.mul(q(2))), B = k.div(a.mul(q(2))).abs();
     const rad = (m === 1n ? k.toTeX() : (k.isOne() ? "" : k.toTeX()) + "\\sqrt{" + m + "}");
-    steps.push(step("جایگذاری در فرمول", v + " = \\frac{" + b.neg().toTeX() + " \\pm " + (disc.sign() < 0 ? rad + "\\,i" : (m === 1n ? rad : "\\sqrt{" + disc.toTeX() + "}")) + "}{" + a.mul(q(2)).toTeX() + "}", m !== 1n && !k.isOne() ? "\\sqrt{" + disc.abs().toTeX() + "} = " + rad : null));
+    steps.push(step(tr("جایگذاری در فرمول", "Substitute into the formula"), v + " = \\frac{" + b.neg().toTeX() + " \\pm " + (disc.sign() < 0 ? rad + "\\,i" : (m === 1n ? rad : "\\sqrt{" + disc.toTeX() + "}")) + "}{" + a.mul(q(2)).toTeX() + "}", m !== 1n && !k.isOne() ? "\\sqrt{" + disc.abs().toTeX() + "} = " + rad : null));
     const ans = v + " = " + surdTexFraction(A, B, m, disc.sign() < 0);
-    if (disc.sign() < 0) return { answer: ans, sols: [], complex: true, note: "معادله ریشهٔ حقیقی ندارد؛ ریشه‌ها مختلط‌اند." };
+    if (disc.sign() < 0) return { answer: ans, sols: [], complex: true, note: tr("معادله ریشهٔ حقیقی ندارد؛ ریشه‌ها مختلط‌اند.", "The equation has no real roots; the roots are complex.") };
     const s1 = surdAst(A, B, m, -1), s2 = surdAst(A, B, m, 1);
     const approx = [evalNum(s1), evalNum(s2)].sort((x, y) => x - y).map(x => E.trimNum(x, 6));
     return { answer: ans, approx: v + " \\approx " + approx.join(",\\; "), sols: [s1, s2] };
@@ -711,32 +712,32 @@
 
   function polySolveSteps(P, v, steps) {
     if (P.deg() === 2) return quadraticSteps(P, v, steps);
-    steps.push(step("شکل استاندارد", P.tex(v) + " = 0", "همهٔ جمله‌ها را به یک طرف می‌بریم."));
+    steps.push(step(tr("شکل استاندارد", "Standard form"), P.tex(v) + " = 0", tr("همهٔ جمله‌ها را به یک طرف می‌بریم.", "Move all terms to one side.")));
     const fsteps = [];
     const fr = factorPoly(P, v, fsteps);
     fsteps.forEach(s => steps.push(s));
-    if (fr.factors.length > 1 || (fr.factors[0] && fr.factors[0].m > 1)) steps.push(step("خاصیت حاصل‌ضرب صفر", factorsTex(fr.k, fr.factors, v) + " = 0", "هر عامل را جداگانه برابر صفر قرار می‌دهیم."));
+    if (fr.factors.length > 1 || (fr.factors[0] && fr.factors[0].m > 1)) steps.push(step(tr("خاصیت حاصل‌ضرب صفر", "Zero-product property"), factorsTex(fr.k, fr.factors, v) + " = 0", tr("هر عامل را جداگانه برابر صفر قرار می‌دهیم.", "Set each factor equal to zero separately.")));
     let sols = [], texs = [], approx = [], complexNote = false;
     fr.factors.forEach(f => {
       const p = f.p;
       if (p.deg() === 1) { const r = p.co(0).neg().div(p.co(1)); sols.push({ v: r.num(), ast: N.num(r), tex: r.toTeX() }); }
       else if (p.deg() === 2) {
         const sub = []; const r = quadraticSteps(p, v, sub);
-        if (fr.factors.length > 1) steps.push(step("حل عامل درجه دو: " + p.tex(v) + " = 0", r.answer, null)); else sub.forEach(s => steps.push(s));
+        if (fr.factors.length > 1) steps.push(step(tr("حل عامل درجه دو: ", "Solve the quadratic factor: ") + p.tex(v) + " = 0", r.answer, null)); else sub.forEach(s => steps.push(s));
         if (r.complex) complexNote = true;
         (r.sols || []).forEach(s => sols.push({ v: evalNum(s), ast: s, tex: T(s) }));
       } else {
         const nr = numericRoots(p);
         const reals = nr.filter(z => z[1] === 0).map(z => z[0]);
         if (nr.length > reals.length) complexNote = true;
-        steps.push(step("ریشه‌یابی عددی", p.tex(v) + " = 0", "این عامل روی اعداد گویا تجزیه نمی‌شود؛ ریشه‌های حقیقی با روش عددی (نیوتن) تقریب زده می‌شوند."));
+        steps.push(step(tr("ریشه‌یابی عددی", "Numerical root finding"), p.tex(v) + " = 0", tr("این عامل روی اعداد گویا تجزیه نمی‌شود؛ ریشه‌های حقیقی با روش عددی (نیوتن) تقریب زده می‌شوند.", "This factor does not factor over the rationals; real roots are approximated numerically (Newton's method).")));
         reals.forEach(x => { sols.push({ v: x, ast: N.fl(x), tex: "\\approx " + E.trimNum(x, 6), approx: true }); });
       }
     });
     sols.sort((a, b) => a.v - b.v);
     sols = sols.filter((s, i) => i === 0 || Math.abs(s.v - sols[i - 1].v) > 1e-9);
-    if (!sols.length) return { answer: "\\varnothing", sols: [], note: complexNote ? "ریشهٔ حقیقی وجود ندارد." : null };
-    return { answer: sols.map(s => v + (s.approx ? " " : " = ") + s.tex).join(",\\; "), sols: sols.map(s => s.ast), note: complexNote ? "برخی ریشه‌ها مختلط‌اند و نمایش داده نشده‌اند." : null };
+    if (!sols.length) return { answer: "\\varnothing", sols: [], note: complexNote ? tr("ریشهٔ حقیقی وجود ندارد.", "There is no real root.") : null };
+    return { answer: sols.map(s => v + (s.approx ? " " : " = ") + s.tex).join(",\\; "), sols: sols.map(s => s.ast), note: complexNote ? tr("برخی ریشه‌ها مختلط‌اند و نمایش داده نشده‌اند.", "Some roots are complex and are not shown.") : null };
   }
 
   /* verify solutions numerically against original equation */
@@ -774,17 +775,17 @@
       }
       /* rational equation */
       const restr = realRootsExact(Lr.d.mul(Rr.d));
-      steps.push(step("شرط دامنه", restr.length ? restr.map(r => v + " \\ne " + r.tex).join(",\\; ") : "\\text{همهٔ اعداد حقیقی}", "مخرج‌ها نباید صفر شوند."));
+      steps.push(step(tr("شرط دامنه", "Domain condition"), restr.length ? restr.map(r => v + " \\ne " + r.tex).join(",\\; ") : tr("\\text{همهٔ اعداد حقیقی}", "\\text{all real numbers}"), tr("مخرج‌ها نباید صفر شوند.", "Denominators must not be zero.")));
       const red = new Rat(D.n, D.d);
-      steps.push(step("یک‌طرفه کردن و مخرج مشترک", "\\frac{" + red.n.tex(v) + "}{" + red.d.tex(v) + "} = 0", "همهٔ جمله‌ها را به یک طرف می‌بریم و یک کسر می‌سازیم."));
-      steps.push(step("صورت برابر صفر", red.n.tex(v) + " = 0", "کسر وقتی صفر است که صورتش صفر و مخرجش ناصفر باشد."));
+      steps.push(step(tr("یک‌طرفه کردن و مخرج مشترک", "Move to one side and use a common denominator"), "\\frac{" + red.n.tex(v) + "}{" + red.d.tex(v) + "} = 0", tr("همهٔ جمله‌ها را به یک طرف می‌بریم و یک کسر می‌سازیم.", "Move all terms to one side and make a single fraction.")));
+      steps.push(step(tr("صورت برابر صفر", "Numerator equals zero"), red.n.tex(v) + " = 0", tr("کسر وقتی صفر است که صورتش صفر و مخرجش ناصفر باشد.", "A fraction is zero when its numerator is zero and its denominator is not.")));
       if (red.n.isZero()) return done({ answer: v + " \\in \\mathbb{R}" + (restr.length ? ",\\; " + restr.map(r => v + " \\ne " + r.tex).join(",\\; ") : ""), sols: "all" });
       const sub = red.n.deg() <= 1 ? linearSteps(red.n.toAst(v), N.num(q(0)), v, []) : polySolveSteps(red.n, v, []);
-      if (red.n.deg() >= 1) steps.push(step("حل معادلهٔ صورت", sub.answer, null));
+      if (red.n.deg() >= 1) steps.push(step(tr("حل معادلهٔ صورت", "Solve the numerator equation"), sub.answer, null));
       const sols = (sub.sols === "all" ? [] : sub.sols || []);
       const good = sols.filter(s => Math.abs(red.d.evalN(evalNum(s))) > 1e-9);
       const bad = sols.filter(s => !good.includes(s));
-      if (bad.length) steps.push(step("حذف جواب غیرقابل‌قبول", bad.map(s => v + " = " + T(s)).join(",\\; "), "این مقدار مخرج را صفر می‌کند و در دامنه نیست."));
+      if (bad.length) steps.push(step(tr("حذف جواب غیرقابل‌قبول", "Reject an invalid solution"), bad.map(s => v + " = " + T(s)).join(",\\; "), tr("این مقدار مخرج را صفر می‌کند و در دامنه نیست.", "This value makes a denominator zero, so it is not in the domain.")));
       return done({ answer: good.length ? good.map(s => v + " = " + T(s)).join(",\\; ") : "\\varnothing", sols: good });
     }
     if (others.length) { /* literal equation: solve for v symbolically */
@@ -796,15 +797,15 @@
       const m = affineIn(A, n => n.t === "fn" && n.n === "abs" && E.has(n, v), v);
       if (m && toRat(m.T.a[0], v)) {
         const rhs = simp(N.div(N.sub(B, N.num(m.c)), N.num(m.k)));
-        if (!m.c.isZero() || !m.k.isOne()) steps.push(step("جداسازی قدرمطلق", eqTex(m.T, rhs), "جمله‌های دیگر را به طرف دیگر می‌بریم."));
+        if (!m.c.isZero() || !m.k.isOne()) steps.push(step(tr("جداسازی قدرمطلق", "Isolate the absolute value"), eqTex(m.T, rhs), tr("جمله‌های دیگر را به طرف دیگر می‌بریم.", "Move the other terms to the other side.")));
         const u = m.T.a[0];
         const rv = evalExact(rhs);
-        if (rv && rv.sign() < 0) { steps.push(step("بررسی علامت", eqTex(m.T, rhs), "قدرمطلق هرگز منفی نیست؛ پس معادله جواب ندارد.")); return done({ answer: "\\varnothing", sols: [] }); }
-        steps.push(step("دو حالت", eqTex(u, rhs) + " \\quad \\text{یا} \\quad " + eqTex(u, simp(N.neg(rhs))), "اگر |u| = k باشد، آنگاه u = k یا u = −k."));
+        if (rv && rv.sign() < 0) { steps.push(step(tr("بررسی علامت", "Check the sign"), eqTex(m.T, rhs), tr("قدرمطلق هرگز منفی نیست؛ پس معادله جواب ندارد.", "An absolute value is never negative, so the equation has no solution."))); return done({ answer: "\\varnothing", sols: [] }); }
+        steps.push(step(tr("دو حالت", "Two cases"), eqTex(u, rhs) + tr(" \\quad \\text{یا} \\quad ", " \\quad \\text{or} \\quad ") + eqTex(u, simp(N.neg(rhs))), tr("اگر |u| = k باشد، آنگاه u = k یا u = −k.", "If |u| = k, then u = k or u = −k.")));
         let sols = [];
-        [rhs, simp(N.neg(rhs))].forEach(rr => { const r = solveEquation(u, rr, v); steps.push(step("حل حالت " + eqTex(u, rr), r.answer, null)); if (Array.isArray(r.sols)) sols = sols.concat(r.sols); });
+        [rhs, simp(N.neg(rhs))].forEach(rr => { const r = solveEquation(u, rr, v); steps.push(step(tr("حل حالت ", "Solve case ") + eqTex(u, rr), r.answer, null)); if (Array.isArray(r.sols)) sols = sols.concat(r.sols); });
         const good = sols.filter(s => checkSol(rawL, rawR, v, s)).sort((a, b) => evalNum(a) - evalNum(b)).filter((s, i, arr) => i === 0 || Math.abs(evalNum(s) - evalNum(arr[i - 1])) > 1e-9);
-        if (good.length < sols.length) steps.push(step("بررسی جواب‌ها", "", "جواب‌هایی که در معادلهٔ اصلی صدق نمی‌کنند حذف شدند."));
+        if (good.length < sols.length) steps.push(step(tr("بررسی جواب‌ها", "Check the solutions"), "", tr("جواب‌هایی که در معادلهٔ اصلی صدق نمی‌کنند حذف شدند.", "Solutions that do not satisfy the original equation were removed.")));
         return done({ answer: good.length ? good.map(s => v + " = " + T(s)).join(",\\; ") : "\\varnothing", sols: good });
       }
     }
@@ -813,17 +814,17 @@
       const m = affineIn(A, n => n.t === "fn" && n.n === "sqrt" && E.has(n, v), v);
       if (m && toRat(m.T.a[0], v) && toRat(B, v)) {
         const rhs = simp(N.div(N.sub(B, N.num(m.c)), N.num(m.k)));
-        if (!m.c.isZero() || !m.k.isOne()) steps.push(step("جداسازی رادیکال", eqTex(m.T, rhs), "رادیکال را در یک طرف تنها می‌کنیم."));
+        if (!m.c.isZero() || !m.k.isOne()) steps.push(step(tr("جداسازی رادیکال", "Isolate the radical"), eqTex(m.T, rhs), tr("رادیکال را در یک طرف تنها می‌کنیم.", "Get the radical alone on one side.")));
         const sq = toRat(rhs, v).pow(2), inner = toRat(m.T.a[0], v);
-        steps.push(step("به توان ۲ رساندن دو طرف", eqTex(m.T.a[0], N.pow(rhs, N.num(q(2)))), "دو طرف را مربع می‌کنیم؛ ممکن است جواب اضافی ایجاد شود که باید بررسی شود."));
+        steps.push(step(tr("به توان ۲ رساندن دو طرف", "Square both sides"), eqTex(m.T.a[0], N.pow(rhs, N.num(q(2)))), tr("دو طرف را مربع می‌کنیم؛ ممکن است جواب اضافی ایجاد شود که باید بررسی شود.", "Squaring both sides may introduce extraneous solutions, which must be checked.")));
         const diff = inner.sub(sq);
         const r = diff.isPoly() ? (diff.n.deg() <= 1 ? linearSteps(m.T.a[0], (sq.isPoly() ? sq.n.toAst(v) : N.pow(rhs, N.num(q(2)))), v, []) : polySolveSteps(diff.n, v, [])) : null;
         if (!r) break;
-        steps.push(step("حل معادلهٔ حاصل", r.answer, null));
+        steps.push(step(tr("حل معادلهٔ حاصل", "Solve the resulting equation"), r.answer, null));
         const cand = Array.isArray(r.sols) ? r.sols : [];
         const good = cand.filter(s => checkSol(rawL, rawR, v, s));
         const bad = cand.filter(s => !good.includes(s));
-        steps.push(step("بررسی در معادلهٔ اصلی", (good.map(s => v + " = " + T(s) + " \\;\\checkmark").concat(bad.map(s => v + " = " + T(s) + " \\;\\times"))).join(",\\quad "), bad.length ? "جواب‌های علامت‌خورده با × جواب اضافی (ناشی از مربع کردن) هستند." : "همهٔ جواب‌ها قابل قبول‌اند."));
+        steps.push(step(tr("بررسی در معادلهٔ اصلی", "Check in the original equation"), (good.map(s => v + " = " + T(s) + " \\;\\checkmark").concat(bad.map(s => v + " = " + T(s) + " \\;\\times"))).join(",\\quad "), bad.length ? tr("جواب‌های علامت‌خورده با × جواب اضافی (ناشی از مربع کردن) هستند.", "Solutions marked × are extraneous (introduced by squaring).") : tr("همهٔ جواب‌ها قابل قبول‌اند.", "All solutions are valid.")));
         return done({ answer: good.length ? good.map(s => v + " = " + T(s)).join(",\\; ") : "\\varnothing", sols: good });
       }
     }
@@ -834,17 +835,17 @@
       if (m) {
         const base = m.T.t === "fn" ? N.c("e") : m.T.l, u = m.T.t === "fn" ? m.T.a[0] : m.T.r;
         const rhs = simp(N.div(N.sub(B, N.num(m.c)), N.num(m.k)));
-        if (!m.c.isZero() || !m.k.isOne()) steps.push(step("جداسازی جملهٔ نمایی", eqTex(m.T, rhs), null));
+        if (!m.c.isZero() || !m.k.isOne()) steps.push(step(tr("جداسازی جملهٔ نمایی", "Isolate the exponential term"), eqTex(m.T, rhs), null));
         const rv = evalNum(rhs), bv = evalNum(base);
-        if (!(rv > 0)) { steps.push(step("بررسی علامت", eqTex(m.T, rhs), "توان یک پایهٔ مثبت همیشه مثبت است؛ جواب حقیقی ندارد.")); return done({ answer: "\\varnothing", sols: [] }); }
+        if (!(rv > 0)) { steps.push(step(tr("بررسی علامت", "Check the sign"), eqTex(m.T, rhs), tr("توان یک پایهٔ مثبت همیشه مثبت است؛ جواب حقیقی ندارد.", "A positive base raised to any power is positive; there is no real solution."))); return done({ answer: "\\varnothing", sols: [] }); }
         let kexp = null;
         const bq = evalExact(base), rq = evalExact(rhs);
         if (bq && rq) { const lg = Math.log(rv) / Math.log(bv); const cand = Q.fromNumber(Math.round(lg * 12) / 12); if (Math.abs(lg - cand.num()) < 1e-12) { const chk = E.evalExact(N.pow(N.num(bq), N.num(cand))); if (chk && chk.eq(rq)) kexp = cand; } }
         let rhsU;
-        if (kexp) { steps.push(step("هم‌پایه کردن", T(base) + "^{" + T(u) + "} = " + T(base) + "^{" + kexp.toTeX() + "}", T(rhs) + " را به صورت توانی از " + T(base) + " می‌نویسیم.")); rhsU = N.num(kexp); steps.push(step("برابری توان‌ها", eqTex(u, rhsU), "وقتی پایه‌ها برابرند، توان‌ها برابرند.")); }
+        if (kexp) { steps.push(step(tr("هم‌پایه کردن", "Rewrite with the same base"), T(base) + "^{" + T(u) + "} = " + T(base) + "^{" + kexp.toTeX() + "}", T(rhs) + tr(" را به صورت توانی از ", " written as a power of ") + T(base) + tr(" می‌نویسیم.", "."))); rhsU = N.num(kexp); steps.push(step(tr("برابری توان‌ها", "Equate the exponents"), eqTex(u, rhsU), tr("وقتی پایه‌ها برابرند، توان‌ها برابرند.", "When the bases are equal, the exponents are equal."))); }
         else {
           rhsU = base.t === "const" && base.n === "e" ? N.fn("ln", rhs) : N.div(N.fn("ln", rhs), N.fn("ln", base));
-          steps.push(step("لگاریتم گرفتن از دو طرف", eqTex(u, rhsU), base.t === "const" ? "ln(eᵘ) = u" : "از ln دو طرف و قاعدهٔ ln(aᵘ) = u·ln a استفاده می‌کنیم."));
+          steps.push(step(tr("لگاریتم گرفتن از دو طرف", "Take logarithms of both sides"), eqTex(u, rhsU), base.t === "const" ? "ln(eᵘ) = u" : tr("از ln دو طرف و قاعدهٔ ln(aᵘ) = u·ln a استفاده می‌کنیم.", "Take ln of both sides and use ln(aᵘ) = u·ln a.")));
         }
         const r = solveEquation(u, rhsU, v);
         r.steps.forEach(s => steps.push(s));
@@ -859,14 +860,14 @@
       const m = affineIn(A, n => n.t === "fn" && (n.n === "ln" || n.n === "log") && E.has(n, v), v);
       if (m && toRat(m.T.a[0], v)) {
         const rhs = simp(N.div(N.sub(B, N.num(m.c)), N.num(m.k)));
-        if (!m.c.isZero() || !m.k.isOne()) steps.push(step("جداسازی لگاریتم", eqTex(m.T, rhs), null));
+        if (!m.c.isZero() || !m.k.isOne()) steps.push(step(tr("جداسازی لگاریتم", "Isolate the logarithm"), eqTex(m.T, rhs), null));
         const base = m.T.n === "ln" ? N.c("e") : N.num(q(10));
         const rhsU = simp(N.pow(base, rhs));
-        steps.push(step("تعریف لگاریتم", eqTex(m.T.a[0], rhsU), m.T.n === "ln" ? "ln u = k ⇔ u = eᵏ" : "log u = k ⇔ u = 10ᵏ"));
+        steps.push(step(tr("تعریف لگاریتم", "Definition of the logarithm"), eqTex(m.T.a[0], rhsU), m.T.n === "ln" ? "ln u = k ⇔ u = eᵏ" : "log u = k ⇔ u = 10ᵏ"));
         const r = solveEquation(m.T.a[0], rhsU, v);
         r.steps.forEach(s => steps.push(s));
         const sols = (Array.isArray(r.sols) ? r.sols : []).filter(s => checkSol(rawL, rawR, v, s));
-        steps.push(step("شرط دامنه", T(m.T.a[0]) + " > 0", "ورودی لگاریتم باید مثبت باشد؛ جواب‌ها بررسی شدند."));
+        steps.push(step(tr("شرط دامنه", "Domain condition"), T(m.T.a[0]) + " > 0", tr("ورودی لگاریتم باید مثبت باشد؛ جواب‌ها بررسی شدند.", "The argument of a logarithm must be positive; solutions were checked.")));
         return done({ answer: sols.length ? sols.map(s => v + " = " + T(s)).join(",\\; ") : "\\varnothing", sols });
       }
     }
@@ -880,10 +881,10 @@
       const lin = [2, -3, 0.7].every(t => { try { return Math.abs(evalNum(u, { [v]: t }) - (evalNum(ua) * t + evalNum(ub))) < 1e-9; } catch (e) { return false; } });
       if (!lin || E.vars(ua).size || Math.abs(evalNum(ua)) < 1e-12) continue;
       const rhs = simp(N.div(N.sub(B, N.num(m.c)), N.num(m.k))), r = evalNum(rhs), f = m.T.n;
-      if (!m.c.isZero() || !m.k.isOne()) steps.push(step("جداسازی تابع مثلثاتی", eqTex(m.T, rhs), null));
-      if (f !== "tan" && Math.abs(r) > 1 + 1e-12) { steps.push(step("بررسی برد", eqTex(m.T, rhs), "برد سینوس و کسینوس بازهٔ [−۱، ۱] است؛ جواب ندارد.")); return done({ answer: "\\varnothing", sols: [], note: "جواب حقیقی ندارد." }); }
+      if (!m.c.isZero() || !m.k.isOne()) steps.push(step(tr("جداسازی تابع مثلثاتی", "Isolate the trigonometric function"), eqTex(m.T, rhs), null));
+      if (f !== "tan" && Math.abs(r) > 1 + 1e-12) { steps.push(step(tr("بررسی برد", "Check the range"), eqTex(m.T, rhs), tr("برد سینوس و کسینوس بازهٔ [−۱، ۱] است؛ جواب ندارد.", "The range of sine and cosine is [−1, 1]; no solution."))); return done({ answer: "\\varnothing", sols: [], note: tr("جواب حقیقی ندارد.", "No real solution.") }); }
       let alpha; try { alpha = E.casAst("a" + f + "(" + E.str(rhs) + ")"); } catch (e) { alpha = N.fl(Math["a" + f](r)); }
-      steps.push(step("زاویهٔ اصلی", "\\alpha = \\" + (f === "sin" ? "arcsin" : f === "cos" ? "arccos" : "arctan") + "\\left(" + T(rhs) + "\\right) = " + T(alpha), "زاویه‌ای که مقدار " + f + " آن برابر " + T(rhs) + " است."));
+      steps.push(step(tr("زاویهٔ اصلی", "Reference angle"), "\\alpha = \\" + (f === "sin" ? "arcsin" : f === "cos" ? "arccos" : "arctan") + "\\left(" + T(rhs) + "\\right) = " + T(alpha), tr("زاویه‌ای که مقدار ", "The angle whose ") + f + tr(" آن برابر ", " equals ") + T(rhs) + tr(" است.", ".")));
       const per = f === "tan" ? N.c("pi") : N.mul(N.num(q(2)), N.c("pi"));
       const bases = f === "sin" ? [alpha, N.sub(N.c("pi"), alpha)] : f === "cos" ? [alpha, simp(N.neg(alpha))] : [alpha];
       const kTerm = (P) => { const c = E.simplifyAst(P); return T(c).startsWith("-") ? null : c; };
@@ -893,13 +894,13 @@
         const pkAbs = T(pk).startsWith("-") ? E.simplifyAst(N.neg(pk)) : pk;
         return { principal, tex: T(principal) + " + " + (T(pkAbs) === "\\pi" ? "k\\pi" : T(pkAbs).replace(/^\\pi$/, "k\\pi").replace(/(\\frac\{)([^}]*)\\pi/, "$1$2k\\pi").replace(/^2 \\pi$/, "2k\\pi").replace(/^(\d+) \\pi$/, "$1k\\pi")) };
       };
-      steps.push(step("جواب کلی برای " + T(u), bases.map(b0 => T(u) + " = " + famTex(b0, null, null).tex).join(" \\quad \\text{یا} \\quad ") + ",\\; k \\in \\mathbb{Z}", f === "sin" ? "sin u = sin α ⇒ u = α + 2kπ یا u = π − α + 2kπ" : f === "cos" ? "cos u = cos α ⇒ u = ±α + 2kπ" : "tan u = tan α ⇒ u = α + kπ"));
+      steps.push(step(tr("جواب کلی برای ", "General solution for ") + T(u), bases.map(b0 => T(u) + " = " + famTex(b0, null, null).tex).join(tr(" \\quad \\text{یا} \\quad ", " \\quad \\text{or} \\quad ")) + ",\\; k \\in \\mathbb{Z}", f === "sin" ? tr("sin u = sin α ⇒ u = α + 2kπ یا u = π − α + 2kπ", "sin u = sin α ⇒ u = α + 2kπ or u = π − α + 2kπ") : f === "cos" ? "cos u = cos α ⇒ u = ±α + 2kπ" : "tan u = tan α ⇒ u = α + kπ"));
       const unit = Math.abs(evalNum(ua) - 1) < 1e-12 && Math.abs(evalNum(ub)) < 1e-12;
       const fams = bases.map(b0 => unit ? famTex(b0, null, null) : famTex(b0, ua, ub));
       const uniq = fams.filter((x, i) => i === 0 || Math.abs(evalNum(x.principal) - evalNum(fams[0].principal)) > 1e-12);
       const gen = uniq.map(x => v + " = " + x.tex);
-      if (!unit) steps.push(step("حل نسبت به " + v, gen.join(" \\quad \\text{یا} \\quad "), "دو طرف را منهای " + T(ub) + " و تقسیم بر " + T(ua) + " می‌کنیم."));
-      return done({ answer: gen.join(",\\; ") + ",\\; k \\in \\mathbb{Z}", sols: uniq.map(x => x.principal), note: "جواب‌های اصلی (k = 0): " + uniq.map(x => E.trimNum(evalNum(x.principal), 6)).join("، ") });
+      if (!unit) steps.push(step(tr("حل نسبت به ", "Solve for ") + v, gen.join(tr(" \\quad \\text{یا} \\quad ", " \\quad \\text{or} \\quad ")), tr("دو طرف را منهای ", "Subtract ") + T(ub) + tr(" و تقسیم بر ", " from both sides and divide by ") + T(ua) + tr(" می‌کنیم.", ".")));
+      return done({ answer: gen.join(",\\; ") + ",\\; k \\in \\mathbb{Z}", sols: uniq.map(x => x.principal), note: tr("جواب‌های اصلی (k = 0): ", "Principal solutions (k = 0): ") + uniq.map(x => E.trimNum(evalNum(x.principal), 6)).join(tr("، ", ", ")) });
     }
     return genericSolve(L, R, v, steps);
   }
@@ -913,19 +914,19 @@
       let a = new MPoly(), b = new MPoly(), ok = true;
       D.t.forEach((k, key) => { const m = parseKey(key); const e = m[v] || 0; if (e > 1) ok = false; delete m[v]; const one = new MPoly(); one.t.set(monoKey(m), k); if (e === 1) a = a.add(one); else b = b.add(one); });
       if (ok && a.termCount()) {
-        steps.push(step("جمع‌آوری جمله‌های دارای " + v, T(a.toAst()) === "1" ? v + " = " + T(b.neg().toAst()) : "\\left(" + T(a.toAst()) + "\\right)" + v + " = " + T(b.neg().toAst()), "جمله‌های دارای " + v + " یک طرف و بقیه طرف دیگر."));
+        steps.push(step(tr("جمع‌آوری جمله‌های دارای ", "Collect the terms containing ") + v, T(a.toAst()) === "1" ? v + " = " + T(b.neg().toAst()) : "\\left(" + T(a.toAst()) + "\\right)" + v + " = " + T(b.neg().toAst()), tr("جمله‌های دارای ", "Move the terms containing ") + v + tr(" یک طرف و بقیه طرف دیگر.", " on one side and everything else on the other.")));
         const res = a.isConst() ? simp(N.div(b.neg().toAst(), N.num(a.constTerm()))) : N.div(b.neg().toAst(), a.toAst());
         const ans = v + " = " + T(pretty(res));
-        steps.push(step("تقسیم بر ضریب " + v, ans, a.isConst() ? null : "به شرط اینکه " + T(a.toAst()) + " \\ne 0"));
+        steps.push(step(tr("تقسیم بر ضریب ", "Divide by the coefficient of ") + v, ans, a.isConst() ? null : tr("به شرط اینکه ", "provided that ") + T(a.toAst()) + " \\ne 0"));
         return { answer: ans, steps, sols: [] };
       }
     }
     try {
       const s = root.nerdamer.solve(E.str(L) + "=" + E.str(R), v).toString().replace(/^\[|\]$/g, "");
       const parts = splitTop(s).map(E.parseNerd).map(x => pretty(simp(x)));
-      steps.push(step("حل نسبت به " + v, parts.map(p => v + " = " + T(p)).join(",\\; "), "با موتور نمادین"));
+      steps.push(step(tr("حل نسبت به ", "Solve for ") + v, parts.map(p => v + " = " + T(p)).join(",\\; "), tr("با موتور نمادین", "With the symbolic engine")));
       return { answer: parts.map(p => v + " = " + T(p)).join(",\\; "), steps, sols: [] };
-    } catch (e) { throw new MathError("حل این معادله نسبت به " + v + " ممکن نشد."); }
+    } catch (e) { throw new MathError(tr("حل این معادله نسبت به ", "Could not solve this equation for ") + v + tr(" ممکن نشد.", ".")); }
   }
   function splitTop(s) { const out = []; let d = 0, cur = ""; for (const ch of s) { if (ch === "(" || ch === "[") d++; if (ch === ")" || ch === "]") d--; if (ch === "," && d === 0) { out.push(cur); cur = ""; } else cur += ch; } if (cur.trim()) out.push(cur); return out.map(x => x.trim()).filter(Boolean); }
   E.splitTop = splitTop;
@@ -954,10 +955,10 @@
     if (!sols.length) {
       const f = x => { try { return evalNum(L, { [v]: x }) - evalNum(R, { [v]: x }); } catch (e) { return NaN; } };
       sols = numericScan(f).map(x => N.fl(x));
-      steps.push(step("حل عددی", eqTex(L, R), "برای این نوع معادله روش جبری مستقیم پیاده نشده است؛ جواب‌ها در بازهٔ [−۶۰، ۶۰] با روش تنصیف (bisection) پیدا شدند." + (/sin|cos|tan/.test(E.str(L) + E.str(R)) ? " معادلهٔ مثلثاتی می‌تواند بی‌نهایت جواب دوره‌ای داشته باشد." : "")));
-    } else steps.push(step("حل با موتور نمادین", eqTex(L, R), "جواب‌ها با جایگذاری در معادلهٔ اصلی تأیید شدند."));
+      steps.push(step(tr("حل عددی", "Numerical solution"), eqTex(L, R), tr("برای این نوع معادله روش جبری مستقیم پیاده نشده است؛ جواب‌ها در بازهٔ [−۶۰، ۶۰] با روش تنصیف (bisection) پیدا شدند.", "No direct algebraic method is implemented for this kind of equation; solutions were found on [−60, 60] by bisection.") + (/sin|cos|tan/.test(E.str(L) + E.str(R)) ? tr(" معادلهٔ مثلثاتی می‌تواند بی‌نهایت جواب دوره‌ای داشته باشد.", " A trigonometric equation can have infinitely many periodic solutions.") : "")));
+    } else steps.push(step(tr("حل با موتور نمادین", "Solved with the symbolic engine"), eqTex(L, R), tr("جواب‌ها با جایگذاری در معادلهٔ اصلی تأیید شدند.", "The solutions were verified by substitution into the original equation.")));
     sols.sort((a, b) => evalNum(a) - evalNum(b));
-    return { answer: sols.length ? sols.map(s => v + (s.t === "fl" ? " \\approx " + E.trimNum(s.v, 6) : " = " + T(s))).join(",\\; ") : "\\varnothing", sols, steps, plot: { exprs: [L, R], v }, note: exact ? null : (sols.length ? "مقادیر تقریبی هستند." : "در بازهٔ بررسی‌شده جوابی پیدا نشد.") };
+    return { answer: sols.length ? sols.map(s => v + (s.t === "fl" ? " \\approx " + E.trimNum(s.v, 6) : " = " + T(s))).join(",\\; ") : "\\varnothing", sols, steps, plot: { exprs: [L, R], v }, note: exact ? null : (sols.length ? tr("مقادیر تقریبی هستند.", "The values are approximate.") : tr("در بازهٔ بررسی‌شده جوابی پیدا نشد.", "No solution was found in the searched range.")) };
   }
 
   /* ======================= inequalities ======================= */
@@ -970,31 +971,31 @@
     const D = Lr.sub(Rr);
     if (D.isPoly() && D.n.deg() <= 1) {
       let Lp = Lr.n, Rp = Rr.n;
-      if (containsParenProduct(L) || containsParenProduct(R)) steps.push(step("باز کردن پرانتزها", eqTex(Lp.toAst(v), Rp.toAst(v), rel), null));
+      if (containsParenProduct(L) || containsParenProduct(R)) steps.push(step(tr("باز کردن پرانتزها", "Expand the parentheses"), eqTex(Lp.toAst(v), Rp.toAst(v), rel), null));
       const c = Rp.co(1);
-      if (!c.isZero()) { const cx = new Poly([q(0), c]); Lp = Lp.sub(cx); Rp = Rp.sub(cx); steps.push(step("جمع‌آوری جمله‌های " + v + " در سمت چپ", eqTex(Lp.toAst(v), Rp.toAst(v), rel), null)); }
+      if (!c.isZero()) { const cx = new Poly([q(0), c]); Lp = Lp.sub(cx); Rp = Rp.sub(cx); steps.push(step(tr("جمع‌آوری جمله‌های ", "Collect the ") + v + tr(" در سمت چپ", " terms on the left"), eqTex(Lp.toAst(v), Rp.toAst(v), rel), null)); }
       const b = Lp.co(0);
-      if (!b.isZero()) { Lp = Lp.sub(Poly.const(b)); Rp = Rp.sub(Poly.const(b)); steps.push(step("انتقال عدد ثابت", eqTex(Lp.toAst(v), Rp.toAst(v), rel), "جمع یا تفریق یک عدد از دو طرف جهت نامساوی را تغییر نمی‌دهد.")); }
+      if (!b.isZero()) { Lp = Lp.sub(Poly.const(b)); Rp = Rp.sub(Poly.const(b)); steps.push(step(tr("انتقال عدد ثابت", "Move the constant"), eqTex(Lp.toAst(v), Rp.toAst(v), rel), tr("جمع یا تفریق یک عدد از دو طرف جهت نامساوی را تغییر نمی‌دهد.", "Adding or subtracting a number on both sides does not change the inequality direction."))); }
       const A = Lp.co(1), B = Rp.co(0);
       if (A.isZero()) {
         const truth = { "<": 0 < B.num(), ">": 0 > B.num(), "<=": 0 <= B.num(), ">=": 0 >= B.num() }[rel];
-        steps.push(step("نتیجه", "0 " + relTex(rel) + " " + B.toTeX(), truth ? "همیشه درست است." : "هرگز درست نیست."));
+        steps.push(step(tr("نتیجه", "Result"), "0 " + relTex(rel) + " " + B.toTeX(), truth ? tr("همیشه درست است.", "Always true.") : tr("هرگز درست نیست.", "Never true.")));
         return { answer: truth ? v + " \\in \\mathbb{R}" : "\\varnothing", steps, interval: truth ? "(-\\infty, \\infty)" : "\\varnothing" };
       }
       let r2 = rel; const x = B.div(A);
-      if (A.sign() < 0) { r2 = flip(rel); steps.push(step("تقسیم بر " + A.toTeX() + " و برعکس کردن جهت", v + " " + relTex(r2) + " " + x.toTeX(), "تقسیم یا ضرب دو طرف در عدد منفی، جهت نامساوی را برعکس می‌کند.")); }
-      else if (!A.isOne()) steps.push(step("تقسیم دو طرف بر " + A.toTeX(), v + " " + relTex(r2) + " " + x.toTeX(), "تقسیم بر عدد مثبت جهت را تغییر نمی‌دهد."));
+      if (A.sign() < 0) { r2 = flip(rel); steps.push(step(tr("تقسیم بر ", "Divide by ") + A.toTeX() + tr(" و برعکس کردن جهت", " and flip the inequality"), v + " " + relTex(r2) + " " + x.toTeX(), tr("تقسیم یا ضرب دو طرف در عدد منفی، جهت نامساوی را برعکس می‌کند.", "Multiplying or dividing both sides by a negative number reverses the inequality."))); }
+      else if (!A.isOne()) steps.push(step(tr("تقسیم دو طرف بر ", "Divide both sides by ") + A.toTeX(), v + " " + relTex(r2) + " " + x.toTeX(), tr("تقسیم بر عدد مثبت جهت را تغییر نمی‌دهد.", "Dividing by a positive number keeps the direction.")));
       const xs = x.toTeX(), closed = r2.includes("=");
       const interval = r2.startsWith("<") ? "\\left(-\\infty,\\; " + xs + (closed ? "\\right]" : "\\right)") : (closed ? "\\left[" : "\\left(") + xs + ",\\; \\infty\\right)";
       return { answer: v + " " + relTex(r2) + " " + xs, interval, steps, plot: { exprs: [L, R], v } };
     }
     /* sign chart */
-    steps.push(step("یک‌طرفه کردن", (D.isPoly() ? D.n.tex(v) : "\\frac{" + D.n.tex(v) + "}{" + D.d.tex(v) + "}") + " " + relTex(rel) + " 0", "همهٔ جمله‌ها را به یک طرف می‌بریم تا با صفر مقایسه کنیم."));
+    steps.push(step(tr("یک‌طرفه کردن", "Move everything to one side"), (D.isPoly() ? D.n.tex(v) : "\\frac{" + D.n.tex(v) + "}{" + D.d.tex(v) + "}") + " " + relTex(rel) + " 0", tr("همهٔ جمله‌ها را به یک طرف می‌بریم تا با صفر مقایسه کنیم.", "Move all terms to one side to compare with zero.")));
     const nf = factorPoly(D.n, v, []), df = D.isPoly() ? null : factorPoly(D.d, v, []);
-    steps.push(step("تجزیه", (df ? "\\frac{" + factorsTex(nf.k, nf.factors, v) + "}{" + factorsTex(df.k, df.factors, v) + "}" : factorsTex(nf.k, nf.factors, v)) + " " + relTex(rel) + " 0", null));
+    steps.push(step(tr("تجزیه", "Factor"), (df ? "\\frac{" + factorsTex(nf.k, nf.factors, v) + "}{" + factorsTex(df.k, df.factors, v) + "}" : factorsTex(nf.k, nf.factors, v)) + " " + relTex(rel) + " 0", null));
     const zN = realRootsExact(D.n).map(r => ({ ...r, kind: "z" })), zD = D.isPoly() ? [] : realRootsExact(D.d).map(r => ({ ...r, kind: "p" }));
     const crit = zN.concat(zD).sort((a, b) => a.val - b.val).filter((r, i, arr) => i === 0 || Math.abs(r.val - arr[i - 1].val) > 1e-10 || (arr[i - 1].kind = arr[i - 1].kind === "p" || r.kind === "p" ? "p" : "z", false));
-    steps.push(step("نقاط بحرانی", crit.length ? crit.map(c => v + " = " + c.tex + (c.kind === "p" ? "\\;(\\text{مخرج})" : "")).join(",\\quad ") : "\\text{ندارد}", "ریشه‌های صورت و مخرج، محور اعداد را به بازه‌هایی تقسیم می‌کنند."));
+    steps.push(step(tr("نقاط بحرانی", "Critical points"), crit.length ? crit.map(c => v + " = " + c.tex + (c.kind === "p" ? tr("\\;(\\text{مخرج})", "\\;(\\text{denominator})") : "")).join(",\\quad ") : tr("\\text{ندارد}", "\\text{none}"), tr("ریشه‌های صورت و مخرج، محور اعداد را به بازه‌هایی تقسیم می‌کنند.", "The zeros of the numerator and denominator split the number line into intervals.")));
     const f = x => D.n.evalN(x) / D.d.evalN(x);
     const pts = [-Infinity, ...crit.map(c => c.val), Infinity];
     const intervals = [];
@@ -1006,10 +1007,10 @@
     const want = s => rel.startsWith("<") ? s < 0 : s > 0;
     /* sign table */
     const head = ["-\\infty"].concat(crit.map(c => c.tex.replace("\\approx ", ""))).concat(["\\infty"]);
-    let table = "\\begin{array}{c|" + "c".repeat(head.length * 2 - 1) + "}\n" + v + " & " + head.map((h, i) => i < head.length - 1 ? h + " & " : h).join("") + " \\\\ \\hline\n\\text{علامت} & ";
+    let table = "\\begin{array}{c|" + "c".repeat(head.length * 2 - 1) + "}\n" + v + " & " + head.map((h, i) => i < head.length - 1 ? h + " & " : h).join("") + tr(" \\\\ \\hline\n\\text{علامت} & ", " \\\\ \\hline\n\\text{sign} & ");
     const cells = []; intervals.forEach((I, i) => { cells.push(""); cells.push(I.sign > 0 ? "+" : I.sign < 0 ? "-" : "0"); if (i < crit.length) cells.push(crit[i].kind === "p" ? "\\nexists" : "0"); });
     table += cells.slice(1).concat([""]).join(" & ") + "\n\\end{array}";
-    steps.push(step("جدول تعیین علامت", table, "در هر بازه یک نقطهٔ آزمون جایگذاری می‌کنیم تا علامت عبارت مشخص شود."));
+    steps.push(step(tr("جدول تعیین علامت", "Sign chart"), table, tr("در هر بازه یک نقطهٔ آزمون جایگذاری می‌کنیم تا علامت عبارت مشخص شود.", "In each interval we substitute a test point to find the sign of the expression.")));
     const closed = rel.includes("=");
     const parts = [];
     intervals.forEach(I => {
@@ -1029,10 +1030,10 @@
   function genericInequality(L, rel, R, v, steps) {
     const f = x => { try { return evalNum(L, { [v]: x }) - evalNum(R, { [v]: x }); } catch (e) { return NaN; } };
     const roots = numericScan(f);
-    steps.push(step("حل معادلهٔ مرزی به‌صورت عددی", eqTex(L, R), "نقاط مرزی تقریبی: " + (roots.map(r => E.trimNum(r, 5)).join("، ") || "ندارد")));
+    steps.push(step(tr("حل معادلهٔ مرزی به‌صورت عددی", "Solve the boundary equation numerically"), eqTex(L, R), tr("نقاط مرزی تقریبی: ", "Approximate boundary points: ") + (roots.map(r => E.trimNum(r, 5)).join(tr("، ", ", ")) || tr("ندارد", "none"))));
     const pts = [-60, ...roots, 60], parts = [];
     for (let i = 0; i < pts.length - 1; i++) { const t = (pts[i] + pts[i + 1]) / 2, s = f(t); if (Number.isFinite(s) && (rel.startsWith("<") ? s < 0 : s > 0)) parts.push("\\left(" + (i === 0 ? "-\\infty" : E.trimNum(pts[i], 5)) + ",\\; " + (i === pts.length - 2 ? "\\infty" : E.trimNum(pts[i + 1], 5)) + "\\right)"); }
-    return { answer: v + " \\in " + (parts.join(" \\cup ") || "\\varnothing"), steps, plot: { exprs: [L, R], v }, note: "بازه‌ها تقریبی‌اند و فقط در محدودهٔ [−۶۰، ۶۰] بررسی شدند." };
+    return { answer: v + " \\in " + (parts.join(" \\cup ") || "\\varnothing"), steps, plot: { exprs: [L, R], v }, note: tr("بازه‌ها تقریبی‌اند و فقط در محدودهٔ [−۶۰، ۶۰] بررسی شدند.", "The intervals are approximate and were only checked on [−60, 60].") };
   }
   E.solveInequality = solveInequality;
 
@@ -1049,32 +1050,32 @@
     if (lin.some(p => !p || p.deg() > 1)) return nonlinearSystem(eqs, allVars, steps);
     const vs = allVars;
     const M = lin.map(p => vs.map(v => p.t.get(v) || q(0)).concat([p.constTerm().neg()]));
-    steps.push(step("نوشتن به شکل استاندارد", "\\begin{cases}" + lin.map((p, i) => T(MPoly.prototype.sub.call(p, MPoly.c(p.constTerm())).toAst()) + " = " + M[i][vs.length].toTeX()).join(" \\\\ ") + "\\end{cases}", "متغیرها در سمت چپ و اعداد ثابت در سمت راست."));
-    steps.push(step("ماتریس افزوده", matTex(M, true), "ضریب‌های هر معادله یک سطر ماتریس می‌شوند."));
+    steps.push(step(tr("نوشتن به شکل استاندارد", "Write in standard form"), "\\begin{cases}" + lin.map((p, i) => T(MPoly.prototype.sub.call(p, MPoly.c(p.constTerm())).toAst()) + " = " + M[i][vs.length].toTeX()).join(" \\\\ ") + "\\end{cases}", tr("متغیرها در سمت چپ و اعداد ثابت در سمت راست.", "Variables on the left and constants on the right.")));
+    steps.push(step(tr("ماتریس افزوده", "Augmented matrix"), matTex(M, true), tr("ضریب‌های هر معادله یک سطر ماتریس می‌شوند.", "The coefficients of each equation form one row of the matrix.")));
     const rows = M.length, cols = vs.length; let r = 0; const pivots = [];
     for (let c = 0; c < cols && r < rows; c++) {
       let p = -1; for (let i = r; i < rows; i++) if (!M[i][c].isZero()) { p = i; break; }
       if (p < 0) continue;
-      if (p !== r) { [M[p], M[r]] = [M[r], M[p]]; steps.push(step("جابه‌جایی سطرها", "R_{" + (r + 1) + "} \\leftrightarrow R_{" + (p + 1) + "} \\quad " + matTex(M, true), null)); }
+      if (p !== r) { [M[p], M[r]] = [M[r], M[p]]; steps.push(step(tr("جابه‌جایی سطرها", "Swap rows"), "R_{" + (r + 1) + "} \\leftrightarrow R_{" + (p + 1) + "} \\quad " + matTex(M, true), null)); }
       const pv = M[r][c];
-      if (!pv.isOne()) { M[r] = M[r].map(x => x.div(pv)); steps.push(step("یکه کردن محور", "R_{" + (r + 1) + "} \\to \\frac{1}{" + pv.toTeX() + "}R_{" + (r + 1) + "} \\quad " + matTex(M, true), null)); }
+      if (!pv.isOne()) { M[r] = M[r].map(x => x.div(pv)); steps.push(step(tr("یکه کردن محور", "Make the pivot 1"), "R_{" + (r + 1) + "} \\to \\frac{1}{" + pv.toTeX() + "}R_{" + (r + 1) + "} \\quad " + matTex(M, true), null)); }
       const ops = [];
       for (let i = 0; i < rows; i++) if (i !== r && !M[i][c].isZero()) { const f = M[i][c]; M[i] = M[i].map((x, j) => x.sub(f.mul(M[r][j]))); ops.push("R_{" + (i + 1) + "} \\to R_{" + (i + 1) + "} " + (f.sign() > 0 ? "- " + (f.isOne() ? "" : f.toTeX()) : "+ " + (f.neg().isOne() ? "" : f.neg().toTeX())) + "R_{" + (r + 1) + "}"); }
-      if (ops.length) steps.push(step("حذف متغیر " + vs[c] + " از سطرهای دیگر", ops.join(",\\; ") + " \\quad " + matTex(M, true), "با ترکیب سطرها ضریب " + vs[c] + " را در سایر معادله‌ها صفر می‌کنیم."));
+      if (ops.length) steps.push(step(tr("حذف متغیر ", "Eliminate ") + vs[c] + tr(" از سطرهای دیگر", " from the other rows"), ops.join(",\\; ") + " \\quad " + matTex(M, true), tr("با ترکیب سطرها ضریب ", "Combine rows to make the coefficient of ") + vs[c] + tr(" را در سایر معادله‌ها صفر می‌کنیم.", " zero in the other equations.")));
       pivots.push(c); r++;
     }
-    for (let i = r; i < rows; i++) if (!M[i][cols].isZero()) { steps.push(step("تناقض", "0 = " + M[i][cols].toTeX(), "یک سطر به شکل 0 = عدد ناصفر درآمد؛ دستگاه جواب ندارد (ناسازگار).")); return { answer: "\\text{دستگاه جواب ندارد}", steps, sols: null }; }
+    for (let i = r; i < rows; i++) if (!M[i][cols].isZero()) { steps.push(step(tr("تناقض", "Contradiction"), "0 = " + M[i][cols].toTeX(), tr("یک سطر به شکل 0 = عدد ناصفر درآمد؛ دستگاه جواب ندارد (ناسازگار).", "A row became 0 = nonzero number; the system has no solution (inconsistent)."))); return { answer: tr("\\text{دستگاه جواب ندارد}", "\\text{the system has no solution}"), steps, sols: null }; }
     if (pivots.length < cols) {
       const free = vs.filter((_, c) => !pivots.includes(c));
       const exprs = pivots.map((c, i) => { let e = MPoly.c(M[i][cols]); vs.forEach((v, j) => { if (j !== c && !M[i][j].isZero()) e = e.sub(MPoly.v(v).scale(M[i][j])); }); return vs[c] + " = " + T(e.toAst()); });
-      steps.push(step("بی‌شمار جواب", exprs.join(",\\; "), "متغیرهای آزاد: " + free.join("، ")));
+      steps.push(step(tr("بی‌شمار جواب", "Infinitely many solutions"), exprs.join(",\\; "), tr("متغیرهای آزاد: ", "Free variables: ") + free.join(tr("، ", ", "))));
       return { answer: exprs.join(",\\; ") + ",\\; " + free.map(f => f + " \\in \\mathbb{R}").join(",\\; "), steps, sols: "many" };
     }
     const sol = {}; pivots.forEach((c, i) => sol[vs[c]] = M[i][cols]);
     const ans = vs.map(v => v + " = " + sol[v].toTeX()).join(",\\; ");
-    steps.push(step("جواب", ans, "ستون آخر ماتریس سطری‌پلکانی کاهش‌یافته مقدار متغیرهاست."));
+    steps.push(step(tr("جواب", "Solution"), ans, tr("ستون آخر ماتریس سطری‌پلکانی کاهش‌یافته مقدار متغیرهاست.", "The last column of the reduced row echelon form gives the variables.")));
     const check = eqs.map(([L, R]) => { const env = {}; vs.forEach(v => env[v] = sol[v].num()); return Math.abs(evalNum(L, env) - evalNum(R, env)) < 1e-9; });
-    steps.push(step("بررسی", eqs.map(([L, R]) => eqTex(L, R) + " \\;\\checkmark").join(" \\\\ "), check.every(Boolean) ? "جواب در همهٔ معادله‌ها صدق می‌کند." : "هشدار: بررسی ناموفق بود."));
+    steps.push(step(tr("بررسی", "Check"), eqs.map(([L, R]) => eqTex(L, R) + " \\;\\checkmark").join(" \\\\ "), check.every(Boolean) ? tr("جواب در همهٔ معادله‌ها صدق می‌کند.", "The solution satisfies every equation.") : tr("هشدار: بررسی ناموفق بود.", "Warning: the check failed.")));
     return { answer: ans, steps, sols: sol, vars: vs, plot: vs.length === 2 ? { lines: eqs, vars: vs, point: [sol[vs[0]].num(), sol[vs[1]].num()] } : null };
   }
   function nonlinearSystem(eqs, vs, steps) {
@@ -1084,27 +1085,27 @@
       const sols = pairs.map(p => Array.isArray(p) ? p : null).filter(Boolean);
       if (sols.length && Array.isArray(sols[0]) && typeof sols[0][0] === "string") {
         const ans = sols.map(([v, val]) => v + " = " + T(pretty(simp(E.parseNerd(String(val)))))).join(",\\; ");
-        steps.push(step("حل دستگاه غیرخطی", ans, "با جایگذاری و حذف (موتور نمادین)"));
+        steps.push(step(tr("حل دستگاه غیرخطی", "Solve the nonlinear system"), ans, tr("با جایگذاری و حذف (موتور نمادین)", "By substitution and elimination (symbolic engine)")));
         return { answer: ans, steps };
       }
     } catch (e) { }
     try {
       const r = root.nerdamer("solveeqs([" + eqs.map(([L, R]) => E.str(L) + "=" + E.str(R)).join(",") + "])").toString();
-      steps.push(step("حل دستگاه غیرخطی", "\\text{" + r.replace(/=>/g, "=").replace(/[{}\[\]]/g, " ") + "}", "با جایگذاری و حذف (موتور نمادین)"));
+      steps.push(step(tr("حل دستگاه غیرخطی", "Solve the nonlinear system"), "\\text{" + r.replace(/=>/g, "=").replace(/[{}\[\]]/g, " ") + "}", tr("با جایگذاری و حذف (موتور نمادین)", "By substitution and elimination (symbolic engine)")));
       return { answer: r.replace(/[\[\]{}]/g, "").replace(/=>/g, "=").replace(/\*/g, "\\cdot "), steps };
-    } catch (e) { throw new MathError("حل این دستگاه غیرخطی ممکن نشد."); }
+    } catch (e) { throw new MathError(tr("حل این دستگاه غیرخطی ممکن نشد.", "Could not solve this nonlinear system.")); }
   }
   E.solveSystem = solveSystem;
 
   /* ======================= number theory ======================= */
   function primeFactorSteps(nBig) {
-    let n = BigInt(nBig); if (n < 2n) throw new MathError("عددی بزرگ‌تر از ۱ وارد کن.");
-    if (n > 10n ** 15n) throw new MathError("عدد خیلی بزرگ است (حداکثر ۱۵ رقم).");
+    let n = BigInt(nBig); if (n < 2n) throw new MathError(tr("عددی بزرگ‌تر از ۱ وارد کن.", "Enter a whole number greater than 1."));
+    if (n > 10n ** 15n) throw new MathError(tr("عدد خیلی بزرگ است (حداکثر ۱۵ رقم).", "The number is too large (at most 15 digits)."));
     const steps = [], fac = []; let m = n;
     for (let p = 2n; p * p <= m; p += (p === 2n ? 1n : 2n)) {
-      while (m % p === 0n) { steps.push(step("تقسیم بر " + p, m + " \\div " + p + " = " + (m / p), null)); fac.push(p); m /= p; }
+      while (m % p === 0n) { steps.push(step(tr("تقسیم بر ", "Divide by ") + p, m + " \\div " + p + " = " + (m / p), null)); fac.push(p); m /= p; }
     }
-    if (m > 1n) { fac.push(m); steps.push(step("عدد اول باقی‌مانده", m.toString(), m === n ? n + " خودش عدد اول است." : "عدد باقی‌مانده اول است.")); }
+    if (m > 1n) { fac.push(m); steps.push(step(tr("عدد اول باقی‌مانده", "Remaining prime"), m.toString(), m === n ? n + tr(" خودش عدد اول است.", " is itself prime.") : tr("عدد باقی‌مانده اول است.", "The remaining number is prime."))); }
     const grp = {}; fac.forEach(p => grp[p] = (grp[p] || 0) + 1);
     const t = Object.keys(grp).map(p => grp[p] > 1 ? p + "^{" + grp[p] + "}" : p).join(" \\times ");
     return { answer: n + " = " + t, steps, factors: grp };
@@ -1115,11 +1116,11 @@
     for (let i = 1; i < nums.length; i++) {
       let a = g, b = nums[i]; const lines = [];
       while (b) { lines.push(a + " = " + (a / b) + " \\times " + b + " + " + (a % b)); [a, b] = [b, a % b]; }
-      steps.push(step("الگوریتم اقلیدس برای " + g + " و " + nums[i], lines.join(" \\\\ "), "باقی‌مانده را تا رسیدن به صفر ادامه می‌دهیم؛ آخرین باقی‌ماندهٔ ناصفر ب.م.م است."));
+      steps.push(step(tr("الگوریتم اقلیدس برای ", "Euclidean algorithm for ") + g + tr(" و ", " and ") + nums[i], lines.join(" \\\\ "), tr("باقی‌مانده را تا رسیدن به صفر ادامه می‌دهیم؛ آخرین باقی‌ماندهٔ ناصفر ب.م.م است.", "Keep dividing until the remainder is zero; the last nonzero remainder is the gcd.")));
       g = a;
     }
     let l = nums[0]; for (let i = 1; i < nums.length; i++) l = blcm(l, nums[i]);
-    steps.push(step("کوچک‌ترین مضرب مشترک", "\\operatorname{lcm} = " + (nums.length === 2 ? "\\frac{" + nums[0] + " \\times " + nums[1] + "}{" + g + "} = " : "") + l, "ک.م.م = حاصل‌ضرب دو عدد تقسیم بر ب.م.م"));
+    steps.push(step(tr("کوچک‌ترین مضرب مشترک", "Least common multiple"), "\\operatorname{lcm} = " + (nums.length === 2 ? "\\frac{" + nums[0] + " \\times " + nums[1] + "}{" + g + "} = " : "") + l, tr("ک.م.م = حاصل‌ضرب دو عدد تقسیم بر ب.م.م", "lcm = product of the two numbers ÷ gcd")));
     return { answer: "\\gcd = " + g + ",\\quad \\operatorname{lcm} = " + l, steps };
   }
   E.primeFactorSteps = primeFactorSteps; E.gcdSteps = gcdSteps;

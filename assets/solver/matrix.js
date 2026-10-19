@@ -4,6 +4,7 @@
 (function (root) {
   "use strict";
   const E = root.MathEngine;
+  const tr = (fa, en) => (E.lang() === "en" && en !== undefined ? en : fa);
   const { Q, N, MathError, step } = E;
   const q = (n, d = 1) => Q.of(n, d);
   const T = E.tex;
@@ -11,14 +12,14 @@
   function parseMatrix(text) {
     const src = String(text).split("\n").map(l => E.normalizeInput(l)).join("\n").trim().replace(/^\s*\[|\]\s*$/g, "");
     const rows = src.split(/\n|;|\]\s*,?\s*\[/).map(r => r.trim().replace(/^\[|\]$/g, "")).filter(Boolean);
-    if (!rows.length) throw new MathError("ماتریس خالی است.");
+    if (!rows.length) throw new MathError(tr("ماتریس خالی است.", "The matrix is empty."));
     const M = rows.map(r => r.split(/[\s,]+/).filter(Boolean).map(x => {
-      const v = E.evalExact(E.parse(x)); if (!v) throw new MathError("درایهٔ «" + x + "» عدد گویا نیست.");
+      const v = E.evalExact(E.parse(x)); if (!v) throw new MathError(tr("درایهٔ «", "Entry «") + x + tr("» عدد گویا نیست.", "» is not a rational number."));
       return v;
     }));
     const c = M[0].length;
-    if (M.some(r => r.length !== c)) throw new MathError("همهٔ سطرهای ماتریس باید هم‌اندازه باشند.");
-    if (M.length > 8 || c > 8) throw new MathError("حداکثر اندازهٔ ماتریس ۸×۸ است.");
+    if (M.some(r => r.length !== c)) throw new MathError(tr("همهٔ سطرهای ماتریس باید هم‌اندازه باشند.", "All rows of the matrix must have the same length."));
+    if (M.length > 8 || c > 8) throw new MathError(tr("حداکثر اندازهٔ ماتریس ۸×۸ است.", "The maximum matrix size is 8×8."));
     return M;
   }
   E.parseMatrix = parseMatrix;
@@ -30,7 +31,7 @@
   E.mtex = mtex;
   const clone = M => M.map(r => r.slice());
   const I = n => Array.from({ length: n }, (_, i) => Array.from({ length: n }, (_, j) => q(i === j ? 1 : 0)));
-  const sq = M => { if (M.length !== M[0].length) throw new MathError("این عملیات فقط برای ماتریس مربعی تعریف شده است."); };
+  const sq = M => { if (M.length !== M[0].length) throw new MathError(tr("این عملیات فقط برای ماتریس مربعی تعریف شده است.", "This operation is only defined for square matrices.")); };
   const pt = x => x.sign() < 0 ? "\\left(" + x.toTeX() + "\\right)" : x.toTeX();
 
   function detValue(M) {
@@ -50,10 +51,10 @@
   function determinantSteps(M) {
     sq(M);
     const n = M.length, steps = [];
-    if (n === 1) return { answer: "\\det = " + M[0][0].toTeX(), steps: [step("ماتریس ۱×۱", "\\det = " + M[0][0].toTeX(), null)] };
+    if (n === 1) return { answer: "\\det = " + M[0][0].toTeX(), steps: [step(tr("ماتریس ۱×۱", "1×1 matrix"), "\\det = " + M[0][0].toTeX(), null)] };
     if (n === 2) {
       const [[a, b], [c, d]] = M, r = a.mul(d).sub(b.mul(c));
-      steps.push(step("فرمول دترمینان ۲×۲", vmat(M) + " = ad - bc = " + pt(a) + "\\cdot" + pt(d) + " - " + pt(b) + "\\cdot" + pt(c) + " = " + r.toTeX(), "حاصل‌ضرب قطر اصلی منهای حاصل‌ضرب قطر فرعی"));
+      steps.push(step(tr("فرمول دترمینان ۲×۲", "2×2 determinant formula"), vmat(M) + " = ad - bc = " + pt(a) + "\\cdot" + pt(d) + " - " + pt(b) + "\\cdot" + pt(c) + " = " + r.toTeX(), tr("حاصل‌ضرب قطر اصلی منهای حاصل‌ضرب قطر فرعی", "Product of the main diagonal minus product of the other diagonal")));
       return { answer: "\\det(A) = " + r.toTeX(), steps, value: r };
     }
     if (n === 3) {
@@ -64,22 +65,22 @@
         vals.push((j ? (j % 2 ? " - " : " + ") : "") + pt(M[0][j]) + "\\left(" + md.toTeX() + "\\right)");
       }
       const r = detValue(M);
-      steps.push(step("بسط کهادی روی سطر اول", vmat(M) + " = " + parts.join(""), "علامت‌ها به‌ترتیب + − + هستند (قاعدهٔ شطرنجی)."));
-      steps.push(step("محاسبهٔ کهادهای ۲×۲", "= " + vals.join("") + " = " + r.toTeX(), "هر کهاد ۲×۲ با ad − bc محاسبه می‌شود."));
+      steps.push(step(tr("بسط کهادی روی سطر اول", "Cofactor expansion along the first row"), vmat(M) + " = " + parts.join(""), tr("علامت‌ها به‌ترتیب + − + هستند (قاعدهٔ شطرنجی).", "The signs alternate + − + (checkerboard rule).")));
+      steps.push(step(tr("محاسبهٔ کهادهای ۲×۲", "Compute the 2×2 minors"), "= " + vals.join("") + " = " + r.toTeX(), tr("هر کهاد ۲×۲ با ad − bc محاسبه می‌شود.", "Each 2×2 minor is ad − bc.")));
       return { answer: "\\det(A) = " + r.toTeX(), steps, value: r };
     }
     /* elimination */
     const A = clone(M); let sign = 1;
     for (let c = 0; c < n; c++) {
       let p = -1; for (let i = c; i < n; i++) if (!A[i][c].isZero()) { p = i; break; }
-      if (p < 0) { steps.push(step("ستون صفر", mtex(A), "ستونی بدون محور پیدا شد؛ دترمینان صفر است.")); return { answer: "\\det(A) = 0", steps, value: q(0) }; }
-      if (p !== c) { [A[p], A[c]] = [A[c], A[p]]; sign = -sign; steps.push(step("جابه‌جایی سطر (علامت عوض می‌شود)", "R_{" + (c + 1) + "} \\leftrightarrow R_{" + (p + 1) + "}\\quad " + mtex(A), null)); }
+      if (p < 0) { steps.push(step(tr("ستون صفر", "Zero column"), mtex(A), tr("ستونی بدون محور پیدا شد؛ دترمینان صفر است.", "A column without a pivot was found; the determinant is zero."))); return { answer: "\\det(A) = 0", steps, value: q(0) }; }
+      if (p !== c) { [A[p], A[c]] = [A[c], A[p]]; sign = -sign; steps.push(step(tr("جابه‌جایی سطر (علامت عوض می‌شود)", "Swap rows (the sign changes)"), "R_{" + (c + 1) + "} \\leftrightarrow R_{" + (p + 1) + "}\\quad " + mtex(A), null)); }
       const ops = [];
       for (let i = c + 1; i < n; i++) { const f = A[i][c].div(A[c][c]); if (!f.isZero()) { A[i] = A[i].map((x, j) => x.sub(f.mul(A[c][j]))); ops.push("R_{" + (i + 1) + "} - " + pt(f) + "R_{" + (c + 1) + "}"); } }
-      if (ops.length) steps.push(step("صفر کردن زیر محور ستون " + (c + 1), ops.join(",\\; ") + "\\quad " + mtex(A), "افزودن مضربی از یک سطر به سطر دیگر دترمینان را تغییر نمی‌دهد."));
+      if (ops.length) steps.push(step(tr("صفر کردن زیر محور ستون ", "Clear below the pivot in column ") + (c + 1), ops.join(",\\; ") + "\\quad " + mtex(A), tr("افزودن مضربی از یک سطر به سطر دیگر دترمینان را تغییر نمی‌دهد.", "Adding a multiple of one row to another does not change the determinant.")));
     }
     let d = q(sign); const diag = []; for (let i = 0; i < n; i++) { d = d.mul(A[i][i]); diag.push(pt(A[i][i])); }
-    steps.push(step("حاصل‌ضرب قطر ماتریس بالامثلثی", "\\det = " + (sign < 0 ? "-" : "") + diag.join("\\cdot") + " = " + d.toTeX(), null));
+    steps.push(step(tr("حاصل‌ضرب قطر ماتریس بالامثلثی", "Product of the diagonal of the upper-triangular matrix"), "\\det = " + (sign < 0 ? "-" : "") + diag.join("\\cdot") + " = " + d.toTeX(), null));
     return { answer: "\\det(A) = " + d.toTeX(), steps, value: d };
   }
   E.determinantSteps = determinantSteps;
@@ -88,62 +89,62 @@
     sq(M);
     const n = M.length, steps = [];
     const d = detValue(M);
-    steps.push(step("بررسی وارون‌پذیری", "\\det(A) = " + d.toTeX(), d.isZero() ? "دترمینان صفر است؛ ماتریس وارون ندارد." : "دترمینان ناصفر است؛ وارون وجود دارد."));
-    if (d.isZero()) return { answer: "\\text{ماتریس وارون‌پذیر نیست}", steps };
+    steps.push(step(tr("بررسی وارون‌پذیری", "Check invertibility"), "\\det(A) = " + d.toTeX(), d.isZero() ? tr("دترمینان صفر است؛ ماتریس وارون ندارد.", "The determinant is zero; the matrix has no inverse.") : tr("دترمینان ناصفر است؛ وارون وجود دارد.", "The determinant is nonzero; the inverse exists.")));
+    if (d.isZero()) return { answer: tr("\\text{ماتریس وارون‌پذیر نیست}", "\\text{the matrix is not invertible}"), steps };
     if (n === 2) {
       const [[a, b], [c, dd]] = M;
       const inv = [[dd.div(d), b.neg().div(d)], [c.neg().div(d), a.div(d)]];
-      steps.push(step("فرمول وارون ۲×۲", "A^{-1} = \\frac{1}{ad-bc}\\begin{bmatrix} d & -b \\\\ -c & a \\end{bmatrix} = \\frac{1}{" + d.toTeX() + "}" + mtex([[dd, b.neg()], [c.neg(), a]]) + " = " + mtex(inv), "جای درایه‌های قطر اصلی عوض و علامت قطر فرعی قرینه می‌شود."));
+      steps.push(step(tr("فرمول وارون ۲×۲", "2×2 inverse formula"), "A^{-1} = \\frac{1}{ad-bc}\\begin{bmatrix} d & -b \\\\ -c & a \\end{bmatrix} = \\frac{1}{" + d.toTeX() + "}" + mtex([[dd, b.neg()], [c.neg(), a]]) + " = " + mtex(inv), tr("جای درایه‌های قطر اصلی عوض و علامت قطر فرعی قرینه می‌شود.", "Swap the main-diagonal entries and negate the other diagonal.")));
       return { answer: "A^{-1} = " + mtex(inv), steps, value: inv };
     }
     const A = M.map((r, i) => r.concat(I(n)[i]));
     const aug = X => "\\left[\\begin{array}{" + "c".repeat(n) + "|" + "c".repeat(n) + "}" + X.map(r => r.map(x => x.toTeX()).join(" & ")).join(" \\\\ ") + "\\end{array}\\right]";
-    steps.push(step("ماتریس افزودهٔ [A | I]", aug(A), "روی سطرها عملیات انجام می‌دهیم تا سمت چپ ماتریس همانی شود."));
+    steps.push(step(tr("ماتریس افزودهٔ [A | I]", "Augmented matrix [A | I]"), aug(A), tr("روی سطرها عملیات انجام می‌دهیم تا سمت چپ ماتریس همانی شود.", "Row-reduce until the left side becomes the identity matrix.")));
     for (let c = 0; c < n; c++) {
       let p = -1; for (let i = c; i < n; i++) if (!A[i][c].isZero()) { p = i; break; }
-      if (p !== c) { [A[p], A[c]] = [A[c], A[p]]; steps.push(step("جابه‌جایی سطرها", "R_{" + (c + 1) + "} \\leftrightarrow R_{" + (p + 1) + "}\\quad " + aug(A), null)); }
+      if (p !== c) { [A[p], A[c]] = [A[c], A[p]]; steps.push(step(tr("جابه‌جایی سطرها", "Swap rows"), "R_{" + (c + 1) + "} \\leftrightarrow R_{" + (p + 1) + "}\\quad " + aug(A), null)); }
       const pv = A[c][c];
-      if (!pv.isOne()) { A[c] = A[c].map(x => x.div(pv)); steps.push(step("یکه کردن محور سطر " + (c + 1), "R_{" + (c + 1) + "} \\to \\frac{1}{" + pv.toTeX() + "}R_{" + (c + 1) + "}\\quad " + aug(A), null)); }
+      if (!pv.isOne()) { A[c] = A[c].map(x => x.div(pv)); steps.push(step(tr("یکه کردن محور سطر ", "Make the pivot 1 in row ") + (c + 1), "R_{" + (c + 1) + "} \\to \\frac{1}{" + pv.toTeX() + "}R_{" + (c + 1) + "}\\quad " + aug(A), null)); }
       const ops = [];
       for (let i = 0; i < n; i++) if (i !== c && !A[i][c].isZero()) { const f = A[i][c]; A[i] = A[i].map((x, j) => x.sub(f.mul(A[c][j]))); ops.push("R_{" + (i + 1) + "} - " + pt(f) + "R_{" + (c + 1) + "}"); }
-      if (ops.length) steps.push(step("صفر کردن ستون " + (c + 1), ops.join(",\\; ") + "\\quad " + aug(A), null));
+      if (ops.length) steps.push(step(tr("صفر کردن ستون ", "Clear column ") + (c + 1), ops.join(",\\; ") + "\\quad " + aug(A), null));
     }
     const inv = A.map(r => r.slice(n));
-    steps.push(step("نتیجه", "A^{-1} = " + mtex(inv), "سمت راست ماتریس افزوده اکنون وارون A است."));
+    steps.push(step(tr("نتیجه", "Result"), "A^{-1} = " + mtex(inv), tr("سمت راست ماتریس افزوده اکنون وارون A است.", "The right side of the augmented matrix is now the inverse of A.")));
     return { answer: "A^{-1} = " + mtex(inv), steps, value: inv };
   }
   E.inverseSteps = inverseSteps;
 
   function mul(A, B) {
-    if (A[0].length !== B.length) throw new MathError("ضرب تعریف نشده است: تعداد ستون‌های A (" + A[0].length + ") باید با تعداد سطرهای B (" + B.length + ") برابر باشد.");
+    if (A[0].length !== B.length) throw new MathError(tr("ضرب تعریف نشده است: تعداد ستون‌های A (", "Product undefined: the number of columns of A (") + A[0].length + tr(") باید با تعداد سطرهای B (", ") must equal the number of rows of B (") + B.length + tr(") برابر باشد.", ")."));
     return A.map(r => B[0].map((_, j) => r.reduce((s, x, k) => s.add(x.mul(B[k][j])), q(0))));
   }
   E.matMul = mul;
   function multiplySteps(A, B) {
     const C = mul(A, B), steps = [];
-    steps.push(step("ابعاد", "(" + A.length + "\\times" + A[0].length + ")\\cdot(" + B.length + "\\times" + B[0].length + ") \\Rightarrow " + C.length + "\\times" + C[0].length, "درایهٔ c_{ij} حاصل ضرب داخلی سطر i از A در ستون j از B است."));
+    steps.push(step(tr("ابعاد", "Dimensions"), "(" + A.length + "\\times" + A[0].length + ")\\cdot(" + B.length + "\\times" + B[0].length + ") \\Rightarrow " + C.length + "\\times" + C[0].length, tr("درایهٔ c_{ij} حاصل ضرب داخلی سطر i از A در ستون j از B است.", "Entry c_{ij} is the dot product of row i of A and column j of B.")));
     if (C.length * C[0].length <= 9) {
       const lines = [];
       C.forEach((r, i) => r.forEach((x, j) => lines.push("c_{" + (i + 1) + (j + 1) + "} = " + A[i].map((a, k) => pt(a) + "\\cdot" + pt(B[k][j])).join(" + ") + " = " + x.toTeX())));
-      steps.push(step("محاسبهٔ درایه‌ها", lines.join(" \\\\ "), null));
+      steps.push(step(tr("محاسبهٔ درایه‌ها", "Compute the entries"), lines.join(" \\\\ "), null));
     }
-    steps.push(step("نتیجه", mtex(A) + mtex(B) + " = " + mtex(C), null));
+    steps.push(step(tr("نتیجه", "Result"), mtex(A) + mtex(B) + " = " + mtex(C), null));
     return { answer: "AB = " + mtex(C), steps, value: C };
   }
   function addSteps(A, B, sign = 1) {
-    if (A.length !== B.length || A[0].length !== B[0].length) throw new MathError("برای جمع یا تفریق، ابعاد دو ماتریس باید برابر باشد.");
+    if (A.length !== B.length || A[0].length !== B[0].length) throw new MathError(tr("برای جمع یا تفریق، ابعاد دو ماتریس باید برابر باشد.", "For addition or subtraction, both matrices must have the same size."));
     const C = A.map((r, i) => r.map((x, j) => sign > 0 ? x.add(B[i][j]) : x.sub(B[i][j])));
-    return { answer: (sign > 0 ? "A + B = " : "A - B = ") + mtex(C), steps: [step(sign > 0 ? "جمع درایه‌به‌درایه" : "تفریق درایه‌به‌درایه", mtex(A) + (sign > 0 ? " + " : " - ") + mtex(B) + " = " + mtex(C), "درایه‌های هم‌مکان با هم جمع (تفریق) می‌شوند.")], value: C };
+    return { answer: (sign > 0 ? "A + B = " : "A - B = ") + mtex(C), steps: [step(sign > 0 ? tr("جمع درایه‌به‌درایه", "Entrywise addition") : tr("تفریق درایه‌به‌درایه", "Entrywise subtraction"), mtex(A) + (sign > 0 ? " + " : " - ") + mtex(B) + " = " + mtex(C), tr("درایه‌های هم‌مکان با هم جمع (تفریق) می‌شوند.", "Entries in the same position are added (subtracted)."))], value: C };
   }
   function transposeSteps(A) {
     const C = A[0].map((_, j) => A.map(r => r[j]));
-    return { answer: "A^{T} = " + mtex(C), steps: [step("ترانهاده", "A^{T} = " + mtex(C), "سطرها ستون می‌شوند: (A^{T})_{ij} = a_{ji}")], value: C };
+    return { answer: "A^{T} = " + mtex(C), steps: [step(tr("ترانهاده", "Transpose"), "A^{T} = " + mtex(C), tr("سطرها ستون می‌شوند: (A^{T})_{ij} = a_{ji}", "Rows become columns: (A^{T})_{ij} = a_{ji}"))], value: C };
   }
   function powerSteps(A, k) {
-    sq(A); if (k < 0) { const inv = inverseSteps(A); if (!inv.value) throw new MathError("ماتریس وارون ندارد."); A = inv.value; k = -k; }
+    sq(A); if (k < 0) { const inv = inverseSteps(A); if (!inv.value) throw new MathError(tr("ماتریس وارون ندارد.", "The matrix has no inverse.")); A = inv.value; k = -k; }
     let R = I(A.length), steps = [];
     for (let i = 1; i <= k; i++) { R = mul(R, A); if (i <= 4 && i > 1) steps.push(step("A^{" + i + "}", "A^{" + i + "} = A^{" + (i - 1) + "}A = " + mtex(R), null)); }
-    if (k > 4) steps.push(step("ادامهٔ ضرب", "A^{" + k + "} = " + mtex(R), null));
+    if (k > 4) steps.push(step(tr("ادامهٔ ضرب", "Continue multiplying"), "A^{" + k + "} = " + mtex(R), null));
     return { answer: "A^{" + k + "} = " + mtex(R), steps, value: R };
   }
   function rrefSteps(M, augmented) {
@@ -154,15 +155,15 @@
     for (let c = 0; c < lim && r < rows; c++) {
       let p = -1; for (let i = r; i < rows; i++) if (!A[i][c].isZero()) { p = i; break; }
       if (p < 0) continue;
-      if (p !== r) { [A[p], A[r]] = [A[r], A[p]]; steps.push(step("جابه‌جایی سطرها", "R_{" + (r + 1) + "} \\leftrightarrow R_{" + (p + 1) + "}\\quad " + show(A), null)); }
+      if (p !== r) { [A[p], A[r]] = [A[r], A[p]]; steps.push(step(tr("جابه‌جایی سطرها", "Swap rows"), "R_{" + (r + 1) + "} \\leftrightarrow R_{" + (p + 1) + "}\\quad " + show(A), null)); }
       const pv = A[r][c];
-      if (!pv.isOne()) { A[r] = A[r].map(x => x.div(pv)); steps.push(step("یکه کردن محور", "R_{" + (r + 1) + "} \\to \\frac{1}{" + pv.toTeX() + "}R_{" + (r + 1) + "}\\quad " + show(A), null)); }
+      if (!pv.isOne()) { A[r] = A[r].map(x => x.div(pv)); steps.push(step(tr("یکه کردن محور", "Make the pivot 1"), "R_{" + (r + 1) + "} \\to \\frac{1}{" + pv.toTeX() + "}R_{" + (r + 1) + "}\\quad " + show(A), null)); }
       const ops = [];
       for (let i = 0; i < rows; i++) if (i !== r && !A[i][c].isZero()) { const f = A[i][c]; A[i] = A[i].map((x, j) => x.sub(f.mul(A[r][j]))); ops.push("R_{" + (i + 1) + "} - " + pt(f) + "R_{" + (r + 1) + "}"); }
-      if (ops.length) steps.push(step("صفر کردن ستون " + (c + 1), ops.join(",\\; ") + "\\quad " + show(A), null));
+      if (ops.length) steps.push(step(tr("صفر کردن ستون ", "Clear column ") + (c + 1), ops.join(",\\; ") + "\\quad " + show(A), null));
       pivots.push(c); r++;
     }
-    steps.push(step("شکل سطری‌پلکانی کاهش‌یافته", show(A), "رتبه = تعداد سطرهای ناصفر = " + pivots.length));
+    steps.push(step(tr("شکل سطری‌پلکانی کاهش‌یافته", "Reduced row echelon form"), show(A), tr("رتبه = تعداد سطرهای ناصفر = ", "rank = number of nonzero rows = ") + pivots.length));
     return { answer: "\\operatorname{rref}(A) = " + show(A) + ",\\quad \\operatorname{rank}(A) = " + pivots.length, steps, value: A, rank: pivots.length, pivots };
   }
   E.rrefSteps = rrefSteps;
@@ -189,14 +190,14 @@
   }
   E.charPoly = charPoly;
   function eigenSteps(A) {
-    sq(A); const n = A.length; if (n > 4) throw new MathError("مقادیر ویژه برای حداکثر ۴×۴ پشتیبانی می‌شود.");
+    sq(A); const n = A.length; if (n > 4) throw new MathError(tr("مقادیر ویژه برای حداکثر ۴×۴ پشتیبانی می‌شود.", "Eigenvalues are supported up to 4×4."));
     const steps = [];
     const P = charPoly(A);
-    steps.push(step("چندجمله‌ای مشخصه", "\\det(A - \\lambda I) = " + P.tex("\\lambda"), "مقادیر ویژه ریشه‌های این چندجمله‌ای هستند."));
+    steps.push(step(tr("چندجمله‌ای مشخصه", "Characteristic polynomial"), "\\det(A - \\lambda I) = " + P.tex("\\lambda"), tr("مقادیر ویژه ریشه‌های این چندجمله‌ای هستند.", "The eigenvalues are the roots of this polynomial.")));
     const sub = [];
     const sol = P.deg() === 1 ? { answer: "\\lambda = " + P.co(0).neg().toTeX(), sols: [N.num(P.co(0).neg())] } : (function () { const r = E.solveEquation(P.toAst("L"), N.num(q(0)), "L"); return r; })();
     const ans = sol.answer.replace(/L/g, "\\lambda");
-    steps.push(step("حل معادلهٔ مشخصه", ans, null));
+    steps.push(step(tr("حل معادلهٔ مشخصه", "Solve the characteristic equation"), ans, null));
     /* eigenvectors for rational eigenvalues */
     const vecs = [];
     (Array.isArray(sol.sols) ? sol.sols : []).forEach(s => {
@@ -213,7 +214,7 @@
         vecs.push("\\lambda = " + lam.toTeX() + ":\\; \\vec v = " + mtex(vi.map(x => [x])));
       });
     });
-    if (vecs.length) steps.push(step("بردارهای ویژه", vecs.join(" \\\\ "), "برای هر λ، فضای پوچ (A − λI) را با حذف گاوسی پیدا می‌کنیم."));
+    if (vecs.length) steps.push(step(tr("بردارهای ویژه", "Eigenvectors"), vecs.join(" \\\\ "), tr("برای هر λ، فضای پوچ (A − λI) را با حذف گاوسی پیدا می‌کنیم.", "For each λ, find the null space of (A − λI) by Gaussian elimination.")));
     return { answer: ans, steps };
   }
   E.eigenSteps = eigenSteps;
@@ -230,17 +231,17 @@
       case "rref": return rrefSteps(A);
       case "eig": return eigenSteps(A);
       case "solve": {
-        if (!B || B[0].length !== 1 || B.length !== A.length) throw new MathError("بردار b باید یک ستون با " + A.length + " سطر باشد.");
+        if (!B || B[0].length !== 1 || B.length !== A.length) throw new MathError(tr("بردار b باید یک ستون با ", "Vector b must be one column with ") + A.length + tr(" سطر باشد.", " rows."));
         const aug = A.map((r, i) => r.concat([B[i][0]]));
         const res = rrefSteps(aug, true);
         const rows = res.value, n = A[0].length;
         const incons = rows.some(r => r.slice(0, n).every(x => x.isZero()) && !r[n].isZero());
-        if (incons) return { answer: "\\text{دستگاه جواب ندارد}", steps: res.steps };
-        if (res.rank < n) return { answer: "\\text{بی‌شمار جواب (رتبه } " + res.rank + " < " + n + ")", steps: res.steps };
+        if (incons) return { answer: tr("\\text{دستگاه جواب ندارد}", "\\text{the system has no solution}"), steps: res.steps };
+        if (res.rank < n) return { answer: tr("\\text{بی‌شمار جواب (رتبه } ", "\\text{infinitely many solutions (rank } ") + res.rank + " < " + n + ")", steps: res.steps };
         const x = rows.slice(0, n).map(r => [r[n]]);
         return { answer: "\\vec{x} = " + mtex(x), steps: res.steps, value: x };
       }
     }
-    throw new MathError("عملیات ناشناخته");
+    throw new MathError(tr("عملیات ناشناخته", "Unknown operation"));
   };
 })(typeof globalThis !== "undefined" ? globalThis : this);

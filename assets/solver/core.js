@@ -3,6 +3,10 @@
 (function (root) {
   "use strict";
   const E = root.MathEngine = root.MathEngine || {};
+  /* language: browser pages load assets/i18n.js first; Node tests may set globalThis.MDSA_LANG */
+  E.lang = () => (root.I18N ? root.I18N.lang : root.MDSA_LANG === "en" ? "en" : "fa");
+  if (typeof root.tr !== "function") root.tr = (fa, en) => (E.lang() === "en" && en !== undefined ? en : fa);
+  const tr = (fa, en) => (E.lang() === "en" && en !== undefined ? en : fa);
 
   /* ---------------- exact rationals (BigInt) ---------------- */
   const babs = a => (a < 0n ? -a : a);
@@ -10,7 +14,7 @@
   class Q {
     constructor(n, d = 1n) {
       n = BigInt(n); d = BigInt(d);
-      if (d === 0n) throw new MathError("تقسیم بر صفر تعریف نشده است.");
+      if (d === 0n) throw new MathError(tr("تقسیم بر صفر تعریف نشده است.", "Division by zero is undefined."));
       if (d < 0n) { n = -n; d = -d; }
       const g = bgcd(n, d) || 1n;
       this.n = n / g; this.d = d / g;
@@ -19,7 +23,7 @@
     static parse(s) {
       s = String(s).trim();
       const m = /^(-?)(\d*)(?:\.(\d+))?(?:e([+-]?\d+))?$/i.exec(s);
-      if (!m) throw new MathError("عدد نامعتبر: " + s);
+      if (!m) throw new MathError(tr("عدد نامعتبر: ", "Invalid number: ") + s);
       const int = m[2] || "0", frac = m[3] || "";
       let n = BigInt(int + frac), d = 10n ** BigInt(frac.length);
       if (m[4]) { const e = BigInt(m[4]); if (e >= 0n) n *= 10n ** e; else d *= 10n ** -e; }
@@ -33,7 +37,7 @@
     add(b) { return new Q(this.n * b.d + b.n * this.d, this.d * b.d); }
     sub(b) { return new Q(this.n * b.d - b.n * this.d, this.d * b.d); }
     mul(b) { return new Q(this.n * b.n, this.d * b.d); }
-    div(b) { if (b.n === 0n) throw new MathError("تقسیم بر صفر تعریف نشده است."); return new Q(this.n * b.d, this.d * b.n); }
+    div(b) { if (b.n === 0n) throw new MathError(tr("تقسیم بر صفر تعریف نشده است.", "Division by zero is undefined.")); return new Q(this.n * b.d, this.d * b.n); }
     neg() { return new Q(-this.n, this.d); }
     abs() { return new Q(babs(this.n), this.d); }
     inv() { return new Q(this.d, this.n); }
@@ -70,7 +74,7 @@
   E.MathError = MathError;
 
   function trimNum(x, digits = 8) {
-    if (!Number.isFinite(x)) return x > 0 ? "∞" : x < 0 ? "-∞" : "تعریف‌نشده";
+    if (!Number.isFinite(x)) return x > 0 ? "∞" : x < 0 ? "-∞" : tr("تعریف‌نشده", "undefined");
     if (Math.abs(x) < 1e-12) return "0";
     let s = Number(x.toPrecision(Math.min(15, digits + Math.max(0, Math.floor(Math.log10(Math.abs(x))) + 1)))).toString();
     if (/e/.test(s)) s = x.toPrecision(digits);
@@ -125,7 +129,7 @@
       if (ch === " ") { i++; continue; }
       if (/[0-9.]/.test(ch)) {
         const m = /^(\d+\.?\d*|\.\d+)/.exec(s.slice(i));
-        if (!m) throw new MathError("عدد نامعتبر در موقعیت " + (i + 1));
+        if (!m) throw new MathError(tr("عدد نامعتبر در موقعیت ", "Invalid number at position ") + (i + 1));
         out.push({ k: "num", v: m[1] }); i += m[1].length; continue;
       }
       if (/[a-zA-Z]/.test(ch)) {
@@ -158,7 +162,7 @@
         out.push({ k: "op", v }); i++; continue;
       }
       if (ch === "\\;") { out.push({ k: "op", v: "," }); i++; continue; }
-      throw new MathError("نماد ناشناخته: «" + ch + "»");
+      throw new MathError(tr("نماد ناشناخته: «", "Unknown symbol: «") + ch + "»");
     }
     return out;
   }
@@ -168,7 +172,7 @@
     peek() { return this.t[this.i]; },
     next() { return this.t[this.i++]; },
     isOp(v) { const p = this.peek(); return p && p.k === "op" && p.v === v; },
-    expect(v) { if (!this.isOp(v)) throw new MathError(v === ")" ? "پرانتز بسته نشده است." : "انتظار «" + v + "» می‌رفت."); this.i++; },
+    expect(v) { if (!this.isOp(v)) throw new MathError(v === ")" ? tr("پرانتز بسته نشده است.", "A parenthesis is not closed.") : tr("انتظار «", "Expected «") + v + tr("» می‌رفت.", "».")); this.i++; },
     expr() {
       let l = this.term();
       while (this.isOp("+") || this.isOp("-")) { const op = this.next().v; const r = this.term(); l = N.bin(op, l, r); }
@@ -204,7 +208,7 @@
     },
     primary() {
       const p = this.next();
-      if (!p) throw new MathError("عبارت ناقص است.");
+      if (!p) throw new MathError(tr("عبارت ناقص است.", "The expression is incomplete."));
       if (p.k === "num") return N.num(Q.parse(p.v));
       if (p.k === "var") return N.v(p.v);
       if (p.k === "const") return N.c(p.v);
@@ -231,19 +235,19 @@
         return N.fn(name, arg);
       }
       if (p.k === "op" && p.v === "-") { const a = this.power(); return N.neg(a); }
-      throw new MathError("عبارت در اینجا نامعتبر است: «" + p.v + "»");
+      throw new MathError(tr("عبارت در اینجا نامعتبر است: «", "Invalid expression here: «") + p.v + "»");
     },
   };
 
   function parse(src, opts = {}) {
     const toks = tokenize(src, opts);
-    if (!toks.length) throw new MathError("عبارتی وارد نشده است.");
+    if (!toks.length) throw new MathError(tr("عبارتی وارد نشده است.", "No expression was entered."));
     const P = new Parser(toks);
     const e = P.expr();
     if (P.i < toks.length) {
       const t = toks[P.i];
-      if (t.k === "op" && t.v === ")") throw new MathError("پرانتز اضافه وجود دارد.");
-      throw new MathError("عبارت پس از «" + (t.v) + "» قابل فهم نیست.");
+      if (t.k === "op" && t.v === ")") throw new MathError(tr("پرانتز اضافه وجود دارد.", "There is an extra parenthesis."));
+      throw new MathError(tr("عبارت پس از «", "Could not understand the expression after «") + (t.v) + tr("» قابل فهم نیست.", "»."));
     }
     return e;
   }
@@ -265,7 +269,7 @@
       const parts = [], rels = []; let cur = [];
       for (const t of g) { if (t.k === "rel") { parts.push(cur); rels.push(t.v); cur = []; } else cur.push(t); }
       parts.push(cur);
-      const asts = parts.map(p => { if (!p.length) throw new MathError("یک طرف رابطه خالی است."); const P = new Parser(p); const e = P.expr(); if (P.i < p.length) throw new MathError("عبارت نامعتبر است."); return e; });
+      const asts = parts.map(p => { if (!p.length) throw new MathError(tr("یک طرف رابطه خالی است.", "One side of the relation is empty.")); const P = new Parser(p); const e = P.expr(); if (P.i < p.length) throw new MathError(tr("عبارت نامعتبر است.", "Invalid expression.")); return e; });
       return { parts: asts, rels };
     });
   }
@@ -330,13 +334,13 @@
     switch (a.t) {
       case "num": return a.q.num();
       case "fl": return a.v;
-      case "var": if (a.n in env) return env[a.n]; throw new MathError("مقدار متغیر " + a.n + " مشخص نیست.");
+      case "var": if (a.n in env) return env[a.n]; throw new MathError(tr("مقدار متغیر ", "The value of variable ") + a.n + tr(" مشخص نیست.", " is not known."));
       case "const": return a.n === "pi" ? Math.PI : a.n === "e" ? Math.E : a.n === "oo" ? Infinity : NaN;
       case "neg": return -evalNum(a.a, env);
       case "fact": return fact(evalNum(a.a, env));
       case "fn": {
         if (a.n === "root") { const x = evalNum(a.a[0], env), k = evalNum(a.a[1], env); return x < 0 && k % 2 === 1 ? -Math.pow(-x, 1 / k) : Math.pow(x, 1 / k); }
-        const f = FN_NUM[a.n]; if (!f) throw new MathError("تابع ناشناخته: " + a.n);
+        const f = FN_NUM[a.n]; if (!f) throw new MathError(tr("تابع ناشناخته: ", "Unknown function: ") + a.n);
         return f(evalNum(a.a[0], env));
       }
       case "bin": {
@@ -353,7 +357,7 @@
         }
       }
     }
-    throw new MathError("ارزیابی ممکن نیست.");
+    throw new MathError(tr("ارزیابی ممکن نیست.", "Cannot evaluate."));
   }
   E.evalNum = evalNum;
   E.compile = (a, v = "x") => (x) => { try { return evalNum(a, { [v]: x }); } catch (e) { return NaN; } };
@@ -432,7 +436,7 @@
       case "fl": return trimNum(a.v);
       case "var": return a.n;
       case "const": return a.n === "pi" ? "\\pi" : a.n === "oo" ? "\\infty" : "e";
-      case "neg": { const s = tex(a.a); return "-" + (prec(a.a) <= 2 && !(a.a.t === "bin" && a.a.op === "/") ? P_(s) : s); }
+      case "neg": { const s = tex(a.a); return "-" + ((prec(a.a) < 2 || s.startsWith("-")) && !(a.a.t === "bin" && a.a.op === "/") ? P_(s) : s); }
       case "fact": { const s = tex(a.a); return (a.a.t === "num" && a.a.q.sign() >= 0 && a.a.q.isInt()) || a.a.t === "var" ? s + "!" : P_(s) + "!"; }
       case "fn": {
         const x = a.a.map(tex);
@@ -464,12 +468,12 @@
           return tex(l) + " + " + rs;
         }
         if (a.op === "-") {
-          let rs = tex(r); if (prec(r) <= 1.5) rs = P_(rs);
+          let rs = tex(r); if (prec(r) <= 1.5 || rs.startsWith("-")) rs = P_(rs);
           return tex(l) + " - " + rs;
         }
         if (a.op === "*") {
           let ls = tex(l), rs = tex(r);
-          if (prec(l) < 2 || (l.t === "num" && l.q.sign() < 0 && false)) ls = P_(ls);
+          if (prec(l) < 2 && !(l.t === "num" && l.q.sign() < 0)) ls = P_(ls);
           if (prec(r) < 2 || rs.startsWith("-")) rs = P_(rs);
           else if (r.t === "bin" && r.op === "*" && false) rs = rs;
           const juxt = !startsNumeric(r) && !(r.t === "bin" && r.op === "/") && (l.t === "num" || l.t === "var" || l.t === "const" || (l.t === "bin" && l.op === "^") || (l.t === "bin" && l.op === "/" && (r.t === "var" || r.t === "fn" || r.t === "const")) || (l.t === "bin" && l.op === "*" && !startsNumeric(r))) && !rs.startsWith("\\left(") ;
@@ -648,13 +652,13 @@
   E.pretty = pretty;
 
   /* ---------------- nerdamer bridge ---------------- */
-  function nd() { const n = root.nerdamer; if (!n) throw new MathError("موتور نمادین بارگذاری نشده است."); return n; }
+  function nd() { const n = root.nerdamer; if (!n) throw new MathError(tr("موتور نمادین بارگذاری نشده است.", "The symbolic engine is not loaded.")); return n; }
   E.nd = nd;
   E.cas = function (expr) { return nd()(expr).toString(); };
   /* run nerdamer, parse back to our AST (nerdamer log = ln) */
   E.casAst = function (expr) {
     const s = nd()(expr).toString();
-    if (/undefined|NaN/i.test(s)) throw new MathError("محاسبه ممکن نبود.");
+    if (/undefined|NaN/i.test(s)) throw new MathError(tr("محاسبه ممکن نبود.", "The computation failed."));
     return pretty(simp(E.parseNerd(s)));
   };
   E.simplifyAst = function (a) {
@@ -678,6 +682,6 @@
 
   /* step helpers */
   E.step = (title, texStr, note) => ({ title, tex: texStr, note });
-  E.fa = n => String(n).replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  E.fa = n => (E.lang() === "en" ? String(n) : String(n).replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]));
   E.ZERO = ZERO; E.ONE = ONE;
 })(typeof globalThis !== "undefined" ? globalThis : this);

@@ -9,42 +9,42 @@
 
   /* ---------------- category definitions ---------------- */
   const CATS = [
-    { id: "arith", name: "حساب و اعداد", icon: "123", desc: "ترتیب عملیات، کسرها، توان و رادیکال، عوامل اول و ب.م.م",
-      modes: [{ id: "calc", name: "محاسبه", ph: "مثلاً 2+3*(4-1)^2 یا 1/2+3/4", ex: ["2+3*(4-1)^2", "1/2+3/4", "(2/3)*(9/4)", "sqrt(144)/3+2^4", "5!/(2!*3!)", "sin(pi/6)+cos(0)"] },
-        { id: "prime", name: "تجزیه به عوامل اول", ph: "یک عدد طبیعی، مثلاً 360", ex: ["360", "1001", "2024", "97"] },
-        { id: "gcd", name: "ب.م.م و ک.م.م", ph: "اعداد را با ویرگول جدا کن: 12, 18", ex: ["12, 18", "84, 126", "8, 12, 20"] }] },
-    { id: "algebra", name: "جبر", icon: "x²", desc: "ساده‌سازی، بسط، تجزیه و ساده کردن کسرهای جبری",
-      modes: [{ id: "simplify", name: "ساده‌سازی", ph: "مثلاً 3(x-2)-2(x+1)", ex: ["3(x-2)-2(x+1)", "(x^2-9)/(x+3)", "1/x+1/(x+1)", "sin(x)^2+cos(x)^2"] },
-        { id: "expand", name: "بسط", ph: "مثلاً (x+3)(2x-1)", ex: ["(x+3)(2x-1)", "(2x-5)^2", "(a+b)^3", "(x+1)(x^2-x+1)"] },
-        { id: "factor", name: "تجزیه", ph: "مثلاً x^2-5x+6", ex: ["x^2-5x+6", "6x^2+x-2", "x^3-8", "x^4-16", "2x^3-8x", "x^3-6x^2+11x-6"] }] },
-    { id: "equation", name: "معادله و نامعادله", icon: "=", desc: "خطی، درجه دو، چندجمله‌ای، کسری، قدرمطلق، رادیکالی، نمایی، لگاریتمی و مثلثاتی",
-      modes: [{ id: "eq", name: "معادله", ph: "مثلاً x^2-5x+6=0", ex: ["2x+3=11", "x^2-5x+6=0", "2x^2+3x-2=0", "x^2-2x-1=0", "|2x-1|=5", "sqrt(x+3)=x-3", "2^x=32", "1/x+1/2=1", "sin(x)=1/2", "x^3-6x^2+11x-6=0"] },
-        { id: "ineq", name: "نامعادله", ph: "مثلاً x^2-4>=0", ex: ["2x-3<5", "-3x+1>=7", "x^2-5x+6<0", "x^2-4>=0", "(x-1)/(x+2)<=0"] }],
-      params: [{ id: "var", label: "متغیر", def: "", ph: "خودکار" }] },
-    { id: "system", name: "دستگاه معادلات", icon: "{", desc: "دستگاه خطی ۲ یا ۳ مجهولی با حذف گاوسی؛ دستگاه‌های غیرخطی ساده", multiline: true,
-      modes: [{ id: "sys", name: "دستگاه", ph: "هر معادله در یک خط:\n2x+3y=7\n4x-y=7", ex: ["2x+3y=7\n4x-y=7", "x+y+z=6\n2x-y+z=3\nx+2y-z=2", "x+y=2\n2x+2y=4", "x^2+y^2=25\nx-y=1"] }] },
-    { id: "graph", name: "نمودار تابع", icon: "📈", desc: "رسم چند تابع با هم، ریشه‌ها، عرض از مبدأ و نقاط اکسترمم", multiline: true,
-      modes: [{ id: "plot", name: "رسم", ph: "هر تابع در یک خط:\nx^2-4\n2x+1", ex: ["x^2-4\n2x+1", "sin(x)\ncos(x)", "x^3-3x", "1/(x-1)", "e^(-x^2)", "ln(x)\ne^x\nx"] }] },
-    { id: "derivative", name: "مشتق", icon: "d/dx", desc: "مشتق با نمایش قاعده‌ها: توان، ضرب، تقسیم، زنجیره‌ای، نمایی، لگاریتمی و مثلثاتی",
-      modes: [{ id: "d", name: "مشتق", ph: "مثلاً x^2*sin(x)", ex: ["x^3+2x^2-5x", "x^2*sin(x)", "sin(x)/x", "sqrt(3x^2+1)", "e^(2x)*cos(x)", "ln(x^2+1)", "(2x+1)^5", "x^x"] }],
-      params: [{ id: "var", label: "نسبت به", def: "x" }, { id: "order", label: "مرتبه", def: "1", type: "select", options: [["1", "اول"], ["2", "دوم"], ["3", "سوم"]] }, { id: "at", label: "مقدار در نقطه (اختیاری)", def: "", ph: "مثلاً 2" }] },
-    { id: "integral", name: "انتگرال", icon: "∫", desc: "نامعین و معین؛ جایگذاری، جزء‌به‌جزء، کسرهای جزئی و انتگرال ناسره",
-      modes: [{ id: "i", name: "انتگرال", ph: "مثلاً x*e^x", ex: ["3x^2+2x-5", "x*e^x", "x*sin(x)", "2x*cos(x^2)", "x/(x^2+1)", "1/(x^2-1)", "sin(x)^2", "ln(x)", "x^3/(x-1)"] }],
-      params: [{ id: "var", label: "نسبت به", def: "x" }, { id: "lo", label: "کران پایین (اختیاری)", def: "", ph: "مثلاً 0" }, { id: "hi", label: "کران بالا (اختیاری)", def: "", ph: "مثلاً 1 یا oo" }] },
-    { id: "limit", name: "حد", icon: "lim", desc: "جایگذاری، حذف عامل مشترک، قاعدهٔ هوپیتال و حد در بی‌نهایت",
-      modes: [{ id: "lim", name: "حد", ph: "مثلاً sin(x)/x", ex: [["sin(x)/x", "0"], ["(x^2-1)/(x-1)", "1"], ["(1-cos(x))/x^2", "0"], ["(3x^2+1)/(2x^2-x)", "oo"], ["(1+1/x)^x", "oo"], ["1/x", "0"]] }],
-      params: [{ id: "var", label: "متغیر", def: "x" }, { id: "point", label: "به سمت", def: "0", ph: "عدد، pi یا oo" }, { id: "side", label: "سمت", def: "", type: "select", options: [["", "دوطرفه"], ["-", "چپ"], ["+", "راست"]] }] },
-    { id: "apps", name: "کاربرد مشتق", icon: "∂", desc: "خط مماس، اکسترمم‌ها با آزمون مشتق دوم و چندجمله‌ای تیلور",
-      modes: [{ id: "tangent", name: "خط مماس", ph: "تابع، مثلاً x^2", ex: [["x^2", "1"], ["sin(x)", "0"], ["x^3-2x", "1"]], params: [{ id: "point", label: "در نقطهٔ x =", def: "1" }] },
-        { id: "extrema", name: "اکسترمم‌ها", ph: "تابع، مثلاً x^3-3x", ex: ["x^3-3x", "x^4-2x^2", "x*e^(-x)"] },
-        { id: "taylor", name: "سری تیلور", ph: "تابع، مثلاً e^x", ex: ["e^x", "sin(x)", "cos(x)", "ln(1+x)"], params: [{ id: "center", label: "حول نقطهٔ", def: "0" }, { id: "order", label: "مرتبه", def: "4" }] }] },
-    { id: "matrix", name: "ماتریس", icon: "[ ]", desc: "دترمینان، وارون، ضرب، ترانهاده، توان، RREF، مقادیر ویژه و حل Ax = b", matrix: true, modes: [{ id: "m", name: "ماتریس" }] },
-    { id: "stats", name: "آمار و احتمال", icon: "σ", desc: "آمار توصیفی، رگرسیون خطی، ترکیب و جایگشت، توزیع دوجمله‌ای و نرمال",
-      modes: [{ id: "describe", name: "آمار توصیفی", data: true, ph: "داده‌ها را با ویرگول یا فاصله جدا کن", ex: ["2, 4, 4, 4, 5, 5, 7, 9", "12 15 11 18 20 14 13 30", "70, 85, 90, 65, 78, 88, 92, 81"] },
-        { id: "regression", name: "رگرسیون خطی", data: true, ph: "هر سطر یک نقطه: x, y", ex: ["1, 2\n2, 4.1\n3, 5.9\n4, 8.2\n5, 9.8", "1 3\n2 5\n3 4\n4 8\n5 9\n6 11"] },
-        { id: "comb", name: "ترکیب و جایگشت", none: true, params: [{ id: "type", label: "نوع", def: "C", type: "select", options: [["C", "ترکیب C(n,k)"], ["P", "جایگشت P(n,k)"], ["fact", "فاکتوریل n!"]] }, { id: "n", label: "n", def: "10" }, { id: "k", label: "k", def: "3" }] },
-        { id: "binom", name: "توزیع دوجمله‌ای", none: true, params: [{ id: "n", label: "n (تعداد آزمایش)", def: "10" }, { id: "p", label: "p (احتمال موفقیت)", def: "0.5" }, { id: "k", label: "k", def: "5" }, { id: "kind", label: "نوع", def: "eq", type: "select", options: [["eq", "P(X = k)"], ["le", "P(X ≤ k)"], ["ge", "P(X ≥ k)"]] }] },
-        { id: "normal", name: "توزیع نرمال", none: true, params: [{ id: "mu", label: "میانگین μ", def: "0" }, { id: "sigma", label: "انحراف معیار σ", def: "1" }, { id: "a", label: "از a (خالی = −∞)", def: "-1.96" }, { id: "b", label: "تا b (خالی = ∞)", def: "1.96" }] }] },
+    { id: "arith", name: tr("حساب و اعداد", "Arithmetic & numbers"), icon: "123", desc: tr("ترتیب عملیات، کسرها، توان و رادیکال، عوامل اول و ب.م.م", "Order of operations, fractions, powers and roots, prime factors and gcd"),
+      modes: [{ id: "calc", name: tr("محاسبه", "Calculate"), ph: tr("مثلاً 2+3*(4-1)^2 یا 1/2+3/4", "e.g. 2+3*(4-1)^2 or 1/2+3/4"), ex: ["2+3*(4-1)^2", "1/2+3/4", "(2/3)*(9/4)", "sqrt(144)/3+2^4", "5!/(2!*3!)", "sin(pi/6)+cos(0)"] },
+        { id: "prime", name: tr("تجزیه به عوامل اول", "Prime factorization"), ph: tr("یک عدد طبیعی، مثلاً 360", "A whole number, e.g. 360"), ex: ["360", "1001", "2024", "97"] },
+        { id: "gcd", name: tr("ب.م.م و ک.م.م", "GCD and LCM"), ph: tr("اعداد را با ویرگول جدا کن: 12, 18", "Separate numbers with commas: 12, 18"), ex: ["12, 18", "84, 126", "8, 12, 20"] }] },
+    { id: "algebra", name: tr("جبر", "Algebra"), icon: "x²", desc: tr("ساده‌سازی، بسط، تجزیه و ساده کردن کسرهای جبری", "Simplify, expand, factor and simplify rational expressions"),
+      modes: [{ id: "simplify", name: tr("ساده‌سازی", "Simplify"), ph: tr("مثلاً 3(x-2)-2(x+1)", "e.g. 3(x-2)-2(x+1)"), ex: ["3(x-2)-2(x+1)", "(x^2-9)/(x+3)", "1/x+1/(x+1)", "sin(x)^2+cos(x)^2"] },
+        { id: "expand", name: tr("بسط", "Expand"), ph: tr("مثلاً (x+3)(2x-1)", "e.g. (x+3)(2x-1)"), ex: ["(x+3)(2x-1)", "(2x-5)^2", "(a+b)^3", "(x+1)(x^2-x+1)"] },
+        { id: "factor", name: tr("تجزیه", "Factor"), ph: tr("مثلاً x^2-5x+6", "e.g. x^2-5x+6"), ex: ["x^2-5x+6", "6x^2+x-2", "x^3-8", "x^4-16", "2x^3-8x", "x^3-6x^2+11x-6"] }] },
+    { id: "equation", name: tr("معادله و نامعادله", "Equations & inequalities"), icon: "=", desc: tr("خطی، درجه دو، چندجمله‌ای، کسری، قدرمطلق، رادیکالی، نمایی، لگاریتمی و مثلثاتی", "Linear, quadratic, polynomial, rational, absolute value, radical, exponential, logarithmic and trigonometric"),
+      modes: [{ id: "eq", name: tr("معادله", "Equation"), ph: tr("مثلاً x^2-5x+6=0", "e.g. x^2-5x+6=0"), ex: ["2x+3=11", "x^2-5x+6=0", "2x^2+3x-2=0", "x^2-2x-1=0", "|2x-1|=5", "sqrt(x+3)=x-3", "2^x=32", "1/x+1/2=1", "sin(x)=1/2", "x^3-6x^2+11x-6=0"] },
+        { id: "ineq", name: tr("نامعادله", "Inequality"), ph: tr("مثلاً x^2-4>=0", "e.g. x^2-4>=0"), ex: ["2x-3<5", "-3x+1>=7", "x^2-5x+6<0", "x^2-4>=0", "(x-1)/(x+2)<=0"] }],
+      params: [{ id: "var", label: tr("متغیر", "Variable"), def: "", ph: tr("خودکار", "auto") }] },
+    { id: "system", name: tr("دستگاه معادلات", "Systems of equations"), icon: "{", desc: tr("دستگاه خطی ۲ یا ۳ مجهولی با حذف گاوسی؛ دستگاه‌های غیرخطی ساده", "Linear systems with 2 or 3 unknowns by Gaussian elimination; simple nonlinear systems"), multiline: true,
+      modes: [{ id: "sys", name: tr("دستگاه", "System"), ph: tr("هر معادله در یک خط:\n2x+3y=7\n4x-y=7", "One equation per line:\n2x+3y=7\n4x-y=7"), ex: ["2x+3y=7\n4x-y=7", "x+y+z=6\n2x-y+z=3\nx+2y-z=2", "x+y=2\n2x+2y=4", "x^2+y^2=25\nx-y=1"] }] },
+    { id: "graph", name: tr("نمودار تابع", "Function graphs"), icon: "📈", desc: tr("رسم چند تابع با هم، ریشه‌ها، عرض از مبدأ و نقاط اکسترمم", "Plot several functions with roots, y-intercepts and extrema"), multiline: true,
+      modes: [{ id: "plot", name: tr("رسم", "Plot"), ph: tr("هر تابع در یک خط:\nx^2-4\n2x+1", "One function per line:\nx^2-4\n2x+1"), ex: ["x^2-4\n2x+1", "sin(x)\ncos(x)", "x^3-3x", "1/(x-1)", "e^(-x^2)", "ln(x)\ne^x\nx"] }] },
+    { id: "derivative", name: tr("مشتق", "Derivative"), icon: "d/dx", desc: tr("مشتق با نمایش قاعده‌ها: توان، ضرب، تقسیم، زنجیره‌ای، نمایی، لگاریتمی و مثلثاتی", "Derivatives with every rule shown: power, product, quotient, chain, exponential, logarithmic and trigonometric"),
+      modes: [{ id: "d", name: tr("مشتق", "Derivative"), ph: tr("مثلاً x^2*sin(x)", "e.g. x^2*sin(x)"), ex: ["x^3+2x^2-5x", "x^2*sin(x)", "sin(x)/x", "sqrt(3x^2+1)", "e^(2x)*cos(x)", "ln(x^2+1)", "(2x+1)^5", "x^x"] }],
+      params: [{ id: "var", label: tr("نسبت به", "With respect to"), def: "x" }, { id: "order", label: tr("مرتبه", "Order"), def: "1", type: "select", options: [["1", tr("اول", "first")], ["2", tr("دوم", "second")], ["3", tr("سوم", "third")]] }, { id: "at", label: tr("مقدار در نقطه (اختیاری)", "Value at a point (optional)"), def: "", ph: tr("مثلاً 2", "e.g. 2") }] },
+    { id: "integral", name: tr("انتگرال", "Integral"), icon: "∫", desc: tr("نامعین و معین؛ جایگذاری، جزء‌به‌جزء، کسرهای جزئی و انتگرال ناسره", "Indefinite and definite; substitution, by parts, partial fractions and improper integrals"),
+      modes: [{ id: "i", name: tr("انتگرال", "Integral"), ph: tr("مثلاً x*e^x", "e.g. x*e^x"), ex: ["3x^2+2x-5", "x*e^x", "x*sin(x)", "2x*cos(x^2)", "x/(x^2+1)", "1/(x^2-1)", "sin(x)^2", "ln(x)", "x^3/(x-1)"] }],
+      params: [{ id: "var", label: tr("نسبت به", "With respect to"), def: "x" }, { id: "lo", label: tr("کران پایین (اختیاری)", "Lower bound (optional)"), def: "", ph: tr("مثلاً 0", "e.g. 0") }, { id: "hi", label: tr("کران بالا (اختیاری)", "Upper bound (optional)"), def: "", ph: tr("مثلاً 1 یا oo", "e.g. 1 or oo") }] },
+    { id: "limit", name: tr("حد", "Limit"), icon: "lim", desc: tr("جایگذاری، حذف عامل مشترک، قاعدهٔ هوپیتال و حد در بی‌نهایت", "Substitution, cancelling factors, L'Hôpital's rule and limits at infinity"),
+      modes: [{ id: "lim", name: tr("حد", "Limit"), ph: tr("مثلاً sin(x)/x", "e.g. sin(x)/x"), ex: [["sin(x)/x", "0"], ["(x^2-1)/(x-1)", "1"], ["(1-cos(x))/x^2", "0"], ["(3x^2+1)/(2x^2-x)", "oo"], ["(1+1/x)^x", "oo"], ["1/x", "0"]] }],
+      params: [{ id: "var", label: tr("متغیر", "Variable"), def: "x" }, { id: "point", label: tr("به سمت", "Approaches"), def: "0", ph: tr("عدد، pi یا oo", "number, pi or oo") }, { id: "side", label: tr("سمت", "Side"), def: "", type: "select", options: [["", tr("دوطرفه", "two-sided")], ["-", tr("چپ", "left")], ["+", tr("راست", "right")]] }] },
+    { id: "apps", name: tr("کاربرد مشتق", "Applications of derivatives"), icon: "∂", desc: tr("خط مماس، اکسترمم‌ها با آزمون مشتق دوم و چندجمله‌ای تیلور", "Tangent lines, extrema with the second-derivative test, and Taylor polynomials"),
+      modes: [{ id: "tangent", name: tr("خط مماس", "Tangent line"), ph: tr("تابع، مثلاً x^2", "Function, e.g. x^2"), ex: [["x^2", "1"], ["sin(x)", "0"], ["x^3-2x", "1"]], params: [{ id: "point", label: tr("در نقطهٔ x =", "At x ="), def: "1" }] },
+        { id: "extrema", name: tr("اکسترمم‌ها", "Extrema"), ph: tr("تابع، مثلاً x^3-3x", "Function, e.g. x^3-3x"), ex: ["x^3-3x", "x^4-2x^2", "x*e^(-x)"] },
+        { id: "taylor", name: tr("سری تیلور", "Taylor series"), ph: tr("تابع، مثلاً e^x", "Function, e.g. e^x"), ex: ["e^x", "sin(x)", "cos(x)", "ln(1+x)"], params: [{ id: "center", label: tr("حول نقطهٔ", "Centered at"), def: "0" }, { id: "order", label: tr("مرتبه", "Order"), def: "4" }] }] },
+    { id: "matrix", name: tr("ماتریس", "Matrices"), icon: "[ ]", desc: tr("دترمینان، وارون، ضرب، ترانهاده، توان، RREF، مقادیر ویژه و حل Ax = b", "Determinant, inverse, product, transpose, power, RREF, eigenvalues and solving Ax = b"), matrix: true, modes: [{ id: "m", name: tr("ماتریس", "Matrices") }] },
+    { id: "stats", name: tr("آمار و احتمال", "Statistics & probability"), icon: "σ", desc: tr("آمار توصیفی، رگرسیون خطی، ترکیب و جایگشت، توزیع دوجمله‌ای و نرمال", "Descriptive statistics, linear regression, combinations and permutations, binomial and normal distributions"),
+      modes: [{ id: "describe", name: tr("آمار توصیفی", "Descriptive statistics"), data: true, ph: tr("داده‌ها را با ویرگول یا فاصله جدا کن", "Separate values with commas or spaces"), ex: ["2, 4, 4, 4, 5, 5, 7, 9", "12 15 11 18 20 14 13 30", "70, 85, 90, 65, 78, 88, 92, 81"] },
+        { id: "regression", name: tr("رگرسیون خطی", "Linear regression"), data: true, ph: tr("هر سطر یک نقطه: x, y", "One point per line: x, y"), ex: ["1, 2\n2, 4.1\n3, 5.9\n4, 8.2\n5, 9.8", "1 3\n2 5\n3 4\n4 8\n5 9\n6 11"] },
+        { id: "comb", name: tr("ترکیب و جایگشت", "Combinations & permutations"), none: true, params: [{ id: "type", label: tr("نوع", "Type"), def: "C", type: "select", options: [["C", tr("ترکیب C(n,k)", "Combination C(n,k)")], ["P", tr("جایگشت P(n,k)", "Permutation P(n,k)")], ["fact", tr("فاکتوریل n!", "Factorial n!")]] }, { id: "n", label: "n", def: "10" }, { id: "k", label: "k", def: "3" }] },
+        { id: "binom", name: tr("توزیع دوجمله‌ای", "Binomial distribution"), none: true, params: [{ id: "n", label: tr("n (تعداد آزمایش)", "n (number of trials)"), def: "10" }, { id: "p", label: tr("p (احتمال موفقیت)", "p (success probability)"), def: "0.5" }, { id: "k", label: "k", def: "5" }, { id: "kind", label: tr("نوع", "Type"), def: "eq", type: "select", options: [["eq", "P(X = k)"], ["le", "P(X ≤ k)"], ["ge", "P(X ≥ k)"]] }] },
+        { id: "normal", name: tr("توزیع نرمال", "Normal distribution"), none: true, params: [{ id: "mu", label: tr("میانگین μ", "Mean μ"), def: "0" }, { id: "sigma", label: tr("انحراف معیار σ", "Standard deviation σ"), def: "1" }, { id: "a", label: tr("از a (خالی = −∞)", "From a (empty = −∞)"), def: "-1.96" }, { id: "b", label: tr("تا b (خالی = ∞)", "To b (empty = ∞)"), def: "1.96" }] }] },
   ];
   const catById = id => CATS.find(c => c.id === id) || CATS[2];
 
@@ -55,7 +55,7 @@
 
   /* ---------------- rendering of the input area ---------------- */
   function renderCats() {
-    $("cats").innerHTML = "<h2>دسته‌ها</h2>" + CATS.map(c => `<button class="cat${c.id === cat.id ? " active" : ""}" data-cat="${c.id}"><span class="ci">${esc(c.icon)}</span>${esc(c.name)}</button>`).join("");
+    $("cats").innerHTML = tr("<h2>دسته‌ها</h2>", "<h2>Categories</h2>") + CATS.map(c => `<button class="cat${c.id === cat.id ? " active" : ""}" data-cat="${c.id}"><span class="ci">${esc(c.icon)}</span>${esc(c.name)}</button>`).join("");
     $("cats").querySelectorAll("[data-cat]").forEach(b => b.onclick = () => { setCat(b.dataset.cat); });
   }
   function setCat(id, modeId, keep) {
@@ -74,12 +74,12 @@
     if (cat.matrix) html = matrixEditor();
     else if (!mode.none) {
       const multi = cat.multiline || mode.data;
-      html = `<div class="mathbox">${multi ? `<textarea id="q" rows="4" spellcheck="false" autocomplete="off" placeholder="${esc(mode.ph || "")}" aria-label="ورودی"></textarea>` : `<input id="q" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="${esc(mode.ph || "")}" aria-label="ورودی">`}<button class="btn solve-btn" id="solve">حل کن</button></div>${mode.data ? "" : `<div class="preview" id="preview" aria-live="polite"></div>`}`;
-    } else html = `<div class="mathbox"><button class="btn solve-btn" id="solve" style="width:100%">محاسبه کن</button></div>`;
+      html = `<div class="mathbox">${multi ? `<textarea id="q" rows="4" spellcheck="false" autocomplete="off" placeholder="${esc(mode.ph || "")}" aria-label="${tr("ورودی", "Input")}"></textarea>` : `<input id="q" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="${esc(mode.ph || "")}" aria-label="${tr("ورودی", "Input")}">`}<button class="btn solve-btn" id="solve">${tr("حل کن", "Solve")}</button></div>${mode.data ? "" : `<div class="preview" id="preview" aria-live="polite"></div>`}`;
+    } else html = `<div class="mathbox"><button class="btn solve-btn" id="solve" style="width:100%">${tr("محاسبه کن", "Calculate")}</button></div>`;
     $("inputArea").innerHTML = html;
     $("params").innerHTML = paramsFor().map(p => p.type === "select" ? `<label>${esc(p.label)}<select data-p="${p.id}">${p.options.map(o => `<option value="${esc(o[0])}"${o[0] === p.def ? " selected" : ""}>${esc(o[1])}</option>`).join("")}</select></label>` : `<label>${esc(p.label)}<input data-p="${p.id}" value="${esc(p.def)}" placeholder="${esc(p.ph || "")}" autocomplete="off"></label>`).join("");
     const ex = mode.ex || [];
-    $("examples").innerHTML = ex.length ? "<span>مثال‌ها:</span>" + ex.map((e, i) => `<button class="chip" data-ex="${i}">${esc(Array.isArray(e) ? e[0] + "  (→ " + e[1] + ")" : e.replace(/\n/g, " ؛ "))}</button>`).join("") : "";
+    $("examples").innerHTML = ex.length ? tr("<span>مثال‌ها:</span>", "<span>Examples:</span>") + ex.map((e, i) => `<button class="chip" data-ex="${i}">${esc(Array.isArray(e) ? e[0] + "  (→ " + e[1] + ")" : e.replace(/\n/g, tr(" ؛ ", " ; ")))}</button>`).join("") : "";
     $("examples").querySelectorAll("[data-ex]").forEach(b => b.onclick = () => { const e = ex[+b.dataset.ex]; loadExample(e); });
     $("kbd").style.display = cat.matrix || mode.none || mode.data ? "none" : "";
     if ($("q")) {
@@ -104,7 +104,7 @@
   function preview() {
     const el = $("preview"); if (!el) return;
     const v = $("q").value.trim();
-    if (!v) { el.className = "preview"; el.innerHTML = '<span class="muted" style="direction:rtl;display:block;text-align:right">پیش‌نمایش فرمول اینجا نمایش داده می‌شود.</span>'; return; }
+    if (!v) { el.className = "preview"; el.innerHTML = tr('<span class="muted" style="direction:rtl;display:block;text-align:right">پیش‌نمایش فرمول اینجا نمایش داده می‌شود.</span>', "<span class=\"muted\" style=\"display:block\">The formula preview appears here.</span>"); return; }
     try {
       const lines = v.split(/\n/).filter(x => x.trim());
       const texs = lines.map(line => E.parseStatement(line).map(g => g.parts.map(E.tex).reduce((acc, t, i) => acc + (i ? " " + E.relTex(g.rels[i - 1]) + " " : "") + t, "")).join(",\\quad "));
@@ -114,16 +114,17 @@
 
   /* ---------------- math keyboard ---------------- */
   const KEYS = {
-    "پایه": ["7", "8", "9", "/", "(", ")", "x", "y", "^2", "sqrt(", "4", "5", "6", "*", "^", "|", "a", "b", "<", ">", "1", "2", "3", "-", "pi", "e", "=", ",", "<=", ">=", "0", ".", "!", "+", "abs(", "frac", "⌫", "←", "→", "پاک"],
-    "توابع": ["sin(", "cos(", "tan(", "cot(", "sec(", "csc(", "asin(", "acos(", "atan(", "⌫", "ln(", "log(", "e^(", "root(", "cbrt(", "sinh(", "cosh(", "oo", "^(-1)", "پاک"],
-    "حروف": ["x", "y", "z", "t", "a", "b", "c", "k", "m", "n", "p", "q", "r", "s", "u", "v", "w", "⌫", "←", "→"],
+    basic: ["7", "8", "9", "/", "(", ")", "x", "y", "^2", "sqrt(", "4", "5", "6", "*", "^", "|", "a", "b", "<", ">", "1", "2", "3", "-", "pi", "e", "=", ",", "<=", ">=", "0", ".", "!", "+", "abs(", "frac", "⌫", "←", "→", tr("پاک", "Clear")],
+    fn: ["sin(", "cos(", "tan(", "cot(", "sec(", "csc(", "asin(", "acos(", "atan(", "⌫", "ln(", "log(", "e^(", "root(", "cbrt(", "sinh(", "cosh(", "oo", "^(-1)", tr("پاک", "Clear")],
+    abc: ["x", "y", "z", "t", "a", "b", "c", "k", "m", "n", "p", "q", "r", "s", "u", "v", "w", "⌫", "←", "→"],
   };
   const LABEL = { "/": "÷", "*": "×", "-": "−", "^2": "x²", "^": "xⁿ", "sqrt(": "√", "pi": "π", "<=": "≤", ">=": "≥", "abs(": "|x|", "frac": "a/b", "e^(": "eˣ", "root(": "ⁿ√", "cbrt(": "∛", "oo": "∞", "^(-1)": "x⁻¹", "|": "|" };
-  let kbTab = "پایه";
+  let kbTab = "basic";
+  const TAB_LABEL = { basic: tr("پایه", "Basic"), fn: tr("توابع", "Functions"), abc: tr("حروف", "Letters") };
   function renderKbd() {
-    $("kbdTabs").innerHTML = Object.keys(KEYS).map(t => `<button class="${t === kbTab ? "active" : ""}" data-t="${t}">${t}</button>`).join("");
+    $("kbdTabs").innerHTML = Object.keys(KEYS).map(t => `<button class="${t === kbTab ? "active" : ""}" data-t="${t}">${TAB_LABEL[t]}</button>`).join("");
     $("kbdTabs").querySelectorAll("[data-t]").forEach(b => b.onclick = () => { kbTab = b.dataset.t; renderKbd(); });
-    $("keys").innerHTML = KEYS[kbTab].map(k => `<button type="button" class="${/[a-z]{2,}\(/.test(k) ? "fn" : ""} ${["⌫", "←", "→", "پاک"].includes(k) ? "act" : ""}" data-k="${esc(k)}" aria-label="${esc(LABEL[k] || k)}">${esc(LABEL[k] || (k.length > 1 ? k.replace(/\($/, "") : k))}</button>`).join("");
+    $("keys").innerHTML = KEYS[kbTab].map(k => `<button type="button" class="${/[a-z]{2,}\(/.test(k) ? "fn" : ""} ${["⌫", "←", "→", tr("پاک", "Clear")].includes(k) ? "act" : ""}" data-k="${esc(k)}" aria-label="${esc(LABEL[k] || k)}">${esc(LABEL[k] || (k.length > 1 ? k.replace(/\($/, "") : k))}</button>`).join("");
     $("keys").querySelectorAll("[data-k]").forEach(b => { b.onmousedown = e => e.preventDefault(); b.onclick = () => press(b.dataset.k); });
   }
   function press(k) {
@@ -133,7 +134,7 @@
     if (k === "⌫") { if (s === e && s > 0) { q.value = v.slice(0, s - 1) + v.slice(e); q.setSelectionRange(s - 1, s - 1); } else put(""); }
     else if (k === "←") q.setSelectionRange(Math.max(0, s - 1), Math.max(0, s - 1));
     else if (k === "→") q.setSelectionRange(s + 1, s + 1);
-    else if (k === "پاک") q.value = "";
+    else if (k === tr("پاک", "Clear")) q.value = "";
     else if (k === "frac") { const sel = v.slice(s, e); put("(" + sel + ")/()", 1); }
     else if (k.endsWith("(")) { const sel = v.slice(s, e); put(k + sel + ")", 1); }
     else put(k);
@@ -143,9 +144,9 @@
   /* ---------------- matrix editor ---------------- */
   let mats = { A: [[2, 1], [1, 3]], B: [[1, 2], [3, 4]] };
   function matrixEditor() {
-    const ed = (name) => { const M = mats[name]; return `<div class="mat"><div class="dims">ماتریس ${name}: <select data-dim="${name}r">${[1, 2, 3, 4, 5, 6].map(n => `<option${n === M.length ? " selected" : ""}>${n}</option>`).join("")}</select> × <select data-dim="${name}c">${[1, 2, 3, 4, 5, 6].map(n => `<option${n === M[0].length ? " selected" : ""}>${n}</option>`).join("")}</select></div><div class="grid" style="grid-template-columns:repeat(${M[0].length},auto)">${M.map((r, i) => r.map((x, j) => `<input data-m="${name}" data-i="${i}" data-j="${j}" value="${esc(x)}" inputmode="decimal" aria-label="${name}${i + 1}${j + 1}">`).join("")).join("")}</div></div>`; };
-    const ops = [["det", "det(A)"], ["inv", "A⁻¹"], ["T", "Aᵀ"], ["pow", "Aⁿ"], ["rref", "RREF و رتبه"], ["eig", "مقادیر ویژه"], ["mul", "A × B"], ["add", "A + B"], ["sub", "A − B"], ["solve", "حل Ax = b (b = ستون اول B)"]];
-    return `<div class="matrix-ed">${ed("A")}${ed("B")}</div><div class="params" style="justify-content:center"><label>n برای Aⁿ<input data-p="n" value="2"></label></div><div class="mat-ops">${ops.map(o => `<button class="btn ${o[0] === "det" ? "" : "alt"}" data-op="${o[0]}">${o[1]}</button>`).join("")}</div><button class="btn" id="solve" hidden>حل</button>`;
+    const ed = (name) => { const M = mats[name]; return `<div class="mat"><div class="dims">${tr("ماتریس", "Matrix")} ${name}: <select data-dim="${name}r">${[1, 2, 3, 4, 5, 6].map(n => `<option${n === M.length ? " selected" : ""}>${n}</option>`).join("")}</select> × <select data-dim="${name}c">${[1, 2, 3, 4, 5, 6].map(n => `<option${n === M[0].length ? " selected" : ""}>${n}</option>`).join("")}</select></div><div class="grid" style="grid-template-columns:repeat(${M[0].length},auto)">${M.map((r, i) => r.map((x, j) => `<input data-m="${name}" data-i="${i}" data-j="${j}" value="${esc(x)}" inputmode="decimal" aria-label="${name}${i + 1}${j + 1}">`).join("")).join("")}</div></div>`; };
+    const ops = [["det", "det(A)"], ["inv", "A⁻¹"], ["T", "Aᵀ"], ["pow", "Aⁿ"], ["rref", tr("RREF و رتبه", "RREF and rank")], ["eig", tr("مقادیر ویژه", "Eigenvalues")], ["mul", "A × B"], ["add", "A + B"], ["sub", "A − B"], ["solve", tr("حل Ax = b (b = ستون اول B)", "Solve Ax = b (b = first column of B)")]];
+    return `<div class="matrix-ed">${ed("A")}${ed("B")}</div><div class="params" style="justify-content:center"><label>${tr("n برای Aⁿ", "n for Aⁿ")}<input data-p="n" value="2"></label></div><div class="mat-ops">${ops.map(o => `<button class="btn ${o[0] === "det" ? "" : "alt"}" data-op="${o[0]}">${o[1]}</button>`).join("")}</div><button class="btn" id="solve" hidden>${tr("حل", "Solve")}</button>`;
   }
   let matOp = "det";
   function bindMatrix() {
@@ -156,16 +157,16 @@
   const toQ = M => E.parseMatrix(M.map(r => r.join(" ")).join("\n"));
 
   /* ---------------- solving ---------------- */
-  function requireInput() { const v = $("q") ? $("q").value.trim() : ""; if (!v) throw new E.MathError("اول یک مسئله بنویس یا یکی از مثال‌ها را انتخاب کن."); return v; }
+  function requireInput() { const v = $("q") ? $("q").value.trim() : ""; if (!v) throw new E.MathError(tr("اول یک مسئله بنویس یا یکی از مثال‌ها را انتخاب کن.", "First write a problem or pick one of the examples.")); return v; }
   const parseOpt = s => (s ? E.parse(s) : null);
   function run() {
     const p = getParams();
     switch (cat.id) {
       case "arith": {
         const v = requireInput();
-        if (mode.id === "prime") { if (!/^\d+$/.test(E.normalizeInput(v))) throw new E.MathError("یک عدد طبیعی وارد کن."); return E.primeFactorSteps(BigInt(E.normalizeInput(v))); }
-        if (mode.id === "gcd") { const nums = E.normalizeInput(v).split(/[\s,]+/).filter(Boolean); if (nums.length < 2 || nums.some(n => !/^\d+$/.test(n))) throw new E.MathError("دست‌کم دو عدد طبیعی وارد کن."); return E.gcdSteps(nums); }
-        const a = E.parse(v); if (E.vars(a).size) throw new E.MathError("این بخش برای عبارت‌های عددی است؛ برای عبارت‌های متغیردار از «جبر» استفاده کن.");
+        if (mode.id === "prime") { if (!/^\d+$/.test(E.normalizeInput(v))) throw new E.MathError(tr("یک عدد طبیعی وارد کن.", "Enter a whole number.")); return E.primeFactorSteps(BigInt(E.normalizeInput(v))); }
+        if (mode.id === "gcd") { const nums = E.normalizeInput(v).split(/[\s,]+/).filter(Boolean); if (nums.length < 2 || nums.some(n => !/^\d+$/.test(n))) throw new E.MathError(tr("دست‌کم دو عدد طبیعی وارد کن.", "Enter at least two whole numbers.")); return E.gcdSteps(nums); }
+        const a = E.parse(v); if (E.vars(a).size) throw new E.MathError(tr("این بخش برای عبارت‌های عددی است؛ برای عبارت‌های متغیردار از «جبر» استفاده کن.", "This section is for numeric expressions; use “Algebra” for expressions with variables."));
         const r = E.arithmetic(a); r.input = E.tex(a); return r;
       }
       case "algebra": {
@@ -175,16 +176,16 @@
       }
       case "equation": {
         const st = E.parseStatement(requireInput());
-        if (st.length > 1) { cat = catById("system"); throw new E.MathError("برای چند معادله از بخش «دستگاه معادلات» استفاده کن."); }
-        const g = st[0]; if (g.rels.length !== 1) throw new E.MathError(g.rels.length ? "فقط یک علامت رابطه مجاز است." : "علامت = یا یکی از < > ≤ ≥ را بنویس.");
+        if (st.length > 1) { cat = catById("system"); throw new E.MathError(tr("برای چند معادله از بخش «دستگاه معادلات» استفاده کن.", "For several equations use “Systems of equations”.")); }
+        const g = st[0]; if (g.rels.length !== 1) throw new E.MathError(g.rels.length ? tr("فقط یک علامت رابطه مجاز است.", "Only one relation sign is allowed.") : tr("علامت = یا یکی از < > ≤ ≥ را بنویس.", "Write = or one of < > ≤ ≥."));
         const v = p.var || undefined;
-        const r = g.rels[0] === "=" ? E.solveEquation(g.parts[0], g.parts[1], v) : g.rels[0] === "!=" ? (() => { throw new E.MathError("علامت ≠ پشتیبانی نمی‌شود."); })() : E.solveInequality(g.parts[0], g.rels[0], g.parts[1], v);
+        const r = g.rels[0] === "=" ? E.solveEquation(g.parts[0], g.parts[1], v) : g.rels[0] === "!=" ? (() => { throw new E.MathError(tr("علامت ≠ پشتیبانی نمی‌شود.", "The ≠ sign is not supported.")); })() : E.solveInequality(g.parts[0], g.rels[0], g.parts[1], v);
         r.input = E.tex(g.parts[0]) + " " + E.relTex(g.rels[0]) + " " + E.tex(g.parts[1]); return r;
       }
       case "system": {
         const lines = requireInput().split(/\n/).map(x => x.trim()).filter(Boolean);
-        const eqs = lines.flatMap(l => E.parseStatement(l)).map(g => { if (g.rels.length !== 1 || g.rels[0] !== "=") throw new E.MathError("هر سطر باید یک معادله با علامت = باشد."); return g.parts; });
-        if (eqs.length < 2) throw new E.MathError("دست‌کم دو معادله، هر کدام در یک خط، بنویس.");
+        const eqs = lines.flatMap(l => E.parseStatement(l)).map(g => { if (g.rels.length !== 1 || g.rels[0] !== "=") throw new E.MathError(tr("هر سطر باید یک معادله با علامت = باشد.", "Each line must be one equation with an = sign.")); return g.parts; });
+        if (eqs.length < 2) throw new E.MathError(tr("دست‌کم دو معادله، هر کدام در یک خط، بنویس.", "Write at least two equations, one per line."));
         const r = E.solveSystem(eqs);
         r.input = "\\begin{cases}" + eqs.map(([l, rr]) => E.tex(l) + " = " + E.tex(rr)).join(" \\\\ ") + "\\end{cases}"; return r;
       }
@@ -197,25 +198,25 @@
           const roots = E.numericScan(f, -50, 50, 4000), y0 = f(0);
           const d = x => (f(x + 1e-5) - f(x - 1e-5)) / 2e-5, crit = E.numericScan(d, -50, 50, 4000);
           const ext = crit.map(x => { const y = f(x), l = f(x - 1e-3), r2 = f(x + 1e-3); return y < l && y < r2 ? "\\min(" + E.trimNum(x, 4) + ",\\; " + E.trimNum(y, 4) + ")" : y > l && y > r2 ? "\\max(" + E.trimNum(x, 4) + ",\\; " + E.trimNum(y, 4) + ")" : null; }).filter(Boolean);
-          steps.push(E.step("تحلیل f_{" + (i + 1) + "}", "f_{" + (i + 1) + "}(" + v + ") = " + E.tex(a) + " \\\\ \\text{ریشه‌ها: } " + (roots.length ? roots.slice(0, 8).map(x => E.trimNum(x, 5)).join(",\\; ") : "\\text{ندارد}") + " \\\\ \\text{عرض از مبدأ: } " + (Number.isFinite(y0) ? E.trimNum(y0, 5) : "\\text{تعریف‌نشده}") + (ext.length ? " \\\\ " + ext.slice(0, 6).join(",\\; ") : ""), "مقادیر عددی در بازهٔ [−۵۰، ۵۰] محاسبه شده‌اند."));
+          steps.push(E.step(tr("تحلیل f_{", "Analysis of f_{") + (i + 1) + "}", "f_{" + (i + 1) + "}(" + v + ") = " + E.tex(a) + tr(" \\\\ \\text{ریشه‌ها: } ", " \\\\ \\text{roots: } ") + (roots.length ? roots.slice(0, 8).map(x => E.trimNum(x, 5)).join(",\\; ") : tr("\\text{ندارد}", "\\text{none}")) + tr(" \\\\ \\text{عرض از مبدأ: } ", " \\\\ \\text{y-intercept: } ") + (Number.isFinite(y0) ? E.trimNum(y0, 5) : tr("\\text{تعریف‌نشده}", "\\text{undefined}")) + (ext.length ? " \\\\ " + ext.slice(0, 6).join(",\\; ") : ""), tr("مقادیر عددی در بازهٔ [−۵۰، ۵۰] محاسبه شده‌اند.", "Numerical values are computed on [−50, 50].")));
         });
         return { answer: fns.map((a, i) => "f_{" + (i + 1) + "}(x) = " + E.tex(a)).join(",\\quad "), steps, plot: { exprs: fns, v: E.pickVar(fns) }, input: "" };
       }
       case "derivative": {
         const a = E.parse(requireInput()), v = p.var || E.pickVar([a]), k = +p.order || 1;
         const r = E.derivativeSteps(a, v, k);
-        if (p.at) { const x0 = E.parse(p.at); const val = E.nicest(E.subst(r.result, v, x0)); r.steps.push(E.step("مقدار در نقطه", "f" + "'".repeat(Math.min(k, 3)) + "\\left(" + E.tex(x0) + "\\right) = " + E.tex(val), null)); r.answer += ",\\qquad f" + "'".repeat(Math.min(k, 3)) + "\\left(" + E.tex(x0) + "\\right) = " + E.tex(val); }
+        if (p.at) { const x0 = E.parse(p.at); const val = E.nicest(E.subst(r.result, v, x0)); r.steps.push(E.step(tr("مقدار در نقطه", "Value at the point"), "f" + "'".repeat(Math.min(k, 3)) + "\\left(" + E.tex(x0) + "\\right) = " + E.tex(val), null)); r.answer += ",\\qquad f" + "'".repeat(Math.min(k, 3)) + "\\left(" + E.tex(x0) + "\\right) = " + E.tex(val); }
         r.input = E.tex(a); return r;
       }
       case "integral": {
         const a = E.parse(requireInput()), v = p.var || E.pickVar([a]);
         const lo = parseOpt(p.lo), hi = parseOpt(p.hi);
-        if ((lo && !hi) || (!lo && hi)) throw new E.MathError("برای انتگرال معین هر دو کران را وارد کن.");
+        if ((lo && !hi) || (!lo && hi)) throw new E.MathError(tr("برای انتگرال معین هر دو کران را وارد کن.", "For a definite integral enter both bounds."));
         const r = E.integralSteps(a, v, lo ? [lo, hi] : null); r.input = E.tex(a); return r;
       }
       case "limit": {
         const a = E.parse(requireInput()), v = p.var || E.pickVar([a]);
-        if (!p.point) throw new E.MathError("نقطه‌ای که متغیر به آن میل می‌کند را وارد کن.");
+        if (!p.point) throw new E.MathError(tr("نقطه‌ای که متغیر به آن میل می‌کند را وارد کن.", "Enter the point the variable approaches."));
         const r = E.limitSteps(a, v, E.parse(p.point.replace(/^\+?inf(inity)?$/i, "oo").replace(/^-inf(inity)?$/i, "-oo")), p.side || null); r.input = E.tex(a); return r;
       }
       case "apps": {
@@ -232,20 +233,20 @@
       case "stats": {
         if (mode.id === "describe") { const d = E.parseData(requireInput()); const r = E.describeSteps(d); return r; }
         if (mode.id === "regression") { const pts = E.parsePairs(requireInput()); return E.regressionSteps(pts); }
-        const num = (s, name) => { const v = Number(E.normalizeInput(s)); if (s === "" || !Number.isFinite(v)) throw new E.MathError("مقدار «" + name + "» را درست وارد کن."); return v; };
+        const num = (s, name) => { const v = Number(E.normalizeInput(s)); if (s === "" || !Number.isFinite(v)) throw new E.MathError(tr("مقدار «", "Enter a valid value for «") + name + tr("» را درست وارد کن.", "».")); return v; };
         if (mode.id === "comb") return E.combSteps(p.type, num(p.n, "n"), p.type === "fact" ? 0 : num(p.k, "k"));
         if (mode.id === "binom") return E.binomialSteps(num(p.n, "n"), num(p.p, "p"), num(p.k, "k"), p.kind);
         if (mode.id === "normal") return E.normalSteps(num(p.mu, "μ"), num(p.sigma, "σ"), p.a === "" ? -Infinity : num(p.a, "a"), p.b === "" ? Infinity : num(p.b, "b"));
       }
     }
-    throw new E.MathError("این دسته پشتیبانی نمی‌شود.");
+    throw new E.MathError(tr("این دسته پشتیبانی نمی‌شود.", "This category is not supported."));
   }
   function solve() {
     hideResult();
     let r;
     try { r = run(); }
     catch (e) {
-      const msg = e instanceof E.MathError || e.name === "MathError" ? e.message : "این مسئله را نتوانستم حل کنم. شکل نوشتن را بررسی کن (مثلاً ضرب را با * یا کنار هم نوشتن مشخص کن).";
+      const msg = e instanceof E.MathError || e.name === "MathError" ? e.message : tr("این مسئله را نتوانستم حل کنم. شکل نوشتن را بررسی کن (مثلاً ضرب را با * یا کنار هم نوشتن مشخص کن).", "I could not solve this problem. Check how it is written (for example, write multiplication with * or by placing terms side by side).");
       if (!(e instanceof E.MathError)) console.error(e);
       $("errCard").textContent = "⚠ " + msg; $("errCard").classList.add("show"); return;
     }
@@ -265,8 +266,8 @@
     let extra = "";
     if (r.table) extra += `<table class="stat-table">${r.table.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${typeof v === "number" ? (Number.isFinite(v) ? E.trimNum(v, 6) : "—") : esc(v)}</td></tr>`).join("")}</table>`;
     $("extra").innerHTML = extra;
-    $("steps").innerHTML = (r.steps || []).map(s => `<div class="stepc"><h3>${esc(s.title)}</h3>${s.tex ? `<div class="m">${K(s.tex)}</div>` : ""}${s.note ? `<div class="n">${noteHTML(s.note)}</div>` : ""}</div>`).join("") || '<p class="muted">این مسئله مرحلهٔ جداگانه‌ای ندارد.</p>';
-    $("steps").style.display = ""; $("toggleSteps").textContent = "پنهان کردن مراحل";
+    $("steps").innerHTML = (r.steps || []).map(s => `<div class="stepc"><h3>${esc(s.title)}</h3>${s.tex ? `<div class="m">${K(s.tex)}</div>` : ""}${s.note ? `<div class="n">${noteHTML(s.note)}</div>` : ""}</div>`).join("") || tr('<p class="muted">این مسئله مرحلهٔ جداگانه‌ای ندارد.</p>', "<p class=\"muted\">This problem has no separate steps.</p>");
+    $("steps").style.display = ""; $("toggleSteps").textContent = tr("پنهان کردن مراحل", "Hide steps");
     $("result").classList.add("show");
     drawPlot(r);
     $("result").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -279,12 +280,12 @@
     if (r.chart && r.chart.kind !== "scatter") {
       card.hidden = false; cv.style.cursor = "default";
       plot = null; requestAnimationFrame(() => E.drawStatChart(cv, r.chart));
-      $("legend").innerHTML = ""; $("trace").textContent = r.chart.kind === "normal" ? "ناحیهٔ رنگی برابر احتمال خواسته‌شده است." : ""; return;
+      $("legend").innerHTML = ""; $("trace").textContent = r.chart.kind === "normal" ? tr("ناحیهٔ رنگی برابر احتمال خواسته‌شده است.", "The shaded area equals the requested probability.") : ""; return;
     }
-    if (r.chart && r.chart.kind === "scatter") spec = { fns: [], points: r.chart.pts, lines: [{ a: r.chart.a, b: r.chart.b, color: "#f472b6" }] }, legend = [["#fbbf24", "داده‌ها"], ["#f472b6", "خط رگرسیون"]];
+    if (r.chart && r.chart.kind === "scatter") spec = { fns: [], points: r.chart.pts, lines: [{ a: r.chart.a, b: r.chart.b, color: "#f472b6" }] }, legend = [["#fbbf24", tr("داده‌ها", "Data")], ["#f472b6", tr("خط رگرسیون", "Regression line")]];
     else if (r.plot && r.plot.lines && r.plot.vars) {
       const [vx, vy] = r.plot.vars, fns = [];
-      r.plot.lines.forEach(([L, R2], i) => { const m = E.toMPoly(E.N.sub(L, R2)); if (!m) return; const a = m.t.get(vx) || E.Q.of(0), b = m.t.get(vy) || E.Q.of(0), c = m.constTerm(); if (b.isZero()) return; fns.push({ f: x => -(a.num() * x + c.num()) / b.num(), noSpecial: true }); legend.push([["#22d3ee", "#f472b6", "#a3e635"][i], "معادلهٔ " + fa(i + 1)]); });
+      r.plot.lines.forEach(([L, R2], i) => { const m = E.toMPoly(E.N.sub(L, R2)); if (!m) return; const a = m.t.get(vx) || E.Q.of(0), b = m.t.get(vy) || E.Q.of(0), c = m.constTerm(); if (b.isZero()) return; fns.push({ f: x => -(a.num() * x + c.num()) / b.num(), noSpecial: true }); legend.push([["#22d3ee", "#f472b6", "#a3e635"][i], tr("معادلهٔ ", "Equation ") + fa(i + 1)]); });
       spec = { fns, points: r.plot.point ? [[...r.plot.point]] : [] };
     } else if (r.plot && r.plot.exprs) {
       const v = r.plot.v || "x";
@@ -297,7 +298,7 @@
       spec = { fns, points: pts, area: r.plot.area || null, marks: Number.isFinite(r.plot.mark) ? [r.plot.mark] : [] };
     }
     if (!spec) { card.hidden = true; return; }
-    card.hidden = false; cv.style.cursor = "crosshair"; $("trace").textContent = "نشانگر را روی نمودار ببر؛ برای جابه‌جایی بکش و برای زوم از چرخ ماوس یا دو انگشت استفاده کن.";
+    card.hidden = false; cv.style.cursor = "crosshair"; $("trace").textContent = tr("نشانگر را روی نمودار ببر؛ برای جابه‌جایی بکش و برای زوم از چرخ ماوس یا دو انگشت استفاده کن.", "Hover over the graph; drag to pan and use the mouse wheel or two fingers to zoom.");
     $("legend").innerHTML = legend.map(([c, t]) => `<span><i style="background:${c}"></i>${t.includes("\\") || /[=^]/.test(t) ? K(t, false) : esc(t)}</span>`).join("");
     requestAnimationFrame(() => {
       if (!plot) plot = new E.Plot(cv, { onTrace: h => { $("trace").textContent = h ? (h.label ? h.label + ": " : "") + "(" + E.trimNum(h.x, 5) + ", " + E.trimNum(h.y, 5) + ")" : ""; } });
@@ -307,7 +308,7 @@
   $("zin").onclick = () => plot && plot.zoom(1 / 1.4);
   $("zout").onclick = () => plot && plot.zoom(1.4);
   $("zreset").onclick = () => plot && plot.reset();
-  $("toggleSteps").onclick = () => { const s = $("steps"); const hidden = s.style.display === "none"; s.style.display = hidden ? "" : "none"; $("toggleSteps").textContent = hidden ? "پنهان کردن مراحل" : "نمایش مراحل"; };
+  $("toggleSteps").onclick = () => { const s = $("steps"); const hidden = s.style.display === "none"; s.style.display = hidden ? "" : "none"; $("toggleSteps").textContent = hidden ? tr("پنهان کردن مراحل", "Hide steps") : tr("نمایش مراحل", "Show steps"); };
 
   /* ---------------- history & notebook ---------------- */
   let tab = "history";
@@ -318,8 +319,8 @@
   function renderPanel() {
     document.querySelectorAll(".ptabs button").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
     const list = LS.get(tab === "history" ? HKEY : NKEY, []);
-    if (!list.length) { $("panelBody").innerHTML = `<p class="empty">${tab === "history" ? "هنوز مسئله‌ای حل نکرده‌ای." : "با دکمهٔ «☆ ذخیره در دفترچه» جواب‌های مهم را اینجا نگه دار."}</p>`; return; }
-    $("panelBody").innerHTML = list.map((x, i) => `<div class="hitem" data-i="${i}" role="button" tabindex="0"><small>${esc(catById(x.cat).name)}${x.t ? " · " + new Date(x.t).toLocaleDateString("fa-IR") : ""}</small>${tab === "notebook" ? `<span>${K(x.answer, false)}</span>` : esc((x.q || (x.mats ? "ماتریس · " + x.op : catById(x.cat).modes.find(m => m.id === x.mode)?.name || "")).replace(/\n/g, " ؛ "))}<button class="del" data-del="${i}" aria-label="حذف">×</button></div>`).join("");
+    if (!list.length) { $("panelBody").innerHTML = `<p class="empty">${tab === "history" ? tr("هنوز مسئله‌ای حل نکرده‌ای.", "You haven't solved a problem yet.") : tr("با دکمهٔ «☆ ذخیره در دفترچه» جواب‌های مهم را اینجا نگه دار.", "Use the “☆ Save to notebook” button to keep important answers here.")}</p>`; return; }
+    $("panelBody").innerHTML = list.map((x, i) => `<div class="hitem" data-i="${i}" role="button" tabindex="0"><small>${esc(catById(x.cat).name)}${x.t ? " · " + new Date(x.t).toLocaleDateString(E.lang() === "en" ? "en-US" : "fa-IR") : ""}</small>${tab === "notebook" ? `<span>${K(x.answer, false)}</span>` : esc((x.q || (x.mats ? tr("ماتریس · ", "Matrix · ") + x.op : catById(x.cat).modes.find(m => m.id === x.mode)?.name || "")).replace(/\n/g, tr(" ؛ ", " ; ")))}<button class="del" data-del="${i}" aria-label="${tr("حذف", "Delete")}">×</button></div>`).join("");
     $("panelBody").querySelectorAll("[data-i]").forEach(el => { const open = () => restore(list[+el.dataset.i]); el.onclick = e => { if (e.target.dataset.del === undefined) open(); }; el.onkeydown = e => { if (e.key === "Enter") open(); }; });
     $("panelBody").querySelectorAll("[data-del]").forEach(b => b.onclick = e => { e.stopPropagation(); const k = tab === "history" ? HKEY : NKEY, l = LS.get(k, []); l.splice(+b.dataset.del, 1); LS.set(k, l); renderPanel(); });
   }
@@ -330,10 +331,10 @@
     if ($("q")) $("q").value = x.q || "";
     setParams(x.p); preview(); solve();
   }
-  $("saveNote").onclick = () => { if (!last) return; const n = LS.get(NKEY, []); n.unshift({ ...last, t: Date.now() }); LS.set(NKEY, n.slice(0, 100)); $("saveNote").textContent = "★ ذخیره شد"; setTimeout(() => $("saveNote").textContent = "☆ ذخیره در دفترچه", 1600); tab = "notebook"; renderPanel(); };
-  $("copyTex").onclick = () => { if (!last) return; copy(last.answer, $("copyTex"), "کپی LaTeX"); };
-  $("share").onclick = () => { if (!last) return; copy(location.href.split("#")[0] + "#" + shareHash(last), $("share"), "کپی پیوند"); };
-  function copy(t, btn, label) { const done = () => { btn.textContent = "کپی شد ✓"; setTimeout(() => btn.textContent = label, 1500); }; if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, () => fallbackCopy(t, done)); else fallbackCopy(t, done); }
+  $("saveNote").onclick = () => { if (!last) return; const n = LS.get(NKEY, []); n.unshift({ ...last, t: Date.now() }); LS.set(NKEY, n.slice(0, 100)); $("saveNote").textContent = tr("★ ذخیره شد", "★ Saved"); setTimeout(() => $("saveNote").textContent = tr("☆ ذخیره در دفترچه", "☆ Save to notebook"), 1600); tab = "notebook"; renderPanel(); };
+  $("copyTex").onclick = () => { if (!last) return; copy(last.answer, $("copyTex"), tr("کپی LaTeX", "Copy LaTeX")); };
+  $("share").onclick = () => { if (!last) return; copy(location.href.split("#")[0] + "#" + shareHash(last), $("share"), tr("کپی پیوند", "Copy link")); };
+  function copy(t, btn, label) { const done = () => { btn.textContent = tr("کپی شد ✓", "Copied ✓"); setTimeout(() => btn.textContent = label, 1500); }; if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, () => fallbackCopy(t, done)); else fallbackCopy(t, done); }
   function fallbackCopy(t, done) { const ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) { } ta.remove(); done(); }
   $("similar").onclick = () => {
     const g = E.generate(cat.id, mode.id); if (!g) return;

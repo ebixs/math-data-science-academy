@@ -5,6 +5,7 @@
 (function (root) {
   "use strict";
   const E = root.MathEngine;
+  const tr = (fa, en) => (E.lang() === "en" && en !== undefined ? en : fa);
   const { Q, N, MathError, simp, pretty, evalNum, evalExact, step } = E;
   const T = E.tex, q = (n, d = 1) => Q.of(n, d);
   const has = E.has;
@@ -42,9 +43,9 @@
         const outer = dOuter(a, u);
         return simp(N.mul(outer, du));
       }
-      case "fact": throw new MathError("مشتق فاکتوریل پشتیبانی نمی‌شود.");
+      case "fact": throw new MathError(tr("مشتق فاکتوریل پشتیبانی نمی‌شود.", "The derivative of a factorial is not supported."));
     }
-    throw new MathError("مشتق این عبارت پشتیبانی نمی‌شود.");
+    throw new MathError(tr("مشتق این عبارت پشتیبانی نمی‌شود.", "The derivative of this expression is not supported."));
   }
   function dOuter(a, u) { /* derivative of f(u) with respect to u */
     const sq = x => N.pow(x, two());
@@ -70,7 +71,7 @@
       case "root": { const n = a.a[1]; return N.mul(N.div(one(), n), N.pow(u, simp(N.sub(N.div(one(), n), one())))); }
       case "sign": case "floor": case "ceil": return zero();
     }
-    throw new MathError("مشتق تابع " + a.n + " پشتیبانی نمی‌شود.");
+    throw new MathError(tr("مشتق تابع ", "Derivative of the function ") + a.n + tr(" پشتیبانی نمی‌شود.", " is not supported."));
   }
   E.D = D;
   const RULE_FN = { sin: "(\\sin u)' = \\cos u \\cdot u'", cos: "(\\cos u)' = -\\sin u \\cdot u'", tan: "(\\tan u)' = \\sec^{2} u \\cdot u'", cot: "(\\cot u)' = -\\csc^{2} u \\cdot u'",
@@ -84,50 +85,50 @@
     const dd = x => ddx(v, x);
     const push = (title, rhs, note) => steps.push(step(title, dd(a) + " = " + rhs, note));
     if (a.t === "var") return;
-    if (a.t === "neg") { push("قاعدهٔ ضریب ثابت", "-" + dd(a.a)); explainD(a.a, v, steps, depth + 1); return; }
+    if (a.t === "neg") { push(tr("قاعدهٔ ضریب ثابت", "Constant multiple rule"), "-" + dd(a.a)); explainD(a.a, v, steps, depth + 1); return; }
     if (a.t === "bin") {
       const { l, r, op } = a;
       if (op === "+" || op === "-") {
         const terms = flatSum(a);
-        push("قاعدهٔ جمع/تفریق", terms.map((t, i) => (i === 0 ? (t.s < 0 ? "-" : "") : (t.s < 0 ? " - " : " + ")) + dd(t.a)).join(""), "مشتق جمع، جمع مشتق‌هاست.");
+        push(tr("قاعدهٔ جمع/تفریق", "Sum/difference rule"), terms.map((t, i) => (i === 0 ? (t.s < 0 ? "-" : "") : (t.s < 0 ? " - " : " + ")) + dd(t.a)).join(""), tr("مشتق جمع، جمع مشتق‌هاست.", "The derivative of a sum is the sum of the derivatives."));
         terms.forEach(t => explainD(t.a, v, steps, depth + 1)); return;
       }
       if (op === "*") {
         if (!has(l, v) || !has(r, v)) {
           const c = has(l, v) ? r : l, f = has(l, v) ? l : r;
-          if (f.t === "var") { push("مشتق ضریب ثابت در " + v, T(c)); return; }
-          push("قاعدهٔ ضریب ثابت", T(c) + " \\cdot " + dd(f), "ضریب ثابت بیرون از مشتق می‌ماند.");
+          if (f.t === "var") { push(tr("مشتق ضریب ثابت در ", "Derivative of a constant times ") + v, T(c)); return; }
+          push(tr("قاعدهٔ ضریب ثابت", "Constant multiple rule"), T(c) + " \\cdot " + dd(f), tr("ضریب ثابت بیرون از مشتق می‌ماند.", "A constant factor stays outside the derivative."));
           explainD(f, v, steps, depth + 1); return;
         }
-        push("قاعدهٔ ضرب", dd(l) + " \\cdot " + paren(r) + " + " + paren(l) + " \\cdot " + dd(r), "(fg)' = f'g + fg'");
+        push(tr("قاعدهٔ ضرب", "Product rule"), dd(l) + " \\cdot " + paren(r) + " + " + paren(l) + " \\cdot " + dd(r), "(fg)' = f'g + fg'");
         explainD(l, v, steps, depth + 1); explainD(r, v, steps, depth + 1); return;
       }
       if (op === "/") {
-        if (!has(r, v)) { push("قاعدهٔ ضریب ثابت", "\\frac{1}{" + T(r) + "} \\cdot " + dd(l)); explainD(l, v, steps, depth + 1); return; }
-        push("قاعدهٔ تقسیم", "\\frac{" + dd(l) + " \\cdot " + paren(r) + " - " + paren(l) + " \\cdot " + dd(r) + "}{" + paren(r) + "^{2}}", "\\left(\\frac{f}{g}\\right)' = \\frac{f'g - fg'}{g^{2}}");
+        if (!has(r, v)) { push(tr("قاعدهٔ ضریب ثابت", "Constant multiple rule"), "\\frac{1}{" + T(r) + "} \\cdot " + dd(l)); explainD(l, v, steps, depth + 1); return; }
+        push(tr("قاعدهٔ تقسیم", "Quotient rule"), "\\frac{" + dd(l) + " \\cdot " + paren(r) + " - " + paren(l) + " \\cdot " + dd(r) + "}{" + paren(r) + "^{2}}", "\\left(\\frac{f}{g}\\right)' = \\frac{f'g - fg'}{g^{2}}");
         explainD(l, v, steps, depth + 1); explainD(r, v, steps, depth + 1); return;
       }
       if (op === "^") {
         if (!has(r, v)) {
           const n1 = simp(N.sub(r, one()));
-          if (l.t === "var") { push("قاعدهٔ توان", T(r) + " " + T(N.pow(l, n1)), "(x^{n})' = n x^{n-1}"); return; }
-          push("قاعدهٔ توان + قاعدهٔ زنجیره‌ای", T(r) + paren(l) + "^{" + T(n1) + "} \\cdot " + dd(l), "(u^{n})' = n u^{n-1} \\cdot u'");
+          if (l.t === "var") { push(tr("قاعدهٔ توان", "Power rule"), T(r) + " " + T(N.pow(l, n1)), "(x^{n})' = n x^{n-1}"); return; }
+          push(tr("قاعدهٔ توان + قاعدهٔ زنجیره‌ای", "Power rule + chain rule"), T(r) + paren(l) + "^{" + T(n1) + "} \\cdot " + dd(l), "(u^{n})' = n u^{n-1} \\cdot u'");
           explainD(l, v, steps, depth + 1); return;
         }
         if (!has(l, v)) {
-          if (l.t === "const" && l.n === "e") { push("مشتق تابع نمایی", T(a) + " \\cdot " + dd(r), "(e^{u})' = e^{u} \\cdot u'"); }
-          else push("مشتق تابع نمایی", T(a) + " \\ln\\left(" + T(l) + "\\right) \\cdot " + dd(r), "(a^{u})' = a^{u} \\ln a \\cdot u'");
+          if (l.t === "const" && l.n === "e") { push(tr("مشتق تابع نمایی", "Derivative of an exponential"), T(a) + " \\cdot " + dd(r), "(e^{u})' = e^{u} \\cdot u'"); }
+          else push(tr("مشتق تابع نمایی", "Derivative of an exponential"), T(a) + " \\ln\\left(" + T(l) + "\\right) \\cdot " + dd(r), "(a^{u})' = a^{u} \\ln a \\cdot u'");
           if (r.t !== "var") explainD(r, v, steps, depth + 1); return;
         }
-        push("مشتق‌گیری لگاریتمی", T(a) + "\\left(" + dd(r) + " \\ln\\left(" + T(l) + "\\right) + " + T(r) + "\\frac{" + dd(l) + "}{" + T(l) + "}\\right)", "f^{g} = e^{g \\ln f}");
+        push(tr("مشتق‌گیری لگاریتمی", "Logarithmic differentiation"), T(a) + "\\left(" + dd(r) + " \\ln\\left(" + T(l) + "\\right) + " + T(r) + "\\frac{" + dd(l) + "}{" + T(l) + "}\\right)", "f^{g} = e^{g \\ln f}");
         explainD(l, v, steps, depth + 1); explainD(r, v, steps, depth + 1); return;
       }
     }
     if (a.t === "fn") {
       const u = a.a[0];
       const outer = T(simp(dOuter(a, u)));
-      if (u.t === "var") { push("مشتق تابع " + a.n, outer, RULE_FN[a.n] ? RULE_FN[a.n].replace(/u'/g, "1").replace(/ \\cdot 1/g, "") : null); return; }
-      push("قاعدهٔ زنجیره‌ای", outer + " \\cdot " + dd(u), RULE_FN[a.n] || "(f(u))' = f'(u) \\cdot u'");
+      if (u.t === "var") { push(tr("مشتق تابع ", "Derivative of the function ") + a.n, outer, RULE_FN[a.n] ? RULE_FN[a.n].replace(/u'/g, "1").replace(/ \\cdot 1/g, "") : null); return; }
+      push(tr("قاعدهٔ زنجیره‌ای", "Chain rule"), outer + " \\cdot " + dd(u), RULE_FN[a.n] || "(f(u))' = f'(u) \\cdot u'");
       explainD(u, v, steps, depth + 1);
     }
   }
@@ -165,13 +166,13 @@
     let cur = a, res;
     for (let k = 1; k <= order; k++) {
       const sub = [];
-      if (order > 1) steps.push(step("مشتق مرتبهٔ " + E.fa(k), k === 1 ? ddx(v, cur) : "\\frac{d}{d" + v + "}\\left[" + T(cur) + "\\right]", null));
+      if (order > 1) steps.push(step(tr("مشتق مرتبهٔ ", "Derivative of order ") + E.fa(k), k === 1 ? ddx(v, cur) : "\\frac{d}{d" + v + "}\\left[" + T(cur) + "\\right]", null));
       explainD(cur, v, sub);
       if (order > 1 && k > 1 && sub.length > 6) sub.splice(6);
       sub.forEach(s => steps.push(s));
       const raw = D(cur, v);
       res = nicest(raw);
-      steps.push(step(order > 1 ? "نتیجهٔ مشتق مرتبهٔ " + E.fa(k) : "ساده‌سازی نتیجه", (k === 1 ? "f'(" + v + ")" : "f^{(" + k + ")}(" + v + ")") + " = " + T(res), null));
+      steps.push(step(order > 1 ? tr("نتیجهٔ مشتق مرتبهٔ ", "Result of the derivative of order ") + E.fa(k) : tr("ساده‌سازی نتیجه", "Simplify the result"), (k === 1 ? "f'(" + v + ")" : "f^{(" + k + ")}(" + v + ")") + " = " + T(res), null));
       cur = res;
     }
     const lab = order === 1 ? "\\frac{d}{d" + v + "}" : "\\frac{d^{" + order + "}}{d" + v + "^{" + order + "}}";
@@ -233,7 +234,7 @@
         case "csc": return { r: N.neg(lnAbs(N.add(N.fn("csc", x), N.fn("cot", x)))), rule: "\\int \\csc x\\,dx = -\\ln|\\csc x + \\cot x|" };
         case "exp": return { r: a, rule: "\\int e^{x}\\,dx = e^{x}" };
         case "sqrt": return { r: N.mul(N.num(q(2, 3)), N.pow(x, N.num(q(3, 2)))), rule: "\\int \\sqrt{x}\\,dx = \\frac{2}{3}x^{3/2}" };
-        case "ln": return { r: N.sub(N.mul(x, N.fn("ln", x)), x), rule: "\\int \\ln x\\,dx = x\\ln x - x \\;(\\text{جزء‌به‌جزء})" };
+        case "ln": return { r: N.sub(N.mul(x, N.fn("ln", x)), x), rule: tr("\\int \\ln x\\,dx = x\\ln x - x \\;(\\text{جزء‌به‌جزء})", "\\int \\ln x\\,dx = x\\ln x - x \\;(\\text{by parts})") };
         case "log": return { r: N.div(N.sub(N.mul(x, N.fn("ln", x)), x), N.fn("ln", N.num(q(10)))), rule: "\\int \\log x\\,dx = \\frac{x\\ln x - x}{\\ln 10}" };
         case "sinh": return { r: N.fn("cosh", x), rule: "\\int \\sinh x\\,dx = \\cosh x" };
         case "cosh": return { r: N.fn("sinh", x), rule: "\\int \\cosh x\\,dx = \\sinh x" };
@@ -292,11 +293,11 @@
   function integrate(a, v, steps, depth = 0) {
     if (depth > 8) return null;
     a = simp(a);
-    if (!has(a, v)) { steps.push(step("انتگرال عدد ثابت", "\\int " + T(a) + "\\,d" + v + " = " + T(a) + v, "\\int k\\,dx = kx")); return simp(N.mul(a, N.v(v))); }
+    if (!has(a, v)) { steps.push(step(tr("انتگرال عدد ثابت", "Integral of a constant"), "\\int " + T(a) + "\\,d" + v + " = " + T(a) + v, "\\int k\\,dx = kx")); return simp(N.mul(a, N.v(v))); }
     /* sums */
     if (a.t === "bin" && (a.op === "+" || a.op === "-")) {
       const terms = flatSum(a);
-      if (depth === 0 || terms.length > 1) steps.push(step("خاصیت خطی انتگرال", "\\int \\left(" + T(a) + "\\right) d" + v + " = " + terms.map((t, i) => (i === 0 ? (t.s < 0 ? "-" : "") : (t.s < 0 ? " - " : " + ")) + "\\int " + paren(t.a) + "\\,d" + v).join(""), "انتگرال جمع، جمع انتگرال‌هاست."));
+      if (depth === 0 || terms.length > 1) steps.push(step(tr("خاصیت خطی انتگرال", "Linearity of the integral"), "\\int \\left(" + T(a) + "\\right) d" + v + " = " + terms.map((t, i) => (i === 0 ? (t.s < 0 ? "-" : "") : (t.s < 0 ? " - " : " + ")) + "\\int " + paren(t.a) + "\\,d" + v).join(""), tr("انتگرال جمع، جمع انتگرال‌هاست.", "The integral of a sum is the sum of the integrals.")));
       let res = null;
       for (const t of terms) { const r = integrate(t.a, v, steps, depth + 1); if (!r) return null; res = res ? (t.s < 0 ? N.sub(res, r) : N.add(res, r)) : (t.s < 0 ? N.neg(r) : r); }
       return simp(res);
@@ -304,23 +305,23 @@
     /* constants out */
     const [c, f] = splitConst(a, v);
     if (!(c.t === "num" && c.q.isOne())) {
-      steps.push(step("بیرون آوردن ضریب ثابت", "\\int " + T(a) + "\\,d" + v + " = " + T(c) + " \\int " + paren(f) + "\\,d" + v, "\\int k f(x)\\,dx = k\\int f(x)\\,dx"));
+      steps.push(step(tr("بیرون آوردن ضریب ثابت", "Pull out the constant factor"), "\\int " + T(a) + "\\,d" + v + " = " + T(c) + " \\int " + paren(f) + "\\,d" + v, "\\int k f(x)\\,dx = k\\int f(x)\\,dx"));
       const r = integrate(f, v, steps, depth + 1); return r && simp(N.mul(c, r));
     }
     /* table */
     const t = tableInt(a, v);
-    if (t) { steps.push(step("فرمول انتگرال پایه", "\\int " + T(a) + "\\,d" + v + " = " + T(t.r), t.rule)); return t.r; }
+    if (t) { steps.push(step(tr("فرمول انتگرال پایه", "Basic integral formula"), "\\int " + T(a) + "\\,d" + v + " = " + T(t.r), t.rule)); return t.r; }
     /* polynomial / rational in v */
     const R = E.toRat(a, v);
     if (R) {
       if (R.isPoly()) {
         const P = R.n, expanded = P.toAst(v);
-        if (!E.eqAst(expanded, a)) { steps.push(step("بسط چندجمله‌ای", "\\int " + T(a) + "\\,d" + v + " = \\int \\left(" + T(expanded) + "\\right)d" + v, null)); return integrate(expanded, v, steps, depth + 1); }
+        if (!E.eqAst(expanded, a)) { steps.push(step(tr("بسط چندجمله‌ای", "Expand the polynomial"), "\\int " + T(a) + "\\,d" + v + " = \\int \\left(" + T(expanded) + "\\right)d" + v, null)); return integrate(expanded, v, steps, depth + 1); }
       } else {
         const red = R.reduce();
         let [quo, rem] = red.n.divmod(red.d);
         if (!quo.isZero()) {
-          steps.push(step("تقسیم چندجمله‌ای", "\\frac{" + red.n.tex(v) + "}{" + red.d.tex(v) + "} = " + quo.tex(v) + (rem.isZero() ? "" : " + \\frac{" + rem.tex(v) + "}{" + red.d.tex(v) + "}"), "درجهٔ صورت از مخرج کمتر نیست؛ ابتدا تقسیم می‌کنیم."));
+          steps.push(step(tr("تقسیم چندجمله‌ای", "Polynomial division"), "\\frac{" + red.n.tex(v) + "}{" + red.d.tex(v) + "} = " + quo.tex(v) + (rem.isZero() ? "" : " + \\frac{" + rem.tex(v) + "}{" + red.d.tex(v) + "}"), tr("درجهٔ صورت از مخرج کمتر نیست؛ ابتدا تقسیم می‌کنیم.", "The numerator's degree is not less than the denominator's; divide first.")));
           const whole = rem.isZero() ? quo.toAst(v) : N.add(quo.toAst(v), N.div(rem.toAst(v), red.d.toAst(v)));
           return integrate(whole, v, steps, depth + 1);
         }
@@ -330,7 +331,7 @@
             const pf = E.casAst("partfrac(" + E.str(N.div(red.n.toAst(v), red.d.toAst(v))) + "," + v + ")");
             const pfTerms = flatSum(pf);
             if (pfTerms.length > 1) {
-              steps.push(step("تجزیه به کسرهای جزئی", "\\frac{" + red.n.tex(v) + "}{" + red.d.tex(v) + "} = " + T(pf), "مخرج را تجزیه می‌کنیم و کسر را به مجموع کسرهای ساده‌تر می‌شکنیم."));
+              steps.push(step(tr("تجزیه به کسرهای جزئی", "Partial fraction decomposition"), "\\frac{" + red.n.tex(v) + "}{" + red.d.tex(v) + "} = " + T(pf), tr("مخرج را تجزیه می‌کنیم و کسر را به مجموع کسرهای ساده‌تر می‌شکنیم.", "Factor the denominator and split the fraction into simpler fractions.")));
               return integrate(pf, v, steps, depth + 1);
             }
           } catch (e) { }
@@ -363,10 +364,10 @@
     if (has(g, v)) return null;
     const sub = [];
     const r = integrate(g, U, sub, depth + 1); if (!r) return null;
-    steps.push(step("جایگذاری خطی", "u = " + T(inner) + ",\\quad du = " + k.toTeX() + "\\,d" + v + " \\;\\Rightarrow\\; d" + v + " = \\frac{du}{" + k.toTeX() + "}", "عبارت داخلی خطی است."));
+    steps.push(step(tr("جایگذاری خطی", "Linear substitution"), "u = " + T(inner) + ",\\quad du = " + k.toTeX() + "\\,d" + v + " \\;\\Rightarrow\\; d" + v + " = \\frac{du}{" + k.toTeX() + "}", tr("عبارت داخلی خطی است.", "The inner expression is linear.")));
     sub.forEach(s => steps.push(s));
     const res = simp(N.mul(N.num(k.inv()), E.subst(r, U, inner)));
-    steps.push(step("بازگشت به متغیر " + v, "\\frac{1}{" + k.toTeX() + "}\\left(" + T(r) + "\\right)\\Big|_{u = " + T(inner) + "} = " + T(res), null));
+    steps.push(step(tr("بازگشت به متغیر ", "Back-substitute to ") + v, "\\frac{1}{" + k.toTeX() + "}\\left(" + T(r) + "\\right)\\Big|_{u = " + T(inner) + "} = " + T(res), null));
     return res;
   }
   function replaceAst(a, target, rep) {
@@ -411,11 +412,11 @@
       g = E.subst(g, "__u", N.v("u"));
       const sub = [];
       const r = integrate(g, "u", sub, depth + 1); if (!r) continue;
-      steps.push(step("جایگذاری (تغییر متغیر)", "u = " + T(u) + ",\\quad du = " + T(nicest(du)) + "\\,d" + v, "مشتق عبارت داخلی (یا مضربی از آن) در انتگرال‌ده دیده می‌شود."));
-      steps.push(step("انتگرال برحسب u", "\\int " + T(g) + "\\,du", null));
+      steps.push(step(tr("جایگذاری (تغییر متغیر)", "Substitution (change of variable)"), "u = " + T(u) + ",\\quad du = " + T(nicest(du)) + "\\,d" + v, tr("مشتق عبارت داخلی (یا مضربی از آن) در انتگرال‌ده دیده می‌شود.", "The derivative of the inner expression (or a multiple of it) appears in the integrand.")));
+      steps.push(step(tr("انتگرال برحسب u", "Integral in terms of u"), "\\int " + T(g) + "\\,du", null));
       sub.forEach(s => steps.push(s));
       const res = E.subst(r, "u", u);
-      steps.push(step("بازگشت به متغیر " + v, T(r) + "\\Big|_{u = " + T(u) + "} = " + T(res), null));
+      steps.push(step(tr("بازگشت به متغیر ", "Back-substitute to ") + v, T(r) + "\\Big|_{u = " + T(u) + "} = " + T(res), null));
       return res;
     }
     return null;
@@ -442,11 +443,11 @@
     const V = integrate(dv, v, sub, depth + 2); if (!V) return null;
     const du = D(u, v);
     const Vn = nicest(V);
-    steps.push(step("انتگرال جزء‌به‌جزء", "u = " + T(u) + ",\\; dv = " + T(dv) + "\\,d" + v + " \\;\\Rightarrow\\; du = " + T(nicest(du)) + "\\,d" + v + ",\\; v = " + T(Vn), "\\int u\\,dv = uv - \\int v\\,du \\quad (\\text{انتخاب u با قاعدهٔ LIATE})"));
+    steps.push(step(tr("انتگرال جزء‌به‌جزء", "Integration by parts"), "u = " + T(u) + ",\\; dv = " + T(dv) + "\\,d" + v + " \\;\\Rightarrow\\; du = " + T(nicest(du)) + "\\,d" + v + ",\\; v = " + T(Vn), tr("\\int u\\,dv = uv - \\int v\\,du \\quad (\\text{انتخاب u با قاعدهٔ LIATE})", "\\int u\\,dv = uv - \\int v\\,du \\quad (\\text{choose u with the LIATE rule})")));
     const inner = simp(N.mul(Vn, du));
     const sub2 = [];
     const W = integrate(nicest(inner), v, sub2, depth + 1); if (!W) return null;
-    steps.push(step("اعمال فرمول", "\\int " + T(a) + "\\,d" + v + " = " + T(simp(N.mul(u, Vn))) + " - \\int " + paren(nicest(inner)) + "\\,d" + v, null));
+    steps.push(step(tr("اعمال فرمول", "Apply the formula"), "\\int " + T(a) + "\\,d" + v + " = " + T(simp(N.mul(u, Vn))) + " - \\int " + paren(nicest(inner)) + "\\,d" + v, null));
     sub2.slice(0, 8).forEach(s => steps.push(s));
     return simp(N.sub(N.mul(u, Vn), W));
   }
@@ -461,15 +462,15 @@
         const r = E.casAst("integrate(" + E.str(a) + "," + v + ")");
         if (/integrate/.test(E.str(r)) || E.str(r).includes("integrate")) throw new Error("no");
         F = r; method = "cas";
-        steps.push(step("محاسبهٔ انتگرال", "\\int " + T(a) + "\\,d" + v + " = " + T(F), "این انتگرال با روش‌های پیشرفته (موتور نمادین) محاسبه شد؛ درستی آن با مشتق‌گیری بررسی می‌شود."));
+        steps.push(step(tr("محاسبهٔ انتگرال", "Compute the integral"), "\\int " + T(a) + "\\,d" + v + " = " + T(F), tr("این انتگرال با روش‌های پیشرفته (موتور نمادین) محاسبه شد؛ درستی آن با مشتق‌گیری بررسی می‌شود.", "This integral was computed with advanced methods (symbolic engine); it is verified by differentiation.")));
       } catch (e) { F = null; }
     }
     if (F && !E.equivalent(D(F, v), a, [v])) { if (method === "cas") F = null; }
     if (bounds) return definite(a, v, F, bounds, steps);
-    if (!F) throw new MathError("پاد‌مشتق این تابع به شکل بسته پیدا نشد. می‌توانی انتگرال معین آن را به‌صورت عددی حساب کنی.");
+    if (!F) throw new MathError(tr("پاد‌مشتق این تابع به شکل بسته پیدا نشد. می‌توانی انتگرال معین آن را به‌صورت عددی حساب کنی.", "No closed-form antiderivative was found. You can compute its definite integral numerically."));
     const Fn = dropLnConst(nicest(F));
-    steps.push(step("ساده‌سازی و افزودن ثابت", "\\int " + paren(a) + "\\,d" + v + " = " + T(Fn) + PLUS_C, null));
-    steps.push(step("بررسی با مشتق‌گیری", "\\frac{d}{d" + v + "}\\left[" + T(Fn) + "\\right] = " + T(a) + " \\;\\checkmark", "مشتق جواب باید با انتگرال‌ده برابر باشد."));
+    steps.push(step(tr("ساده‌سازی و افزودن ثابت", "Simplify and add the constant"), "\\int " + paren(a) + "\\,d" + v + " = " + T(Fn) + PLUS_C, null));
+    steps.push(step(tr("بررسی با مشتق‌گیری", "Check by differentiating"), "\\frac{d}{d" + v + "}\\left[" + T(Fn) + "\\right] = " + T(a) + " \\;\\checkmark", tr("مشتق جواب باید با انتگرال‌ده برابر باشد.", "The derivative of the answer must equal the integrand.")));
     return { answer: "\\int " + paren(a) + "\\,d" + v + " = " + T(Fn) + PLUS_C, result: Fn, steps, plot: { exprs: [a, Fn], v, labels: ["f", "F"] } };
   }
   function dropLnConst(a) { /* ln|k*u| = ln|u| + const  -> absorbed in C */
@@ -494,35 +495,35 @@
     const lv = evalNum(lo), hv = evalNum(hi);
     const infinite = !Number.isFinite(lv) || !Number.isFinite(hv);
     /* singularity scan */
-    if (!infinite) { const N1 = 400; for (let i = 0; i <= N1; i++) { const x = lv + (hv - lv) * i / N1, y = fnum(x); if (!Number.isFinite(y) && i > 0 && i < N1) { steps.push(step("هشدار ناپیوستگی", "", "انتگرال‌ده در بازه ناپیوستگی یا مجانب دارد؛ انتگرال ممکن است ناسره یا واگرا باشد.")); break; } } }
+    if (!infinite) { const N1 = 400; for (let i = 0; i <= N1; i++) { const x = lv + (hv - lv) * i / N1, y = fnum(x); if (!Number.isFinite(y) && i > 0 && i < N1) { steps.push(step(tr("هشدار ناپیوستگی", "Discontinuity warning"), "", tr("انتگرال‌ده در بازه ناپیوستگی یا مجانب دارد؛ انتگرال ممکن است ناسره یا واگرا باشد.", "The integrand has a discontinuity or asymptote on the interval; the integral may be improper or divergent."))); break; } } }
     const head = "\\int_{" + T(lo) + "}^{" + T(hi) + "} " + T(a) + "\\,d" + v;
     let exact = null, value;
     if (F && !infinite) {
       const Fn = nicest(F);
-      steps.push(step("قضیهٔ اساسی حسابان", head + " = \\Big[" + T(Fn) + "\\Big]_{" + T(lo) + "}^{" + T(hi) + "} = F\\left(" + T(hi) + "\\right) - F\\left(" + T(lo) + "\\right)", "\\int_a^b f(x)\\,dx = F(b) - F(a)"));
+      steps.push(step(tr("قضیهٔ اساسی حسابان", "Fundamental theorem of calculus"), head + " = \\Big[" + T(Fn) + "\\Big]_{" + T(lo) + "}^{" + T(hi) + "} = F\\left(" + T(hi) + "\\right) - F\\left(" + T(lo) + "\\right)", "\\int_a^b f(x)\\,dx = F(b) - F(a)"));
       const Fb = E.subst(Fn, v, hi), Fa = E.subst(Fn, v, lo);
       try { exact = nicest(N.sub(Fb, Fa)); } catch (e) { exact = null; }
       value = evalNum(Fb) - evalNum(Fa);
-      if (exact && E.vars(exact).size === 0 && Math.abs(evalNum(exact) - value) < 1e-8 * Math.max(1, Math.abs(value))) steps.push(step("جایگذاری حدود", "\\left(" + T(Fb) + "\\right) - \\left(" + T(Fa) + "\\right) = " + T(exact), null));
+      if (exact && E.vars(exact).size === 0 && Math.abs(evalNum(exact) - value) < 1e-8 * Math.max(1, Math.abs(value))) steps.push(step(tr("جایگذاری حدود", "Substitute the bounds"), "\\left(" + T(Fb) + "\\right) - \\left(" + T(Fa) + "\\right) = " + T(exact), null));
       else exact = null;
     }
     if (infinite && F) {
       const Fn = nicest(F);
       const lim = (bAst) => { const bv = evalNum(bAst); if (Number.isFinite(bv)) { const r = nicest(E.subst(Fn, v, bAst)); return { ast: r, val: evalNum(r) }; } const nv = E.compile(Fn, v)(Math.sign(bv) * 1e8); try { const r = E.casAst("limit(" + E.str(Fn) + "," + v + "," + E.str(bAst) + ")"); const rv = evalNum(r); if (!E.vars(r).size && (Math.abs(rv - nv) < 1e-4 * Math.max(1, Math.abs(nv)) || (!Number.isFinite(rv) && Math.sign(rv) === Math.sign(nv)))) return { ast: Number.isFinite(rv) ? r : null, val: rv }; } catch (e) { } const f_ = E.compile(Fn, v), n1 = f_(Math.sign(bv) * 1e6), n2 = f_(Math.sign(bv) * 1e12); if (Math.abs(nv) > 1e6 || (Number.isFinite(n2) && Math.abs(n2 - n1) > 1e-6 * Math.max(1, Math.abs(n2)))) return { val: Math.sign(n2 || nv) * Infinity }; return { val: nv }; };
       const Fb = lim(hi), Fa = lim(lo);
-      steps.push(step("انتگرال ناسره به‌صورت حد", head + " = \\lim_{b\\to" + T(Number.isFinite(hv) ? lo : hi) + "} \\Big[" + T(Fn) + "\\Big]", "کران بی‌نهایت را با حد جایگزین می‌کنیم."));
+      steps.push(step(tr("انتگرال ناسره به‌صورت حد", "Improper integral as a limit"), head + " = \\lim_{b\\to" + T(Number.isFinite(hv) ? lo : hi) + "} \\Big[" + T(Fn) + "\\Big]", tr("کران بی‌نهایت را با حد جایگزین می‌کنیم.", "Replace the infinite bound with a limit.")));
       value = Fb.val - Fa.val;
-      if (!Number.isFinite(value)) { steps.push(step("واگرایی", "", "حد متناهی نیست؛ انتگرال واگراست.")); return { answer: head + " = " + (value > 0 ? "\\infty" : "-\\infty") + "\\;(\\text{واگرا})", steps, value }; }
+      if (!Number.isFinite(value)) { steps.push(step(tr("واگرایی", "Divergence"), "", tr("حد متناهی نیست؛ انتگرال واگراست.", "The limit is not finite; the integral diverges."))); return { answer: head + " = " + (value > 0 ? "\\infty" : "-\\infty") + tr("\\;(\\text{واگرا})", "\\;(\\text{diverges})"), steps, value }; }
       try { exact = nicest(N.sub(Fb.ast || E.parse(String(Fb.val)), Fa.ast || E.parse(String(Fa.val)))); } catch (e) { exact = null; }
       if (exact && Math.abs(evalNum(exact) - value) > 1e-6) exact = null;
-      steps.push(step("محاسبهٔ حدها", "F(" + T(hi) + ") - F(" + T(lo) + ") = " + E.trimNum(Fb.val, 6) + " - " + E.trimNum(Fa.val, 6) + " = " + (exact ? T(exact) : E.trimNum(value, 6)), null));
+      steps.push(step(tr("محاسبهٔ حدها", "Compute the limits"), "F(" + T(hi) + ") - F(" + T(lo) + ") = " + E.trimNum(Fb.val, 6) + " - " + E.trimNum(Fa.val, 6) + " = " + (exact ? T(exact) : E.trimNum(value, 6)), null));
     } else if (infinite) {
-      try { const r = E.casAst("defint(" + E.str(a) + "," + v + "," + E.str(lo) + "," + E.str(hi) + ")"); exact = r; value = evalNum(r); steps.push(step("انتگرال ناسره", head + " = \\lim_{b\\to\\infty}\\int^{b} \\cdots = " + T(r), "حد انتگرال معین وقتی کران به بی‌نهایت میل می‌کند.")); }
-      catch (e) { throw new MathError("محاسبهٔ این انتگرال ناسره ممکن نشد."); }
+      try { const r = E.casAst("defint(" + E.str(a) + "," + v + "," + E.str(lo) + "," + E.str(hi) + ")"); exact = r; value = evalNum(r); steps.push(step(tr("انتگرال ناسره", "Improper integral"), head + " = \\lim_{b\\to\\infty}\\int^{b} \\cdots = " + T(r), tr("حد انتگرال معین وقتی کران به بی‌نهایت میل می‌کند.", "The limit of the definite integral as the bound goes to infinity."))); }
+      catch (e) { throw new MathError(tr("محاسبهٔ این انتگرال ناسره ممکن نشد.", "Could not compute this improper integral.")); }
     }
     const num = infinite ? value : simpson(fnum, lv, hv);
-    if (value === undefined || !Number.isFinite(value)) { value = num; steps.push(step("محاسبهٔ عددی (روش سیمپسون)", head + " \\approx " + E.trimNum(num, 8), "پاد‌مشتق بسته پیدا نشد؛ مقدار با روش عددی سیمپسون تقریب زده شد.")); }
-    else if (!infinite && Math.abs(num - value) > 1e-5 * Math.max(1, Math.abs(value))) steps.push(step("هشدار", "", "مقدار عددی (" + E.trimNum(num, 6) + ") با مقدار دقیق تفاوت دارد؛ ممکن است انتگرال ناسره باشد."));
+    if (value === undefined || !Number.isFinite(value)) { value = num; steps.push(step(tr("محاسبهٔ عددی (روش سیمپسون)", "Numerical computation (Simpson's rule)"), head + " \\approx " + E.trimNum(num, 8), tr("پاد‌مشتق بسته پیدا نشد؛ مقدار با روش عددی سیمپسون تقریب زده شد.", "No closed-form antiderivative; the value was approximated with Simpson's rule."))); }
+    else if (!infinite && Math.abs(num - value) > 1e-5 * Math.max(1, Math.abs(value))) steps.push(step(tr("هشدار", "Warning"), "", tr("مقدار عددی (", "The numerical value (") + E.trimNum(num, 6) + tr(") با مقدار دقیق تفاوت دارد؛ ممکن است انتگرال ناسره باشد.", ") differs from the exact value; the integral may be improper.")));
     const ans = head + (exact ? " = " : " ") + (exact ? T(exact) + (exact.t === "num" && exact.q.isInt() ? "" : " \\approx " + E.trimNum(value, 6)) : "\\approx " + E.trimNum(value, 8));
     return { answer: ans, value, steps, plot: { exprs: [a], v, area: [lv, hv] } };
   }
@@ -557,7 +558,7 @@
     if (!inf) {
       const d = evalAt(a, v, pointAst);
       if (d.ast && Number.isFinite(d.val) && !hasDisc(a, v, p)) {
-        steps.push(step("جایگذاری مستقیم", head + " = " + T(E.subst(a, v, pointAst)) + " = " + T(d.ast), "تابع در این نقطه پیوسته است؛ مقدار را مستقیم جایگذاری می‌کنیم."));
+        steps.push(step(tr("جایگذاری مستقیم", "Direct substitution"), head + " = " + T(E.subst(a, v, pointAst)) + " = " + T(d.ast), tr("تابع در این نقطه پیوسته است؛ مقدار را مستقیم جایگذاری می‌کنیم.", "The function is continuous at this point; substitute the value directly.")));
         return fin(T(d.ast) + (d.ast.t === "num" && d.ast.q.isInt() ? "" : (d.ast.t === "fl" ? "" : " \\approx " + E.trimNum(d.val, 6))));
       }
     }
@@ -566,19 +567,19 @@
     if (R && !R.isPoly()) {
       if (inf) {
         const dn = R.n.deg(), dd = R.d.deg();
-        steps.push(step("مقایسهٔ درجه‌ها", "\\deg(\\text{صورت}) = " + dn + ",\\quad \\deg(\\text{مخرج}) = " + dd, "صورت و مخرج را بر بزرگ‌ترین توان " + v + " در مخرج تقسیم می‌کنیم."));
-        if (dn < dd) { steps.push(step("درجهٔ صورت کمتر است", head + " = 0", "جمله‌های تقسیم بر توان‌های " + v + " به صفر میل می‌کنند.")); return fin("0"); }
-        if (dn === dd) { const r = R.n.lead().div(R.d.lead()); steps.push(step("درجه‌ها برابرند", head + " = \\frac{" + R.n.lead().toTeX() + "}{" + R.d.lead().toTeX() + "} = " + r.toTeX(), "حد برابر نسبت ضریب‌های بزرگ‌ترین توان است.")); return fin(r.toTeX()); }
+        steps.push(step(tr("مقایسهٔ درجه‌ها", "Compare degrees"), tr("\\deg(\\text{صورت}) = ", "\\deg(\\text{numerator}) = ") + dn + tr(",\\quad \\deg(\\text{مخرج}) = ", ",\\quad \\deg(\\text{denominator}) = ") + dd, tr("صورت و مخرج را بر بزرگ‌ترین توان ", "Divide the numerator and denominator by the highest power of ") + v + tr(" در مخرج تقسیم می‌کنیم.", " in the denominator.")));
+        if (dn < dd) { steps.push(step(tr("درجهٔ صورت کمتر است", "Numerator has lower degree"), head + " = 0", tr("جمله‌های تقسیم بر توان‌های ", "Terms divided by powers of ") + v + tr(" به صفر میل می‌کنند.", " tend to zero."))); return fin("0"); }
+        if (dn === dd) { const r = R.n.lead().div(R.d.lead()); steps.push(step(tr("درجه‌ها برابرند", "Equal degrees"), head + " = \\frac{" + R.n.lead().toTeX() + "}{" + R.d.lead().toTeX() + "} = " + r.toTeX(), tr("حد برابر نسبت ضریب‌های بزرگ‌ترین توان است.", "The limit is the ratio of the leading coefficients."))); return fin(r.toTeX()); }
         const s = Math.sign(R.n.lead().num() / R.d.lead().num()) * (p > 0 ? 1 : ((dn - dd) % 2 ? -1 : 1));
-        steps.push(step("درجهٔ صورت بیشتر است", head + " = " + (s > 0 ? "\\infty" : "-\\infty"), "صورت سریع‌تر رشد می‌کند؛ حد بی‌نهایت است."));
+        steps.push(step(tr("درجهٔ صورت بیشتر است", "Numerator has higher degree"), head + " = " + (s > 0 ? "\\infty" : "-\\infty"), tr("صورت سریع‌تر رشد می‌کند؛ حد بی‌نهایت است.", "The numerator grows faster; the limit is infinite.")));
         return fin(s > 0 ? "\\infty" : "-\\infty");
       }
       const nv = R.n.evalN(p), dv = R.d.evalN(p);
       if (Math.abs(nv) < 1e-12 && Math.abs(dv) < 1e-12) {
-        steps.push(step("حالت مبهم ۰/۰", "\\frac{" + R.n.tex(v) + "}{" + R.d.tex(v) + "} \\;\\to\\; \\frac{0}{0}", "با جایگذاری مستقیم صورت و مخرج هر دو صفر می‌شوند."));
+        steps.push(step(tr("حالت مبهم ۰/۰", "Indeterminate form 0/0"), "\\frac{" + R.n.tex(v) + "}{" + R.d.tex(v) + "} \\;\\to\\; \\frac{0}{0}", tr("با جایگذاری مستقیم صورت و مخرج هر دو صفر می‌شوند.", "Direct substitution makes both numerator and denominator zero.")));
         const nf = E.factorPoly(R.n, v, []), df = E.factorPoly(R.d, v, []);
         const red = R.reduce();
-        steps.push(step("تجزیه و حذف عامل مشترک", "\\frac{" + E.factorsTex(nf.k, nf.factors, v) + "}{" + E.factorsTex(df.k, df.factors, v) + "} = \\frac{" + red.n.tex(v) + "}{" + red.d.tex(v) + "}", "عامل صفرکننده از صورت و مخرج حذف می‌شود (" + v + " ≠ " + T(pointAst) + ")."));
+        steps.push(step(tr("تجزیه و حذف عامل مشترک", "Factor and cancel the common factor"), "\\frac{" + E.factorsTex(nf.k, nf.factors, v) + "}{" + E.factorsTex(df.k, df.factors, v) + "} = \\frac{" + red.n.tex(v) + "}{" + red.d.tex(v) + "}", tr("عامل صفرکننده از صورت و مخرج حذف می‌شود (", "The zero-producing factor cancels from the numerator and denominator (") + v + " ≠ " + T(pointAst) + ")."));
         const sub = limitSteps(red.d.isConst() ? red.n.scale(red.d.co(0).inv()).toAst(v) : N.div(red.n.toAst(v), red.d.toAst(v)), v, pointAst, side);
         sub.steps.forEach(s => steps.push(s));
         return fin(sub.answer.split(" = ").slice(1).join(" = "));
@@ -594,7 +595,7 @@
         const zz = Math.abs(nv) < 1e-9 && Math.abs(dv) < 1e-9, ii = !Number.isFinite(nv) && !Number.isFinite(dv) && !isNaN(nv) && !isNaN(dv);
         const iiInf = inf && Math.abs(nv) > 1e6 && Math.abs(dv) > 1e6;
         if (!(zz || ii || iiInf)) break;
-        steps.push(step("قاعدهٔ هوپیتال" + (k ? " (دوباره)" : ""), "\\text{حالت } " + (zz ? "\\frac{0}{0}" : "\\frac{\\infty}{\\infty}") + " \\;\\Rightarrow\\; \\lim \\frac{f}{g} = \\lim \\frac{f'}{g'} = \\lim \\frac{" + T(nicest(D(num, v))) + "}{" + T(nicest(D(den, v))) + "}", "از صورت و مخرج جداگانه مشتق می‌گیریم."));
+        steps.push(step(tr("قاعدهٔ هوپیتال", "L'Hôpital's rule") + (k ? tr(" (دوباره)", " (again)") : ""), tr("\\text{حالت } ", "\\text{form } ") + (zz ? "\\frac{0}{0}" : "\\frac{\\infty}{\\infty}") + " \\;\\Rightarrow\\; \\lim \\frac{f}{g} = \\lim \\frac{f'}{g'} = \\lim \\frac{" + T(nicest(D(num, v))) + "}{" + T(nicest(D(den, v))) + "}", tr("از صورت و مخرج جداگانه مشتق می‌گیریم.", "Differentiate the numerator and denominator separately.")));
         num = nicest(D(num, v)); den = nicest(D(den, v)); k++;
       }
       if (k) {
@@ -610,7 +611,7 @@
     /* CAS fallback with numeric check */
     try {
       const r = E.casAst("limit(" + E.str(a) + "," + v + "," + E.str(pointAst) + ")");
-      steps.push(step("محاسبهٔ حد", head + " = " + T(r), "با روش‌های جبری پیشرفته؛ مقدار با محاسبهٔ عددی نزدیک نقطه تأیید شد."));
+      steps.push(step(tr("محاسبهٔ حد", "Compute the limit"), head + " = " + T(r), tr("با روش‌های جبری پیشرفته؛ مقدار با محاسبهٔ عددی نزدیک نقطه تأیید شد.", "By advanced algebraic methods; the value was confirmed numerically near the point.")));
       const chk = numericLimit(a, v, p);
       const val = inf ? chk.val : (side === "-" ? chk.left : side === "+" ? chk.right : (chk.left + chk.right) / 2);
       if (Number.isFinite(val) && E.vars(r).size === 0 && Math.abs(evalNum(r) - val) > 1e-3 * Math.max(1, Math.abs(val))) throw new Error("mismatch");
@@ -618,9 +619,9 @@
     } catch (e) {
       const chk = numericLimit(a, v, p);
       const val = inf ? chk.val : (side === "-" ? chk.left : side === "+" ? chk.right : chk.left);
-      if (!inf && !side && Math.abs(chk.left - chk.right) > 1e-4 * Math.max(1, Math.abs(chk.left))) { steps.push(step("حد چپ و راست", "\\lim^{-} \\approx " + E.trimNum(chk.left, 6) + ",\\quad \\lim^{+} \\approx " + E.trimNum(chk.right, 6), "حدهای چپ و راست برابر نیستند؛ حد وجود ندارد.")); return fin("\\text{وجود ندارد}"); }
-      steps.push(step("تقریب عددی", head + " \\approx " + E.trimNum(val, 6), "با محاسبهٔ مقدار تابع در نقاط بسیار نزدیک."));
-      return fin("\\approx " + E.trimNum(val, 6), "مقدار تقریبی است.");
+      if (!inf && !side && Math.abs(chk.left - chk.right) > 1e-4 * Math.max(1, Math.abs(chk.left))) { steps.push(step(tr("حد چپ و راست", "Left and right limits"), "\\lim^{-} \\approx " + E.trimNum(chk.left, 6) + ",\\quad \\lim^{+} \\approx " + E.trimNum(chk.right, 6), tr("حدهای چپ و راست برابر نیستند؛ حد وجود ندارد.", "The left and right limits differ; the limit does not exist."))); return fin(tr("\\text{وجود ندارد}", "\\text{does not exist}")); }
+      steps.push(step(tr("تقریب عددی", "Numerical approximation"), head + " \\approx " + E.trimNum(val, 6), tr("با محاسبهٔ مقدار تابع در نقاط بسیار نزدیک.", "By evaluating the function at points very close by.")));
+      return fin("\\approx " + E.trimNum(val, 6), tr("مقدار تقریبی است.", "The value is approximate."));
     }
   }
   const safe = f => { try { return f(); } catch (e) { return NaN; } };
@@ -629,10 +630,10 @@
     const n = numericLimit(a, v, p);
     const sg = x => x > 1e6 ? "\\infty" : x < -1e6 ? "-\\infty" : E.trimNum(x, 6);
     const L = sg(n.left), R = sg(n.right);
-    steps.push(step("بررسی حدهای یک‌طرفه", "\\lim_{" + v + "\\to " + E.trimNum(p) + "^{-}} = " + L + ",\\quad \\lim_{" + v + "\\to " + E.trimNum(p) + "^{+}} = " + R, "مخرج صفر و صورت ناصفر است؛ تابع در این نقطه مجانب قائم دارد."));
+    steps.push(step(tr("بررسی حدهای یک‌طرفه", "Check the one-sided limits"), "\\lim_{" + v + "\\to " + E.trimNum(p) + "^{-}} = " + L + ",\\quad \\lim_{" + v + "\\to " + E.trimNum(p) + "^{+}} = " + R, tr("مخرج صفر و صورت ناصفر است؛ تابع در این نقطه مجانب قائم دارد.", "The denominator is zero and the numerator is not; the function has a vertical asymptote here.")));
     if (side === "-") return fin(L); if (side === "+") return fin(R);
     if (L === R) return fin(L);
-    return fin("\\text{وجود ندارد}", "حدهای چپ و راست برابر نیستند.");
+    return fin(tr("\\text{وجود ندارد}", "\\text{does not exist}"), tr("حدهای چپ و راست برابر نیستند.", "The left and right limits differ."));
   }
   E.limitSteps = limitSteps;
 
@@ -642,14 +643,14 @@
     const steps = [];
     const x0 = evalNum(x0Ast);
     const y0 = nicest(E.subst(a, v, x0Ast));
-    steps.push(step("مقدار تابع در نقطه", "f\\left(" + T(x0Ast) + "\\right) = " + T(y0), null));
+    steps.push(step(tr("مقدار تابع در نقطه", "Function value at the point"), "f\\left(" + T(x0Ast) + "\\right) = " + T(y0), null));
     const d = nicest(D(a, v));
-    steps.push(step("مشتق تابع", "f'(" + v + ") = " + T(d), null));
+    steps.push(step(tr("مشتق تابع", "Derivative of the function"), "f'(" + v + ") = " + T(d), null));
     const m = nicest(E.subst(d, v, x0Ast));
-    steps.push(step("شیب خط مماس", "m = f'\\left(" + T(x0Ast) + "\\right) = " + T(m), "شیب مماس برابر مقدار مشتق در نقطه است."));
+    steps.push(step(tr("شیب خط مماس", "Slope of the tangent line"), "m = f'\\left(" + T(x0Ast) + "\\right) = " + T(m), tr("شیب مماس برابر مقدار مشتق در نقطه است.", "The slope of the tangent equals the derivative at the point.")));
     const line = nicest(N.add(N.mul(m, N.sub(N.v(v), x0Ast)), y0));
-    steps.push(step("معادلهٔ نقطه-شیب", "y - " + paren(y0) + " = " + T(m) + "\\left(" + v + " - " + paren(x0Ast) + "\\right) \\;\\Rightarrow\\; y = " + T(line), "y − y₀ = m(x − x₀)"));
-    return { answer: "y = " + T(line), steps, plot: { exprs: [a, line], v, mark: x0, labels: ["f", "مماس"] } };
+    steps.push(step(tr("معادلهٔ نقطه-شیب", "Point-slope form"), "y - " + paren(y0) + " = " + T(m) + "\\left(" + v + " - " + paren(x0Ast) + "\\right) \\;\\Rightarrow\\; y = " + T(line), "y − y₀ = m(x − x₀)"));
+    return { answer: "y = " + T(line), steps, plot: { exprs: [a, line], v, mark: x0, labels: ["f", tr("مماس", "tangent")] } };
   }
   E.tangentSteps = tangentSteps;
 
@@ -657,20 +658,20 @@
     v = v || E.pickVar([a]);
     const steps = [];
     const d1 = nicest(D(a, v)), d2 = nicest(D(d1, v));
-    steps.push(step("مشتق اول", "f'(" + v + ") = " + T(d1), null));
+    steps.push(step(tr("مشتق اول", "First derivative"), "f'(" + v + ") = " + T(d1), null));
     const sol = E.solveEquation(d1, zero(), v);
-    steps.push(step("نقاط بحرانی: f'(" + v + ") = 0", sol.answer, "جایی که مشتق صفر است، شیب مماس افقی است."));
+    steps.push(step(tr("نقاط بحرانی: f'(", "Critical points: f'(") + v + ") = 0", sol.answer, tr("جایی که مشتق صفر است، شیب مماس افقی است.", "Where the derivative is zero, the tangent is horizontal.")));
     const pts = Array.isArray(sol.sols) ? sol.sols : [];
     const rows = [];
-    steps.push(step("مشتق دوم", "f''(" + v + ") = " + T(d2), "برای آزمون مشتق دوم"));
+    steps.push(step(tr("مشتق دوم", "Second derivative"), "f''(" + v + ") = " + T(d2), tr("برای آزمون مشتق دوم", "For the second-derivative test")));
     pts.slice(0, 8).forEach(s => {
       const x = evalNum(s), yv = nicest(E.subst(a, v, s)), c = safe(() => evalNum(E.subst(d2, v, s)));
-      const kind = c > 1e-12 ? "کمینهٔ نسبی" : c < -1e-12 ? "بیشینهٔ نسبی" : "نامشخص (آزمون مشتق اول لازم است)";
+      const kind = c > 1e-12 ? tr("کمینهٔ نسبی", "local minimum") : c < -1e-12 ? tr("بیشینهٔ نسبی", "local maximum") : tr("نامشخص (آزمون مشتق اول لازم است)", "inconclusive (use the first-derivative test)");
       rows.push(v + " = " + T(s) + ":\\; f'' " + (c > 0 ? "> 0" : c < 0 ? "< 0" : "= 0") + " \\Rightarrow \\text{" + kind + "},\\; f = " + T(yv));
     });
-    if (rows.length) steps.push(step("آزمون مشتق دوم", rows.join(" \\\\ "), "f'' > 0 ⇒ تقعر رو به بالا (کمینه)؛ f'' < 0 ⇒ تقعر رو به پایین (بیشینه)"));
+    if (rows.length) steps.push(step(tr("آزمون مشتق دوم", "Second-derivative test"), rows.join(" \\\\ "), tr("f'' > 0 ⇒ تقعر رو به بالا (کمینه)؛ f'' < 0 ⇒ تقعر رو به پایین (بیشینه)", "f'' > 0 ⇒ concave up (minimum); f'' < 0 ⇒ concave down (maximum)")));
     const summary = pts.slice(0, 8).map(s => { const c = safe(() => evalNum(E.subst(d2, v, s))); return (c > 0 ? "\\min" : c < 0 ? "\\max" : "?") + "\\left(" + T(s) + ",\\; " + T(nicest(E.subst(a, v, s))) + "\\right)"; });
-    return { answer: summary.length ? summary.join(",\\quad ") : "\\text{نقطهٔ بحرانی ندارد}", steps, plot: { exprs: [a], v, points: pts.slice(0, 8).map(s => [evalNum(s), safe(() => evalNum(E.subst(a, v, s)))]) } };
+    return { answer: summary.length ? summary.join(",\\quad ") : tr("\\text{نقطهٔ بحرانی ندارد}", "\\text{no critical points}"), steps, plot: { exprs: [a], v, points: pts.slice(0, 8).map(s => [evalNum(s), safe(() => evalNum(E.subst(a, v, s)))]) } };
   }
   E.extremaSteps = extremaSteps;
 
@@ -687,8 +688,8 @@
       if (!(val.t === "num" && val.q.isZero())) poly = poly ? N.add(poly, term) : term;
       if (k < order) cur = nicest(D(cur, v));
     }
-    steps.push(step("مشتق‌ها در نقطهٔ مرکز", rows.join(" \\\\ "), null));
-    steps.push(step("فرمول تیلور", "P_{" + order + "}(" + v + ") = \\sum_{k=0}^{" + order + "} \\frac{f^{(k)}(a)}{k!}(" + v + "-a)^{k}", "a = " + T(centerAst)));
+    steps.push(step(tr("مشتق‌ها در نقطهٔ مرکز", "Derivatives at the center"), rows.join(" \\\\ "), null));
+    steps.push(step(tr("فرمول تیلور", "Taylor formula"), "P_{" + order + "}(" + v + ") = \\sum_{k=0}^{" + order + "} \\frac{f^{(k)}(a)}{k!}(" + v + "-a)^{k}", "a = " + T(centerAst)));
     const res = poly ? nicest(poly) : zero();
     return { answer: "P_{" + order + "}(" + v + ") = " + T(res), steps, plot: { exprs: [a, res], v, labels: ["f", "P"] } };
   }

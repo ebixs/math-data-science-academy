@@ -3,6 +3,7 @@
 (function (root) {
   "use strict";
   const E = root.MathEngine;
+  const tr = (fa, en) => (E.lang() === "en" && en !== undefined ? en : fa);
   const COLORS = ["#22d3ee", "#f472b6", "#a3e635", "#fbbf24", "#c084fc", "#fb7185"];
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const nice = s => { const p = Math.pow(10, Math.floor(Math.log10(s))), m = s / p; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p; };
@@ -57,11 +58,11 @@
       this.fns.forEach(fn => {
         if (fn.noSpecial) return;
         const roots = E.numericScan(fn.f, x0 - span, x1 + span, 1600);
-        roots.forEach(r => this.special.push({ x: r, y: 0, label: "ریشه", color: fn.color }));
-        const y0 = fn.f(0); if (Number.isFinite(y0)) this.special.push({ x: 0, y: y0, label: "عرض از مبدأ", color: fn.color });
+        roots.forEach(r => this.special.push({ x: r, y: 0, label: tr("ریشه", "root"), color: fn.color }));
+        const y0 = fn.f(0); if (Number.isFinite(y0)) this.special.push({ x: 0, y: y0, label: tr("عرض از مبدأ", "y-intercept"), color: fn.color });
         const d = x => (fn.f(x + 1e-5) - fn.f(x - 1e-5)) / 2e-5;
         const ex = E.numericScan(d, x0 - span, x1 + span, 1600);
-        ex.forEach(x => { const y = fn.f(x), yl = fn.f(x - 1e-3), yr = fn.f(x + 1e-3); if (!Number.isFinite(y)) return; const kind = yl > y && yr > y ? "کمینه" : yl < y && yr < y ? "بیشینه" : null; if (kind) this.special.push({ x, y, label: kind, color: fn.color }); });
+        ex.forEach(x => { const y = fn.f(x), yl = fn.f(x - 1e-3), yr = fn.f(x + 1e-3); if (!Number.isFinite(y)) return; const kind = yl > y && yr > y ? tr("کمینه", "minimum") : yl < y && yr < y ? tr("بیشینه", "maximum") : null; if (kind) this.special.push({ x, y, label: kind, color: fn.color }); });
       });
     }
     draw() {
@@ -181,7 +182,7 @@
       g.beginPath(); g.moveTo(X(ch.med), by - 16); g.lineTo(X(ch.med), by + 16); g.stroke();
       ch.out.forEach(o => { g.beginPath(); g.arc(X(o), by, 4, 0, 7); g.stroke(); });
       g.lineWidth = 1; axisX(g, w, h, L, H, X, pad);
-      g.fillStyle = "#8aa0bb"; g.fillText("نمودار جعبه‌ای", w - pad - 70, by - 22); g.fillText("بافت‌نگار", w - pad - 50, top - 10);
+      g.fillStyle = "#8aa0bb"; g.fillText(tr("نمودار جعبه‌ای", "box plot"), w - pad - 70, by - 22); g.fillText(tr("بافت‌نگار", "histogram"), w - pad - 50, top - 10);
     } else if (ch.kind === "bars") {
       const n = ch.xs.length, maxy = Math.max(...ch.ys), X = i => pad + (i + 0.5) / n * (w - 2 * pad), bw = Math.max(2, (w - 2 * pad) / n * 0.7);
       ch.xs.forEach((x, i) => { const y = h - pad - ch.ys[i] / maxy * (h - 2 * pad); g.fillStyle = x === ch.hi ? "#f472b6" : "rgba(34,211,238,.6)"; g.fillRect(X(i) - bw / 2, y, bw, h - pad - y); });

@@ -1,4 +1,4 @@
-/* Engine tests: run with `node tests/engine.test.js`.
+/* Engine tests: run with `node tests/engine.test.js` (Persian) or `MDSA_LANG=en node tests/engine.test.js`.
    Checks answers and renders every step through KaTeX so broken TeX fails the suite. */
 "use strict";
 const path = require("path");
@@ -7,6 +7,8 @@ globalThis.nerdamer = require(path.join(ROOT, "assets/vendor/nerdamer/nerdamer.m
 const katex = require(path.join(ROOT, "assets/vendor/katex/katex.min.js"));
 for (const f of ["core", "algebra", "calculus", "matrix", "stats"]) require(path.join(ROOT, "assets/solver", f + ".js"));
 const E = globalThis.MathEngine;
+globalThis.MDSA_LANG = process.env.MDSA_LANG === "en" ? "en" : "fa";
+const L = (fa, en) => (globalThis.MDSA_LANG === "en" ? en : fa);
 
 let pass = 0, fail = 0;
 const failures = [];
@@ -21,6 +23,11 @@ function check(label, fn, expect) {
   try {
     const r = fn();
     renderAll(r, label);
+    if (globalThis.MDSA_LANG === "en") {
+      const text = [r.answer, r.approx, r.note].concat((r.steps || []).flatMap(st => [st.title, st.tex, st.note])).filter(Boolean).join(" ");
+      const m = text.match(/[\u0600-\u06FF]+/);
+      if (m) throw new Error("Persian text in English output: " + m[0]);
+    }
     const ans = r.answer.replace(/\s+/g, "");
     const ok = (Array.isArray(expect) ? expect : [expect]).every(x => x instanceof RegExp ? x.test(r.answer) : ans.includes(String(x).replace(/\s+/g, "")));
     if (!ok) throw new Error("unexpected answer: " + r.answer);
@@ -75,7 +82,7 @@ check("rational ineq", () => eq("(x-1)/(x+2)<=0"), "\\left(-2,\\; 1\\right]");
 check("system 2x2", () => sys("2x+3y=7,4x-y=7"), ["x = 2", "y = 1"]);
 check("system 3x3", () => sys("x+y+z=6,2x-y+z=3,x+2y-z=2"), ["x = 1", "y = 2", "z = 3"]);
 check("system dependent", () => sys("x+y=2,2x+2y=4"), "\\mathbb{R}");
-check("system inconsistent", () => sys("x+y=2,x+y=3"), "ندارد");
+check("system inconsistent", () => sys("x+y=2,x+y=3"), L("ندارد", "no solution"));
 /* algebraic manipulation */
 check("factor trinomial", () => E.factorSteps(P("x^2-5x+6")), "\\left(x - 2\\right)\\left(x - 3\\right)");
 check("factor squares", () => E.factorSteps(P("x^4-16")), "x^{2} + 4");
@@ -110,7 +117,7 @@ check("∫ definite", () => E.integralSteps(P("x^2"), "x", [P("0"), P("3")]), "=
 check("∫ definite trig", () => E.integralSteps(P("sin(x)"), "x", [P("0"), P("pi")]), "= 2");
 check("∫ numeric", () => E.integralSteps(P("e^(x^2)"), "x", [P("0"), P("1")]), "1.4626");
 check("∫ improper", () => E.integralSteps(P("1/x^2"), "x", [P("1"), P("oo")]), "= 1");
-check("∫ divergent", () => E.integralSteps(P("1/x"), "x", [P("1"), P("oo")]), "واگرا");
+check("∫ divergent", () => E.integralSteps(P("1/x"), "x", [P("1"), P("oo")]), L("واگرا", "diverges"));
 /* limits */
 check("lim substitution", () => E.limitSteps(P("x^2+1"), "x", P("2")), "= 5");
 check("lim factor", () => E.limitSteps(P("(x^2-1)/(x-1)"), "x", P("1")), "= 2");
@@ -118,7 +125,7 @@ check("lim sinx/x", () => E.limitSteps(P("sin(x)/x"), "x", P("0")), "= 1");
 check("lim hopital twice", () => E.limitSteps(P("(1-cos(x))/x^2"), "x", P("0")), "\\frac{1}{2}");
 check("lim infinity", () => E.limitSteps(P("(3x^2+1)/(2x^2-x)"), "x", P("oo")), "\\frac{3}{2}");
 check("lim e", () => E.limitSteps(P("(1+1/x)^x"), "x", P("oo")), "= e");
-check("lim dne", () => E.limitSteps(P("1/x"), "x", P("0")), "وجود ندارد");
+check("lim dne", () => E.limitSteps(P("1/x"), "x", P("0")), L("وجود ندارد", "does not exist"));
 check("lim radical", () => E.limitSteps(P("(sqrt(x+4)-2)/x"), "x", P("0")), "\\frac{1}{4}");
 check("tangent", () => E.tangentSteps(P("x^2"), "x", P("1")), "y = 2 x - 1");
 check("extrema", () => E.extremaSteps(P("x^3-3x"), "x"), ["\\max", "\\min"]);
@@ -130,13 +137,13 @@ check("det 3x3", () => E.matrixOp("det", M("1 2 3;0 1 4;5 6 0")), "= 1");
 check("det 4x4", () => E.matrixOp("det", M("1 2 3 4;5 6 7 8;2 6 4 8;3 1 1 2")), "= 72");
 check("inverse 2x2", () => E.matrixOp("inv", M("2 1;1 3")), "\\frac{3}{5}");
 check("inverse 3x3", () => E.matrixOp("inv", M("1 2 3;0 1 4;5 6 0")), "-24");
-check("singular", () => E.matrixOp("inv", M("1 2;2 4")), "نیست");
+check("singular", () => E.matrixOp("inv", M("1 2;2 4")), L("نیست", "not invertible"));
 check("product", () => E.matrixOp("mul", M("2 1;1 3"), M("1 2;3 4")), "5 & 8");
 check("rref", () => E.matrixOp("rref", M("1 2 3;4 5 6;7 8 9")), "rank}(A) = 2");
 check("eigen", () => E.matrixOp("eig", M("4 1;2 3")), ["\\lambda = 2", "\\lambda = 5"]);
 check("Ax=b", () => E.matrixOp("solve", M("2 1;1 3"), M("3;5")), "\\frac{4}{5}");
 /* statistics */
-check("describe", () => E.describeSteps(E.parseData("2, 4, 4, 4, 5, 5, 7, 9")), ["\\bar{x} = 5", "میانه} = 4.5"]);
+check("describe", () => E.describeSteps(E.parseData("2, 4, 4, 4, 5, 5, 7, 9")), ["\\bar{x} = 5", L("میانه} = 4.5", "median} = 4.5")]);
 check("regression", () => E.regressionSteps(E.parsePairs("1 2\n2 4\n3 6\n4 8")), ["\\hat{y} = 2x", "r = 1"]);
 check("nCr", () => E.combSteps("C", 10, 3), "= 120");
 check("nPr", () => E.combSteps("P", 5, 2), "= 20");
@@ -144,5 +151,5 @@ check("binomial", () => E.binomialSteps(10, 0.5, 5), "0.246094");
 check("normal", () => E.normalSteps(0, 1, -1.96, 1.96), "0.950004");
 
 console.log(failures.join("\n"));
-console.log((fail ? "FAIL" : "PASS") + ": " + pass + " passed, " + fail + " failed");
+console.log((fail ? "FAIL" : "PASS") + " [" + globalThis.MDSA_LANG + "]: " + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);

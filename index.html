@@ -1,825 +1,162 @@
 <!doctype html>
-<html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>آکادمی ریاضی و علم داده</title>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title data-en="Math &amp; Data Science Academy">آکادمی ریاضی و علم داده</title>
+<meta name="description" content="آموزش ریاضی از صفر تا علم داده: مسیر یادگیری، درس‌های عمیق، تمرین با تصحیح خودکار، حل‌گر گام‌به‌گام و دفترچهٔ پایتون">
+<meta name="theme-color" content="#050b14">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/icons/favicon-32.png"><link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script src="assets/i18n.js"></script>
 <link rel="stylesheet" href="assets/theme.css">
-<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#050b14"><link rel="icon" href="assets/icons/favicon-32.png"><link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
-</head><body>
+<link rel="stylesheet" href="assets/learn/learn.css">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+</head>
+<body>
 <header class="topbar">
-<a class="brand" href="#" data-page="home" aria-label="آکادمی ریاضی و علم داده"><span class="brand-mark">∑</span><span class="brand-text">آکادمی ریاضی و علم داده</span></a>
-<nav class="mainnav" aria-label="بخش‌های اصلی">
-<button class="nav active" data-page="home"><svg class="i" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg><span>خانه</span></button>
-<button class="nav" data-page="courses"><svg class="i" viewBox="0 0 24 24"><path d="M2 5h7a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H2z"/><path d="M22 5h-7a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span>درس‌ها</span></button>
-<a class="nav" href="solver.html"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h7M7.5 3.5v7M13 17h7M4 17l5 0M14 4l6 6M20 4l-6 6"/></svg><span>حل‌گر</span></a>
-<button class="nav" data-page="practice"><svg class="i" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><span>تمرینگاه</span></button>
-<button class="nav" data-page="review"><svg class="i" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg><span>مرور روزانه</span></button>
-<button class="nav" data-page="mathlab"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h8"/></svg><span>آزمایشگاه</span></button>
-<a class="nav" href="math-tools.html"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>ابزارها</span></a>
-<a class="nav" href="python.html"><svg class="i" viewBox="0 0 24 24"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12"/></svg><span>پایتون</span></a>
-<button class="nav" data-page="achievements"><svg class="i" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg><span>دستاوردها</span></button>
+<a class="brand" href="#home" data-page="home"><span class="brand-mark">∑</span><span class="brand-text" data-en="Math &amp; Data Science Academy">آکادمی ریاضی و علم داده</span></a>
+<nav class="mainnav" aria-label="بخش‌های اصلی" data-en-aria-label="Main sections">
+<button class="nav active" data-page="home" aria-current="page"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg><span data-en="Home">خانه</span></button>
+<button class="nav" data-page="learn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5h7a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H2z"/><path d="M22 5h-7a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span data-en="Learn">مسیر یادگیری</span></button>
+<a class="nav" href="solver.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h7M7.5 3.5v7M13 17h7M4 17l5 0M14 4l6 6M20 4l-6 6"/></svg><span data-en="Solver">حل‌گر</span></a>
+<button class="nav" data-page="review"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg><span data-en="Review">مرور روزانه</span></button>
+<a class="nav" href="math-tools.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span data-en="Tools">ابزارها</span></a>
+<a class="nav" href="python.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12"/></svg><span data-en="Python">پایتون</span></a>
+<button class="nav" data-page="achievements"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg><span data-en="Achievements">دستاوردها</span></button>
+<button class="nav" data-page="progress"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg><span data-en="Progress">پیشرفت</span></button>
 </nav>
-<div class="top-actions">
-<label class="topsearch"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="globalSearch" type="search" placeholder="جست‌وجوی مبحث..." aria-label="جست‌وجوی مبحث"></label>
-<div class="rel"><button class="iconbtn" id="bellBtn" aria-label="اعلان‌ها" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg><i class="dot" id="bellDot" hidden></i></button>
-<div class="menu" id="bellMenu" role="menu"></div></div>
-<div class="rel"><button class="avatar" id="avatarBtn" aria-label="حساب کاربری" aria-expanded="false"><b id="avatarInitial">؟</b><svg class="i" viewBox="0 0 24 24" style="width:16px"><path d="m6 9 6 6 6-6"/></svg></button>
+<div class="top-actions" data-lang-slot>
+<label class="topsearch"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="globalSearch" type="search" placeholder="جست‌وجوی مبحث..." data-en-placeholder="Search topics..." aria-label="جست‌وجوی مبحث" data-en-aria-label="Search topics" autocomplete="off"></label>
+<div class="rel"><button class="iconbtn" id="bellBtn" aria-label="اعلان‌ها" data-en-aria-label="Notifications" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg><i class="dot" id="bellDot" hidden></i></button><div class="menu" id="bellMenu" role="menu"></div></div>
+<div class="rel"><button class="avatar" id="avatarBtn" aria-label="حساب کاربری" data-en-aria-label="Account" aria-expanded="false"><b id="avatarInitial">؟</b><svg class="i" viewBox="0 0 24 24" style="width:16px"><path d="m6 9 6 6 6-6"/></svg></button>
 <div class="menu" id="avatarMenu" role="menu">
-<div class="note"><b id="menuName">دوست من</b><small id="menuLevel"></small></div>
-<form id="nameForm"><input id="nameInput" maxlength="30" placeholder="نام تو" aria-label="نام"><button class="btn" type="submit">ثبت</button></form>
+<div class="note"><b id="menuName"></b><small id="menuLevel"></small></div>
+<form id="nameForm"><input id="nameInput" maxlength="30" placeholder="نام تو" data-en-placeholder="Your name" aria-label="نام" data-en-aria-label="Name"><button class="btn" type="submit" data-en="Save">ثبت</button></form>
 <hr>
-<button class="item" data-page="progress">گزارش پیشرفت من</button>
-<button class="item" data-page="roadmap">نقشهٔ راه دیتا ساینس</button>
-<button class="item" id="installBtn" hidden>نصب برنامه روی این دستگاه</button>
-<button class="item" data-page="practice">یادداشت‌ها و پشتیبان‌گیری</button>
-<hr>
-<button class="item danger" id="reset">بازنشانی پیشرفت</button>
+<button class="item" data-page="progress" data-en="My progress, notes and backup">پیشرفت، یادداشت‌ها و پشتیبان‌گیری</button>
+<button class="item" id="langItem" data-en="فارسی">English</button>
+<button class="item" id="installBtn" hidden data-en="Install the app on this device">نصب برنامه روی این دستگاه</button>
 </div></div>
 </div>
 </header>
-<main class="shell">
+
+<main class="shell" id="main">
+
+<!-- ================= HOME ================= -->
 <section class="page active" id="page-home">
-<div class="welcome"><div><h1>خوش برگشتی، <span class="hl" id="welcomeName">دوست من</span></h1><p>بیا شتاب یادگیری‌ات را حفظ کنیم.</p></div>
+<div class="welcome"><div><h1><span data-en="Welcome back, ">خوش برگشتی، </span><span class="hl" id="welcomeName"></span></h1><p data-en="Let's keep your learning momentum going.">بیا شتاب یادگیری‌ات را حفظ کنیم.</p></div>
 <figure class="quote"><span class="qm">«</span><div><span id="quoteText"></span><cite id="quoteBy"></cite></div></figure></div>
-<form class="quick card" id="quickSolve" role="search"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h7M7.5 3.5v7M13 17h7M4 17l5 0M14 4l6 6M20 4l-6 6"/></svg><input id="quickInput" dir="ltr" autocomplete="off" spellcheck="false" placeholder="یک مسئله بنویس… مثلاً x^2-5x+6=0 یا (x+1)(x-2)" aria-label="مسئلهٔ ریاضی"><button class="btn" type="submit">حل گام‌به‌گام</button></form>
+<div id="onboard"></div>
+<form class="quick card" id="quickSolve" role="search"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h7M7.5 3.5v7M13 17h7M4 17l5 0M14 4l6 6M20 4l-6 6"/></svg><input id="quickInput" dir="ltr" autocomplete="off" spellcheck="false" placeholder="یک مسئله بنویس… مثلاً x^2-5x+6=0" data-en-placeholder="Type a problem… e.g. x^2-5x+6=0" aria-label="مسئلهٔ ریاضی" data-en-aria-label="Math problem"><button class="btn" type="submit" data-en="Solve step by step">حل گام‌به‌گام</button></form>
 <div class="dash">
-<article class="card dcard"><div class="dcard-h"><svg class="i" viewBox="0 0 24 24"><path d="M12 2 20.5 7v10L12 22l-8.5-5V7z"/><path d="m12 8 1.2 2.6 2.8.3-2.1 1.9.6 2.8L12 14.2l-2.5 1.4.6-2.8L8 10.9l2.8-.3z"/></svg>پیشرفت XP<button class="more" data-page="progress" aria-label="جزئیات پیشرفت">⋯</button></div>
+<article class="card dcard"><div class="dcard-h"><svg class="i" viewBox="0 0 24 24"><path d="M12 2 20.5 7v10L12 22l-8.5-5V7z"/><path d="m12 8 1.2 2.6 2.8.3-2.1 1.9.6 2.8L12 14.2l-2.5 1.4.6-2.8L8 10.9l2.8-.3z"/></svg><span data-en="XP progress">پیشرفت XP</span><button class="more" data-page="achievements" aria-label="دستاوردها" data-en-aria-label="Achievements">⋯</button></div>
 <div class="ring-wrap"><svg viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#67e8f9"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs><circle class="track" cx="60" cy="60" r="50" fill="none" stroke-width="8"/><circle class="fill" id="ringFill" cx="60" cy="60" r="50" fill="none" stroke-width="8" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="314.16"/></svg>
-<div class="ring-center"><span>سطح</span><strong id="levelNum">۱</strong><span class="star">✦</span></div></div>
-<p class="xp-line">سطح <span id="levelNum2">۱</span> · <b id="xpTotal">۰ XP</b></p><p class="xp-sub" id="xpToNext"></p></article>
-<article class="card dcard"><div class="dcard-h"><svg class="i" viewBox="0 0 24 24"><path d="M12 22c4 0 7-2.7 7-6.8 0-3.6-2.4-5.8-4-8.2-.6 2-1.6 3-3 3.5C12.5 7 11 4.5 9 2c-.3 3.6-4 6.5-4 11.2C5 18.6 8 22 12 22z"/></svg>استریک ۱۲ هفته<button class="more" data-page="practice" aria-label="تمرین امروز">⋯</button></div>
-<p class="streak-big"><b id="streakNum">۰</b> روز پیاپی</p><p class="muted" id="streakMsg" style="margin:0">امروز اولین قدم را بردار! 🔥</p>
-<div class="heat"><div class="heat-days"><span>ش</span><span>ی</span><span>د</span><span>س</span><span>چ</span><span>پ</span><span>ج</span></div><div class="heat-grid" id="heatGrid" role="img" aria-label="فعالیت ۱۲ هفتهٔ اخیر"></div>
-<div class="heat-weeks" id="heatWeeks"></div><div class="heat-cap">۱۲ هفته</div></div>
-<div class="legend"><span>کمتر</span><i style="background:rgba(56,189,248,.08)"></i><i style="background:#0e4f63"></i><i style="background:#0e7490"></i><i style="background:#06b6d4"></i><i style="background:#67e8f9"></i><span>بیشتر</span></div></article>
-<article class="card dcard next-card"><div class="dcard-h"><svg class="i" viewBox="0 0 24 24"><path d="M2 5h7a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H2z"/><path d="M22 5h-7a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg>درس بعدی<button class="more" data-page="courses" aria-label="همهٔ درس‌ها">⋯</button></div>
-<div class="next-art" id="nextArt"></div><span class="next-k">قدم بعدی:</span><h2 class="next-title" id="nextTitle"></h2><p class="next-desc" id="nextDesc"></p>
-<button class="btn big" id="continue">شروع <span aria-hidden="true">←</span></button></article>
+<div class="ring-center"><span data-en="Level">سطح</span><strong id="levelNum">1</strong><span class="star">✦</span></div></div>
+<p class="xp-line"><span data-en="Level">سطح</span> <span id="levelNum2">1</span> · <b id="xpTotal">0 XP</b></p><p class="xp-sub" id="xpToNext"></p></article>
+<article class="card dcard"><div class="dcard-h"><svg class="i" viewBox="0 0 24 24"><path d="M12 22c4 0 7-2.7 7-6.8 0-3.6-2.4-5.8-4-8.2-.6 2-1.6 3-3 3.5C12.5 7 11 4.5 9 2c-.3 3.6-4 6.5-4 11.2C5 18.6 8 22 12 22z"/></svg><span data-en="12-week streak">استریک ۱۲ هفته</span><button class="more" data-page="review" aria-label="مرور روزانه" data-en-aria-label="Daily review">⋯</button></div>
+<p class="streak-big"><b id="streakNum">0</b> <span data-en="day streak">روز پیاپی</span></p><p class="muted" id="streakMsg" style="margin:0"></p>
+<div class="heat"><div class="heat-days" id="heatDays"></div><div class="heat-grid" id="heatGrid" role="img" aria-label="فعالیت ۱۲ هفتهٔ اخیر" data-en-aria-label="Activity over the last 12 weeks"></div>
+<div class="heat-weeks" id="heatWeeks"></div><div class="heat-cap" data-en="12 weeks">۱۲ هفته</div></div>
+<div class="legend"><span data-en="Less">کمتر</span><i style="background:rgba(56,189,248,.08)"></i><i style="background:#0e4f63"></i><i style="background:#0e7490"></i><i style="background:#06b6d4"></i><i style="background:#67e8f9"></i><span data-en="More">بیشتر</span></div></article>
+<article class="card dcard next-card"><div class="dcard-h"><svg class="i" viewBox="0 0 24 24"><path d="M2 5h7a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H2z"/><path d="M22 5h-7a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span data-en="Next up">درس بعدی</span><button class="more" data-page="learn" aria-label="مسیر یادگیری" data-en-aria-label="Learning path">⋯</button></div>
+<div class="next-art" id="nextArt"></div><span class="next-k" data-en="Next up:">قدم بعدی:</span><h2 class="next-title" id="nextTitle"></h2><p class="next-desc" id="nextDesc"></p>
+<button class="btn big" id="continue"><span data-en="Start">شروع</span> <span aria-hidden="true" class="arrow">←</span></button></article>
 </div>
 <div class="stats">
-<div class="card stat"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v9h-9"/></svg></span><div><span class="muted">پیشرفت کل</span><strong id="pct">۰٪</strong></div></div>
-<div class="card stat"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></svg></span><div><span class="muted">درس‌های تکمیل‌شده</span><strong id="done">۰</strong></div></div>
-<div class="card stat"><span class="ic"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><div><span class="muted">پاسخ‌های صحیح</span><strong id="correct">۰</strong></div></div>
+<div class="card stat"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></svg></span><div><span class="muted" data-en="Skills mastered (your goal)">مهارت‌های مسلط‌شده (هدف تو)</span><strong id="statMastered">0</strong></div></div>
+<div class="card stat"><span class="ic"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><div><span class="muted" data-en="Practice accuracy">دقت تمرین</span><strong id="statAcc">—</strong></div></div>
+<div class="card stat"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v9h-9"/></svg></span><div><span class="muted" data-en="Problems solved">مسئله‌های حل‌شده</span><strong id="statSolved">0</strong></div></div>
 </div>
-<div class="section"><h2>شروع سریع</h2><button class="btn alt" data-goto="courses">همه درس‌ها ←</button></div><div id="homeLessons" class="grid"></div>
-<p class="tagline"><svg class="i" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>قدم‌های کوچک امروز، پیشرفت بزرگ فردا.</p>
+<div class="section"><h2 data-en="Your path">مسیر تو</h2><button class="btn alt" data-page="learn"><span data-en="Full map">نقشهٔ کامل</span> <span class="arrow">←</span></button></div>
+<div id="homePath" class="path-list"></div>
+<p class="tagline"><svg class="i" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span data-en="Small steps today, big progress tomorrow.">قدم‌های کوچک امروز، پیشرفت بزرگ فردا.</span></p>
 </section>
-<section class="page" id="page-courses"><div class="section"><h2>درس‌ها و تمرین‌ها</h2><span class="muted">۱۲ حوزهٔ اصلی · ۱۶۸ درس خرد و مرحله‌ای</span></div><input id="search" class="search" placeholder="جست‌وجوی درس..."><p id="filters"></p><div id="allLessons" class="grid"></div></section>
-<section class="page" id="page-lesson"><div class="section"><button class="btn alt" data-goto="courses">← بازگشت</button><span id="meta" class="muted"></span></div><article id="content" class="card"></article><div class="card" style="margin-top:12px"><h3>آزمون کوتاه</h3><p id="question"></p><div id="options"></div><button class="btn" id="check">بررسی پاسخ</button><div id="feedback" class="feedback"></div><p><button class="btn alt" id="mark">علامت‌گذاری به‌عنوان تکمیل‌شده</button> <button class="btn" id="next">درس بعدی ←</button></p></div></section>
-<section class="page" id="page-roadmap"><div class="section"><h2>نقشه راه از صفر تا Data Scientist</h2></div><div id="roadmap" class="roadmap"></div>
-<div class="card" style="margin-top:14px"><h3>کتابچه‌های آموزشی مستقل</h3><p>برای مطالعه عمیق‌تر، مثال‌های حل‌شده و آزمون پایان فصل، کتابچه‌های کامل را باز کن. پاسخ‌ها و تمرین‌ها مکمل درس‌های داخل برنامه‌اند.</p><div class="grid">
-<article class="lesson"><div class="emoji">🔢</div><h3>فصل ۰۰ — حساب پایه و اعداد</h3><p>اعداد، ترتیب عملیات، کسر، اعشار، درصد، توان و ریشه؛ همراه با تمرین و پاسخ تشریحی.</p><a href="chapters/00-arithmetic-foundations.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article>
-<article class="lesson"><div class="emoji">🧮</div><h3>فصل ۰۱ — جبر و مدل‌سازی</h3><p>عبارت، معادله، نامعادله، دستگاه‌ها، درجه دوم و مدل‌های هزینه و درآمد.</p><a href="chapters/01-algebra-and-modeling.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article>
-<article class="lesson"><div class="emoji">📐</div><h3>فصل ۰۲ — هندسه و اندازه‌گیری</h3><p>زاویه، مثلث، مساحت، فیثاغورس، فاصله، حجم، تشابه و کاربرد در داده.</p><a href="chapters/02-geometry-and-measurement.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article>
-<article class="lesson"><div class="emoji">📚</div><h3>منابع و استاندارد آموزشی</h3><p>منابع رسمی دانشگاهی و کتاب‌های آزاد، به‌همراه نقشه تطبیق موضوعات و سیاست استفاده درست از منابع.</p><a href="SOURCES.md" target="_blank" rel="noopener noreferrer">دیدن منابع معتبر ←</a></article><article class="lesson"><div class="emoji">🎲</div><h3>فصل ۰۳ — احتمال و آمار</h3><p>نمونه‌گیری، آمار توصیفی، احتمال، خطای معیار، فاصله اطمینان، مقدار p، آزمون A/B و پروژهٔ پایانی.</p><a href="chapters/03-probability-and-statistics.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">🧊</div><h3>فصل ۰۴ — جبر خطی</h3><p>بردار، نُرم، فاصله، ضرب داخلی، ماتریس، دستگاه معادلات، کمترین مربعات و PCA.</p><a href="chapters/04-linear-algebra.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">🐍</div><h3>فصل ۰۵ — پایتون برای تحلیل داده</h3><p>از متغیر و تابع تا pandas، بررسی کیفیت CSV، نمودار و پروژهٔ انتهابه‌انتها.</p><a href="chapters/05-python-data-analysis.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">📈</div><h3>فصل ۰۶ — حسابان و بهینه‌سازی</h3><p>تابع، حد، نرخ تغییر، مشتق، کمینه و بیشینه و گرادیان کاهشی.</p><a href="chapters/06-calculus-optimization.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">🗃️</div><h3>فصل ۰۷ — SQL برای تحلیل داده</h3><p>SELECT، WHERE، تجمیع، GROUP BY، JOIN، NULL، CTE و پروژهٔ تحلیلی.</p><a href="chapters/07-sql-for-data-analysis.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">🤖</div><h3>فصل ۰۸ — مبانی یادگیری ماشین</h3><p>تقسیم داده، نشت اطلاعات، بیش‌برازش، معیارهای رگرسیون و طبقه‌بندی و پروژهٔ مدل‌سازی.</p><a href="chapters/08-machine-learning-foundations.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">📊</div><h3>فصل ۰۹ — تحلیل اکتشافی داده</h3><p>کیفیت داده، توزیع‌ها، مقدارهای گمشده، نمودار مناسب، مقایسهٔ گروه‌ها و گزارش‌نویسی.</p><a href="chapters/09-exploratory-data-analysis.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">🧪</div><h3>فصل ۱۰ — مهندسی ویژگی و ارزیابی مدل</h3><p>ساخت ویژگی، جلوگیری از نشت، خط پایه، معیارهای مدل و پروژهٔ پیش‌بینی ریزش.</p><a href="chapters/10-feature-engineering-model-evaluation.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">📐</div><h3>فصل ۱۱ — استنباط آماری و آزمون A/B</h3><p>خطای استاندارد، فاصلهٔ اطمینان، مقدار p، خطاهای آزمون و طراحی آزمایش محصول.</p><a href="chapters/11-inferential-statistics-ab-testing.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">🎲</div><h3>فصل ۱۲ — توزیع‌های احتمال و شبیه‌سازی</h3><p>امید ریاضی، واریانس، برنولی، دوجمله‌ای، پواسون، نرمال و مونت‌کارلو با Python.</p><a href="chapters/12-probability-distributions-simulation.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">📉</div><h3>فصل ۱۳ — رگرسیون خطی و لجستیک</h3><p>ضرایب، باقیمانده‌ها، منظم‌سازی، احتمال کلاس و ارزیابی مدل.</p><a href="chapters/13-linear-and-logistic-regression.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">🌳</div><h3>فصل ۱۴ — درخت تصمیم و مدل‌های ترکیبی</h3><p>ناخالصی، کنترل بیش‌برازش، Random Forest، Gradient Boosting و مقایسهٔ مدل‌ها.</p><a href="chapters/14-trees-and-ensembles.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">🧭</div><h3>فصل ۱۵ — خوشه‌بندی و PCA</h3><p>یادگیری بدون ناظر، K-means، DBSCAN، انتخاب K و کاهش بُعد.</p><a href="chapters/15-clustering-and-pca.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">📅</div><h3>فصل ۱۶ — سری زمانی و پیش‌بینی</h3><p>روند، فصل‌مندی، lag، خط پایه، تقسیم زمانی و ارزیابی افق پیش‌بینی.</p><a href="chapters/16-time-series-forecasting.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article><article class="lesson"><div class="emoji">🚀</div><h3>فصل ۱۷ — استقرار و پایش مدل</h3><p>پروژهٔ سرتاسری، Pipeline، نسخه‌بندی، امنیت، پایش drift و rollback.</p><a href="chapters/17-end-to-end-deployment-monitoring.md" target="_blank" rel="noopener noreferrer">مطالعه کتابچه ←</a></article>
-</div></div></section>
-<section class="page" id="page-practice"><div class="section"><h2>تمرینگاه هوشمند</h2><span class="muted">راهنما، پاسخ تشریحی و یادداشت شخصی</span></div><div class="card"><div id="practiceMeta" class="muted"></div><h3 id="practiceQuestion"></h3><div id="practiceOptions"></div><div class="section"><button class="btn" id="practiceCheck">بررسی پاسخ</button><button class="btn alt" id="practiceHint">راهنمایی مرحله‌ای</button><button class="btn alt" id="practiceSolution">پاسخ تشریحی</button><button class="btn alt" id="practiceNext">سؤال بعدی ←</button></div><div id="practiceFeedback" class="feedback"></div><div id="practiceHintText" class="example" hidden></div><div id="practiceSolutionText" class="example" hidden></div></div><div class="card" style="margin-top:12px"><h3>دفتر یادداشت من</h3><p class="muted">یادداشت‌ها در پوشه data پروژه و در مرورگر ذخیره می‌شوند.</p><textarea id="studyNotes" rows="6" style="width:100%;font:inherit;border:1px solid var(--line);border-radius:10px;padding:12px" placeholder="فرمول‌ها، نکته‌ها، اشتباهات و سؤال‌هایی که هنوز داری..."></textarea><p><button class="btn" id="saveNotes">ذخیره یادداشت‌ها</button><button class="btn alt" id="exportData">خروجی پشتیبان JSON</button><label class="btn alt" for="importData" style="cursor:pointer">بازیابی پشتیبان</label><input id="importData" type="file" accept=".json,application/json" hidden></p><p id="storageStatus" class="muted">در حال بررسی ذخیره‌سازی محلی…</p></div></section>
-<section class="page" id="page-mathlab">
-  <div class="hero"><div>INTERACTIVE MATH LAB</div><h2>آزمایشگاه تعاملی ریاضی</h2><p>محاسبه کن، مراحل را بررسی کن، تابع را رسم کن و مفاهیم را با ابزارهای دیداری تجربه کن.</p></div>
-  <div class="section"><h2>۱. ماشین‌حساب علمی</h2><span class="muted">عملیات، توان، ریشه، لگاریتم و مثلثات</span></div>
-  <div class="card math-tool">
-    <label for="mathInput">عبارت ریاضی</label>
-    <input id="mathInput" class="search" dir="ltr" value="(3+5)^2 / 4" placeholder="مثلاً sqrt(16) + sin(pi/2)">
-    <div class="keypad" id="mathKeys">
-      <button data-insert="7">7</button><button data-insert="8">8</button><button data-insert="9">9</button><button data-insert="/">÷</button><button data-insert="sqrt(">√</button>
-      <button data-insert="4">4</button><button data-insert="5">5</button><button data-insert="6">6</button><button data-insert="*">×</button><button data-insert="^">xʸ</button>
-      <button data-insert="1">1</button><button data-insert="2">2</button><button data-insert="3">3</button><button data-insert="-">−</button><button data-insert="(">(</button>
-      <button data-insert="0">0</button><button data-insert=".">.</button><button data-insert="pi">π</button><button data-insert="+">+</button><button data-insert=")">)</button>
-      <button data-insert="sin(">sin</button><button data-insert="cos(">cos</button><button data-insert="tan(">tan</button><button data-insert="log(">log</button><button data-insert="ln(">ln</button>
-    </div>
-    <div class="section"><button class="btn" id="calculateMath">محاسبه و نمایش مراحل</button><button class="btn alt" id="clearMath">پاک‌کردن</button></div>
-    <div id="mathResult" class="math-result" aria-live="polite">نتیجه و توضیح محاسبه اینجا نمایش داده می‌شود.</div>
-    <p class="muted">زاویه‌های مثلثاتی بر حسب رادیان هستند. این ماشین‌حساب نسخهٔ اولیهٔ آفلاین است و جایگزین همهٔ قابلیت‌های حل‌گرهای نمادین پیشرفته نیست.</p>
-  </div>
-  <div class="section"><h2>۲. رسم نمودار تابع</h2><span class="muted">تابع یک‌متغیره و تغییر بازه</span></div>
-  <div class="card math-tool">
-    <label for="graphInput">f(x) =</label><input id="graphInput" class="search" dir="ltr" value="x^2 - 4" placeholder="x^2 - 4, sin(x), sqrt(x+5)">
-    <div class="graph-controls"><label>x از <input id="xMin" type="number" value="-10" step="1"></label><label>تا <input id="xMax" type="number" value="10" step="1"></label><label>y از <input id="yMin" type="number" value="-5" step="1"></label><label>تا <input id="yMax" type="number" value="10" step="1"></label><button class="btn" id="drawGraph">رسم نمودار</button></div>
-    <canvas id="graphCanvas" width="900" height="430" aria-label="نمودار تابع" role="img"></canvas><p id="graphStatus" class="muted" aria-live="polite">تابع را تغییر بده و نمودار را رسم کن.</p>
-  </div>
-  <div class="section"><h2>۳. آزمایشگاه کسرها</h2><span class="muted">مدل تصویری کسر و عدد مخلوط</span></div>
-  <div class="card math-tool">
-    <div class="fraction-controls"><label>صورت <input id="fracNum" type="number" min="0" max="100" value="3"></label><label>مخرج <input id="fracDen" type="number" min="1" max="100" value="4"></label><label>مدل <select id="fracModel"><option value="bar">نوار</option><option value="circle">دایره</option></select></label><button class="btn" id="drawFraction">به‌روزرسانی مدل</button></div>
-    <div id="fractionVisual" class="fraction-visual"></div><p id="fractionText" class="example"></p>
-    <p class="muted">برای مقایسه، صورت یا مخرج را تغییر بده و ببین چه سهمی از کل رنگ می‌شود.</p>
-  </div>
-  <div class="section"><h2>۴. خط اعداد تعاملی</h2><span class="muted">از اعداد منفی تا مثبت، شامل کسر و اعشار</span></div>
-  <div class="card math-tool">
-    <div class="graph-controls"><label>شروع <input id="lineMin" type="number" value="-5" step="0.5"></label><label>پایان <input id="lineMax" type="number" value="5" step="0.5"></label><label>نقطه <input id="linePoint" type="number" value="1.5" step="0.25"></label><button class="btn" id="drawNumberLine">نمایش خط اعداد</button></div>
-    <div id="numberLineVisual" class="number-line" role="img" aria-label="خط اعداد"></div><p id="numberLineText" class="muted"></p>
-  </div>
 
-  <div class="section"><h2>۵. حل‌گر معادلهٔ خطی</h2><span class="muted">حل معادلهٔ یک‌متغیره از نوع خطی</span></div>
-  <div class="card math-tool">
-    <p>هر دو طرف معادله را وارد کن. نمونه: <code>2*x+3 = 11</code></p>
-    <div class="graph-controls"><label>سمت چپ <input id="eqLeft" value="2*x+3" dir="ltr"></label><strong>=</strong><label>سمت راست <input id="eqRight" value="11" dir="ltr"></label><button class="btn" id="solveEquation">حل معادله</button></div>
-    <div id="equationResult" class="math-result" aria-live="polite">جواب و مراحل حل اینجا نمایش داده می‌شود.</div>
-  </div>
-  <div class="section"><h2>۶. تختهٔ هندسهٔ تعاملی</h2><span class="muted">نقطه‌ها را انتخاب کن و چندضلعی بساز</span></div>
-  <div class="card math-tool">
-    <p>روی گره‌های صفحه کلیک کن تا رأس‌های چندضلعی انتخاب شوند. مساحت چندضلعی با فرمول کفشدوزکی و محیط آن از طول ضلع‌ها محاسبه می‌شود.</p>
-    <div class="graph-controls"><label>اندازهٔ شبکه <select id="geoSize"><option value="5">۵ × ۵</option><option value="7" selected>۷ × ۷</option><option value="9">۹ × ۹</option></select></label><button class="btn" id="geoUndo">حذف آخرین نقطه</button><button class="btn alt" id="geoClear">پاک‌کردن</button></div>
-    <svg id="geoBoard" viewBox="0 0 420 360" role="img" aria-label="تختهٔ هندسه با گره‌های قابل انتخاب" style="width:100%;max-height:430px;border:1px solid var(--line);border-radius:12px;background:#0a1524;touch-action:manipulation"></svg>
-    <div id="geoResult" class="example">برای شروع، حداقل سه نقطه انتخاب کن.</div>
-  </div>
-  <div class="section"><h2>۷. هندسه و اندازه‌گیری</h2><span class="muted">پارامترها را تغییر بده و نتیجه را ببین</span></div>
-  <div class="card math-tool">
-    <div class="fraction-controls"><label>شکل <select id="shapeType"><option value="rect">مستطیل</option><option value="tri">مثلث</option><option value="circle">دایره</option><option value="cube">مکعب</option></select></label><label>اندازهٔ اول <input id="shapeA" type="number" min="0.1" value="6" step="0.5"></label><label>اندازهٔ دوم / ارتفاع <input id="shapeB" type="number" min="0.1" value="4" step="0.5"></label><button class="btn" id="calcShape">محاسبه</button></div>
-    <div id="shapeVisual" class="shape-visual"></div><div id="shapeResult" class="example"></div>
-  </div>
-  <div class="card" style="margin-top:16px"><h3>گسترش بعدی آزمایشگاه</h3><p>این بخش پایهٔ ابزارهای تعاملی است. مرحله‌های بعدی می‌توانند شامل حل‌گر نمادین عمیق‌تر، دستگاه معادلات، ماتریس و بردار، احتمال شبیه‌سازی‌شده، توزیع‌ها و رگرسیون باشند. ابزارها باید با آزمون‌های مستقل و توضیح محدودیت‌ها توسعه داده شوند.</p></div>
+<!-- ================= LEARN (map) ================= -->
+<section class="page" id="page-learn">
+<div class="learn-head"><div><h1 data-en="Learning path">مسیر یادگیری</h1><p class="muted" data-en="Every skill has a lesson and endless auto-graded practice. Get 8 of your last 10 answers right to master it; mastered skills unlock the next ones.">هر مهارت یک درس و تمرین بی‌پایان با تصحیح خودکار دارد. وقتی ۸ جواب از ۱۰ جواب آخرت درست باشد، به آن مسلط شده‌ای و مهارت‌های بعدی باز می‌شوند.</p></div>
+<div class="goal-chips" id="goalChips" role="radiogroup" aria-label="هدف" data-en-aria-label="Goal"></div></div>
+<div class="card goal-bar"><div class="goal-bar-t"><b id="goalTitle"></b><span class="muted" id="goalCount"></span></div><div class="bar"><i id="goalFill" style="width:0"></i></div>
+<div class="goal-actions"><button class="btn" id="goalNext"><span data-en="Continue">ادامه</span> <span class="arrow">←</span></button><button class="btn alt" data-page="review" data-hash="review/placement" data-en="Placement test">آزمون تعیین سطح</button></div></div>
+<div class="learn-filters"><input id="learnSearch" type="search" class="search" placeholder="جست‌وجوی مهارت…" data-en-placeholder="Search skills…" autocomplete="off"><div id="domainChips" class="chips"></div>
+<label class="muted toggle"><input type="checkbox" id="onlyGoal" checked> <span data-en="Only my goal">فقط مسیر هدف من</span></label></div>
+<div class="map-legend"><span><i class="lg mastered"></i><span data-en="Mastered">مسلط</span></span><span><i class="lg progress"></i><span data-en="In progress">در حال یادگیری</span></span><span><i class="lg available"></i><span data-en="Ready">آمادهٔ شروع</span></span><span><i class="lg locked"></i><span data-en="Needs prerequisites">نیازمند پیش‌نیاز</span></span></div>
+<div id="skillMap" class="skill-map"></div>
 </section>
-<section class="page" id="page-review"><div class="section"><h2>مرور روزانه</h2><span class="muted">چالش روزانه، مرور فاصله‌دار (جعبهٔ لایتنر) و آزمون تعیین سطح</span></div><div id="reviewRoot"></div></section>
-<section class="page" id="page-achievements"><div class="section"><h2>دستاوردها</h2><span class="muted" id="badgeCount"></span></div><div id="badgeRoot" class="badges"></div></section>
-<section class="page" id="page-progress"><div class="section"><h2>پیشرفت من</h2></div><div class="card"><p id="summary"></p><div id="domain"></div><h3>پیشنهاد بعدی</h3><p id="suggestion" class="muted"></p></div></section><div class="foot">نسخه آفلاین · پیشرفت در مرورگر ذخیره می‌شود · بدون نیاز به اینترنت</div></main>
-<script>
-const L=[
-["numbers","اعداد، عملیات و کسرها","پایه","🔢","پایه محاسبات","ترتیب عملیات: پرانتز، توان، ضرب و تقسیم، سپس جمع و تفریق.","3 + 2 × 4 = 11","نتیجه 5 + 3 × 2 چیست؟",["16","11","13"],1,"ابتدا ضرب: ۳×۲=۶، سپس ۵+۶=۱۱."],
-["algebra","متغیرها و معادلات","جبر","🧮","فرمول‌ها و مدل‌ها","متغیر نماد یک مقدار است. در معادله 2x+3=11، ابتدا ۳ را کم و سپس بر ۲ تقسیم می‌کنیم؛ پس x=4.","2x + 3 = 11","اگر 3x − 6 = 9 باشد، x چند است؟",["1","3","5"],2,"۳x=۱۵، پس x=۵."],
-["percent","نسبت، درصد و رشد","پایه","📊","تحلیل تغییرات","درصد = بخش تقسیم بر کل، ضربدر ۱۰۰. درصد تغییر با تقسیم اختلاف مقدار جدید و قدیم بر مقدار قدیم به دست می‌آید.","درصد = (بخش ÷ کل) × ۱۰۰","قیمت از ۲۰۰ به ۲۵۰ رسیده؛ افزایش چند درصد است؟",["20٪","25٪","50٪"],1,"۵۰÷۲۰۰×۱۰۰=۲۵٪."],
-["functions","مختصات و تابع","جبر","📈","رابطه متغیرها","تابع هر ورودی را به یک خروجی تبدیل می‌کند. نمودار به دیدن رابطه دو متغیر کمک می‌کند.","y = 2x + 1","اگر x=4 باشد y چند است؟",["7","8","9"],2,"۲×۴+۱=۹."],
-["geometry","هندسه و اندازه‌گیری","هندسه","📐","مساحت و فاصله","مساحت مستطیل طول ضربدر عرض است. مساحت مثلث برابر قاعده ضربدر ارتفاع تقسیم بر ۲ است.","A مثلث = (قاعده × ارتفاع) ÷ ۲","مثلثی با قاعده ۱۰ و ارتفاع ۶ چه مساحتی دارد؟",["60","30","16"],1,"۱۰×۶÷۲=۳۰."],
-["probability","احتمال و شمارش","احتمال","🎲","مدل‌سازی عدم قطعیت","در حالت‌های هم‌شانس، احتمال برابر تعداد حالت‌های مطلوب تقسیم بر تعداد کل حالت‌هاست. احتمال متمم برابر ۱ منهای احتمال رویداد است.","P(A) = مطلوب ÷ کل","در تاس سالم، احتمال عدد بزرگ‌تر از ۴ چیست؟",["1/6","1/3","1/2"],1,"دو حالت ۵ و ۶ از شش حالت؛ یعنی ۱/۳."],
-["descriptive","آمار توصیفی","آمار","📉","میانگین، میانه و پراکندگی","میانگین مجموع تقسیم بر تعداد است؛ میانه مقدار وسط داده مرتب‌شده و نما پرتکرارترین مقدار است. انحراف معیار پراکندگی را نشان می‌دهد.","میانگین = مجموع ÷ تعداد","میانگین ۲، ۴، ۶ و ۸ چند است؟",["4","5","6"],1,"مجموع ۲۰ و تعداد ۴ است؛ میانگین ۵."],
-["inference","نمونه‌گیری و استنباط","آمار","🔎","جامعه و نمونه","نمونه باید نماینده جامعه باشد. مقدار p احتمال درست بودن فرض صفر نیست و همبستگی به‌تنهایی رابطه علت و معلولی را ثابت نمی‌کند.","جامعه → نمونه → استنباط","بررسی فقط مشتریان راضی چه مشکلی دارد؟",["سوگیری انتخاب","نمونه بزرگ","نداشتن میانگین"],0,"نمونه نماینده همه مشتریان نیست."],
-["linear","جبر خطی","جبر","🧊","بردار و ماتریس","بردار فهرستی مرتب از اعداد و ماتریس جدولی از اعداد است. این مفاهیم در الگوریتم‌ها و شبکه‌های عصبی کاربرد دارند.","[1, 2] · [3, 4] = 11","ضرب داخلی [1,2] و [3,4] چیست؟",["10","11","14"],1,"۱×۳ + ۲×۴ = ۱۱."],
-["calculus","مشتق و بهینه‌سازی","حسابان","∫","نرخ تغییر و گرادیان","مشتق نرخ تغییر لحظه‌ای است. در یادگیری ماشین، گرادیان کاهشی به کمینه کردن تابع هزینه کمک می‌کند.","f(x)=x²  ⇒  f′(x)=2x","مشتق x² در x=4 چند است؟",["4","8","16"],1,"مشتق ۲x است؛ در ۴ برابر ۸."],
-["python","پایتون برای تحلیل داده","برنامه‌نویسی","🐍","متغیر، حلقه و توابع","مبانی پایتون را یاد بگیر، سپس NumPy برای آرایه‌ها، pandas برای جدول‌ها و Matplotlib برای نمودارها را تمرین کن.","values = [2, 4, 6, 8]\nmean = sum(values) / len(values)","len([10, 20, 30]) چه برمی‌گرداند؟",["10","20","3"],2,"len تعداد عناصر را برمی‌گرداند؛ نتیجه ۳ است."],
-["ml","مبانی یادگیری ماشین","داده‌کاوی","🤖","ویژگی، هدف و ارزیابی","رگرسیون مقدار عددی را پیش‌بینی می‌کند؛ طبقه‌بندی دسته را پیش‌بینی می‌کند؛ خوشه‌بندی گروه‌ها را بدون برچسب می‌یابد. آزمون باید داده‌ای ندیده باشد.","داده → آموزش → ارزیابی","برای پیش‌بینی قیمت خانه چه روشی مناسب است؟",["طبقه‌بندی","رگرسیون","خوشه‌بندی"],1,"قیمت مقدار عددی است؛ بنابراین رگرسیون مناسب است."]
-];
-const R=[["۱","پایه‌های ریاضی","۳ تا ۶ هفته","حساب، کسر و درصد؛ معادله و تابع؛ هندسه","حل مسئله‌های روزمره"],["۲","آمار و احتمال","۴ تا ۶ هفته","میانگین و پراکندگی؛ احتمال؛ نمونه‌گیری","تفسیر نتایج آماری"],["۳","جبر خطی و حسابان","۴ تا ۸ هفته","بردار و ماتریس؛ مشتق و گرادیان","فهم الگوریتم‌ها"],["۴","پایتون و ابزارهای داده","۶ تا ۱۰ هفته","Python؛ NumPy و pandas؛ نمودار؛ SQL","تحلیل یک فایل CSV"],["۵","تحلیل و مهندسی داده","۴ تا ۸ هفته","کیفیت داده؛ EDA؛ SQL؛ روایت داده","گزارش تحلیلی"],["۶","یادگیری ماشین","۸ تا ۱۲ هفته","رگرسیون؛ طبقه‌بندی؛ ارزیابی و اعتبارسنجی","مدل پیش‌بینی"],["۷","تخصص و پروژه نهایی","۳ ماه به بالا","شبکه عصبی؛ NLP یا بینایی یا سری زمانی؛ API و Git","پروژه قابل ارائه در GitHub"]];
-let S;try{S=JSON.parse(localStorage.getItem("academyProgress"))||{};}catch(e){S={};}S.done=S.done||[];S.correct=S.correct||0;S.answered=S.answered||[];let current="numbers",filter="همه";const fa=n=>new Intl.NumberFormat("fa-IR").format(n);
-function save(){try{localStorage.setItem("academyProgress",JSON.stringify(S));}catch(e){}stats();}
-function go(p){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById("page-"+p).classList.add("active");document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.page===p));if(p==="progress")progress();window.scrollTo(0,0);}
-document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>go(b.dataset.page));document.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>go(b.dataset.goto));
-function card(l){return "<article class='lesson'><div class='emoji'>"+l[3]+"</div><h3>"+l[1]+"</h3><p>"+l[4]+"</p><button class='btn "+(S.done.includes(l[0])?"alt":"")+"' onclick=\"openLesson('"+l[0]+"')\">"+(S.done.includes(l[0])?"مرور دوباره":"شروع درس")+" ←</button></article>";}
-function courses(){document.getElementById("homeLessons").innerHTML=L.slice(0,3).map(card).join("");let cats=["همه",...new Set(L.map(l=>l[2]))];document.getElementById("filters").innerHTML=cats.map(c=>"<button class='btn "+(filter===c?"":"alt")+"' onclick=\"setFilter('"+c+"')\">"+c+"</button> ").join("");let q=(document.getElementById("search").value||"").toLowerCase();document.getElementById("allLessons").innerHTML=L.filter(l=>(filter==="همه"||l[2]===filter)&&(!q||l.slice(1,5).join(" ").toLowerCase().includes(q))).map(card).join("")||"درسی پیدا نشد.";}
-function setFilter(c){filter=c;courses();}
-function stats(){let p=Math.round(S.done.length/L.length*100);document.getElementById("pct").textContent=fa(p)+"٪";document.getElementById("done").textContent=fa(S.done.length)+" از "+fa(L.length);document.getElementById("correct").textContent=fa(S.correct);}
-function openLesson(id){current=id;let l=L.find(x=>x[0]===id);go("lesson");document.getElementById("meta").textContent=l[2];document.getElementById("content").innerHTML="<h2>"+l[1]+"</h2><p>"+l[4]+"</p><p>"+l[5]+"</p><div class='formula'>"+l[6].replace(/\n/g,"<br>")+"</div><div class='example'>نکته کاربردی: این مفهوم پایه‌ای برای تحلیل داده است؛ سعی کن مثال خودت را هم بسازی.</div>";document.getElementById("question").textContent=l[7];document.getElementById("options").innerHTML=l[8].map((o,i)=>"<label class='option'><input type='radio' name='ans' value='"+i+"'> "+o+"</label>").join("");document.getElementById("feedback").className="feedback";}
-document.getElementById("check").onclick=()=>{let l=L.find(x=>x[0]===current),v=document.querySelector("input[name=ans]:checked"),f=document.getElementById("feedback");if(!v){f.className="feedback show bad";f.textContent="ابتدا یک گزینه انتخاب کن.";return;}let ok=Number(v.value)===l[9];f.className="feedback show "+(ok?"good":"bad");f.textContent=(ok?"آفرین! ":"پاسخ درست را مرور کن. ")+l[10];if(ok){if(!S.answered.includes(current)){S.answered.push(current);S.correct++;}if(!S.done.includes(current))S.done.push(current);save();}};
-document.getElementById("mark").onclick=()=>{if(!S.answered.includes(current)){const f=document.getElementById("feedback");f.className="feedback show bad";f.textContent="برای تکمیل درس، ابتدا به سؤال اصلی پاسخ درست بده.";return;}if(!S.done.includes(current))S.done.push(current);save();courses();stats();};document.getElementById("next").onclick=()=>{let i=L.findIndex(x=>x[0]===current);openLesson(L[(i+1)%L.length][0]);};document.getElementById("continue").onclick=()=>openLesson((L.find(x=>!S.done.includes(x[0]))||L[0])[0]);document.getElementById("search").oninput=courses;
-function roadmap(){document.getElementById("roadmap").innerHTML=R.map(r=>"<article class='card'><h3>"+r[0]+". "+r[1]+"</h3><p class='muted'>"+r[2]+"</p><p>"+r[3]+"</p><div class='example'>خروجی: "+r[4]+"</div></article>").join("");}
-function progress(){document.getElementById("summary").textContent="تکمیل "+fa(S.done.length)+" از "+fa(L.length)+" درس ("+fa(Math.round(S.done.length/L.length*100))+"٪) · پاسخ صحیح: "+fa(S.correct);let cats=[...new Set(L.map(l=>l[2]))];document.getElementById("domain").innerHTML=cats.map(c=>{let a=L.filter(l=>l[2]===c),d=a.filter(l=>S.done.includes(l[0])).length,p=Math.round(d/a.length*100);return "<p><b>"+c+"</b> — "+fa(d)+" از "+fa(a.length)+"</p><div class='bar'><i style='width:"+p+"%'></i></div>";}).join("");let n=L.find(l=>!S.done.includes(l[0]));document.getElementById("suggestion").textContent=n?"پیشنهاد بعدی: "+n[1]:"تمام درس‌های آغازین را تکمیل کردی؛ یک پروژه واقعی با Python بساز.";}
-document.getElementById("reset").onclick=()=>{if(confirm("پیشرفت و امتیازها پاک شوند؟ یادداشت‌ها حفظ می‌شوند.")){S={...S,done:[],correct:0,answered:[],practiceAnswered:[]};save();courses();stats();progress();document.getElementById("storageStatus").textContent="پیشرفت و امتیازها بازنشانی شدند؛ یادداشت‌ها حفظ شدند.";}};
-courses();stats();roadmap();progress();
-</script>
-<script>
-/* Extended practice and project-folder persistence */
-(function(){
-const bank=[
-{cat:"حساب",q:"حاصل ۱۸ ÷ ۳ + ۲ × ۴ چیست؟",o:["۱۴","۲۰","۱۰","۱۲"],a:0,h:"ابتدا تقسیم و ضرب را انجام بده؛ بعد جمع کن.",e:"۱۸÷۳=۶ و ۲×۴=۸؛ سپس ۶+۸=۱۴."},
-{cat:"کسر",q:"حاصل ۱/۳ + ۱/۶ چیست؟",o:["۲/۹","۱/۲","۲/۶","۱/۹"],a:1,h:"مخرج مشترک ۶ انتخاب کن.",e:"۱/۳ برابر ۲/۶ است؛ پس ۲/۶+۱/۶=۳/۶=۱/۲."},
-{cat:"معادله",q:"اگر ۴x + ۲ = ۱۸ باشد، x چند است؟",o:["۴","۵","۶","۸"],a:0,h:"ابتدا ۲ را از دو طرف کم کن.",e:"۴x=۱۶، پس x=۴."},
-{cat:"درصد",q:"۲۰٪ از ۱۵۰ چقدر است؟",o:["۱۵","۲۰","۳۰","۵۰"],a:2,h:"۲۰٪ را به ۰٫۲ تبدیل کن.",e:"۰٫۲×۱۵۰=۳۰."},
-{cat:"تابع",q:"اگر f(x)=3x−2 باشد، f(5) چیست؟",o:["۱۰","۱۳","۱۵","۱۷"],a:1,h:"به‌جای x عدد ۵ قرار بده.",e:"f(۵)=۳×۵−۲=۱۳."},
-{cat:"هندسه",q:"محیط مربعی با ضلع ۷ چقدر است؟",o:["۱۴","۲۱","۲۸","۴۹"],a:2,h:"مربع چهار ضلع برابر دارد.",e:"محیط=۴×۷=۲۸ واحد."},
-{cat:"احتمال",q:"در تاس سالم، احتمال عدد کمتر از ۳ چقدر است؟",o:["۱/۶","۱/۳","۱/۲","۲/۳"],a:1,h:"نتیجه‌های مطلوب ۱ و ۲ هستند.",e:"۲ نتیجه از ۶ نتیجه: ۲/۶=۱/۳."},
-{cat:"آمار",q:"میانه داده‌های ۲، ۴، ۹ چیست؟",o:["۴","۵","۹","۱۵"],a:0,h:"داده‌ها مرتب‌اند؛ مقدار وسط را پیدا کن.",e:"مقدار میانی ۴ است؛ پس میانه ۴ است."},
-{cat:"آمار",q:"کدام معیار در برابر یک مقدار پرت معمولاً مقاوم‌تر است؟",o:["میانگین","میانه","دامنه","مجموع"],a:1,h:"به مقدار وسط داده‌های مرتب‌شده فکر کن.",e:"میانه معمولاً کمتر از میانگین تحت تأثیر مقدار پرت قرار می‌گیرد."},
-{cat:"جبر خطی",q:"ضرب داخلی [2, 3] و [4, 1] چیست؟",o:["۹","۱۱","۱۴","۲۰"],a:1,h:"مولفه‌های متناظر را ضرب و سپس جمع کن.",e:"۲×۴ + ۳×۱ = ۸+۳=۱۱."},
-{cat:"پایتون",q:"خروجی len([5, 8, 9, 1]) چیست؟",o:["۱","۴","۵","۲۳"],a:1,h:"len تعداد عناصر فهرست را می‌شمارد.",e:"فهرست چهار عنصر دارد؛ خروجی ۴ است."},
-{cat:"پایتون",q:"کدام عبارت میانگین فهرست values را درست حساب می‌کند؟",o:["sum(values)","sum(values)/len(values)","len(values)/sum(values)","max(values)"],a:1,h:"میانگین برابر مجموع تقسیم بر تعداد است.",e:"sum(values) مجموع را می‌دهد و len(values) تعداد عناصر را؛ بنابراین تقسیم این دو میانگین است."},
-{cat:"یادگیری ماشین",q:"برای پیش‌بینی قیمت خانه کدام روش مناسب‌تر است؟",o:["طبقه‌بندی","رگرسیون","خوشه‌بندی","قانون انجمنی"],a:1,h:"قیمت یک عدد پیوسته است، نه یک برچسب دسته‌ای.",e:"پیش‌بینی مقدار عددی معمولاً مسئله رگرسیون است."},
-{cat:"تفکر آماری",q:"همبستگی بین دو متغیر به‌تنهایی چه چیزی را ثابت نمی‌کند؟",o:["وجود رابطه آماری","علت و معلول بودن","تغییر هم‌زمان","قابل اندازه‌گیری بودن"],a:1,h:"ممکن است متغیر سوم هر دو را تحت تأثیر قرار دهد.",e:"همبستگی به‌تنهایی علیت را ثابت نمی‌کند؛ برای نتیجه‌گیری علّی طراحی پژوهش لازم است."},
-{cat:"داده",q:"اگر فقط مشتریان راضی را بررسی کنیم، خطر اصلی چیست؟",o:["سوگیری انتخاب","زیادی بودن ستون‌ها","کم شدن نوع داده","تبدیل متن به عدد"],a:0,h:"آیا این افراد نماینده تمام مشتریان هستند؟",e:"نمونه به‌طور سیستماتیک گروهی از مشتریان را کنار می‌گذارد؛ این سوگیری انتخاب است."},
-{cat:"پایتون",q:"در pandas برای مشاهده پنج ردیف اول DataFrame معمولاً از چه چیزی استفاده می‌کنیم؟",o:["df.head()","df.firstfive","df.top()","head(df,5)"],a:0,h:"نام متد رایج را به خاطر بسپار: head.",e:"df.head() پنج ردیف اول DataFrame را نشان می‌دهد."}
-];
-const detail={
-numbers:["اعداد و ترتیب عملیات","در یک عبارت چندعملیاتی، ترتیب انجام کار نتیجه را عوض می‌کند. ابتدا پرانتز، سپس توان، بعد ضرب و تقسیم از چپ به راست و در پایان جمع و تفریق را انجام بده.","مثال: 5 + 3 × 2 = 5 + 6 = 11. اما (5 + 3) × 2 = 16؛ پرانتز اولویت را تغییر می‌دهد.","در تحلیل داده، فرمول نادرست می‌تواند KPI یا نرخ رشد را اشتباه کند. هر محاسبه را به قدم‌های کوچک تقسیم کن.","خودت یک عبارت بساز که با گذاشتن پرانتز نتیجه‌اش تغییر کند."],
-algebra:["حل معادله با حفظ توازن","معادله مثل ترازوست: هر عملی روی یک طرف انجام می‌دهی، باید روی طرف دیگر هم انجام شود. هدف این است که متغیر تنها بماند.","مثال: 2x+6=14؛ از هر دو طرف ۶ کم کن: 2x=8؛ هر دو طرف را بر ۲ تقسیم کن: x=4. با جایگذاری جواب را بررسی کن.","مدل‌ها رابطه ورودی و خروجی را با پارامترها نمایش می‌دهند؛ جبر کمک می‌کند بفهمی پارامترها چطور بر نتیجه اثر دارند.","معادله 5x−10=20 را حل کن و جواب را با جایگذاری بررسی کن."],
-percent:["درصد و تغییر نسبی","درصد یعنی چند واحد از هر صد واحد. برای درصد تغییر، اختلاف جدید و قدیم را بر مقدار قدیم تقسیم می‌کنیم؛ مقدار قدیم مخرج است.","مثال: فروش از ۸۰ به ۱۰۰ می‌رسد؛ تغییر ۲۰ است و 20/80×100=25٪. افزایش ۲۰ واحدی برابر افزایش ۲۵ درصدی است.","در داشبوردهای فروش، درصد رشد باید همیشه نسبت به یک دوره مرجع روشن محاسبه شود.","اگر تعداد از ۵۰ به ۴۰ برسد، درصد کاهش را حساب کن."],
-functions:["تابع، ورودی و خروجی","تابع قانونی است که هر ورودی مجاز را به یک خروجی نسبت می‌دهد. در y=2x+1، برای هر x مقدار y را با ضرب در ۲ و افزودن ۱ می‌یابیم.","اگر x=0، y=1؛ اگر x=2، y=5. برای خط راست، ضریب x شیب را نشان می‌دهد.","در یادگیری ماشین، مدل را می‌توان تابعی دانست که ویژگی‌های ورودی را به پیش‌بینی تبدیل می‌کند.","برای y=3x−4 خروجی‌های x=0 و x=3 را پیدا کن."],
-geometry:["مساحت، محیط و فاصله","محیط طول دور شکل است و مساحت مقدار سطح داخل آن را اندازه می‌گیرد. واحد محیط خطی است و واحد مساحت مربّع است.","مستطیل ۸×۳ مساحت ۲۴ واحد مربع و محیط ۲×(۸+۳)=۲۲ واحد دارد.","فاصله و هندسه در تحلیل مکانی، خوشه‌بندی و نزدیک‌ترین همسایه کاربرد دارند.","مستطیلی با طول ۹ و عرض ۴ را از نظر مساحت و محیط مقایسه کن."],
-probability:["احتمال و عدم قطعیت","احتمال عددی بین صفر و یک است. در حالت‌های هم‌شانس، تعداد حالت‌های مطلوب را بر کل حالت‌های ممکن تقسیم می‌کنیم.","در تاس سالم احتمال عدد زوج ۳/۶=۱/۲ است. احتمال متمم رویداد برابر ۱ منهای احتمال آن است.","مدل‌های داده معمولاً با عدم قطعیت سروکار دارند؛ احتمال را تفسیر کن و از قطعیت بیش از حد پرهیز کن.","احتمال آمدن عدد بزرگ‌تر از ۲ در تاس سالم را حساب کن."],
-descriptive:["میانگین در برابر میانه","میانگین مجموع مقادیر تقسیم بر تعداد است. میانه مقدار وسط داده‌های مرتب‌شده است؛ در تعداد زوج، میانگین دو مقدار وسط را می‌گیریم.","داده‌های ۲،۳،۳،۶ میانگین ۳٫۵ و میانه ۳ دارند. یک مقدار بسیار بزرگ می‌تواند میانگین را جابه‌جا کند.","در داده‌های درآمد، زمان انتظار یا قیمت، مقدارهای پرت را بررسی کن و تنها به میانگین تکیه نکن.","میانگین و میانه داده‌های ۱،۲،۳،۴،۲۰ را محاسبه و مقایسه کن."],
-inference:["نمونه‌گیری و نتیجه‌گیری","جامعه همه موارد مورد علاقه و نمونه بخش بررسی‌شده از آن است. نمونه نامناسب ممکن است تصویر نادرستی از جامعه بدهد.","اگر تنها از کاربران فعال نظرسنجی کنیم، نظر افراد غیرفعال را از دست می‌دهیم. بزرگ‌تر کردن نمونه به‌تنهایی سوگیری را برطرف نمی‌کند.","در گزارش تحلیلی، روش جمع‌آوری داده و محدودیت‌ها را شفاف توضیح بده.","یک نمونه‌گیری سوگیرانه در زندگی روزمره مثال بزن."],
-linear:["بردار و ضرب داخلی","بردار فهرستی مرتب از ویژگی‌هاست. ضرب داخلی، هر جفت مؤلفه متناظر را ضرب و حاصل‌ها را جمع می‌کند.","[1,2]·[3,4]=1×3+2×4=11. ترتیب و تعداد مؤلفه‌ها باید با هم سازگار باشد.","یک ردیف داده را می‌توان بردار ویژگی دانست؛ ماتریس مجموعه‌ای از ردیف‌هاست.","ضرب داخلی [2,1] و [5,3] را مرحله‌به‌مرحله حساب کن."],
-calculus:["مشتق و نرخ تغییر","مشتق نشان می‌دهد تابع در یک نقطه با چه سرعتی تغییر می‌کند. برای f(x)=x² مشتق 2x است.","در x=3 مشتق ۶ است. مشتق صفر در یک نقطه می‌تواند نامزد نقطه بحرانی باشد، اما لزوماً کمینه نیست.","بسیاری از الگوریتم‌های آموزش مدل با گرادیان، تابع هزینه را کاهش می‌دهند.","اگر f(x)=x²، مقدار مشتق در x=−2 چیست؟"],
-python:["پایتون برای تحلیل داده","در پایتون، متغیر نامی برای یک مقدار است. فهرست چند مقدار را نگه می‌دارد؛ توابعی مانند sum و len به محاسبه خلاصه‌ها کمک می‌کنند.","مثال: values=[2,4,6] و mean=sum(values)/len(values)؛ نتیجه ۴ است. اگر داده خالی باشد، باید قبل از تقسیم، آن را بررسی کنی.","بعد از مبانی، pandas را برای جدول‌ها، NumPy را برای آرایه‌ها و Matplotlib را برای نمودارها تمرین کن.","یک فهرست از ۵ عدد بساز و میانگین و بیشینه آن را چاپ کن."],
-ml:["صورت‌بندی مسئله یادگیری ماشین","ابتدا مشخص کن چه چیزی را می‌خواهی پیش‌بینی کنی. خروجی عددی معمولاً رگرسیون است؛ خروجی دسته‌ای طبقه‌بندی است؛ خوشه‌بندی گروه‌ها را بدون برچسب می‌یابد.","برای ارزیابی منصفانه، داده آزمون باید در آموزش یا انتخاب مدل استفاده نشده باشد. نشت داده می‌تواند عملکرد را غیرواقعی نشان دهد.","پروژه خوب فقط مدل نیست: تعریف مسئله، پاک‌سازی داده، خط مبنا، ارزیابی و توضیح محدودیت‌ها را هم شامل می‌شود.","برای پیش‌بینی تعداد تماس‌های فردا، توضیح بده چه داده‌هایی به مدل می‌دهی و چگونه ارزیابی‌اش می‌کنی."]
-};
-window.PRACTICE_BANK=bank;const $=id=>document.getElementById(id);let qi=0,checked=false;
-function draw(){const q=bank[qi%bank.length];checked=false;$("practiceMeta").textContent="تمرین "+(qi%bank.length+1)+" از "+bank.length+" · "+q.cat;$("practiceQuestion").textContent=q.q;$("practiceOptions").innerHTML=q.o.map((o,i)=>'<label class="option"><input type="radio" name="practiceAnswer" value="'+i+'"> '+o+'</label>').join("");$("practiceFeedback").className="feedback";$("practiceHintText").hidden=true;$("practiceSolutionText").hidden=true;$("practiceHintText").textContent=q.h;$("practiceSolutionText").textContent=q.e;}
-$("practiceCheck").onclick=()=>{const q=bank[qi%bank.length],v=document.querySelector('input[name="practiceAnswer"]:checked'),f=$("practiceFeedback");if(!v){f.className="feedback show bad";f.textContent="اول یک گزینه انتخاب کن.";return;}checked=true;const ok=Number(v.value)===q.a;f.className="feedback show "+(ok?"good":"bad");f.textContent=ok?"آفرین! پاسخ درست است. "+q.e:"هنوز درست نیست. از راهنما استفاده کن و دوباره مفهوم را بررسی کن.";if(ok){S.practiceAnswered=S.practiceAnswered||[];if(!S.practiceAnswered.includes(qi)){S.practiceAnswered.push(qi);S.correct=(S.correct||0)+1;save();}}};
-$("practiceHint").onclick=()=>{$("practiceHintText").hidden=false;};$("practiceSolution").onclick=()=>{$("practiceSolutionText").hidden=false;};$("practiceNext").onclick=()=>{qi=(qi+1)%bank.length;draw();};draw();
-const explanations={
-  "numbers": {
-    "title": "اعداد، کسرها و ترتیب عملیات",
-    "concept": "عددها زبان اندازه‌گیری‌اند. قبل از محاسبه، واحد و نوع عدد را مشخص کن: عدد صحیح، اعشاری، کسر یا درصد. ترتیب استاندارد عملیات این است: پرانتز، توان، ضرب و تقسیم از چپ به راست، سپس جمع و تفریق از چپ به راست. کسرها نسبت دو عدد صحیح‌اند و برای جمع و تفریق معمولاً باید مخرج مشترک بسازیم.",
-    "example": "مثال ۱: 5 + 3 × 2 = 5 + 6 = 11؛ اما (5 + 3) × 2 = 16. مثال ۲: 1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2. مثال ۳: اگر ۱۲۵ ردیف از ۵۰۰ ردیف معتبر باشد، نسبت برابر 125/500 = 0.25 = 25٪ است.",
-    "intuition": "در علم داده، یک محاسبه کوچک می‌تواند نرخ تبدیل، میانگین یا گزارش مالی را عوض کند. هرگاه نتیجه غیرمنطقی شد، محاسبه را به گام‌های کوچک تقسیم کن و واحدها را بررسی کن.",
-    "pitfalls": "اشتباه‌های رایج: انجام جمع قبل از ضرب؛ جمع کسرها با جمع صورت و مخرج؛ مخلوط کردن درصد با واحد درصد؛ و گرد کردن زودهنگام. در محاسبه چندمرحله‌ای تا مرحله آخر دقت کافی نگه دار.",
-    "practice": "تمرین هدایت‌شده: الف) 18 ÷ 3 + 2 × 4 را حساب کن. ب) 2/5 + 1/10 را با مخرج مشترک جمع کن. ج) از ۸۰ رکورد، ۱۲ رکورد ناقص‌اند؛ درصد رکوردهای ناقص چقدر است؟ ابتدا خودت حل کن و سپس از آزمون همین درس کمک بگیر.",
-    "project": "یک جدول کوچک از ۵ هزینه روزانه بساز؛ مجموع، میانگین و سهم هر هزینه از کل را حساب کن. نتیجه باید هم عدد و هم واحد پولی داشته باشد.",
-    "sources": [
-      [
-        "OpenStax — College Algebra",
-        "https://openstax.org/books/college-algebra-2e/pages/preface"
-      ],
-      [
-        "Cambridge — Mathematics course resources",
-        "https://www.maths.cam.ac.uk/overview-course-resources"
-      ]
-    ]
-  },
-  "algebra": {
-    "title": "متغیرها، معادلات و مدل‌سازی",
-    "concept": "متغیر نماد یک مقدار است؛ عبارت جبری ترکیبی از متغیرها و عملیات و معادله گزاره‌ای است که دو طرف آن برابرند. حل معادله یعنی انجام عملیات هم‌ارز روی هر دو طرف تا متغیر جدا شود. فرمول‌ها روابط را فشرده می‌کنند و برای ساخت مدل‌های ساده استفاده می‌شوند.",
-    "example": "مثال: 3x − 6 = 9. به هر دو طرف ۶ اضافه می‌کنیم: 3x = 15. هر دو طرف را بر ۳ تقسیم می‌کنیم: x = 5. بررسی: 3×5−6=9، پس جواب درست است. مثال کاربردی: هزینه کل = هزینه ثابت + هزینه هر واحد × تعداد واحدها.",
-    "intuition": "وقتی می‌خواهی از داده‌ها رابطه بسازی، باید فرق مقدار مشاهده‌شده و پارامتر مدل را بدانی. معادله کمک می‌کند اثر تغییر یک ورودی بر خروجی را تحلیل کنی.",
-    "pitfalls": "علامت منفی هنگام انتقال یا ساده‌سازی تغییر می‌کند؛ تقسیم بر صفر مجاز نیست؛ و هر جواب باید با جایگذاری در معادله اولیه بررسی شود. در مدل واقعی هم رابطه ریاضی لزوماً رابطه علّی نیست.",
-    "practice": "حل کن: 5x − 10 = 20. سپس معادله را با جایگذاری جواب بررسی کن. در مسئله دوم، هزینه ثابت ۱۲۰ هزار تومان و هزینه هر جلسه ۸۰ هزار تومان است؛ هزینه ۶ جلسه را با یک عبارت جبری بنویس.",
-    "project": "یک مدل هزینه یا درآمد برای یک کسب‌وکار کوچک بنویس؛ متغیرها، واحدها و فرض‌های مدل را مشخص کن و دو سناریو را مقایسه کن.",
-    "sources": [
-      [
-        "OpenStax — College Algebra 2e",
-        "https://openstax.org/books/college-algebra-2e/pages/preface"
-      ]
-    ]
-  },
-  "percent": {
-    "title": "نسبت، درصد و رشد",
-    "concept": "نسبت دو مقدار را مقایسه می‌کند؛ نرخ معمولاً نسبت همراه با واحد است و درصد یعنی نسبت بر مبنای ۱۰۰. درصد تغییر با تقسیم تغییر مقدار بر مقدار اولیه محاسبه می‌شود: (جدید − قدیم) ÷ قدیم × ۱۰۰. مقدار اولیه مخرج است، چون می‌خواهیم تغییر را نسبت به نقطه شروع بسنجیم.",
-    "example": "فروش از ۸۰ به ۱۰۰ می‌رسد: تغییر = ۲۰؛ درصد رشد = 20/80×100 = 25٪. اگر از ۱۰۰ به ۸۰ برسد، تغییر −۲۰ و درصد کاهش −20٪ است. افزایش ۲۰ واحدی لزوماً افزایش ۲۰ درصدی نیست.",
-    "intuition": "در داشبورد فروش، تعداد خام بدون پایه مقایسه گمراه‌کننده است. درصد رشد را همراه با بازه زمانی، تعریف شاخص و اندازه پایه گزارش کن؛ وقتی پایه خیلی کوچک است، درصدهای بزرگ ممکن است اغراق‌آمیز به نظر برسند.",
-    "pitfalls": "درصد تغییر با اختلاف درصدی یکسان نیست؛ برای کاهش، علامت منفی را حفظ کن؛ و رشدهای متوالی را ساده با هم جمع نکن. رشد ۱۰٪ و سپس ۱۰٪ روی مقدار جدید، در مجموع ۲۱٪ رشد می‌دهد.",
-    "practice": "اگر تعداد از ۵۰ به ۴۰ برسد، درصد تغییر را محاسبه کن. اگر درآمد از ۱۰۰ به ۱۱۰ و ماه بعد از ۱۱۰ به ۱۲۱ برسد، رشد کل نسبت به ماه اول چقدر است؟",
-    "project": "برای ۶ ماه داده فروش ساختگی، مبلغ فروش، تغییر ماهانه و درصد تغییر را حساب کن؛ توضیح بده چرا ماه پایه در تفسیر مهم است.",
-    "sources": [
-      [
-        "OpenStax — College Algebra 2e",
-        "https://openstax.org/books/college-algebra-2e/pages/preface"
-      ],
-      [
-        "Harvard — Introduction to Data Science with Python",
-        "https://harvardonline.harvard.edu/course/introduction-data-science-python"
-      ]
-    ]
-  },
-  "functions": {
-    "title": "مختصات، تابع و نمودار",
-    "concept": "تابع به هر ورودی مجاز دقیقاً یک خروجی نسبت می‌دهد. در f(x)=2x+1، ورودی x در ۲ ضرب و سپس ۱ به آن اضافه می‌شود. نمودار، رفتار تابع را بصری می‌کند؛ دامنه ورودی‌های مجاز و برد مجموعه خروجی‌های ممکن است. در تابع خطی y=mx+b، m شیب و b عرض از مبدأ است.",
-    "example": "برای y=2x+1: اگر x=0، y=1؛ اگر x=2، y=5. شیب ۲ یعنی با افزایش یک واحدی x، مقدار y دو واحد زیاد می‌شود. در نمودار فروش برحسب تبلیغات، شیب می‌تواند تغییر پیش‌بینی‌شده فروش به ازای تغییر بودجه را نمایش دهد؛ نه لزوماً اثر علّی واقعی را.",
-    "intuition": "در تحلیل داده، تابع رابطه ورودی‌ها و خروجی‌ها را صورت‌بندی می‌کند. مدل یادگیری ماشین نیز نگاشتی از ویژگی‌ها به پیش‌بینی است؛ نمودار به کشف روند، غیرخطی بودن و داده‌های پرت کمک می‌کند.",
-    "pitfalls": "هر رابطه‌ای تابع نیست؛ هر ورودی نباید دو خروجی داشته باشد. همبستگی نموداری به‌تنهایی علیت را ثابت نمی‌کند و برون‌یابی فراتر از دامنه داده می‌تواند خطرناک باشد.",
-    "practice": "برای y=3x−4 خروجی‌های x=0، x=2 و x=3 را پیدا کن. سپس سه نقطه را روی محور رسم کن و شیب را توضیح بده.",
-    "project": "داده‌ای فرضی از ساعت مطالعه و نمره بساز؛ نمودار پراکندگی رسم کن و توضیح بده چه چیزی را می‌توان و چه چیزی را نمی‌توان از نمودار نتیجه گرفت.",
-    "sources": [
-      [
-        "OpenStax — College Algebra 2e",
-        "https://openstax.org/books/college-algebra-2e/pages/preface"
-      ],
-      [
-        "Cambridge — Data Science course materials",
-        "https://www.cl.cam.ac.uk/teaching/2526/DataSci/materials.html"
-      ]
-    ]
-  },
-  "geometry": {
-    "title": "هندسه، مساحت، فاصله و مقیاس",
-    "concept": "محیط اندازه دور شکل و مساحت اندازه سطح آن است؛ واحد محیط خطی و واحد مساحت مربّع است. در صفحه مختصات، فاصله دو نقطه از قضیه فیثاغورس به دست می‌آید: فاصله = √((x₂−x₁)²+(y₂−y₁)²). فاصله اقلیدسی تنها یکی از تعریف‌های ممکن فاصله است.",
-    "example": "مستطیل با طول ۸ و عرض ۳: مساحت ۸×۳=۲۴ واحد مربع و محیط ۲(۸+۳)=۲۲ واحد. فاصله نقاط (1,2) و (4,6): √(3²+4²)=5. قبل از محاسبه مطمئن شو هر دو محور از مقیاس و واحد سازگار استفاده می‌کنند.",
-    "intuition": "فاصله در مختصات جغرافیایی، خوشه‌بندی و الگوریتم نزدیک‌ترین همسایه کاربرد دارد. اگر ویژگی‌ها مقیاس متفاوتی داشته باشند، مثلاً درآمد هزاران و سن ده‌ها باشد، فاصله خام ممکن است تحت سلطه ویژگی بزرگ‌تر قرار گیرد.",
-    "pitfalls": "مساحت و محیط را با هم اشتباه نگیر؛ در مساحت واحد را مربع کن؛ و برای داده جغرافیایی طول و عرض جغرافیایی را بدون توجه به انحنای زمین مثل مختصات صفحه‌ای در نظر نگیر.",
-    "practice": "مستطیلی با طول ۹ و عرض ۴ را از نظر مساحت و محیط حساب کن. سپس فاصله نقاط (2,1) و (5,5) را با فیثاغورس بیاب.",
-    "project": "برای پنج نقطه دوبعدی، فاصله هر نقطه تا یک نقطه مرجع را حساب و نزدیک‌ترین نقطه را پیدا کن؛ درباره اثر تغییر مقیاس محورها توضیح بده.",
-    "sources": [
-      [
-        "OpenStax — College Algebra 2e",
-        "https://openstax.org/books/college-algebra-2e/pages/preface"
-      ],
-      [
-        "Cambridge — Data Science course materials",
-        "https://www.cl.cam.ac.uk/teaching/2526/DataSci/materials.html"
-      ]
-    ]
-  },
-  "probability": {
-    "title": "احتمال، شمارش و عدم قطعیت",
-    "concept": "احتمال رویداد عددی بین صفر و یک است. وقتی همه حالت‌ها هم‌شانس‌اند، احتمال برابر تعداد حالت‌های مطلوب تقسیم بر تعداد کل حالت‌هاست. متمم رویداد A برابر 1−P(A) است. برای رویدادهای مستقل، احتمال هم‌زمانی برابر حاصل‌ضرب احتمال‌هاست؛ استقلال باید توجیه شود و فرض پیش‌فرض نیست.",
-    "example": "در تاس سالم احتمال عدد بزرگ‌تر از ۴ برابر 2/6=1/3 است. احتمال نیامدن عدد بزرگ‌تر از ۴ برابر 1−1/3=2/3. برای دو پرتاب مستقل سکه سالم، احتمال دو شیر برابر 1/2×1/2=1/4 است.",
-    "intuition": "داده‌های واقعی همراه عدم قطعیت‌اند. احتمال کمک می‌کند بین «ممکن است» و «قطعاً رخ می‌دهد» فرق بگذاری و پیش‌بینی‌ها را به‌صورت کالیبره تفسیر کنی.",
-    "pitfalls": "احتمال شرطی را با احتمال ساده اشتباه نگیر؛ استقلال را بدون دلیل فرض نکن؛ و از مشاهده چند مورد محدود درباره احتمال واقعی نتیجه قطعی نگیر.",
-    "practice": "احتمال عدد بزرگ‌تر از ۲ در تاس سالم را پیدا کن. اگر از ۲۰۰ ایمیل، ۳۰ ایمیل اسپم‌اند، نرخ تجربی اسپم چیست؟ چرا این نرخ لزوماً برای آینده ثابت نیست؟",
-    "project": "یک آزمایش تصادفی را ۱۰۰ بار شبیه‌سازی کن و فراوانی تجربی را با احتمال نظری مقایسه کن؛ اختلاف را توضیح بده.",
-    "sources": [
-      [
-        "OpenStax — Introductory Statistics",
-        "https://openstax.org/books/introductory-statistics/pages/preface"
-      ],
-      [
-        "Cambridge — Statistics resources",
-        "https://www.maths.cam.ac.uk/postgrad/part-iii/prospective/preparation/resources/statistics"
-      ]
-    ]
-  },
-  "descriptive": {
-    "title": "آمار توصیفی و توزیع داده",
-    "concept": "آمار توصیفی داده‌ها را خلاصه می‌کند. میانگین مجموع تقسیم بر تعداد است؛ میانه مقدار وسط داده‌های مرتب‌شده است؛ نما پرتکرارترین مقدار است. دامنه اختلاف بیشینه و کمینه است و انحراف معیار پراکندگی را نسبت به میانگین اندازه می‌گیرد. نمودار توزیع شکل داده را آشکار می‌کند.",
-    "example": "برای داده‌های ۲، ۳، ۳، ۶: میانگین = 14/4=3.5 و میانه = (3+3)/2=3. اگر داده ۲۰ هم اضافه شود، میانگین 6.2 و میانه 3 می‌شود؛ یک مقدار بزرگ میانگین را زیاد جابه‌جا کرده است.",
-    "intuition": "در گزارش درآمد یا زمان انتظار، یک عدد خلاصه کافی نیست. میانه و صدک‌ها می‌توانند تجربه معمول و انتهای توزیع را بهتر نشان دهند؛ نمودار جعبه‌ای و هیستوگرام به دیدن چولگی و مقدارهای پرت کمک می‌کنند.",
-    "pitfalls": "میانگین و میانه را با هم یکی نگیر؛ داده‌های خالی را صفر فرض نکن مگر معنای واقعی آن صفر باشد؛ و انحراف معیار نمونه را با فرمول جامعه اشتباه نگیر. مقدار پرت را بررسی کن، نه اینکه خودکار حذفش کنی.",
-    "practice": "برای ۱،۲،۳،۴،۲۰ میانگین و میانه را حساب کن. کدام معیار بهتر نماینده مقدار معمول است و چرا؟ پاسخ به هدف تحلیل وابسته است.",
-    "project": "یک مجموعه ۱۰تایی از زمان‌های انتظار بساز؛ میانگین، میانه، کمینه، بیشینه و یک نمودار توزیع ارائه کن. در دو جمله محدودیت خلاصه‌ها را بنویس.",
-    "sources": [
-      [
-        "OpenStax — Introductory Statistics",
-        "https://openstax.org/books/introductory-statistics/pages/preface"
-      ],
-      [
-        "Cambridge — Statistics resources",
-        "https://www.maths.cam.ac.uk/postgrad/part-iii/prospective/preparation/resources/statistics"
-      ]
-    ]
-  },
-  "inference": {
-    "title": "نمونه‌گیری، استنباط و خطا",
-    "concept": "جامعه تمام موارد مورد علاقه و نمونه بخشی است که واقعاً بررسی می‌شود. استنباط آماری از داده نمونه درباره جامعه نتیجه‌گیری می‌کند و همراه عدم قطعیت است. سوگیری نمونه‌گیری خطای نظام‌مند در انتخاب یا اندازه‌گیری است؛ افزایش حجم نمونه به‌تنهایی آن را برطرف نمی‌کند.",
-    "example": "اگر برای رضایت مشتری فقط از کسانی نظر بگیریم که هنوز هر روز از محصول استفاده می‌کنند، کاربران ناراضی‌ای که محصول را ترک کرده‌اند جا می‌مانند. حتی اگر هزار پاسخ جمع شود، این سازوکار انتخاب می‌تواند نتیجه را سوگیرانه کند.",
-    "intuition": "فاصله اطمینان، آزمون فرض و مقدار p ابزارهایی با فرض‌های مشخص‌اند. مقدار p احتمال درست بودن فرض صفر نیست؛ بلکه احتمال مشاهده داده‌ای به این شدت یا شدیدتر، با فرض مدل و فرض صفر است.",
-    "pitfalls": "همبستگی علیت را ثابت نمی‌کند؛ مقدار p اندازه اثر یا اهمیت عملی نیست؛ آزمون‌های متعدد احتمال یافته تصادفی را افزایش می‌دهند؛ و نمونه بزرگ، داده بد یا طراحی سوگیرانه را خودکار نجات نمی‌دهد.",
-    "practice": "یک نمونه‌گیری سوگیرانه از زندگی روزمره مثال بزن. سپس بگو چگونه می‌توان جامعه هدف، چارچوب نمونه‌گیری و عدم پاسخ را بهتر مدیریت کرد.",
-    "project": "یک پرسش پژوهشی طراحی کن: تعریف جامعه، روش انتخاب نمونه، متغیر اصلی، منبع احتمالی سوگیری و محدودیت نتیجه‌گیری را بنویس.",
-    "sources": [
-      [
-        "Cambridge — Statistics resources",
-        "https://www.maths.cam.ac.uk/postgrad/part-iii/prospective/preparation/resources/statistics"
-      ],
-      [
-        "OpenStax — Introductory Statistics",
-        "https://openstax.org/books/introductory-statistics/pages/preface"
-      ]
-    ]
-  },
-  "linear": {
-    "title": "جبر خطی، بردار و ماتریس",
-    "concept": "بردار فهرستی مرتب از مؤلفه‌هاست و ماتریس آرایه‌ای دوبعدی از اعداد. ضرب داخلی دو بردار هم‌اندازه، حاصل‌ضرب مؤلفه‌های متناظر و جمع آن‌هاست. ضرب ماتریسی به سازگاری ابعاد نیاز دارد؛ ماتریس m×n در بردار nتایی، بردار mتایی تولید می‌کند.",
-    "example": "[1,2]·[3,4]=1×3+2×4=11. اگر X ماتریس دو نمونه و سه ویژگی باشد، ابعاد آن 2×3 است؛ ضرب آن در وزن‌های سه‌تایی، دو امتیاز خروجی می‌دهد. این نمایش فشرده محاسبات مدل‌ها را ممکن می‌کند.",
-    "intuition": "یک ردیف جدول می‌تواند بردار ویژگی‌ها باشد؛ کل جدول به ماتریس تبدیل می‌شود. مدل خطی اغلب وزن ویژگی‌ها را با ضرب و جمع ترکیب می‌کند. نرمال‌سازی و مقیاس ویژگی‌ها در بسیاری از روش‌ها اهمیت دارد.",
-    "pitfalls": "ترتیب مؤلفه‌ها را قاطی نکن؛ ابعاد قبل از ضرب بررسی شوند؛ ضرب داخلی با ضرب مؤلفه‌به‌مؤلفه یکسان نیست؛ و هم‌بستگی زیاد بین ویژگی‌ها می‌تواند تفسیر ضرایب را دشوار کند.",
-    "practice": "ضرب داخلی [2,1] و [5,3] را حساب کن. سپس مشخص کن آیا ماتریس 4×3 را می‌توان در بردار 2تایی ضرب کرد؛ دلیل را با ابعاد توضیح بده.",
-    "project": "یک ماتریس ۳ نمونه × ۲ ویژگی بساز و برای هر نمونه امتیاز w₁x₁+w₂x₂ را محاسبه کن. نقش هر وزن را شرح بده.",
-    "sources": [
-      [
-        "Cambridge — Data Science course materials",
-        "https://www.cl.cam.ac.uk/teaching/2526/DataSci/materials.html"
-      ],
-      [
-        "Harvard — Introduction to Data Science with Python",
-        "https://harvardonline.harvard.edu/course/introduction-data-science-python"
-      ]
-    ]
-  },
-  "calculus": {
-    "title": "مشتق، گرادیان و بهینه‌سازی",
-    "concept": "مشتق نرخ تغییر لحظه‌ای تابع را نشان می‌دهد و از شیب خط مماس تعریف می‌شود. برای f(x)=x²، مشتق f′(x)=2x است. در چند متغیر، گرادیان بردار مشتق‌های جزئی است و جهت بیشترین افزایش محلی را نشان می‌دهد.",
-    "example": "اگر f(x)=x²، در x=3 مشتق ۶ و در x=−2 مشتق −۴ است. در روش گرادیان کاهشی، پارامترها معمولاً در جهت مخالف گرادیان به‌روزرسانی می‌شوند: θ جدید = θ قدیم − η∇J(θ)، که η نرخ یادگیری است.",
-    "intuition": "مدل یادگیری ماشین معمولاً پارامترهایی دارد که باید تابع هزینه را کمینه کنند. مشتق می‌گوید تغییر کوچک پارامتر چه اثری بر هزینه دارد؛ اما کیفیت نتیجه به تابع هزینه، نرخ یادگیری، داده و روش بهینه‌سازی وابسته است.",
-    "pitfalls": "مشتق صفر لزوماً کمینه نیست؛ ممکن است بیشینه یا نقطه زینی باشد. نرخ یادگیری بسیار بزرگ می‌تواند آموزش را ناپایدار کند و مقدار مشتق به‌تنهایی کیفیت تعمیم مدل را تضمین نمی‌کند.",
-    "practice": "مشتق x² را در x=−2 حساب کن. اگر f(x)=(x−3)²، مشتق را به دست بیاور و توضیح بده چرا x=3 نامزد کمینه است.",
-    "project": "تابع J(w)=(w−4)² را برای چند مقدار w رسم کن و چند گام گرادیان کاهشی دستی انجام بده؛ اثر نرخ یادگیری را مقایسه کن.",
-    "sources": [
-      [
-        "Cambridge — Data Science course materials",
-        "https://www.cl.cam.ac.uk/teaching/2526/DataSci/materials.html"
-      ],
-      [
-        "Harvard — Introduction to Data Science with Python",
-        "https://harvardonline.harvard.edu/course/introduction-data-science-python"
-      ]
-    ]
-  },
-  "python": {
-    "title": "پایتون برای تحلیل داده",
-    "concept": "در پایتون، متغیر به یک شیء اشاره می‌کند؛ نوع داده تعیین می‌کند چه عملیات‌هایی مناسب‌اند. شرط‌ها مسیر اجرا را انتخاب می‌کنند، حلقه‌ها تکرار انجام می‌دهند و تابع کد قابل استفاده مجدد می‌سازد. پیش از استفاده از کتابخانه‌ها، منطق پایه، خطاها و ساختار داده‌ها را یاد بگیر.",
-    "example": "values=[2,4,6]; mean=sum(values)/len(values) نتیجه ۴ می‌دهد. قبل از تقسیم باید بررسی کنی فهرست خالی نباشد. برای داده جدولی، pandas ابزار DataFrame و پاک‌سازی/گروه‌بندی می‌دهد؛ NumPy برای آرایه‌های عددی و Matplotlib برای نمودارها کاربرد دارد.",
-    "intuition": "چرخه معمول تحلیل داده شامل خواندن داده، بررسی شکل و نوع ستون‌ها، رسیدگی به مقادیر گمشده و تکراری، محاسبه آمار، رسم نمودار و ثبت نتیجه است. خروجی قابل بازتولید از کدی می‌آید که مراحل را روشن و قابل آزمون نگه می‌دارد.",
-    "pitfalls": "نام متغیر مبهم، تبدیل نوع ناخواسته، تقسیم بر صفر، فرض کردن اینکه داده خالی همان صفر است و تغییر دادن داده خام بدون نسخه پشتیبان از خطاهای رایج‌اند. کد را با نمونه کوچک و موارد مرزی آزمایش کن.",
-    "practice": "فهرست [10,20,30,40,50] بساز؛ میانگین و بیشینه را حساب کن. سپس تابعی بنویس که برای فهرست خالی پیام مناسبی بدهد و برای فهرست معمول میانگین را برگرداند.",
-    "project": "یک فایل CSV عمومی یا ساختگی بخوان؛ ابعاد، نوع ستون‌ها، مقادیر گمشده و سه آمار مهم را گزارش کن. نمودار بساز و نتیجه را با زبان ساده بنویس.",
-    "sources": [
-      [
-        "Harvard CS50P — Introduction to Programming with Python",
-        "https://cs50.harvard.edu/python/"
-      ],
-      [
-        "IBM — Data analysis using Python",
-        "https://developer.ibm.com/learningpaths/data-analysis-using-python/"
-      ],
-      [
-        "Harvard — Introduction to Data Science with Python",
-        "https://harvardonline.harvard.edu/course/introduction-data-science-python"
-      ]
-    ]
-  },
-  "ml": {
-    "title": "مبانی یادگیری ماشین و ارزیابی",
-    "concept": "یادگیری ماشین الگوها را از داده می‌آموزد. در یادگیری نظارت‌شده، داده آموزشی برچسب دارد؛ رگرسیون مقدار عددی و طبقه‌بندی دسته را پیش‌بینی می‌کند. در یادگیری بدون نظارت، مانند خوشه‌بندی، برچسب هدف از پیش داده نشده است. ابتدا مسئله و معیار موفقیت را تعریف کن، سپس خط مبنا بساز.",
-    "example": "برای پیش‌بینی قیمت خانه، هدف عددی است و رگرسیون انتخاب طبیعی است. داده را به آموزش و آزمون جدا کن؛ پیش‌پردازش و انتخاب ویژگی را فقط با داده آموزش یاد بگیر. در رگرسیون می‌توان MAE را محاسبه کرد؛ برای طبقه‌بندی، دقت به‌تنهایی کافی نیست و precision/recall ممکن است مهم‌تر باشند.",
-    "intuition": "مدل پیچیده‌تر لزوماً بهتر نیست. بیش‌برازش وقتی رخ می‌دهد که مدل جزئیات و نویز آموزش را یاد بگیرد و روی داده جدید ضعیف شود. اعتبارسنجی، خط مبنا، تنظیم منظم‌سازی و ارزیابی روی داده ندیده به سنجش تعمیم کمک می‌کنند.",
-    "pitfalls": "نشت داده، انتخاب مدل با مجموعه آزمون، عدم توازن کلاس‌ها، استفاده از معیار نامناسب و نادیده گرفتن سوگیری داده می‌تواند نتیجه را غیرواقعی کند. همبستگی ویژگی‌ها با هدف نیز به معنی رابطه علّی نیست.",
-    "practice": "برای پیش‌بینی قیمت خانه، نوع مسئله، یک خط مبنا، معیار ارزیابی و دو خطر نشت داده را نام ببر. سپس توضیح بده چرا مجموعه آزمون باید تا پایان انتخاب مدل کنار گذاشته شود.",
-    "project": "یک مسئله کوچک تعریف کن؛ هدف و ویژگی‌ها را مشخص کن، یک خط مبنا بساز، روش جداسازی داده و معیار ارزیابی را بنویس و محدودیت‌های مدل را گزارش کن.",
-    "sources": [
-      [
-        "Harvard — Introduction to Data Science with Python",
-        "https://harvardonline.harvard.edu/course/introduction-data-science-python"
-      ],
-      [
-        "Cambridge — Data Science course materials",
-        "https://www.cl.cam.ac.uk/teaching/2526/DataSci/materials.html"
-      ],
-      [
-        "IBM — Get started with machine learning",
-        "https://developer.ibm.com/learningpaths/learning-path-machine-learning-for-developers/"
-      ]
-    ]
-  }
-};
-const curriculumLinks=[
-["Harvard CS50P — برنامه‌نویسی پایتون","https://cs50.harvard.edu/python/"],
-["Harvard — Introduction to Data Science with Python","https://harvardonline.harvard.edu/course/introduction-data-science-python"],
-["Cambridge — Data Science course materials","https://www.cl.cam.ac.uk/teaching/2526/DataSci/materials.html"],
-["Cambridge — Statistics resources","https://www.maths.cam.ac.uk/postgrad/part-iii/prospective/preparation/resources/statistics"],
-["IBM — Data analysis using Python","https://developer.ibm.com/learningpaths/data-analysis-using-python/"],
-["IBM — Machine learning learning path","https://developer.ibm.com/learningpaths/learning-path-machine-learning-for-developers/"],
-["OpenStax — College Algebra 2e","https://openstax.org/books/college-algebra-2e/pages/preface"],
-["OpenStax — Introductory Statistics","https://openstax.org/books/introductory-statistics/pages/preface"]
-];
-const oldOpen=window.openLesson;window.openLesson=function(id){
- oldOpen(id);const d=explanations[id];if(!d)return;
- const prior=$("content").querySelector(".university-lesson-expansion");if(prior)prior.remove();const box=document.createElement("section");box.className="card university-lesson-expansion";box.style.marginTop="12px";
- const esc=v=>String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
- box.innerHTML="<h3>آموزش تکمیلی دانشگاهی: "+esc(d.title)+"</h3>"+
- "<h4>۱. مفهوم و مبانی</h4><p>"+esc(d.concept)+"</p>"+
- "<h4>۲. مثال حل‌شده، گام‌به‌گام</h4><div class='formula'>"+esc(d.example)+"</div>"+
- "<h4>۳. ارتباط با علم داده</h4><p>"+esc(d.intuition)+"</p>"+
- "<h4>۴. خطاهای رایج و نکته‌های مهم</h4><p>"+esc(d.pitfalls)+"</p>"+
- "<h4>۵. تمرین هدایت‌شده</h4><p>"+esc(d.practice)+"</p>"+
- "<h4>۶. تمرین پروژه‌ای</h4><p>"+esc(d.project)+"</p>"+
- "<h4>منابع معتبر برای مطالعه بیشتر</h4><ul>"+d.sources.map(x=>"<li><a href='"+esc(x[1])+"' target='_blank' rel='noopener noreferrer'>"+esc(x[0])+"</a></li>").join("")+"</ul>"+
- "<label class='muted' for='lessonNote'>یادداشت اختصاصی این درس</label><textarea id='lessonNote' rows='4' style='width:100%;font:inherit;border:1px solid var(--line);border-radius:10px;padding:10px' placeholder='راه‌حل خودت، مثال تازه یا سؤال باقی‌مانده را بنویس...'></textarea><p><button class='btn' id='saveLessonNote'>ذخیره یادداشت درس</button> <span id='lessonNoteStatus' class='muted'></span></p>";
- $("content").appendChild(box);S.lessonNotes=S.lessonNotes||{};$("lessonNote").value=S.lessonNotes[id]||"";
- $("saveLessonNote").onclick=()=>{S.lessonNotes[id]=$("lessonNote").value;save();$("lessonNoteStatus").textContent="یادداشت ذخیره شد.";};
-};
-$("studyNotes").value=S.notes||"";
-$("saveNotes").onclick=()=>{S.notes=$("studyNotes").value;save();$("storageStatus").textContent="یادداشت‌ها ذخیره شدند.";};
-$("studyNotes").addEventListener("input",()=>{S.notes=$("studyNotes").value;try{localStorage.setItem("academyProgress",JSON.stringify(S));}catch(e){}});
-$("studyNotes").addEventListener("change",()=>{if(typeof window.save==="function")window.save();});
-$("exportData").onclick=()=>{const blob=new Blob([JSON.stringify({version:2,exportedAt:new Date().toISOString(),progress:S,practiceResponses:readPractice()},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="math-data-science-backup.json";a.click();URL.revokeObjectURL(url);};
-$("importData").onchange=async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;try{const x=JSON.parse(await f.text()),p=x&&x.progress?x.progress:x;if(!p||!Array.isArray(p.done)||!Array.isArray(p.answered))throw Error("bad backup");if(x&&x.practiceResponses!==undefined&&(typeof x.practiceResponses!=="object"||x.practiceResponses===null||Array.isArray(x.practiceResponses)))throw Error("bad practice backup");const ids=new Set(L.map(l=>l[0])),validIds=a=>[...new Set(a.filter(v=>typeof v==="string"&&ids.has(v)))],count=v=>Number.isFinite(Number(v))?Math.max(0,Math.min(100000,Math.floor(Number(v)))):0;if(p.lessonNotes!==undefined&&(typeof p.lessonNotes!=="object"||p.lessonNotes===null||Array.isArray(p.lessonNotes)))throw Error("bad notes");S={...S,...p,done:validIds(p.done),answered:validIds(p.answered),correct:count(p.correct),practiceAnswered:Array.isArray(p.practiceAnswered)?[...new Set(p.practiceAnswered.filter(v=>Number.isInteger(v)&&v>=0&&v<bank.length))]:[],lessonNotes:p.lessonNotes&&typeof p.lessonNotes==="object"?p.lessonNotes:(S.lessonNotes||{}),notes:typeof p.notes==="string"?p.notes:(S.notes||"")};if(x&&x.practiceResponses){const safe={};for(const [k,v] of Object.entries(x.practiceResponses)){if(typeof k==="string"&&k.length<300&&((typeof v==="string"&&v.length<20000)||(k.endsWith(":completed")&&typeof v==="boolean")))safe[k]=v;}writePractice(safe);}save();courses();stats();progress();$("studyNotes").value=S.notes||"";$("storageStatus").textContent="پشتیبان معتبر بازیابی شد؛ پیشرفت و پاسخ‌های تمرین بازیابی شدند."; }catch(err){$("storageStatus").textContent="فایل پشتیبان معتبر نیست یا ساختار آن پشتیبانی نمی‌شود.";}e.target.value="";};
-const originalSave=window.save;window.save=function(){if(typeof originalSave==="function")originalSave();try{localStorage.setItem("academyProgress",JSON.stringify(S));}catch(e){}fetch("/api/progress",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(S)}).then(r=>{if(!r.ok)throw Error("save");$("storageStatus").textContent="ذخیره روی پوشه پروژه فعال است ✓";}).catch(()=>{$("storageStatus").textContent="فعلاً در مرورگر ذخیره شد؛ سرور محلی را اجرا کن تا در پوشه پروژه هم ذخیره شود.";});};
-fetch("/api/progress").then(r=>{if(!r.ok)throw Error("missing");return r.json();}).then(p=>{if(p&&Array.isArray(p.done)){S={...S,...p};try{localStorage.setItem("academyProgress",JSON.stringify(S));}catch(e){}courses();stats();progress();$("studyNotes").value=S.notes||"";$("storageStatus").textContent="اطلاعات از پوشه data پروژه بارگذاری شد ✓";}}).catch(()=>{$("storageStatus").textContent="ذخیره مرورگر فعال است؛ برای ذخیره در پوشه پروژه از start_local.command اجرا کن.";});
-})();
-</script>
 
-<script>
-/* Expanded, prerequisite-first curriculum: detailed micro-lessons for all 12 subjects. */
-(function(){
-const $=id=>document.getElementById(id);
-const C={
-numbers:{name:"حساب پایه و اعداد",units:[
-["شناخت اعداد و خط اعداد","اعداد طبیعی برای شمارش، اعداد صحیح برای بدهی و دماهای منفی، اعداد گویا برای کسرها و اعداد حقیقی برای همه این مقدارها و رادیکال‌های حقیقی به کار می‌روند. روی خط اعداد، هرچه به راست برویم مقدار بزرگ‌تر می‌شود. قدرمطلق فاصله از صفر است و همیشه نامنفی است.","−3 < −1 < 0 < 2. قدرمطلق |−5|=5 است، چون فاصلهٔ −5 تا صفر پنج واحد است.","۱) کدام بزرگ‌تر است: −4 یا −2؟ ۲) |−9| را حساب کن.","۱) −2 بزرگ‌تر است؛ روی خط اعداد سمت راست‌تر قرار دارد. ۲) جواب 9 است."],
-["جمع، تفریق، ضرب و تقسیم","جمع‌کردن یعنی ترکیب مقدارها، تفریق یعنی اختلاف یا تغییر، ضرب یعنی جمع تکراری و تقسیم یعنی سهم‌بندی یا نسبت. در عددهای منفی، علامت و اندازه را جداگانه بررسی کن. تقسیم بر صفر تعریف نشده است.","−3+8=5؛ 4−9=−5؛ (−3)×4=−12؛ (−12)÷(−3)=4. دو عدد منفی در ضرب، حاصل مثبت می‌دهند.","۱) −7+2؟ ۲) −4×−5؟ ۳) چرا 8÷0 تعریف نشده است؟","۱) −5؛ ۲) 20؛ ۳) هیچ عددی ضربدر صفر نمی‌شود 8؛ بنابراین خارج‌قسمت معتبری وجود ندارد."],
-["ترتیب عملیات و پرانتز","برای جلوگیری از ابهام، ابتدا پرانتز، سپس توان و ریشه، بعد ضرب و تقسیم از چپ به راست، و در پایان جمع و تفریق از چپ به راست انجام می‌شود. عبارت را به گام‌های کوچک بشکن و هر گام را بازبینی کن.","18÷3+2×4 = 6+8 = 14. اما (18÷3+2)×4 = (6+2)×4 = 32؛ پرانتز نتیجه را تغییر می‌دهد.","۱) 20−2×6؟ ۲) (20−2)×6؟","۱) 20−12=8. ۲) 18×6=108."],
-["کسر، اعشار و تبدیل‌ها","کسر a/b یعنی a سهم از b سهم برابر، به شرط b≠0. برای جمع کسرها مخرج مشترک لازم است؛ برای ضرب صورت‌ها و مخرج‌ها را ضرب می‌کنیم و برای تقسیم در معکوس کسر دوم ضرب می‌کنیم. تبدیل کسر به اعشار با تقسیم صورت بر مخرج انجام می‌شود.","1/4+1/6 = 3/12+2/12=5/12. همچنین 3/5=0.6=60٪. در 2/3÷4/5 داریم 2/3×5/4=10/12=5/6.","۱) 2/7+3/7؟ ۲) 3/4×2/5؟ ۳) 0.25 به کسر ساده؟","۱) 5/7. ۲) 6/20=3/10. ۳) 25/100=1/4."],
-["توان، ریشه و نماد علمی","توان یعنی ضرب تکراری: aⁿ یعنی n عامل a. برای پایهٔ یکسان در ضرب توان‌ها جمع می‌شوند و در تقسیم توان‌ها تفریق می‌شوند، با رعایت شرط‌های تعریف. ریشهٔ دوم عدد نامنفی، عدد نامنفی‌ای است که مربعش برابر آن عدد است.","2³=2×2×2=8؛ 10³×10²=10⁵؛ √49=7. نماد علمی 4500000 برابر 4.5×10⁶ است.","۱) 3²×3³؟ ۲) √121؟ ۳) 0.00032 را به نماد علمی بنویس.","۱) 3⁵=243. ۲) 11. ۳) 3.2×10⁻⁴."],
-["نسبت، واحد و برآورد","نسبت دو مقدار را مقایسه می‌کند؛ نرخ، نسبت همراه با واحد است، مانند کیلومتر بر ساعت. پیش از محاسبه واحدها را یکسان کن و در پایان بررسی کن آیا جواب از نظر اندازه معقول است.","اگر 150 کیلومتر در 3 ساعت طی شود، سرعت متوسط 150÷3=50 کیلومتر بر ساعت است. 2.5 متر برابر 250 سانتی‌متر است.","۱) 240 کیلومتر در 4 ساعت چند کیلومتر بر ساعت؟ ۲) 3.2 کیلوگرم چند گرم؟","۱) 60 کیلومتر بر ساعت. ۲) 3200 گرم؛ چون هر کیلوگرم 1000 گرم است."]]},
-algebra:{name:"جبر و معادلات",units:[
-["متغیر و عبارت جبری","متغیر نمادی برای مقداری است که ممکن است تغییر کند. ضریب عددیِ ضرب‌شده در متغیر است و جمله‌های هم‌نوع بخش متغیری یکسان دارند. در 3x+2x می‌توان ضرایب را جمع کرد، اما 3x و 3x² هم‌نوع نیستند.","3x+2x−4=5x−4. اگر x=2 باشد، مقدار عبارت 5×2−4=6 است.","۱) 4a+3a−2 را ساده کن. ۲) مقدار 2x² برای x=−3 چیست؟","۱) 7a−2. ۲) 2×(−3)²=2×9=18؛ توان قبل از ضرب محاسبه می‌شود."],
-["خاصیت توزیعی و پرانتز","خاصیت توزیعی a(b+c)=ab+ac است و برای بازکردن پرانتز یا تجزیه به کار می‌رود. علامت منفی بیرون پرانتز همه علامت‌های داخل را تغییر می‌دهد.","3(x+4)=3x+12. اما −(2x−5)=−2x+5. برای تجزیهٔ 6x+12، عامل مشترک 6 را بیرون می‌آوریم: 6(x+2).","۱) 5(2x−3) را باز کن. ۲) −(x+7) را ساده کن.","۱) 10x−15. ۲) −x−7."],
-["حل معادلهٔ یک‌مرحله‌ای و چندمرحله‌ای","هدف معادله یافتن مقدار مجهول است که تساوی را درست کند. برای حفظ تساوی، عملیات معکوس را روی هر دو طرف انجام بده. پس از حل، جواب را در معادلهٔ اولیه جایگذاری کن.","3x+5=20؛ از هر دو طرف 5 کم می‌کنیم: 3x=15؛ تقسیم بر 3: x=5. بررسی: 3×5+5=20.","۱) 4x−7=21 را حل کن. ۲) 2(x+3)=18 را حل کن.","۱) 4x=28 پس x=7. ۲) x+3=9 پس x=6."],
-["کسرهای جبری و معادلات خطی","وقتی متغیر در مخرج است، مقدارهایی که مخرج را صفر می‌کنند مجاز نیستند. در معادله‌های کسری می‌توان با ضرب در مخرج مشترک کسرها را حذف کرد، اما باید محدودیت‌های دامنه را نگه داشت.","x/3+2=6؛ از دو طرف 2 کم می‌کنیم، x/3=4 و x=12. در 1/(x−2)، مقدار x=2 ممنوع است.","۱) x/5=7 را حل کن. ۲) برای 4/(x−1)، کدام مقدار x ممنوع است؟","۱) x=35. ۲) x=1 چون مخرج صفر می‌شود."],
-["نامعادله و بازه","نامعادله رابطه‌ای مانند x>3 است و به جای یک جواب ممکن است مجموعه‌ای از جواب‌ها داشته باشد. با جمع یا تفریق یک مقدار، جهت علامت عوض نمی‌شود؛ با ضرب یا تقسیم بر عدد منفی، جهت علامت باید برعکس شود.","−2x>6؛ تقسیم بر −2 علامت را معکوس می‌کند: x<−3. جواب را می‌توان روی خط اعداد یا به‌صورت بازه نمایش داد.","۱) x+4≤9 را حل کن. ۲) −3x<12 را حل کن.","۱) x≤5. ۲) تقسیم بر −3 جهت را عوض می‌کند: x>−4."],
-["دستگاه معادلات و کاربرد","دستگاه دو معادله دو شرط هم‌زمان دارد. روش جایگذاری یک متغیر را برحسب دیگری می‌نویسد؛ روش حذف، یکی از متغیرها را با جمع یا تفریق حذف می‌کند. جواب باید هر دو معادله را درست کند.","x+y=10 و x−y=2. با جمع دو معادله 2x=12 پس x=6؛ آنگاه y=4. بررسی: 6+4=10 و 6−4=2.","قیمت دو بلیت 10 واحد و اختلاف قیمت آن‌ها 2 واحد است. قیمت هر بلیت را با دستگاه مشابه پیدا کن.","اگر x+y=10 و x−y=2 باشد، جمع معادله‌ها x=6 می‌دهد و سپس y=4؛ قیمت‌ها 6 و 4 هستند."]]},
-percent:{name:"نسبت، درصد و رشد",units:[
-["معنی درصد و تبدیل","درصد یعنی «به ازای هر صد». برای تبدیل درصد به عدد اعشاری بر 100 تقسیم می‌کنیم و برای تبدیل اعشار به درصد در 100 ضرب می‌کنیم. همیشه مشخص کن درصد از چه مقدار پایه‌ای محاسبه می‌شود.","35٪=0.35=35/100. مقدار 35٪ از 240 برابر 0.35×240=84 است.","۱) 12٪ را به اعشار تبدیل کن. ۲) 15٪ از 80 چقدر است؟","۱) 0.12. ۲) 0.15×80=12."],
-["درصد تغییر و مقدار پایه","درصد تغییر = (مقدار جدید−مقدار قدیم)÷مقدار قدیم×100. مقدار قدیم مخرج است؛ کاهش نتیجه‌ای منفی دارد. تغییر مطلق و تغییر درصدی پاسخ‌های متفاوت‌اند.","فروش از 80 به 100 می‌رسد: (100−80)/80×100=25٪ رشد. از 100 به 80: (80−100)/100×100=−20٪ یعنی 20٪ کاهش.","قیمت از 200 به 170 می‌رسد. درصد تغییر را حساب کن.","(170−200)/200×100=−15٪؛ یعنی 15٪ کاهش."],
-["تخفیف، مالیات و درصدهای متوالی","تخفیف 20٪ یعنی پرداخت 80٪ قیمت پایه. برای درصدهای متوالی، هر درصد روی مقدار جدید اعمال می‌شود؛ به همین دلیل کاهش 20٪ و سپس افزایش 20٪ به مقدار آغازین برنمی‌گردد.","قیمت 100 با تخفیف 20٪ می‌شود 80؛ افزایش 20٪ روی 80 می‌شود 96، نه 100. ضریب‌های تغییر 0.8 و 1.2 در هم ضرب می‌شوند.","محصول 500 واحدی 10٪ تخفیف دارد. قیمت نهایی؟ سپس 10٪ مالیات روی قیمت تخفیف‌خورده اضافه شود.","بعد از تخفیف: 500×0.9=450. با مالیات: 450×1.1=495."],
-["نسبت و تناسب","دو نسبت متناسب‌اند اگر مقدار نسبت ثابت بماند. تناسب مستقیم یعنی با دو برابر شدن یکی، دیگری هم دو برابر می‌شود؛ این فرض باید از زمینهٔ مسئله پشتیبانی شود.","اگر 4 دفتر 120 واحد هزینه داشته باشند، با قیمت ثابت هر دفتر 30 واحد است و 7 دفتر 210 واحد هزینه دارد.","اگر 6 متر پارچه 900 واحد باشد، 10 متر با همان نرخ چقدر می‌شود؟","قیمت هر متر 900÷6=150؛ برای 10 متر: 1500 واحد."],
-["درصد در گزارش و کسب‌وکار","نرخ تبدیل، نرخ خطا و سهم هر گروه، همگی به صورت و مخرج درست وابسته‌اند. تعداد خام را کنار درصد بنویس و بازه زمانی و تعریف هر معیار را مشخص کن.","اگر 40 نفر از 200 بازدیدکننده خرید کنند، نرخ تبدیل 20٪ است. اگر 40 خرید از 100 بازدید باشد، نرخ 40٪ است؛ تعداد خرید برابر است اما نرخ متفاوت است.","از 750 پرونده، 45 پرونده ناقص است. نرخ نقص چقدر است؟","45÷750×100=6٪. گزارش کامل می‌گوید 45 پرونده از 750 پرونده، معادل 6٪، ناقص بوده‌اند."]]},
-functions:{name:"پیش‌جبر، مختصات و تابع",units:[
-["محور و مختصات","نقطهٔ (x,y) ابتدا حرکت افقی و سپس عمودی را نشان می‌دهد. محور x افقی و محور y عمودی است. علامت مختصات تعیین می‌کند نقطه در کدام ربع قرار می‌گیرد.","نقطهٔ (−2,3) دو واحد چپ و سه واحد بالا از مبدأ است. نقطهٔ (4,−1) چهار واحد راست و یک واحد پایین است.","نقطهٔ (−3,−2) در کدام ربع قرار دارد؟ نقطهٔ (0,5) روی کدام محور است؟","نقطهٔ اول در ربع سوم است؛ نقطهٔ دوم روی محور y قرار دارد."],
-["شیب خط و معادلهٔ خط","شیب برابر تغییر y تقسیم بر تغییر x است: m=(y₂−y₁)/(x₂−x₁)، به شرط x₂≠x₁. شیب مثبت نشان‌دهندهٔ افزایش خطی و شیب منفی نشان‌دهندهٔ کاهش است. فرم y=mx+b عرض از مبدأ b را نشان می‌دهد.","از (1,2) به (3,6): m=(6−2)/(3−1)=2. اگر خط y=2x+1 باشد، در x=0 مقدار y برابر 1 است.","شیب خط گذرنده از (2,1) و (4,7) چیست؟","m=(7−1)/(4−2)=6/2=3."],
-["تابع، دامنه و برد","تابع به هر ورودی مجاز دقیقاً یک خروجی نسبت می‌دهد. دامنه مجموعه ورودی‌های مجاز و برد مجموعه خروجی‌های حاصل است. تقسیم بر صفر و ریشهٔ زوج عدد منفی در اعداد حقیقی محدودیت ایجاد می‌کنند.","برای f(x)=2x+3، f(4)=11. برای g(x)=1/(x−2)، ورودی x=2 در دامنه نیست چون مخرج صفر می‌شود.","اگر f(x)=x²−1 باشد، f(3) چیست؟ ورودی ممنوع g(x)=1/(x+5) کدام است؟","f(3)=9−1=8؛ در تابع دوم x=−5 ممنوع است."],
-["تابع خطی، درجه‌دو و نمایی","تابع خطی نرخ تغییر ثابت دارد. تابع درجه‌دو شامل x² است و نمودار سهمی دارد. تابع نمایی متغیر را در توان دارد و برای رشد مرکب، جمعیت یا بهرهٔ مرکب مدل مناسبی است.","در y=3x+2 هر یک واحد افزایش x، y را 3 واحد افزایش می‌دهد. در y=x² مقدارهای x و −x خروجی یکسان دارند. در 2ˣ، خروجی با هر واحد افزایش x دو برابر می‌شود.","نوع رابطهٔ y=5x−1، y=x² و y=3ˣ را مشخص کن.","به‌ترتیب خطی، درجه‌دو و نمایی."],
-["نمودار و تفسیر داده","نمودار نمایش تصویری رابطه است. نمودار پراکندگی برای دو متغیر عددی، نمودار خطی برای روند زمانی و نمودار میله‌ای برای مقایسه گروه‌ها مناسب است. همبستگی به‌تنهایی علیت را ثابت نمی‌کند.","اگر نمودار فروش با زمان صعودی باشد، روند افزایش دیده می‌شود؛ اما بدون بررسی عوامل دیگر نمی‌توان گفت یک تغییر مشخص علت افزایش بوده است.","برای مقایسه فروش چهار شعبه و نمایش فروش ماهانهٔ یک سال، چه نمودارهایی انتخاب می‌کنی؟","برای چهار شعبه نمودار میله‌ای و برای روند ماهانه نمودار خطی مناسب است؛ عنوان، واحد و بازه زمانی باید روشن باشد."]]},
-geometry:{name:"هندسه از پایه",units:[
-["نقطه، خط، پاره‌خط و زاویه","نقطه مکان را مشخص می‌کند، خط در دو جهت بی‌نهایت ادامه دارد و پاره‌خط دو انتها دارد. زاویه از دو نیم‌خط با مبدأ مشترک ساخته می‌شود. زاویهٔ راست 90 درجه، زاویهٔ تند کمتر از 90 و باز بیشتر از 90 و کمتر از 180 درجه است.","دو زاویهٔ مکمل مجموع 90 درجه و دو زاویهٔ متمم مجموع 180 درجه دارند. اگر زاویه‌ای 35 درجه باشد، مکمل آن 55 درجه است.","متمم زاویهٔ 62 درجه چیست؟ زاویهٔ 120 درجه تند است یا باز؟","متمم 28 درجه است؛ 120 درجه زاویهٔ باز است."],
-["مثلث‌ها و مجموع زاویه‌ها","مجموع زاویه‌های داخلی هر مثلث در هندسهٔ اقلیدسی 180 درجه است. مثلث می‌تواند بر اساس ضلع‌ها متساوی‌الاضلاع، متساوی‌الساقین یا مختلف‌الاضلاع و بر اساس زاویه‌ها قائم‌الزاویه، تندزاویه یا باززاویه باشد.","در مثلثی با زاویه‌های 50 و 60 درجه، زاویهٔ سوم 180−50−60=70 درجه است. در مثلث قائم‌الزاویه یک زاویه 90 درجه است.","دو زاویهٔ مثلث 35 و 85 درجه‌اند. زاویهٔ سوم؟","180−35−85=60 درجه."],
-["محیط و مساحت شکل‌ها","محیط طول مرز شکل است؛ مساحت اندازهٔ سطح داخل آن. محیط واحد طول دارد اما مساحت واحد مربع. مستطیل: A=طول×عرض و P=2(طول+عرض). مثلث: A=قاعده×ارتفاع عمود÷2؛ دایره: A=πr² و محیط 2πr.","مستطیل 8 در 3: مساحت 24 واحد مربع و محیط 22 واحد. دایره با شعاع 2: مساحت تقریباً 12.57 و محیط تقریباً 12.57 واحد طول است.","مستطیل 9 در 4 را حساب کن. مثلث با قاعده 10 و ارتفاع 6 چه مساحتی دارد؟","مستطیل: مساحت 36 و محیط 26. مثلث: 10×6÷2=30 واحد مربع."],
-["قضیهٔ فیثاغورس","در مثلث قائم‌الزاویه، مربع وتر برابر مجموع مربع دو ضلع قائم است: c²=a²+b². وتر روبه‌روی زاویهٔ 90 درجه و بلندترین ضلع است. این قضیه برای مثلث قائم‌الزاویه به کار می‌رود.","ضلع‌های قائم 6 و 8: c=√(36+64)=√100=10. برای وتر 13 و ضلع قائم 5، ضلع دیگر √(169−25)=12 است.","اگر دو ضلع قائم 5 و 12 باشند، وتر چقدر است؟","c=√(25+144)=√169=13."],
-["دایره، حجم و مقیاس","شعاع از مرکز تا محیط و قطر دو برابر شعاع است. حجم منشور قائم برابر مساحت قاعده ضربدر ارتفاع است؛ حجم مکعب ضلع به توان سه. مقیاس نقشه نسبت فاصله روی نقشه به فاصله واقعی است و واحدها باید همسان شوند.","مکعب با ضلع 3، حجم 27 واحد مکعب دارد. در مقیاس 1:1000، یک سانتی‌متر روی نقشه معادل 1000 سانتی‌متر یا 10 متر در واقعیت است.","قطر دایره‌ای با شعاع 7؟ حجم مکعب ضلع 4؟","قطر 14؛ حجم مکعب 4³=64 واحد مکعب."],
-["مختصات، فاصله و کاربرد در داده","فاصلهٔ دو نقطه در صفحه با فیثاغورس محاسبه می‌شود: d=√((x₂−x₁)²+(y₂−y₁)²). در فضای چندبعدی نیز مربع اختلاف هر ویژگی جمع می‌شود. تفاوت مقیاس ویژگی‌ها می‌تواند فاصله را تحت تأثیر قرار دهد.","فاصلهٔ (1,2) تا (4,6) برابر √(3²+4²)=5 است. در تحلیل مشتریان، اگر هزینه سالانه هزاران واحد و تعداد خرید فقط ده‌ها واحد باشد، مقیاس‌بندی می‌تواند لازم شود.","فاصلهٔ (2,1) و (5,5) را بیاب.","√((5−2)²+(5−1)²)=√(9+16)=5."]]},
-probability:{name:"احتمال",units:[
-["آزمایش، نتیجه و فضای نمونه","آزمایش تصادفی نتیجهٔ دقیق نامعلوم دارد. فضای نمونه همه نتیجه‌های ممکن و رویداد مجموعه‌ای از آن‌هاست. در تاس سالم شش نتیجه هم‌شانس وجود دارد، اما در یک رویداد واقعی ممکن است نتایج هم‌شانس نباشند.","برای پرتاب سکه فضای نمونه {شیر، خط} است. رویداد «عدد زوج در تاس» برابر {2,4,6} است.","فضای نمونهٔ پرتاب یک تاس چیست؟ رویداد عدد بزرگ‌تر از 4 چیست؟","فضای نمونه {1,2,3,4,5,6} و رویداد {5,6} است."],
-["احتمال نظری و تجربی","در حالت هم‌شانس P(A)=حالت‌های مطلوب÷کل حالت‌ها. احتمال بین صفر و یک است. احتمال تجربی نسبت فراوانی مشاهده‌شده به تعداد آزمایش‌هاست و با تکرار ممکن است به احتمال نظری نزدیک‌تر شود، ولی تضمین نمی‌شود در هر نمونه چنین باشد.","احتمال عدد زوج در تاس سالم 3/6=1/2. اگر در 100 پرتاب، 47 بار عدد زوج بیاید، فراوانی تجربی 47٪ است.","احتمال عدد بزرگ‌تر از 2 در تاس سالم؟","حالت‌های مطلوب 3،4،5،6 یعنی 4 از 6؛ احتمال 2/3."],
-["متمم و جمع احتمال‌ها","متمم A یعنی A رخ ندهد و P(Aᶜ)=1−P(A). برای دو رویداد ناسازگار احتمال اجتماع برابر مجموع احتمال‌هاست؛ اگر امکان هم‌پوشانی باشد باید احتمال اشتراک کم شود.","احتمال حداقل یک شیر در یک پرتاب سکه 1/2 است. در دو پرتاب مستقل، احتمال حداقل یک شیر =1−P(دو خط)=1−1/4=3/4.","اگر احتمال باران 0.3 باشد، احتمال باران‌نیامدن چقدر است؟","1−0.3=0.7 یعنی 70٪."],
-["استقلال و احتمال شرطی","دو رویداد مستقل‌اند اگر وقوع یکی احتمال دیگری را تغییر ندهد؛ در این حالت P(A∩B)=P(A)P(B). احتمال شرطی P(A|B)=P(A∩B)/P(B) است، وقتی P(B)>0. استقلال را از صورت مسئله یا شواهد توجیه کن.","دو پرتاب سکه مستقل‌اند؛ احتمال دو شیر 1/2×1/2=1/4. اما احتمال کشیدن دو کارت بدون جایگذاری مستقل نیست، چون کارت اول ترکیب کارت‌های باقی‌مانده را تغییر می‌دهد.","در دو پرتاب مستقل سکه احتمال دو خط؟","1/2×1/2=1/4."],
-["شمارش و ترکیب‌ها","اصل ضرب می‌گوید اگر یک انتخاب m راه و انتخاب بعدی n راه داشته باشد، جفت انتخاب‌ها mn راه دارند. ترتیب در جایگشت مهم است؛ در ترکیب، انتخاب گروه بدون توجه به ترتیب است.","سه پیراهن و دو شلوار 3×2=6 ترکیب لباس می‌سازند. انتخاب 2 نفر از 4 نفر بدون ترتیب، 4×3÷2=6 راه دارد.","اگر 4 نوشیدنی و 3 غذا انتخاب شوند، چند وعده ممکن است؟","4×3=12 وعده؛ به شرط آنکه همه انتخاب‌ها با هم ممکن باشند."],
-["ریسک، نرخ پایه و تفسیر","احتمال یک رویداد با قطعیت آن فرق دارد. در تفسیر نتایج آزمون یا مدل، نرخ پایه و زمینه اهمیت دارند؛ حتی یک آزمون نسبتاً دقیق ممکن است در رویدادهای نادر مثبت کاذب زیادی تولید کند.","اگر یک رویداد فقط در 1٪ موارد رخ دهد، مثبت شدن یک آزمون به‌تنهایی به معنای 99٪ احتمال رخداد نیست؛ حساسیت، ویژگی و نرخ پایه همگی لازم‌اند.","چرا برای تفسیر خروجی یک مدل هشداردهنده باید نرخ پایه را بدانیم؟","چون احتمال پیشین وقوع رویداد، همراه با خطاهای مثبت و منفی مدل، احتمال واقعی رویداد پس از هشدار را تعیین می‌کند."]]},
-descriptive:{name:"آمار توصیفی",units:[
-["نوع داده و کیفیت","داده‌ها می‌توانند عددی پیوسته، عددی شمارشی، اسمی یا ترتیبی باشند. نوع متغیر مشخص می‌کند چه محاسبات و نمودارهایی معنادارند. پیش از تحلیل، واحد، دامنه، داده گمشده، رکورد تکراری و مقادیر ناممکن را بررسی کن.","کد پستی اگرچه عددی به نظر می‌رسد، معمولاً شناسه است نه مقدار قابل جمع. رتبه رضایت 1 تا 5 ترتیبی است و فاصله بین رتبه‌ها لزوماً برابر نیست.","برای سن، شهر، رتبه رضایت و تعداد سفارش نوع داده مناسب را مشخص کن.","سن عددی؛ شهر اسمی؛ رتبه رضایت ترتیبی؛ تعداد سفارش شمارشی است."],
-["میانگین، میانه و نما","میانگین مجموع تقسیم بر تعداد است؛ میانه مقدار وسط داده مرتب‌شده و نما پرتکرارترین مقدار است. میانگین از مقادیر بسیار بزرگ یا کوچک تأثیر می‌گیرد؛ میانه در داده‌های چوله معمولاً مقاوم‌تر است.","برای 2,3,3,6 میانگین 3.5، میانه 3 و نما 3 است. افزودن 20 میانگین را بالا می‌برد، اما میانه همچنان 3 باقی می‌ماند.","میانگین و میانهٔ 1,2,3,4,20 را بیاب.","میانگین 30÷5=6؛ میانه 3. مقدار 20 میانگین را بالا کشیده است."],
-["دامنه، واریانس و انحراف معیار","دامنه بیشینه منهای کمینه است. واریانس پراکندگی حول میانگین را با مربع اختلاف‌ها خلاصه می‌کند و انحراف معیار ریشهٔ دوم واریانس است؛ بنابراین در واحد اصلی داده گزارش می‌شود. برای جامعه و نمونه فرمول‌ها مخرج متفاوت دارند.","برای داده‌های 2 و 4، میانگین 3 و مجموع مربع اختلاف‌ها 1+1=2 است. واریانس جامعه 2/2=1 و انحراف معیار جامعه 1 است؛ واریانس نمونه 2/(2−1)=2.","اگر همه مقدارها برابر 7 باشند، دامنه و انحراف معیار چه می‌شود؟","هر دو صفر؛ هیچ پراکندگی‌ای وجود ندارد."],
-["چارک‌ها و صدک‌ها","چارک‌ها داده را به بخش‌های تقریبی چهارگانه تقسیم می‌کنند؛ میانه چارک دوم و فاصله بین چارکی IQR=Q3−Q1 است. صدک 90ام آستانه‌ای است که حدود 90٪ مشاهدات در آن یا پایین‌تر قرار می‌گیرند، با توجه به روش محاسبه.","اگر صدک 90 زمان پاسخ 8 ثانیه باشد، تقریباً 90٪ زمان‌ها در حد 8 ثانیه یا کمترند؛ این به‌تنهایی درباره 10٪ باقی‌مانده جزئیات نمی‌دهد.","چرا میانه و صدک 95 زمان پاسخ در کنار میانگین مفیدند؟","میانه تجربه معمول و صدک 95 بخش کندتر توزیع را نشان می‌دهد؛ میانگین ممکن است رفتار دنبالهٔ توزیع را پنهان کند."],
-["توزیع، چولگی و نمودار","هیستوگرام شکل توزیع عددی را نشان می‌دهد؛ نمودار جعبه‌ای میانه، چارک‌ها و مقادیر دورافتاده را خلاصه می‌کند. چولگی راست یعنی دنبالهٔ بلند در سمت مقادیر بزرگ. نمودار مناسب به نوع پرسش و متغیر بستگی دارد.","درآمد معمولاً می‌تواند چولگی راست داشته باشد؛ تعداد کمی درآمد بسیار بالا میانگین را از میانه بزرگ‌تر می‌کند. نمودار میله‌ای برای گروه‌ها و هیستوگرام برای توزیع عددی مناسب است.","برای توزیع سن 1000 نفر و مقایسه تعداد افراد در 5 شهر چه نموداری انتخاب می‌کنی؟","برای سن هیستوگرام؛ برای مقایسه شهرها نمودار میله‌ای."],
-["همبستگی و تفسیر محتاطانه","همبستگی خطی شدت و جهت رابطه خطی دو متغیر را از −1 تا +1 خلاصه می‌کند. همبستگی نزدیک صفر نبود هر نوع رابطه را تضمین نمی‌کند و همبستگی بالا نیز علیت را ثابت نمی‌کند. داده پرت می‌تواند ضریب همبستگی را تغییر دهد.","فروش بستنی و شنا ممکن است با دما همبسته باشند؛ این رابطه لزوماً به معنای آن نیست که یکی علت دیگری است. متغیر سومی مانند دما می‌تواند بر هر دو اثر بگذارد.","یک دلیل برای اینکه همبستگی، علیت نیست بنویس.","ممکن است متغیر مخدوش‌کننده یا علیت معکوس وجود داشته باشد؛ برای ادعای علّی به طراحی پژوهش و فرض‌های قوی‌تر نیاز داریم."]]},
-inference:{name:"استنباط آماری",units:[
-["جامعه، نمونه و چارچوب نمونه‌گیری","جامعه تمام موارد هدف و نمونه بخشی از آن است. چارچوب نمونه‌گیری فهرستی است که نمونه از آن انتخاب می‌شود. نمونه‌گیری تصادفی می‌تواند سوگیری انتخاب را کاهش دهد، اما عدم پاسخ و خطای اندازه‌گیری همچنان مهم‌اند.","نظرسنجی فقط از کاربران فعال، مشتریان ترک‌کرده را نادیده می‌گیرد؛ بزرگ‌بودن چنین نمونه‌ای این سوگیری را خودبه‌خود رفع نمی‌کند.","برای سنجش رضایت همه مشتریان، دو منبع احتمالی سوگیری نام ببر.","فهرست ناقص مشتریان و پاسخ‌ندادن افراد ناراضی یا بسیار مشغول."],
-["توزیع نمونه‌گیری و خطای معیار","آمار نمونه‌ای از نمونه‌ای به نمونه دیگر تغییر می‌کند. خطای معیار پراکندگی نمونه‌گیری یک برآوردگر را توصیف می‌کند؛ با فرض‌های معمول، خطای معیار میانگین تقریباً s/√n است. بزرگ‌شدن نمونه خطای تصادفی را کاهش می‌دهد، نه لزوماً سوگیری را.","اگر انحراف معیار 10 و اندازه نمونه 100 باشد، خطای معیار تقریبی میانگین 10/√100=1 است، با فرض‌های مناسب.","اگر اندازه نمونه از 100 به 400 افزایش یابد و s ثابت بماند، خطای معیار چه تغییری می‌کند؟","از 10/10=1 به 10/20=0.5 کاهش می‌یابد؛ نصف می‌شود."],
-["فاصله اطمینان","فاصله اطمینان بازه‌ای است که روش ساخت آن در تکرارهای بسیار، سطح پوشش مشخصی دارد. فاصله 95٪ به این معنا نیست که پس از محاسبه، پارامتر ثابت با احتمال 95٪ داخل همین بازه است؛ تفسیر دقیق به چارچوب استنباط وابسته است.","اگر برآورد میانگین 50 و فاصله 95٪ برابر [47,53] باشد، داده با مقادیر زیادی در این بازه سازگار است؛ پهنای بازه با تغییرپذیری و اندازه نمونه مرتبط است.","افزایش اندازه نمونه با شرایط مشابه معمولاً فاصله اطمینان را چه می‌کند؟","خطای معیار را کاهش می‌دهد و معمولاً فاصله را باریک‌تر می‌کند."],
-["فرض صفر، مقدار p و آزمون","فرض صفر H0 ادعای مرجع است. مقدار p احتمال مشاهده آماره‌ای به اندازه مشاهده‌شده یا افراطی‌تر را تحت فرض صفر و فرض‌های مدل بیان می‌کند؛ احتمال درست بودن فرض صفر نیست. سطح معنی‌داری باید با توجه به هزینه خطا و طراحی انتخاب شود.","p=0.03 یعنی اگر فرض صفر و فرض‌های مدل درست باشند، احتمال داده‌ای به این شدت یا شدیدتر 3٪ است؛ این عدد به‌تنهایی اندازه اثر یا اهمیت عملی را نشان نمی‌دهد.","آیا p=0.01 یعنی فرض صفر فقط 1٪ احتمال درست بودن دارد؟","خیر؛ p احتمال داده‌ها یا آماره تحت فرض صفر است، نه احتمال درست بودن فرض صفر."],
-["خطای نوع اول، دوم و توان","خطای نوع اول رد فرض صفر درست و خطای نوع دوم رد نکردن فرض صفر نادرست است. توان آزمون احتمال کشف اثر مشخص تحت فرض‌های مدل است. کاهش آستانه معنی‌داری می‌تواند خطای نوع اول را کم کند اما در شرایط دیگر توان را کاهش دهد.","در غربالگری، مثبت کاذب و منفی کاذب هزینه‌های متفاوتی دارند. انتخاب معیار باید پیامد تصمیم را در نظر بگیرد، نه فقط یک آستانهٔ قراردادی.","برای هشدار یک بیماری جدی، چرا هزینه خطای نوع دوم مهم است؟","چون منفی کاذب می‌تواند مورد واقعی را از دست بدهد؛ بااین‌حال باید هزینه مثبت کاذب و ظرفیت پیگیری نیز سنجیده شود."],
-["سوگیری، علیت و گزارش نتایج","نتیجه آماری به طراحی مطالعه، کیفیت اندازه‌گیری و فرض‌ها وابسته است. مخدوش‌گر می‌تواند رابطه ظاهری ایجاد کند؛ آزمون‌های متعدد احتمال یافته تصادفی را افزایش می‌دهند. اندازه اثر، فاصله عدم قطعیت و محدودیت‌ها را همراه مقدار p گزارش کن.","افزایش فروش پس از کمپین لزوماً اثبات نمی‌کند کمپین علت افزایش بوده؛ فصل، قیمت یا تغییر کانال فروش ممکن است اثر داشته باشد. گروه مقایسه و طراحی مناسب استدلال را تقویت می‌کنند.","برای ادعای اثر کمپین تبلیغاتی چه اطلاعاتی را بررسی می‌کنی؟","دوره قبل و بعد، گروه مقایسه، تغییرات هم‌زمان، تعریف معیار، حجم نمونه، عدم قطعیت و امکان سوگیری انتخاب."]]},
-linear:{name:"جبر خطی",units:[
-["بردار و اندازه‌گیری","بردار فهرست مرتب عددهاست و هر مؤلفه یک ویژگی یا مختصات را نشان می‌دهد. طول بردار دوبعدی با √(x²+y²) محاسبه می‌شود. ترتیب ویژگی‌ها باید در همه داده‌ها یکسان بماند.","بردار [3,4] طول √(9+16)=5 دارد. [سن، تعداد خرید] و [تعداد خرید، سن] معنای یکسانی ندارند چون ترتیب ویژگی‌ها عوض شده است.","طول بردار [5,12] را بیاب.","√(25+144)=13."],
-["جمع بردار و ضرب اسکالر","دو بردار هم‌اندازه مؤلفه‌به‌مؤلفه جمع می‌شوند. ضرب اسکالر هر مؤلفه را در یک عدد ثابت ضرب می‌کند. این عملیات فقط وقتی معنادارند که ابعاد سازگار باشند.","[1,2]+[3,4]=[4,6]. 3×[2,−1]=[6,−3].","[2,5]+[−1,3] و 2×[4,−2] را حساب کن.","[1,8] و [8,−4]."],
-["ضرب داخلی و زاویه","ضرب داخلی u·v مجموع حاصل‌ضرب مؤلفه‌های متناظر است. آن برای امتیازدهی خطی و ارتباط با زاویه بین بردارها کاربرد دارد. ضرب داخلی مثبت، منفی یا صفر می‌تواند معنای جهت‌گیری متفاوتی داشته باشد.","[1,2]·[3,4]=1×3+2×4=11. اگر دو بردار غیرصفر عمود باشند، ضرب داخلی آن‌ها صفر است.","[2,1]·[5,3] را حساب کن.","2×5+1×3=13."],
-["ماتریس و ابعاد","ماتریس جدول مستطیلی عددهاست. ماتریس m×n دارای m ردیف و n ستون است. در ضرب ماتریسی (m×n)(n×p)، ابعاد داخلی باید برابر باشند و نتیجه m×p خواهد بود.","ماتریس 2×3 در بردار 3×1 ضرب می‌شود و بردار 2×1 می‌دهد. ماتریس 4×3 در بردار 2×1 قابل ضرب نیست چون 3 با 2 برابر نیست.","آیا ماتریس 3×2 در ماتریس 2×5 قابل ضرب است و ابعاد جواب چیست؟","بله؛ ابعاد داخلی 2 برابرند و نتیجه 3×5 است."],
-["دستگاه خطی و تبدیل","دستگاه معادلات را می‌توان به شکل Ax=b نوشت. حل ممکن است یکتا، بی‌نهایت یا ناموجود باشد. تبدیل خطی ساختارهایی مانند جمع و ضرب اسکالر را حفظ می‌کند؛ ماتریس می‌تواند چرخش، مقیاس یا ترکیب خطی را نمایش دهد.","x+y=5 و x−y=1 جواب x=3,y=2 دارد. جایگذاری در هر دو معادله جواب را تأیید می‌کند.","دستگاه x+y=8 و x−y=2 را حل کن.","با جمع معادله‌ها 2x=10، پس x=5 و y=3."],
-["ویژه‌مقدار و کاربرد داده‌ای","ویژه‌بردار جهت خاصی است که تبدیل ماتریسی فقط اندازه آن را تغییر می‌دهد؛ ویژه‌مقدار ضریب آن تغییر است. این ایده در تحلیل مؤلفه‌های اصلی و کاهش بُعد نقش دارد، اما تفسیر نتایج به مقیاس‌بندی و ساختار داده وابسته است.","در PCA، جهت‌هایی با واریانس زیاد در داده پیدا می‌شوند تا نمایش کم‌بعد ساخته شود. این کار الزاماً ویژگی‌های مرتبط با هدف پیش‌بینی را حفظ نمی‌کند.","چرا قبل از PCA باید مقیاس ویژگی‌ها را بررسی کرد؟","چون ویژگی‌های دارای مقیاس عددی بزرگ ممکن است بر واریانس و جهت‌های اصلی غالب شوند؛ مقیاس‌بندی بر نتیجه اثر می‌گذارد."]]},
-calculus:{name:"حسابان و بهینه‌سازی",units:[
-["تابع و نرخ تغییر","حسابان تغییر کمیت‌ها را مطالعه می‌کند. نرخ تغییر متوسط برابر اختلاف خروجی‌ها تقسیم بر اختلاف ورودی‌هاست؛ مشتق حد نرخ تغییر متوسط در بازه‌ای کوچک‌شونده است. این مفهوم به شیب منحنی در یک نقطه مربوط است.","برای f(x)=x² از x=2 تا x=3، نرخ تغییر متوسط (9−4)/(3−2)=5 است. مشتق در نقطه x=2 برابر 2x=4 است.","نرخ تغییر متوسط x² از x=1 تا x=4 را حساب کن.","(16−1)/(4−1)=15/3=5."],
-["قواعد مشتق‌گیری","مشتق ثابت صفر، مشتق x برابر 1 و قاعده توان d(xⁿ)/dx=nxⁿ⁻¹ است. مشتق جمع برابر جمع مشتق‌هاست. برای ضرب و ترکیب توابع قواعد جداگانه وجود دارد.","f(x)=3x²+2x−7؛ مشتق f′(x)=6x+2. در x=1 مشتق 8 است.","مشتق 4x³−5x+2 را بنویس.","12x²−5."],
-["مشتق و نقاط بهینه","نقطه‌ای که مشتق صفر می‌شود نامزد نقطه بحرانی است، اما ممکن است کمینه، بیشینه یا نقطه زینی باشد. رفتار مشتق در اطراف نقطه و شکل تابع باید بررسی شود. مشتق در یک نقطه صفر همیشه به معنای کمینه نیست.","f(x)=(x−3)²؛ مشتق 2(x−3)، در x=3 صفر است. چون مربع هر عدد نامنفی است، f(3)=0 کمینه سراسری است.","برای f(x)=(x+2)² نقطه کمینه را پیدا کن.","مشتق 2(x+2)=0، پس x=−2؛ مقدار تابع صفر و کمینه است."],
-["انتگرال و انباشت","انتگرال معین تغییر تجمعی یا مساحت علامت‌دار زیر نمودار را مدل می‌کند. مشتق و انتگرال در شرایط مناسب عملیات معکوس‌اند. مساحت هندسی با مساحت علامت‌دار یکسان نیست اگر نمودار زیر محور باشد.","اگر سرعت ثابت 60 کیلومتر بر ساعت برای 2 ساعت باشد، مسافت 120 کیلومتر است. انتگرال سرعت نسبت به زمان، جابه‌جایی را در چارچوب مدل می‌دهد.","اگر نرخ تولید ثابت 5 واحد در ساعت و مدت 4 ساعت باشد، تولید کل چقدر است؟","5×4=20 واحد؛ انتگرال نرخ ثابت در بازه برابر نرخ ضربدر مدت است."],
-["مشتق جزئی و گرادیان","در تابع چندمتغیره، مشتق جزئی تغییر تابع نسبت به یک متغیر را با ثابت فرض‌کردن بقیه اندازه می‌گیرد. گرادیان بردار مشتق‌های جزئی است و جهت افزایش سریع محلی را نشان می‌دهد.","J(x,y)=x²+3y²؛ گرادیان (2x,6y). در (1,2) برابر (2,12) است.","برای J(x,y)=2x²+y²، گرادیان را بیاب.","∇J=(4x,2y)."],
-["گرادیان کاهشی و نرخ یادگیری","برای کمینه‌کردن تابع هزینه، پارامترها در جهت مخالف گرادیان به‌روزرسانی می‌شوند: θ جدید=θ قدیم−η∇J(θ). نرخ یادگیری η اگر بزرگ باشد ممکن است از کمینه عبور کند و اگر کوچک باشد آموزش کند شود. کمینه تابع آموزش تضمین تعمیم خوب نیست.","J(w)=(w−4)² و مشتق 2(w−4). اگر w=0 و η=0.1 باشد، مشتق −8 و w جدید=0−0.1(−8)=0.8 است.","برای w=6، η=0.1 و J(w)=(w−4)² یک گام انجام بده.","مشتق 2(6−4)=4؛ w جدید=6−0.1×4=5.6."]]},
-python:{name:"پایتون از صفر",units:[
-["محیط اجرا و متغیرها","پایتون زبان برنامه‌نویسی خوانایی است. متغیر نامی برای ارجاع به مقدار است؛ نوع داده بر عملیات مجاز اثر می‌گذارد. رشته متن، int عدد صحیح، float عدد اعشاری و bool مقدار درست/نادرست را نگه می‌دارد.","name=\"Sara\"؛ age=20؛ print(name,age). عبارت type(age) نوع int را گزارش می‌کند. متن و عدد را بدون تبدیل مناسب نمی‌توان همیشه جمع کرد.","متغیر price=12.5 و count=4 بساز و هزینه کل را حساب کن.","total=price*count؛ نتیجه 50.0 است."],
-["شرط‌ها و مقایسه","if/elif/else مسیر اجرای برنامه را بر اساس شرط تعیین می‌کند. مقایسه‌ها مانند ==، !=، < و >= مقدار بولی می‌سازند. برای برابری از == و برای انتساب از = استفاده می‌شود.","score=75؛ if score>=60: print(\"قبول\") else: print(\"نیاز به تمرین\"). شرط مرز را روشن و با مثال‌های دو سوی آن آزمایش کن.","شرطی بنویس که اگر n زوج بود پیام مناسب بدهد.","if n % 2 == 0: print(\"زوج\")؛ باقیمانده تقسیم بر 2 برای عدد زوج صفر است."],
-["حلقه‌ها و فهرست‌ها","فهرست مجموعه‌ای مرتب و قابل تغییر است. for روی اعضا پیمایش می‌کند و while تا زمانی که شرط برقرار باشد تکرار می‌کند. مراقب حلقه بی‌پایان و اندیس خارج از محدوده باش.","values=[2,4,6]؛ total=0؛ for v in values: total+=v. مجموع 12 است. len(values) تعداد عناصر را می‌دهد.","مجموع اعداد [1,3,5,7] را با حلقه حساب کن.","مجموع 16 است؛ در هر تکرار مقدار فعلی به total افزوده می‌شود."],
-["توابع و مدیریت خطا","تابع با def منطق قابل استفاده مجدد می‌سازد. پارامتر ورودی و return خروجی را مشخص می‌کند. اعتبارسنجی ورودی و مدیریت خطا کمک می‌کند برنامه در شرایط غیرمنتظره رفتار قابل پیش‌بینی داشته باشد.","def mean(values): اگر فهرست خالی باشد باید خطای روشن بدهد؛ در غیر این صورت return sum(values)/len(values). از تقسیم بر صفر جلوگیری کن.","چرا تابع میانگین باید فهرست خالی را بررسی کند؟","چون len فهرست صفر می‌شود و تقسیم بر صفر خطا می‌دهد؛ باید خطای مناسب یا نتیجه‌ای مستند برگرداند."],
-["فایل CSV و pandas","CSV داده جدولی را در قالب متن ذخیره می‌کند. pandas داده را در DataFrame می‌خواند؛ سپس shape، columns، dtypes، isna و duplicated برای بررسی اولیه مفیدند. پیش از تحلیل، نوع ستون و مقادیر گمشده را بررسی کن.","import pandas as pd؛ df=pd.read_csv(\"data.csv\")؛ print(df.shape)؛ print(df.isna().sum()). این‌ها ابعاد و شمارش مقادیر گمشده را نشان می‌دهند.","برای بررسی تکراری‌بودن رکوردها در pandas چه دستوری به کار می‌رود؟","df.duplicated().sum() تعداد ردیف‌های تکراری را برمی‌گرداند؛ حذف آن‌ها باید با شناخت معنای رکورد انجام شود."],
-["تحلیل، نمودار و بازتولیدپذیری","تحلیل قابل اعتماد باید از پرسش روشن، داده مناسب، پاک‌سازی مستند، محاسبه قابل بازتولید و نمودار خوانا تشکیل شود. ثبت نسخه فایل، فرض‌ها و مراحل کمک می‌کند نتیجه دوباره ساخته و بررسی شود.","گزارش یک CSV می‌تواند تعداد ردیف، تعداد مقادیر گمشده، میانه فروش و نمودار فروش ماهانه را نشان دهد. پیش از نتیجه‌گیری باید تعریف فروش و بازه زمانی روشن باشد.","سه موردی که قبل از گزارش میانگین فروش باید بررسی کنی چیست؟","نوع ستون و واحد، مقادیر گمشده/تکراری و دامنه زمانی؛ همچنین باید روشن شود هر ردیف چه چیزی را نمایندگی می‌کند."]]},
-ml:{name:"یادگیری ماشین",units:[
-["تعریف مسئله و خط مبنا","پیش از انتخاب الگوریتم، هدف، واحد پیش‌بینی، زمان تصمیم و معیار موفقیت را مشخص کن. رگرسیون مقدار عددی، طبقه‌بندی برچسب و خوشه‌بندی ساختار گروهی بدون برچسب هدف را بررسی می‌کند. خط مبنا معیار ساده‌ای برای مقایسه است.","پیش‌بینی قیمت خانه مسئله رگرسیون است؛ تشخیص ایمیل اسپم طبقه‌بندی. برای طبقه‌بندی نامتوازن، پیش‌بینی همیشه کلاس اکثریت می‌تواند خط مبنای ساده اما محدود باشد.","برای پیش‌بینی زمان تحویل، نوع مسئله چیست؟ برای تشخیص تراکنش تقلبی چطور؟","زمان تحویل رگرسیون؛ تقلب/غیرتقلب طبقه‌بندی."],
-["ویژگی، هدف و جداسازی داده","ویژگی‌ها X ورودی و هدف y خروجی مورد پیش‌بینی است. داده آموزش برای برازش، اعتبارسنجی برای انتخاب تنظیمات و آزمون برای ارزیابی نهایی به کار می‌رود. تقسیم باید با زمان و ساختار داده سازگار باشد.","اگر پیش‌بینی ماه آینده هدف است، استفاده تصادفی از داده‌های آینده در آموزش ممکن است نشت زمانی ایجاد کند. در چنین مسئله‌ای جداسازی زمانی می‌تواند مناسب‌تر باشد.","چرا نباید مجموعه آزمون را بارها برای انتخاب مدل به کار برد؟","چون تصمیم‌گیری مکرر با مشاهده نتیجه آزمون اطلاعات آن را وارد فرایند انتخاب می‌کند و برآورد نهایی بیش‌ازحد خوش‌بینانه می‌شود."],
-["پیش‌پردازش و نشت داده","مقادیر گمشده، دسته‌های متنی و مقیاس ویژگی‌ها ممکن است نیاز به تبدیل داشته باشند. پارامترهای پیش‌پردازش را فقط روی داده آموزش برازش کن و سپس همان تبدیل را روی اعتبارسنجی و آزمون اعمال کن. اطلاعات آینده یا هدف نباید ناخواسته وارد ویژگی‌ها شود.","اگر میانگین‌گذاری مقادیر گمشده با کل داده انجام شود، اطلاعات آزمون به مرحله آموزش نشت می‌کند. pipeline کمک می‌کند برازش تبدیل‌ها در بخش درست انجام شود.","چرا مقیاس‌بندی را ابتدا روی آموزش برازش می‌دهیم؟","برای اینکه میانگین و انحراف معیار آزمون وارد آموزش نشود؛ سپس همان پارامترهای آموزش روی آزمون اعمال می‌شوند."],
-["معیارهای رگرسیون و طبقه‌بندی","MAE میانگین قدرمطلق خطا و RMSE ریشه میانگین مربع خطاست؛ RMSE به خطاهای بزرگ حساس‌تر است. در طبقه‌بندی، precision سهم پیش‌بینی‌های مثبت درست و recall سهم موارد مثبت واقعی کشف‌شده است. انتخاب معیار به هزینه خطا وابسته است.","در تشخیص تقلب، recall بالا می‌تواند برای یافتن موارد بیشتر مهم باشد، اما precision پایین هشدارهای اشتباه را افزایش می‌دهد. accuracy در داده نامتوازن ممکن است گمراه‌کننده باشد.","اگر از دست‌دادن مورد مثبت بسیار پرهزینه باشد، کدام معیار را با دقت بررسی می‌کنی؟","Recall مهم است، اما باید precision و هزینه عملی هشدارهای غلط نیز بررسی شود؛ یک معیار به‌تنهایی کافی نیست."],
-["بیش‌برازش، کم‌برازش و اعتبارسنجی","کم‌برازش یعنی مدل نتوانسته الگوی اصلی را بیاموزد؛ بیش‌برازش یعنی مدل جزئیات و نویز آموزش را بیش از حد یاد گرفته و روی داده جدید ضعیف است. اعتبارسنجی، تنظیم منظم‌سازی و مدل ساده‌تر می‌توانند کمک کنند.","اگر خطای آموزش بسیار کم اما خطای آزمون زیاد باشد، بیش‌برازش محتمل است. اگر هر دو خطا زیاد باشند، مدل ممکن است کم‌برازش باشد یا ویژگی‌ها و داده کافی نباشند.","خطای آموزش 2 و آزمون 30 است؛ چه احتمالی را بررسی می‌کنی؟","بیش‌برازش یا تفاوت توزیع آموزش و آزمون؛ باید روش تقسیم، نشت داده و پیچیدگی مدل بررسی شود."],
-["استقرار، پایش و مسئولیت‌پذیری","مدل پس از استقرار ممکن است به‌دلیل تغییر توزیع داده، رفتار کاربران یا فرایند کسب‌وکار افت کند. پایش کیفیت داده و عملکرد، ثبت نسخه مدل و امکان بازگشت مهم است. حریم خصوصی، انصاف و پیامد خطا نیز بخشی از طراحی‌اند.","مدلی که روی داده قدیمی مشتریان خوب عمل کرده ممکن است پس از تغییر بازار افت کند. پایش دوره‌ای باید همراه با تعریف معیار، آستانه هشدار و مسئول پاسخ‌گویی باشد.","سه مورد برای پایش یک مدل در تولید نام ببر.","کیفیت و توزیع ورودی‌ها، معیار عملکرد و نرخ خطا، و پیامدهای ناخواسته یا تغییر عملکرد بین گروه‌ها."]]}
-};
+<!-- ================= SKILL ================= -->
+<section class="page" id="page-skill">
+<div class="skill-top"><button class="btn alt" data-page="learn"><span class="arrow back">→</span> <span data-en="Learning path">مسیر یادگیری</span></button><span class="muted" id="skillCrumb"></span></div>
+<div class="card skill-head" id="skillHead"></div>
+<div class="tabs" role="tablist"><button class="tab active" role="tab" data-tab="lesson" data-en="Lesson">درس</button><button class="tab" role="tab" data-tab="practice" data-en="Practice">تمرین</button></div>
+<div id="tab-lesson" class="tabpane"><div class="lesson-layout"><article class="card lesson-body" id="lessonBody"></article><aside class="card lesson-toc" id="lessonToc"></aside></div></div>
+<div id="tab-practice" class="tabpane" hidden><div id="practiceRoot"></div></div>
+</section>
 
-/* Expanded sub-lesson bank: additional prerequisite-first lessons. */
-const EXTRA_UNITS={"numbers":[["بخش‌پذیری و اعداد اول","عدد اول فقط دو مقسوم‌علیه مثبت دارد. برای آزمودن n، مقسوم‌علیه‌های اول تا ریشهٔ دوم n را بررسی کن.","۲۹ بر ۲، ۳ و ۵ بخش‌پذیر نیست و ریشه‌اش کمتر از ۶ است؛ پس اول است.","آیا ۳۹ اول است؟","خیر؛ ۳۹=۳×۱۳."],["ب.م.م و ک.م.م","ب.م.م بزرگ‌ترین مقسوم‌علیه مشترک و ک.م.م کوچک‌ترین مضرب مثبت مشترک است. تجزیه به عوامل اول راهی منظم برای یافتن آن‌هاست.","۱۲=۲²×۳ و ۱۸=۲×۳²؛ ب.م.م=۶ و ک.م.م=۳۶.","ب.م.م و ک.م.م ۲۰ و ۳۰ را بیاب.","ب.م.م=۱۰ و ک.م.م=۶۰."],["اعداد گویا و گنگ","عدد گویا به صورت نسبت دو عدد صحیح با مخرج ناصفر نوشته می‌شود. اعشار گویا پایان‌پذیر یا دوره‌ای است؛ اعشار گنگ پایان‌ناپذیر و غیردوره‌ای است.","۰٫۷۵=۳/۴ گویاست؛ √۲ گنگ است.","√۹، √۳ و ۰٫۱۲۱۲۱۲… را دسته‌بندی کن.","√۹ و اعشار دوره‌ای گویا هستند؛ √۳ گنگ است."],["تقریب و خطای اندازه‌گیری","خطای مطلق برابر قدرمطلق اختلاف تقریب و مقدار مرجع است. خطای نسبی آن را نسبت به مقدار مرجع می‌سنجد. دقت گردکردن باید با کاربرد سازگار باشد.","مقدار واقعی ۹٫۸ و تقریب ۱۰: خطای مطلق ۰٫۲ است.","۳٫۱۴۱۵۹ را تا دو رقم اعشار گرد کن.","۳٫۱۴؛ رقم سوم اعشار ۱ است."],["توان‌های گویا و منفی","توان کسری با ریشه مرتبط است و توان منفی معکوس توان مثبت را نشان می‌دهد؛ پایهٔ توان منفی نباید صفر باشد.","۲^(۱/۲)=√۲ و ۵⁻²=۱/۲۵.","۲^(۳/۲) را ساده کن.","√۸=۲√۲."],["لگاریتم به‌عنوان توان","log_b(x)=y یعنی b^y=x؛ پایه مثبت و نابرابر ۱ و آرگومان مثبت است. لگاریتم پاسخ پرسش «چه توانی؟» است.","log₂(۸)=۳ چون ۲³=۸.","log₃(۲۷) و log₁₀(۱۰۰۰) را حساب کن.","هر دو ۳ هستند."],["واحد و تحلیل ابعادی","پیش از محاسبه واحدها را یکسان کن. در نرخ‌ها، واحد خروجی بر واحد ورودی نوشته می‌شود؛ تحلیل ابعادی ناسازگاری فرمول را آشکار می‌کند.","۱۸۰ کیلومتر در ۳ ساعت برابر ۶۰ کیلومتر بر ساعت است.","۷۲۰۰ ثانیه چند ساعت است؟","۷۲۰۰÷۳۶۰۰=۲ ساعت."],["قدر مطلق و فاصله","قدر مطلق فاصله از صفر و همیشه نامنفی است. فاصلهٔ دو عدد a و b برابر |a−b| است.","فاصلهٔ −۴ تا ۳ برابر |−۴−۳|=۷ است.","فاصلهٔ −۸ و −۲ چقدر است؟","|−۸+۲|=۶."]],"algebra":[["تجزیه با عامل مشترک","برای تجزیه ابتدا بزرگ‌ترین عامل مشترک عددی و متغیری را بیرون بکش؛ سپس اتحادها را بررسی کن.","۶x²+۹x=۳x(۲x+۳).","۱۰x³−۱۵x² را تجزیه کن.","۵x²(۲x−۳)."],["اتحاد مربع مجموع و تفاضل","(a+b)²=a²+2ab+b² و (a−b)²=a²−2ab+b²؛ جملهٔ میانی دو برابر حاصل‌ضرب است.","(x+3)²=x²+6x+9.","(۲y−۵)² را باز کن.","۴y²−۲۰y+۲۵."],["تفاضل دو مربع","a²−b²=(a−b)(a+b). این اتحاد در تجزیه و ساده‌سازی کاربرد دارد.","x²−۱۶=(x−۴)(x+۴).","۹x²−۲۵ را تجزیه کن.","(۳x−۵)(۳x+۵)."],["معادلهٔ درجه‌دو و دلتا","برای ax²+bx+c=0، Δ=b²−4ac است. دلتا مثبت دو ریشهٔ حقیقی، صفر یک ریشهٔ تکراری و منفی هیچ ریشهٔ حقیقی می‌دهد.","x²−۵x+۶=۰؛ Δ=۱ و ریشه‌ها ۲ و ۳ هستند.","برای x²+2x+5=0 تعداد ریشه‌های حقیقی را بیاب.","Δ=−۱۶؛ ریشهٔ حقیقی ندارد."],["تکمیل مربع","نوشتن عبارت به صورت a(x−h)²+k رأس سهمی را مشخص می‌کند. برای x²+bx نصف b را گرفته و مربع می‌کنیم.","x²+6x+5=(x+3)²−4.","x²−۸x+۷ را به صورت مربع کامل بنویس.","(x−۴)²−۹."],["معادله‌های رادیکالی","با به توان رساندن دو طرف ممکن است جواب اضافی تولید شود؛ همهٔ جواب‌ها باید در معادلهٔ اصلی بررسی شوند.","√(x+1)=3 می‌دهد x=8 و جایگذاری جواب را تأیید می‌کند.","√(x+4)=x را حل کن.","با شرط x≥۰، جواب معتبر (۱+√۱۷)/۲ است."],["معادلهٔ قدرمطلق","|x| برای x≥۰ برابر x و برای x<۰ برابر −x است. معادلهٔ |x−a|=b برای b>۰ معمولاً دو جواب دارد.","|x−2|=5 پس x=7 یا x=−3.","|۲x+۱|=۷ را حل کن.","x=۳ یا x=−۴."],["دنبالهٔ حسابی و هندسی","در دنبالهٔ حسابی اختلاف ثابت و در هندسی نسبت ثابت است. این الگوها برای رشد و پیش‌بینی اولیه مفیدند.","۳،۷،۱۱ اختلاف ۴ دارد؛ ۲،۶،۱۸ نسبت ۳ دارد.","جملهٔ پنجم ۵،۸،۱۱،… چیست؟","۵+۴×۳=۱۷."]],"percent":[["بازیابی مقدار پایه","پس از افزایش r، مقدار اولیه برابر مقدار نهایی تقسیم بر ۱+r است؛ پس از کاهش r بر ۱−r تقسیم می‌کنیم.","قیمت پس از افزایش ۲۰٪ برابر ۱۲۰ است؛ پایه ۱۰۰ بوده است.","قیمت پس از تخفیف ۱۵٪ برابر ۳۴۰ است؛ قیمت اولیه؟","۳۴۰÷۰٫۸۵=۴۰۰."],["رشد مرکب","در رشد مرکب هر دوره درصد روی مقدار جدید اعمال می‌شود: مقدار نهایی=مقدار اولیه×(۱+r)^n.","۱۰۰۰ با رشد ۱۰٪ در دو دوره: ۱۰۰۰×۱٫۱²=۱۲۱۰.","۵۰۰ با رشد ۵٪ در سه دوره چقدر می‌شود؟","۵۰۰×۱٫۰۵³≈۵۷۸٫۸۱."],["تناسب معکوس","در تناسب معکوس حاصل‌ضرب دو متغیر ثابت است؛ برای مسافت ثابت، افزایش سرعت زمان را کاهش می‌دهد.","۴ کارگر کاری را در ۱۲ روز انجام می‌دهند؛ با ۶ کارگر، با بهره‌وری برابر، ۸ روز لازم است.","۳ کارگر در ۲۰ روز کار می‌کنند؛ ۵ کارگر چند روز لازم دارند؟","۳×۲۰÷۵=۱۲ روز."],["شاخص‌گذاری","شاخص معمولاً مقدار پایه را ۱۰۰ می‌گیرد و تغییر نسبی را نشان می‌دهد.","قیمت از ۲۰۰ به ۲۳۰ می‌رسد؛ شاخص جدید ۱۱۵ است.","مقدار از ۸۰ به ۹۲ رسیده؛ رشد چند درصد است؟","۱۵٪."],["نقطهٔ سربه‌سر","در مدل ساده درآمد=قیمت×تعداد و هزینه=هزینه ثابت+هزینه متغیر×تعداد. سربه‌سر زمانی است که درآمد و هزینه برابر شوند.","هزینه ثابت ۱۰۰۰، هزینه واحد ۵ و قیمت ۱۵: تعداد سربه‌سر ۱۰۰ است.","هزینه ثابت ۶۰۰، هزینه واحد ۴ و قیمت ۱۰؛ چند واحد برای سربه‌سر؟","۱۰q=۶۰۰+۴q، پس q=۱۰۰."],["میانگین وزنی","وقتی گروه‌ها وزن متفاوت دارند، میانگین وزنی مجموع مقدار×وزن تقسیم بر مجموع وزن‌هاست.","نمرهٔ ۸۰ با وزن ۳۰٪ و ۹۰ با وزن ۷۰٪ برابر ۸۷ است.","نمره‌های ۷۰ با وزن ۲ و ۹۰ با وزن ۳؛ میانگین؟","(۱۴۰+۲۷۰)÷۵=۸۲."],["درصد و نرخ تبدیل","نرخ همیشه صورت و مخرج مشخص دارد. تعداد خام را کنار درصد و بازهٔ زمانی گزارش کن.","۴۰ خرید از ۲۰۰ بازدید برابر نرخ تبدیل ۲۰٪ است.","۴۵ پرونده از ۷۵۰ پرونده ناقص‌اند؛ نرخ نقص؟","۴۵÷۷۵۰×۱۰۰=۶٪."],["مدل‌سازی هزینه","مدل خطی از هزینه ثابت و نرخ هر واحد ساخته می‌شود. متغیر، واحد و فرض ثابت‌بودن نرخ را واضح تعریف کن.","هزینه سفر C=20000+5000d است؛ d مسافت بر حسب کیلومتر است.","هزینه شروع ۳۰ و هر واحد ۸؛ هزینه ۷ واحد؟","۳۰+۸×۷=۸۶ واحد."]],"functions":[["دامنهٔ تابع","مخرج نباید صفر و زیر ریشهٔ زوج در اعداد حقیقی نباید منفی باشد. محدودیت‌های زمینه نیز بر دامنه اثر می‌گذارند.","√(x−2) دامنهٔ x≥۲ دارد؛ ۱/(x+4) در x=−۴ تعریف نشده است.","دامنهٔ √(۵−x) چیست؟","x≤۵."],["ترکیب توابع","f(g(x)) یعنی ابتدا g را محاسبه کنیم و خروجی را به f بدهیم؛ دامنهٔ ترکیب باید محدودیت هر دو تابع را رعایت کند.","f(x)=2x+1 و g(x)=x²؛ f(g(3))=19.","f(x)=x−4 و g(x)=3x؛ f(g(2))؟","g(2)=6 و f(6)=2."],["تابع وارون","وارون ورودی و خروجی را جابه‌جا می‌کند و برای تابع یک‌به‌یک روی دامنهٔ مناسب تعریف می‌شود. y=f(x) را برای x حل کن.","y=3x−6 پس x=(y+6)/3؛ وارون (x+6)/3 است.","وارون f(x)=2x+5 را بیاب.","f⁻¹(x)=(x−5)/2."],["انتقال نمودار","f(x)+k نمودار را k واحد بالا می‌برد؛ f(x−h) آن را h واحد به راست منتقل می‌کند.","y=(x−2)²+3 نسبت به y=x² دو واحد راست و سه واحد بالا است.","y=|x| به y=|x+4|−2 چگونه تبدیل می‌شود؟","چهار واحد چپ و دو واحد پایین."],["رشد نمایی","در تابع ab^t اگر b>1 رشد و اگر ۰<b<۱ کاهش نمایی داریم؛ نرخ درصدی هر دوره ثابت است اما افزایش مطلق ثابت نیست.","۱۰۰×۱٫۰۵^t رشد ۵٪ در هر دوره است.","۲۰۰ هر دوره نصف می‌شود؛ بعد از سه دوره؟","۲۵."],["قوانین لگاریتم","لگاریتم ضرب را به جمع، تقسیم را به تفریق و توان را به ضریب تبدیل می‌کند؛ آرگومان‌ها باید مثبت باشند.","log₁₀(100×1000)=2+3=5.","log₂(۳۲) چیست؟","۵."],["مثلثات پایه","در مثلث قائم‌الزاویه، sin=مقابل/وتر، cos=مجاور/وتر و tan=مقابل/مجاور است.","در مثلث ۳-۴-۵، sin زاویهٔ روبه‌روی ضلع ۳ برابر ۳/۵ است.","اگر ضلع مقابل ۵ و وتر ۱۳ باشد، sin؟","۵/۱۳."],["شیب و نرخ تغییر","شیب تغییر خروجی تقسیم بر تغییر ورودی است و واحدی برابر خروجی بر ورودی دارد.","از (۱،۴) به (۵،۱۶)، شیب برابر ۳ است.","شیب خط از (۲،۱) و (۴،۷)؟","(۷−۱)/(۴−۲)=۳."]],"geometry":[["خطوط موازی و زاویه‌ها","با خط مورب قاطع، زاویه‌های متناظر و متناوب داخلی در خطوط موازی برابرند و زاویه‌های داخلی هم‌جهت مکمل‌اند.","اگر یک زاویه ۶۵ درجه باشد، زاویهٔ داخلی هم‌جهت ۱۱۵ درجه است.","مکمل ۱۲۴ درجه چیست؟","۵۶ درجه."],["چهارضلعی‌ها","مجموع زاویه‌های داخلی چهارضلعی ۳۶۰ درجه است. در متوازی‌الاضلاع زاویه‌های مجاور مکمل و زاویه‌های مقابل برابرند.","اگر یک زاویهٔ متوازی‌الاضلاع ۷۰ درجه باشد، زاویهٔ مجاور ۱۱۰ درجه است.","سه زاویهٔ چهارضلعی ۸۰،۹۰،۱۰۰ است؛ چهارمی؟","۹۰ درجه."],["تشابه و مقیاس","در شکل‌های متشابه، ضلع‌های متناظر متناسب‌اند؛ با ضریب طولی k، مساحت k² و حجم شکل‌های مشابه k³ برابر می‌شود.","ضریب طولی ۳، مساحت را ۹ برابر و حجم را ۲۷ برابر می‌کند.","اگر ضلع‌ها دو برابر شوند، مساحت و حجم؟","مساحت ۴ و حجم ۸ برابر."],["کمان دایره","طول کمان برابر نسبت زاویهٔ مرکزی به ۳۶۰ ضربدر محیط دایره است.","برای شعاع ۶ و زاویهٔ ۶۰ درجه، طول کمان ۲π است.","طول کمان ۹۰ درجه در شعاع ۴؟","۲π."],["نقطهٔ میانی","مختصات نقطهٔ میانی میانگین مختصات دو سر پاره‌خط است.","میانهٔ (۲،۴) و (۶،۸) برابر (۴،۶) است.","نقطهٔ میانی (−۲،۳) و (۴،۹)؟","(۱،۶)."],["حجم و مساحت سطح","حجم فضای سه‌بعدی را می‌سنجد؛ حجم منشور برابر مساحت قاعده×ارتفاع است. واحد حجم مکعب است.","استوانهٔ شعاع ۲ و ارتفاع ۵ حجم ۲۰π دارد.","حجم مکعب‌مستطیل ۳×۴×۷؟","۸۴ واحد مکعب."],["بردارهای هندسی","بردار اندازه و جهت دارد. طول بردار (x,y) برابر √(x²+y²) است و مؤلفه‌ها برای جمع بردارها جداگانه جمع می‌شوند.","طول (۳،۴)=۵؛ (۳،۴)+(۱،−۲)=(۴،۲).","طول بردار (۵،۱۲)؟","۱۳."],["معادلهٔ دایره","دایرهٔ مرکز (h,k) و شعاع r معادلهٔ (x−h)²+(y−k)²=r² دارد.","مرکز (۲،−۱)، شعاع ۳: (x−۲)²+(y+۱)²=۹.","دایرهٔ مرکز مبدأ و شعاع ۵؟","x²+y²=۲۵."]],"probability":[["اصل جمع و ضرب","اگر انتخاب اول m و انتخاب دوم n راه داشته باشد، در صورت مجازبودن همه ترکیب‌ها m×n حالت داریم؛ حالت‌های جداگانه را جمع می‌کنیم.","۳ پیراهن و ۲ شلوار ۶ ترکیب می‌سازد.","۴ غذا و ۳ نوشیدنی چند ترکیب دارند؟","۱۲."],["جایگشت و ترکیب","در جایگشت ترتیب مهم است؛ در ترکیب ترتیب مهم نیست. C(n,r)=n!/[r!(n−r)!].","انتخاب رئیس و معاون از ۵ نفر ۲۰ حالت؛ کمیتهٔ دو نفره ۱۰ حالت دارد.","از ۶ نفر چند کمیتهٔ دونفره؟","C(6,2)=۱۵."],["احتمال شرطی","P(A|B)=P(A∩B)/P(B) برای P(B)>0؛ شرط‌گذاری فضای حالت را محدود می‌کند.","در تاس، با دانستن زوج‌بودن نتیجه، احتمال ۶ برابر ۱/۳ است.","با دانستن اینکه تاس نتیجه‌ای بزرگ‌تر از ۳ داده، احتمال ۶؟","حالت‌های ۴،۵،۶؛ احتمال ۱/۳."],["قضیهٔ بیز و نرخ پایه","بیز احتمال فرض را پس از مشاهدهٔ شواهد با نرخ پایه ترکیب می‌کند. در رخداد نادر، مثبت کاذب می‌تواند تعداد هشدارها را بالا ببرد.","اگر فقط ۱٪ افراد بیمار باشند، مثبت‌شدن تست به‌تنهایی به معنی احتمال ۹۰٪ بیماری نیست.","چرا نرخ پایه در تفسیر تست اهمیت دارد؟","چون تعداد افراد بدون بیماری زیاد است و مثبت کاذب می‌تواند سهم بزرگی از نتایج مثبت بسازد."],["استقلال و ناسازگاری","استقلال یعنی P(A∩B)=P(A)P(B). ناسازگاری یعنی اشتراک ناممکن؛ دو رویداد ناسازگار با احتمال مثبت مستقل نیستند.","در یک پرتاب، آمدن ۱ و آمدن ۲ ناسازگارند.","آیا باران و خیس‌شدن زمین مستقل‌اند؟","معمولاً خیر؛ باران احتمال خیس‌شدن را تغییر می‌دهد."],["امید ریاضی","امید ریاضی مجموع هر نتیجه ضربدر احتمال آن است. این مقدار میانگین بلندمدت است و نتیجهٔ یک رخداد را تضمین نمی‌کند.","تاس سالم: E(X)=(۱+۲+۳+۴+۵+۶)/۶=۳٫۵.","X با احتمال ۰٫۲ برابر ۱۰ و با احتمال ۰٫۸ برابر صفر است؛ امید؟","۲."],["واریانس متغیر تصادفی","واریانس میانگین مربع فاصله از امید و انحراف معیار ریشهٔ واریانس است؛ واحد واریانس مربع واحد متغیر است.","X با احتمال برابر ۰ یا ۲، امید ۱ و واریانس ۱ دارد.","X با احتمال برابر ۱ یا ۳؛ امید و واریانس؟","امید ۲ و واریانس ۱."],["قانون اعداد بزرگ","با تکرار مستقل زیاد، میانگین نمونه‌ای در شرایط مناسب به امید نظری نزدیک می‌شود؛ نتایج کوتاه‌مدت می‌توانند نامتوازن باشند.","چند پرتاب سکه ممکن است ۸۰٪ شیر بدهد؛ در تکرارهای بسیار، نسبت معمولاً به ۰٫۵ نزدیک می‌شود.","پس از پنج شیر متوالی، آیا پرتاب بعدی حتماً خط است؟","خیر؛ اگر مستقل باشد احتمال خط همچنان ۰٫۵ است."]],"descriptive":[["انواع متغیر","متغیر اسمی دسته‌بندی، ترتیبی رتبه‌بندی، فاصله‌ای اختلاف معنادار و نسبتی صفر واقعی دارد. نوع متغیر روش تحلیل را تعیین می‌کند.","رنگ چشم اسمی، رضایت ترتیبی، دمای سانتی‌گراد فاصله‌ای و درآمد نسبتی است.","شمارهٔ پیراهن متغیر کمی است؟","معمولاً برچسب اسمی است، نه مقدار قابل محاسبه."],["چارک و دامنهٔ بین‌چارکی","چارک‌ها دادهٔ مرتب را به چهار بخش تقسیم می‌کنند؛ IQR=Q3−Q1 پراکندگی ۵۰٪ میانی را می‌سنجد.","Q1=10 و Q3=18؛ IQR=8.","اگر Q1=12 و Q3=27، IQR چیست؟","۱۵."],["داده‌های پرت","قاعدهٔ رایج Tukey نامزدهای پرت را کمتر از Q1−1.5IQR یا بیشتر از Q3+1.5IQR می‌شمارد. پرت لزوماً خطا نیست و باید بررسی شود.","Q1=10 و Q3=18؛ IQR=8 و مرز بالا ۳۰ است؛ ۳۵ نامزد پرت است.","Q1=4 و Q3=10؛ مرز بالای قاعده؟","۱۹."],["همبستگی و رابطهٔ غیرخطی","ضریب همبستگی خطی جهت و شدت رابطهٔ خطی را خلاصه می‌کند؛ صفر بودنش نبود هر نوع رابطه را ثابت نمی‌کند.","رابطهٔ y=x² با x متقارن حول صفر ممکن است همبستگی خطی نزدیک صفر داشته باشد.","چرا نمودار پراکندگی مهم است؟","برای دیدن غیرخطی‌بودن، پرت‌ها و خوشه‌هایی که یک عدد خلاصه پنهان می‌کند."],["نمونه‌گیری و سوگیری","نمونهٔ در دسترس ممکن است نمایندهٔ جامعه نباشد؛ حجم نمونهٔ بزرگ سوگیری انتخاب را خودبه‌خود رفع نمی‌کند.","نظرسنجی فقط از دنبال‌کنندگان یک صفحه لزوماً نمایندهٔ همهٔ مشتریان نیست.","مشکل نظرسنجی فقط از کاربران یک اپ چیست؟","سوگیری پوشش؛ افراد خارج از اپ شانس ورود به نمونه ندارند."],["مقادیر گمشده","علت گم‌شدن داده بر روش تحلیل اثر دارد. جایگزینی همهٔ مقادیر با صفر می‌تواند مقدار واقعی را با نبود داده اشتباه بگیرد.","اگر ناراضی‌ها بیشتر فرم را خالی بگذارند، میانگین رضایت پاسخ‌دهندگان ممکن است بیش‌برآورد شود.","چرا صفر جایگزین عمومی خوبی نیست؟","چون ممکن است مقدار واقعی و معنادار باشد و توزیع را تحریف کند."],["میانگین در برابر میانه","میانگین از تمام مقادیر اثر می‌گیرد و میانه به پرت‌ها مقاوم‌تر است؛ هر دو می‌توانند برای توصیف داده مفید باشند.","۲،۳،۳،۴،۳۰ میانگین ۸٫۴ و میانه ۳ دارد.","برای درآمد با چند مقدار بسیار بزرگ چه خلاصه‌هایی گزارش می‌کنی؟","میانه و میانگین همراه با چارک‌ها یا نمودار توزیع."],["انتخاب نمودار","میله‌ای برای دسته‌ها، هیستوگرام برای توزیع، خطی برای زمان و پراکندگی برای دو متغیر عددی مناسب است. محور و واحد گمراه‌کننده برداشت را تغییر می‌دهد.","فروش ۲۴ ماهه را با نمودار خطی نمایش بده.","توزیع زمان تحویل در سه شهر را چگونه مقایسه می‌کنی؟","نمودار جعبه‌ای گروهی یا هیستوگرام‌های هم‌مقیاس."]],"inference":[["پارامتر و آماره","پارامتر ویژگی جامعه و آماره مقدار محاسبه‌شده از نمونه است. آماره برای برآورد پارامتر به کار می‌رود.","میانگین ۲۰۰ سفارش نمونه آماره است؛ میانگین تمام سفارش‌های ماه پارامتر است.","میانگین نمونه چه چیزی را برآورد می‌کند؟","پارامتر میانگین جامعهٔ هدف را، با توجه به روش نمونه‌گیری."],["توزیع نمونه‌گیری","توزیع نمونه‌گیری، توزیع یک آماره در نمونه‌های تکرارشده است و تغییر برآوردها را توضیح می‌دهد.","نمونه‌های متفاوت ۱۰۰ نفری میانگین‌های متفاوت می‌دهند.","آیا توزیع دادهٔ خام و توزیع میانگین نمونه‌ای یکی است؟","خیر؛ دومی توزیع آماره در نمونه‌گیری تکراری است."],["خطای معیار و حجم نمونه","برای میانگین، تحت شرایط معمول SE≈s/√n است؛ چهار برابر شدن حجم نمونه خطای معیار را تقریباً نصف می‌کند.","s=10 و n=100 پس SE≈1 است.","اگر n از ۲۵ به ۱۰۰ برسد، SE چه می‌شود؟","نصف می‌شود."],["تفسیر فاصلهٔ اطمینان","روش ۹۵٪ در نمونه‌گیری تکراری و تحت فرض‌ها حدود ۹۵٪ از فاصله‌های ساخته‌شده را شامل پارامتر واقعی می‌کند. فاصلهٔ پهن‌تر معمولاً عدم قطعیت بیشتری نشان می‌دهد.","فاصلهٔ اختلاف از ۱ تا ۷ با اثر مثبت سازگار است؛ اهمیت عملی جداگانه بررسی می‌شود.","فاصلهٔ ۹۵٪ چه معنایی ندارد؟","نمی‌گوید احتمال پارامتر ثابت در همین فاصله پس از محاسبه ۹۵٪ است."],["فرض صفر و مقابل","فرض صفر معمولاً نبود تفاوت یا اثر را بیان می‌کند؛ فرض مقابل پرسش پژوهش را به شکل قابل آزمون بیان می‌کند.","H0: μ=50 و H1: μ≠50 آزمون دوطرفه است.","برای بررسی میانگین بزرگ‌تر از ۱۰، فرض مقابل چیست؟","H1: μ>10."],["مقدار p و اهمیت عملی","p احتمال درست‌بودن فرض صفر نیست؛ تحت فرض صفر و مدل، میزان مشاهدهٔ نتیجه‌ای به این شدت یا افراطی‌تر را بیان می‌کند. اندازهٔ اثر و هزینه را هم بررسی کن.","افزایش ۰٫۱٪ ممکن است در نمونهٔ عظیم معنادار شود ولی اثر عملی اندکی داشته باشد.","چرا p=0.001 برای تصمیم محصول کافی نیست؟","اندازهٔ اثر، عدم قطعیت، سوگیری و پیامد عملی نیز مهم‌اند."],["توان آزمون","توان احتمال کشف اثر مشخص در صورت وجود آن است. معمولاً با افزایش نمونه یا اثر و کاهش نویز بالا می‌رود.","اثر کوچک معمولاً به نمونهٔ بزرگ‌تری از اثر بزرگ نیاز دارد.","سه عامل مؤثر بر توان را نام ببر.","حجم نمونه، اندازهٔ اثر، پراکندگی و آستانهٔ معناداری."],["آزمون‌های متعدد","انجام آزمون‌های متعدد احتمال مثبت کاذب را بالا می‌برد. اصلاح‌هایی مانند Bonferroni یا کنترل نرخ کشف کاذب برای هدف‌های متفاوت‌اند.","بررسی ده‌ها معیار و گزارش فقط معیار معنادار، نتیجه را خوش‌بینانه می‌کند.","چرا نباید فقط نتایج معنادار را گزارش کرد؟","چون انتخاب پس از مشاهده باعث افزایش مثبت کاذب و گزارش گزینشی می‌شود."]],"linear":[["ترکیب خطی و استقلال","ترکیب خطی جمع بردارها پس از ضرب در ضرایب است. استقلال یعنی هیچ برداری از ترکیب خطی دیگران ساخته نشود.","(۲،۴)=۲(۱،۲)، پس این دو بردار مستقل نیستند.","آیا (۳،۶) و (۱،۲) مستقل‌اند؟","خیر؛ بردار اول سه برابر دوم است."],["ابعاد ماتریس","ماتریس m×n دارای m سطر و n ستون است. ضرب AB زمانی تعریف می‌شود که ستون‌های A با سطرهای B برابر باشند.","A با ابعاد ۳×۲ و B با ابعاد ۲×۵ حاصل‌ضرب ۳×۵ می‌دهد.","ابعاد حاصل‌ضرب (۴×۳)(۳×۲) چیست؟","۴×۲."],["ضرب داخلی","ضرب داخلی مجموع حاصل‌ضرب مؤلفه‌های متناظر است. برای بردارهای ناصفر، ضرب داخلی صفر یعنی عمودبودن.","(۱،۲)·(۲،−۱)=۰، پس بردارها عمودند.","ضرب داخلی (۳،۴) و (۲،۱)؟","۱۰."],["دستگاه خطی و حذف گاوسی","دستگاه می‌تواند جواب یکتا، بی‌نهایت جواب یا هیچ جواب نداشته باشد. عملیات سطری سازگاری را آشکار می‌کند.","x+y=5 و x−y=1 جواب x=3,y=2 دارد.","x+y=4 و 2x+2y=10 چه وضعیتی دارد؟","ناسازگار؛ معادلهٔ دوم x+y=5 می‌گوید."],["رتبه و وارون‌پذیری","رتبه تعداد سطرها یا ستون‌های مستقل است. ماتریس مربعی با دترمینان غیرصفر وارون‌پذیر است.","[[1,2],[2,4]] وارون‌پذیر نیست؛ سطرها وابسته‌اند.","آیا [[1,0],[0,2]] وارون‌پذیر است؟","بله؛ دترمینان ۲ است."],["کمترین مربعات","روش کمترین مربعات ضرایبی را می‌یابد که مجموع مربع باقیمانده‌ها را کمینه می‌کند؛ معمولاً خط از همهٔ نقاط عبور نمی‌کند.","رگرسیون خطی خطی را انتخاب می‌کند که مجموع مربع خطاهای عمودی را کمینه کند.","چرا خط رگرسیون از همهٔ نقاط نمی‌گذرد؟","داده‌ها نویز دارند و هدف کمینه‌کردن مجموع خطاهاست."],["مقدار ویژه","Av=λv یعنی تبدیل ماتریسی در جهت v تنها اندازه را با ضریب λ تغییر می‌دهد. این مفهوم در PCA مهم است.","اگر A=2I باشد، هر بردار ناصفر مقدار ویژهٔ ۲ دارد.","اگر Av=5v باشد، مقدار ویژه چیست؟","۵."],["استانداردسازی ویژگی‌ها","ویژگی‌های با مقیاس متفاوت می‌توانند فاصله و الگوریتم‌های گرادیانی را تحت تأثیر قرار دهند. پارامترهای استانداردسازی باید فقط از آموزش محاسبه شوند.","درآمد هزاران واحدی ممکن است بر تعداد خرید ده‌ها واحدی غالب شود.","چرا استانداردسازی را روی کل داده برازش نمی‌دهیم؟","برای جلوگیری از نشت اطلاعات آزمون."]],"calculus":[["حد و رفتار نزدیک نقطه","حد رفتار تابع نزدیک نقطه را توصیف می‌کند و الزاماً مقدار تابع در آن نقطه نیست. حد چپ و راست باید برابر باشند.","(x²−1)/(x−1) برای x≠1 برابر x+1 است؛ حد در ۱ برابر ۲.","حد (x²−۹)/(x−۳) در x→۳؟","۶."],["پیوستگی","تابع در a پیوسته است اگر تعریف شود، حد داشته باشد و حد با مقدار تابع برابر باشد. سوراخ و پرش از شکل‌های ناپیوستگی‌اند.","تابع (x²−1)/(x−1) در x=1 سوراخ دارد مگر مقدار مناسبی تعریف شود.","سه شرط پیوستگی را بگو.","تعریف‌بودن، وجود حد، برابر بودن حد و مقدار تابع."],["مشتق به‌عنوان نرخ تغییر","مشتق حد نرخ تغییر متوسط و شیب مماس است؛ واحد آن خروجی بر ورودی است.","برای f(x)=x²، f'(x)=2x و در x=3 شیب ۶ است.","مشتق ۳x² چیست؟","۶x."],["قواعد مشتق","قاعدهٔ توان مشتق xⁿ را nxⁿ⁻¹ می‌دهد؛ برای ترکیب از قاعدهٔ زنجیره‌ای استفاده کن.","مشتق ۴x³−۲x برابر ۱۲x²−۲ است.","مشتق ۵x⁴+۳x²−۷؟","۲۰x³+۶x."],["قاعدهٔ زنجیره‌ای","برای f(g(x)) مشتق f'(g(x))×g'(x) است؛ مشتق بیرونی را در مشتق درونی ضرب کن.","مشتق (3x+1)² برابر ۶(۳x+۱)=۱۸x+۶ است.","مشتق (x²+1)³؟","۶x(x²+۱)²."],["انتگرال نامعین","انتگرال نامعین خانوادهٔ پادمشتق‌هاست و ثابت C دارد. مشتق جواب باید تابع اولیه را برگرداند.","∫2x dx=x²+C.","∫(3x²+2)dx؟","x³+2x+C."],["انتگرال معین","انتگرال معین تغییر تجمعی و در شرایط مناسب مساحت علامت‌دار زیر منحنی را نشان می‌دهد.","∫₀² x dx=[x²/2]₀²=۲.","∫₀³ 2x dx؟","۹."],["گرادیان کاهشی","پارامترها در جهت منفی گرادیان هزینه به‌روزرسانی می‌شوند. نرخ یادگیری بزرگ ممکن است واگرایی و نرخ کوچک کندی ایجاد کند.","θnew=θ−ηg؛ اگر θ=5، η=0.1 و g=2، مقدار جدید 4.8 است.","اگر θ=2، η=0.05 و g=−4 باشد؟","θnew=۲٫۲."]],"python":[["نوع داده و تبدیل","عدد، رشته و بولی انواع متفاوت‌اند. تبدیل رشتهٔ نامعتبر به عدد خطا می‌دهد؛ تبدیل int ممکن است بخش اعشاری را حذف کند.","int('12') برابر ۱۲ و float('3.5') برابر ۳٫۵ است.","چرا 2+'3' خطا می‌دهد؟","چون عدد و رشته نوع متفاوت دارند؛ تبدیل باید صریح باشد."],["شرط و منطق","if/elif/else مسیر اجرا را بر اساس شرط انتخاب می‌کند؛ and، or و not شرط‌ها را ترکیب می‌کنند.","0 <= score <= 100 شرط بررسی بازهٔ نمره است.","شرط x بین صفر و ده شامل دو سر را بنویس.","0 <= x <= 10"],["حلقه‌ها","for برای پیمایش و while برای تکرار تا برقراری شرط استفاده می‌شود. محدودهٔ range انتهای بازه را شامل نمی‌شود.","range(1,4) اعداد ۱،۲،۳ را می‌سازد.","برای پیمایش صفر تا چهار چه بنویسی؟","for i in range(5):"],["تابع و return","تابع با def تعریف می‌شود؛ پارامتر ورودی و return خروجی را تعیین می‌کند. تابع بهتر است مسئولیت مشخص داشته باشد.","def square(x): return x*x؛ square(4)=16.","تابع محاسبهٔ قیمت با مالیات ۹٪ را توصیف کن.","def with_tax(price): return price*1.09"],["ساختارهای داده","list ترتیب‌دار و تغییرپذیر، tuple تغییرناپذیر، set نگه‌دارندهٔ اعضای یکتا و dict نگاشت کلید به مقدار است.","student={'name':'Ali','score':18}؛ student['score']=18.","برای حذف تکرارهای لیست چه ساختاری مناسب است؟","set؛ اگر ترتیب مهم است، حفظ ترتیب را هم مدیریت کن."],["مدیریت فایل و خطا","with فایل را به‌صورت امن باز و پس از بلوک می‌بندد. خطاهای مشخص را بگیر و علت خطا را پنهان نکن.","with open('data.txt',encoding='utf-8') as f: text=f.read()","چرا except کلی خطرناک است؟","خطاهای نامرتبط را می‌گیرد و عیب‌یابی را سخت می‌کند."],["NumPy برداری","آرایه‌های NumPy محاسبات عددی برداری انجام می‌دهند؛ شکل و نوع داده را کنترل کن.","np.array([1,2,3])*2 نتیجهٔ [2,4,6] می‌دهد.","میانگین آرایهٔ a؟","np.mean(a)."],["pandas و groupby","DataFrame دادهٔ جدولی است؛ groupby و agg برای خلاصه‌سازی گروهی استفاده می‌شوند. پیش از تحلیل واحد مشاهده و نوع ستون را بررسی کن.","df.groupby('city')['sales'].mean() میانگین فروش هر شهر را می‌دهد.","جمع فروش به تفکیک شهر؟","df.groupby('city')['sales'].sum()."]],"ml":[["رگرسیون یا طبقه‌بندی","رگرسیون مقدار عددی و طبقه‌بندی برچسب یا احتمال کلاس را پیش‌بینی می‌کند. نوع مسئله از هدف تعیین می‌شود.","قیمت خانه رگرسیون؛ تشخیص تقلب طبقه‌بندی است.","تعداد تماس فردا و لغو مشتری؛ نوع مسئله؟","رگرسیون و سپس طبقه‌بندی."],["ماتریس درهم‌ریختگی","ماتریس تعداد مثبت درست، منفی درست، مثبت کاذب و منفی کاذب را نشان می‌دهد. هزینهٔ خطا معیار مناسب را تعیین می‌کند.","منفی کاذب یعنی مورد مثبت واقعی سالم پیش‌بینی شده است.","در غربالگری کدام خطا بیمار را سالم می‌گوید؟","منفی کاذب."],["منظم‌سازی L1 و L2","منظم‌سازی جریمه‌ای به هزینه اضافه می‌کند تا پیچیدگی کنترل شود. L1 می‌تواند ضرایب را صفر کند؛ L2 آن‌ها را کوچک می‌کند.","Lasso جریمهٔ قدرمطلق ضرایب دارد؛ Ridge مربع ضرایب را جریمه می‌کند.","کدام روش می‌تواند بعضی ضرایب را صفر کند؟","L1 یا Lasso."],["اعتبارسنجی متقاطع","در k-fold هر بخش یک بار اعتبارسنجی می‌شود. داده‌های زمانی یا گروهی ممکن است تقسیم خاصی بخواهند.","در ۵-fold پنج بار آموزش و ارزیابی با بخش متفاوت انجام می‌شود.","چرا تقسیم تصادفی برای سری زمانی همیشه مناسب نیست؟","ممکن است اطلاعات آینده به آموزش نشت کند."],["کلاس نامتوازن","در دادهٔ نامتوازن، accuracy می‌تواند گمراه‌کننده باشد؛ precision، recall، F1 و PR-AUC را با هزینهٔ خطا بسنج.","اگر ۹۹٪ تراکنش سالم باشند، پیش‌بینی همیشگی سالم accuracy=۹۹٪ دارد اما تقلب را نمی‌یابد.","چرا accuracy کافی نیست؟","چون ممکن است کلاس نادر و مهم کاملاً از دست برود."],["تفسیرپذیری مدل","اهمیت ویژگی رابطهٔ پیش‌بینانه را نشان می‌دهد، نه الزاماً اثر علّی. ویژگی‌های هم‌بسته می‌توانند اهمیت را ناپایدار کنند.","اهمیت سن در مدل ثابت نمی‌کند تغییر سن باعث تغییر هدف شده است.","آیا اهمیت بالا علیت را ثابت می‌کند؟","خیر."],["تنظیم ابرپارامتر","عمق درخت و نرخ یادگیری از جمله ابرپارامترها هستند. آن‌ها را با اعتبارسنجی انتخاب کن و مجموعهٔ آزمون را برای ارزیابی نهایی نگه دار.","درخت خیلی عمیق ممکن است آموزش را عالی و دادهٔ جدید را ضعیف پیش‌بینی کند.","چرا آزمون را بارها برای انتخاب مدل به کار نبریم؟","چون آزمون وارد فرایند انتخاب شده و ارزیابی خوش‌بینانه می‌شود."],["خط لولهٔ آموزش تا استقرار","خط لوله شامل اعتبارسنجی داده، پیش‌پردازش، آموزش، ارزیابی، ثبت نسخه و پایش است. تبدیل‌های زمان آموزش باید در پیش‌بینی هم یکسان باشند.","پارامترهای استانداردسازی آموزش باید برای دادهٔ جدید دوباره استفاده شوند.","سه عامل بازتولید مدل را نام ببر.","نسخهٔ داده، کد و پارامترها، و محیط وابستگی‌ها."]]};
-Object.keys(EXTRA_UNITS).forEach(id=>{if(C[id])C[id].units.push(...EXTRA_UNITS[id]);});
-const totalUnits=Object.values(C).reduce((n,subject)=>n+subject.units.length,0);
-const root=$("content");
-const escapeHTML=x=>String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-const old=window.openLesson;
-const practiceStoreKey="academyPracticeResponses";
-function readPractice(){try{return JSON.parse(localStorage.getItem(practiceStoreKey)||"{}");}catch(e){return {};}}
-function writePractice(data){try{localStorage.setItem(practiceStoreKey,JSON.stringify(data));}catch(e){}}
-window.openLesson=function(id){
- old(id);
- const subject=C[id];if(!subject)return;
- const existing=root.querySelector(".deep-curriculum");if(existing)existing.remove();
- const box=document.createElement("section");box.className="card deep-curriculum";box.style.marginTop="14px";
- let html="<h2>مسیر یادگیری مفصل: "+escapeHTML(subject.name)+"</h2><p>هر درس را به‌ترتیب پیش برو. علاوه بر حل مسئله، باید بتوانی مفهوم را توضیح بدهی، خطا را پیدا کنی و کاربردش را در دنیای واقعی بسازی.</p>";
- html+='<div class="practice-workshop"><h3>کارگاه تمرین آزاد</h3><p>این بخش فقط آزمون چهارگزینه‌ای نیست. در هر درس پنج فعالیت داری: حل مسئله، توضیح مفهومی، تغییر شرایط، کشف خطا و پروژه کوچک. پاسخ‌ها در مرورگر همین دستگاه ذخیره می‌شوند و می‌توانی هر زمان ادامه بدهی.</p><strong class="practice-count"></strong></div>';
- subject.units.forEach((u,i)=>{
-  const key=id+":"+i;
-  html+="<article class='curriculum-unit'><h3>درس "+(i+1)+" از "+subject.units.length+" — "+escapeHTML(u[0])+"</h3><h4>آموزش مفهومی</h4><p>"+escapeHTML(u[1])+"</p><h4>مثال حل‌شده</h4><div class='worked'>"+escapeHTML(u[2])+"</div>";
-  html+='<div class="practice-workshop" data-unit="'+key+'"><h4>تمرین ۱ — حل مسئله</h4><p>'+escapeHTML(u[3])+'</p><label>راه‌حل خودت را با مراحل بنویس</label><textarea rows="3" data-answer="'+key+':solve" placeholder="مراحل حل و پاسخ..."></textarea><details><summary>پاسخ تشریحی نمونه</summary><p>'+escapeHTML(u[4])+'</p></details>';
-  html+='<div class="activity"><h4>تمرین ۲ — توضیح به زبان خودت</h4><p>بدون کپی‌کردن متن درس، مفهوم «'+escapeHTML(u[0])+'» را برای یک دانش‌آموز تازه‌کار توضیح بده و یک مثال جدید بساز.</p><textarea rows="3" data-answer="'+key+':explain" placeholder="تعریف ساده و مثال خودت..."></textarea><p class="self-check">خودارزیابی: تعریف درست است؟ مثال با تعریف سازگار است؟</p></div>';
-  html+='<div class="activity"><h4>تمرین ۳ — تغییر شرایط</h4><p>مثال حل‌شده را دوباره حل کن، اما یکی از عددها یا فرض‌ها را تغییر بده. قبل از محاسبه پیش‌بینی کن چه تغییری در جواب رخ می‌دهد و سپس محاسبه کن.</p><textarea rows="3" data-answer="'+key+':change" placeholder="فرض جدید، پیش‌بینی و محاسبه..."></textarea></div>';
-  html+='<div class="activity"><h4>تمرین ۴ — کشف خطا</h4><p>یک راه‌حل اشتباه برای این مفهوم بساز؛ سپس محل خطا را مشخص کن و راه درست را توضیح بده. هدف فهمیدن دلیل قواعد است، نه حفظ جواب.</p><textarea rows="3" data-answer="'+key+':error" placeholder="راه‌حل اشتباه، محل خطا و اصلاح..."></textarea></div>';
-  html+='<div class="activity"><h4>تمرین ۵ — کاربرد واقعی و پروژه کوچک</h4><p>کاربردی از «'+escapeHTML(u[0])+'» در زندگی، دانشگاه یا محیط کار طراحی کن. صورت مسئله، داده‌ها و فرض‌ها را بنویس و راه‌حلت را توضیح بده.</p><textarea rows="3" data-answer="'+key+':project" placeholder="مسئله، داده‌ها، فرض‌ها و راه‌حل..."></textarea><button type="button" class="practice-save" data-save="'+key+'">ذخیره پاسخ‌ها و ثبت تمرین</button><span class="practice-status" aria-live="polite"></span></div></div>';
-  html+="<details><summary>مرور دوباره پاسخ تمرین اصلی</summary><p>"+escapeHTML(u[4])+"</p></details></article>";
- });
- html+='<p class="curriculum-progress">این ساختار برای "+totalUnits+" درس، بیش از "+(totalUnits*5)+" فعالیت یادگیری فراهم می‌کند. فعالیت‌های توضیحی و پروژه‌ای پاسخ یگانه ندارند؛ از معیارهای خودارزیابی استفاده کن.</p>';
- box.innerHTML=html;root.appendChild(box);
- const data=readPractice();
- box.querySelectorAll("textarea[data-answer]").forEach(el=>{el.value=data[el.dataset.answer]||"";el.addEventListener("input",()=>{const d=readPractice();d[el.dataset.answer]=el.value;writePractice(d);});});
- function refreshCount(){const d=readPractice();const done=Object.keys(d).filter(k=>k.endsWith(":completed")&&d[k]===true).length;const count=box.querySelector(".practice-count");if(count)count.textContent="درس‌های تمرین‌شده: "+done+" از "+totalUnits;}
- box.querySelectorAll("[data-save]").forEach(btn=>btn.addEventListener("click",()=>{const key=btn.dataset.save,d=readPractice();let filled=0;box.querySelectorAll("textarea[data-answer]").forEach(el=>{if(el.dataset.answer.startsWith(key+":")&&el.value.trim())filled++;});if(!filled){btn.nextElementSibling.textContent="برای ثبت، ابتدا دست‌کم یک پاسخ بنویس.";return;}d[key+":completed"]=true;writePractice(d);btn.nextElementSibling.textContent="ذخیره شد؛ "+filled+" فعالیت پاسخ داده شده.";refreshCount();}));
- refreshCount();
-};
-})();</script>
+<!-- ================= REVIEW ================= -->
+<section class="page" id="page-review">
+<div class="section"><h2 data-en="Daily review">مرور روزانه</h2><span class="muted" data-en="Spaced repetition of mastered skills, a daily challenge and the placement test">مرور فاصله‌دار مهارت‌های مسلط‌شده، چالش روزانه و آزمون تعیین سطح</span></div>
+<div id="reviewRoot"></div>
+</section>
 
+<!-- ================= ACHIEVEMENTS ================= -->
+<section class="page" id="page-achievements">
+<div class="section"><h2 data-en="Achievements">دستاوردها</h2><span class="muted" id="badgeCount"></span></div>
+<div id="badgeRoot" class="badges"></div>
+</section>
 
-<script>
-(function(){
-"use strict";
-const $=id=>document.getElementById(id);
-function parseMath(source,vars={}){
- const s=source.replace(/π/g,"pi").replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-");
- const tokens=s.match(/(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?|[A-Za-z_][A-Za-z_0-9]*|\*\*|[()+\-*/^,]/gi);
- if(!tokens||tokens.join("")!==s.replace(/\s+/g,""))throw Error("عبارت شامل نویسه یا عملگر پشتیبانی‌نشده است.");
- let i=0;
- const peek=()=>tokens[i],take=()=>tokens[i++];
- function primary(){
-  const t=take();if(t===undefined)throw Error("عبارت ناقص است.");
-  if(t==="+")return primary();if(t==="-")return -primary();
-  if(t==="("){const v=expr(0);if(take()!==")")throw Error("پرانتز بسته نشده است.");return v;}
-  if(/^(?:\d|\.)/.test(t))return Number(t);
-  if(/^[A-Za-z_]/.test(t)){
-   const name=t.toLowerCase();
-   if(peek()==="("){take();const a=expr(0);let b;if(peek()===","){take();b=expr(0);}if(take()!==")")throw Error("پرانتز تابع بسته نشده است.");
-    const funcs={sqrt:x=>Math.sqrt(x),sin:x=>Math.sin(x),cos:x=>Math.cos(x),tan:x=>Math.tan(x),asin:x=>Math.asin(x),acos:x=>Math.acos(x),atan:x=>Math.atan(x),abs:x=>Math.abs(x),ln:x=>Math.log(x),log:x=>b===undefined?Math.log10(x):Math.log(x)/Math.log(b),exp:x=>Math.exp(x),floor:x=>Math.floor(x),ceil:x=>Math.ceil(x),round:x=>Math.round(x),min:(x)=>Math.min(x,b),max:(x)=>Math.max(x,b),pow:x=>Math.pow(x,b)};
-    if(!funcs[name])throw Error("تابع شناخته‌شده نیست: "+name);if(["min","max","pow"].includes(name)&&b===undefined)throw Error("این تابع دو ورودی می‌خواهد.");return funcs[name](a);
-   }
-   if(Object.prototype.hasOwnProperty.call(vars,name))return vars[name];
-   if(name==="pi")return Math.PI;if(name==="e")return Math.E;
-   throw Error("متغیر ناشناخته است: "+name);
-  }
-  throw Error("بخش قابل‌خواندن نیست: "+t);
- }
- const prec={"+":1,"-":1,"*":2,"/":2,"^":3,"**":3,"%":2};
- function expr(min){let left=primary();while(prec[peek()]!==undefined&&prec[peek()]>=min){const op=take(),p=prec[op],right=expr(p+(op==="^"||op==="**"?0:1));if(op==="+")left+=right;else if(op==="-")left-=right;else if(op==="*")left*=right;else if(op==="/")left/=right;else if(op==="%")left%=right;else left=Math.pow(left,right);}return left;}
- const result=expr(0);if(i!==tokens.length)throw Error("بخش اضافی در عبارت وجود دارد: "+tokens.slice(i).join(" "));if(Number.isNaN(result))throw Error("نتیجه تعریف‌نشده است؛ دامنه را بررسی کن.");if(!Number.isFinite(result))throw Error("نتیجه محدود نیست؛ تقسیم بر صفر یا ورودی نامعتبر را بررسی کن.");return result;
-}
-const fmt=n=>new Intl.NumberFormat("fa-IR",{maximumFractionDigits:8}).format(n);
-function calculate(){
- const src=$("mathInput").value.trim(),out=$("mathResult");try{
-  const val=parseMath(src);let steps=["۱) عبارت ورودی: "+src,"۲) ترتیب عملیات: پرانتزها و توابع، سپس توان، ضرب/تقسیم و جمع/تفریق رعایت می‌شوند.","۳) نتیجهٔ عددی: "+fmt(val)];
-  const match=src.match(/^\s*(-?\d+(?:\.\d+)?)\s*([+*/^\-])\s*(-?\d+(?:\.\d+)?)\s*$/);
-  if(match){const a=Number(match[1]),op=match[2],b=Number(match[3]);steps=["۱) عدد اول: "+fmt(a)+"؛ عملگر: "+op+"؛ عدد دوم: "+fmt(b),"۲) محاسبهٔ "+a+" "+op+" "+b+" = "+val,"۳) نتیجه را با جایگذاری یا محاسبهٔ معکوس بررسی کن."];}
-  out.innerHTML='<div class="math-value" dir="ltr">'+fmt(val)+'</div><ol>'+steps.map(x=>"<li>"+x.replace(/&/g,"&amp;").replace(/</g,"&lt;")+"</li>").join("")+'</ol><p class="muted">توضیح مراحل برای عبارت‌های پیچیده فعلاً راهنمای عمومی است؛ هنوز سامانهٔ جبر نمادین کامل نیست.</p>';
- }catch(e){out.textContent="خطا: "+e.message;}
-}
-$("calculateMath").addEventListener("click",calculate);$("mathInput").addEventListener("keydown",e=>{if(e.key==="Enter")calculate();});
-$("clearMath").addEventListener("click",()=>{$("mathInput").value="";$("mathResult").textContent="عبارت پاک شد.";});
-$("mathKeys").addEventListener("click",e=>{const b=e.target.closest("button[data-insert]");if(!b)return;const inp=$("mathInput"),start=inp.selectionStart,end=inp.selectionEnd;inp.setRangeText(b.dataset.insert,start,end,"end");inp.focus();});
-function graph(){
- const canvas=$("graphCanvas"),ctx=canvas.getContext("2d"),xmin=Number($("xMin").value),xmax=Number($("xMax").value),ymin=Number($("yMin").value),ymax=Number($("yMax").value),expr=$("graphInput").value;
- if(!(xmax>xmin&&ymax>ymin)){ $("graphStatus").textContent="بازهٔ کمینه و بیشینه را درست وارد کن.";return;}
- const w=canvas.width,h=canvas.height,px=x=>(x-xmin)/(xmax-xmin)*w,py=y=>h-(y-ymin)/(ymax-ymin)*h;
- ctx.clearRect(0,0,w,h);ctx.fillStyle="#0a1524";ctx.fillRect(0,0,w,h);ctx.strokeStyle="#1b2b42";ctx.lineWidth=1;
- for(let x=Math.ceil(xmin);x<=xmax;x++){const X=px(x);ctx.beginPath();ctx.moveTo(X,0);ctx.lineTo(X,h);ctx.stroke();}
- for(let y=Math.ceil(ymin);y<=ymax;y++){const Y=py(y);ctx.beginPath();ctx.moveTo(0,Y);ctx.lineTo(w,Y);ctx.stroke();}
- ctx.strokeStyle="#5b7290";ctx.lineWidth=2;if(xmin<=0&&xmax>=0){ctx.beginPath();ctx.moveTo(px(0),0);ctx.lineTo(px(0),h);ctx.stroke();}if(ymin<=0&&ymax>=0){ctx.beginPath();ctx.moveTo(0,py(0));ctx.lineTo(w,py(0));ctx.stroke();}
- ctx.strokeStyle="#22d3ee";ctx.lineWidth=3;ctx.beginPath();let drawing=false,valid=0;
- for(let j=0;j<=w;j++){const x=xmin+j/w*(xmax-xmin);let y;try{y=parseMath(expr,{x});}catch(e){drawing=false;continue;}if(!Number.isFinite(y)||y<ymin-(ymax-ymin)*3||y>ymax+(ymax-ymin)*3){drawing=false;continue;}const Y=py(y);if(!drawing){ctx.moveTo(j,Y);drawing=true;}else ctx.lineTo(j,Y);valid++;}
- ctx.stroke();$("graphStatus").textContent=valid?"نمودار f(x) = "+expr+" رسم شد. مقدارهای خارج از بازه یا نقاط تعریف‌نشده نمایش داده نمی‌شوند.":"تابع قابل رسم نیست؛ عبارت و دامنه را بررسی کن.";
-}
-$("drawGraph").addEventListener("click",graph);$("graphInput").addEventListener("keydown",e=>{if(e.key==="Enter")graph();});
-function fraction(){
- const n=Math.max(0,Math.min(100,Math.floor(Number($("fracNum").value)||0))),d=Math.max(1,Math.min(100,Math.floor(Number($("fracDen").value)||1))),model=$("fracModel").value,visual=$("fractionVisual"),filled=n%d;
- $("fracNum").value=n;$("fracDen").value=d;visual.innerHTML="";
- if(model==="bar"){const bars=Math.max(1,Math.ceil(n/d));for(let k=0;k<bars;k++){const row=document.createElement("div");row.className="fraction-bar";for(let j=0;j<d;j++){const cell=document.createElement("span");cell.className="fraction-cell"+(k*d+j<n?" filled":"");cell.title=(k*d+j<n?"بخش رنگ‌شده":"بخش خالی");row.appendChild(cell);}visual.appendChild(row);}}
- else {const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");svg.setAttribute("viewBox","0 0 200 200");svg.setAttribute("class","fraction-circle");for(let j=0;j<d;j++){const start=-Math.PI/2+j*2*Math.PI/d,end=-Math.PI/2+(j+1)*2*Math.PI/d;const p=document.createElementNS(svg.namespaceURI,"path");let path;if(d===1)path="M100 100 L100 10 A90 90 0 1 1 99.99 10 Z";else path="M100 100 L"+(100+90*Math.cos(start))+" "+(100+90*Math.sin(start))+" A90 90 0 "+(end-start>Math.PI?1:0)+" 1 "+(100+90*Math.cos(end))+" "+(100+90*Math.sin(end))+" Z";p.setAttribute("d",path);p.setAttribute("fill",j<filled?"#22d3ee":"#13243a");p.setAttribute("stroke","#0a1524");p.setAttribute("stroke-width","2");svg.appendChild(p);}visual.appendChild(svg);}
- const gcd=(a,b)=>b?gcd(b,a%b):a||1,g=gcd(n,d);$("fractionText").textContent="کسر: "+n+"/"+d+" = "+(n/g)+"/"+(d/g)+" · مقدار اعشاری: "+fmt(n/d)+" · عدد مخلوط: "+Math.floor(n/d)+(filled?" و "+filled+"/"+d:"");
-}
-$("drawFraction").addEventListener("click",fraction);$("fracNum").addEventListener("input",fraction);$("fracDen").addEventListener("input",fraction);$("fracModel").addEventListener("change",fraction);
-function numberLine(){
- const a=Number($("lineMin").value),b=Number($("lineMax").value),p=Number($("linePoint").value),el=$("numberLineVisual");if(!(b>a)){ $("numberLineText").textContent="پایان باید بزرگ‌تر از شروع باشد.";return;}el.innerHTML="";const span=b-a;
- for(let i=0;i<=10;i++){const v=a+span*i/10,t=document.createElement("div");t.className="tick";t.style.left=(i*10)+"%";const lab=document.createElement("span");lab.textContent=Number(v.toFixed(4));t.appendChild(lab);el.appendChild(t);}
- if(p>=a&&p<=b){const point=document.createElement("div");point.className="point";point.style.left=((p-a)/span*100)+"%";point.title=String(p);el.appendChild(point);$("numberLineText").textContent="نقطهٔ "+fmt(p)+" روی خط اعداد مشخص شده است.";}else $("numberLineText").textContent="نقطه خارج از بازه است؛ بازه را تغییر بده.";
-}
-$("drawNumberLine").addEventListener("click",numberLine);["lineMin","lineMax","linePoint"].forEach(id=>$(id).addEventListener("change",numberLine));
-function shape(){
- const type=$("shapeType").value,a=Math.max(.1,Number($("shapeA").value)||.1),b=Math.max(.1,Number($("shapeB").value)||.1);let area,per,vol=null,label,svg="";
- if(type==="rect"){area=a*b;per=2*(a+b);label="مستطیل";svg='<rect x="35" y="25" width="220" height="130" rx="4" fill="rgba(34,211,238,.12)" stroke="#22d3ee" stroke-width="3"/><text x="145" y="175" text-anchor="middle" fill="#e6f1ff">طول '+a+'</text><text x="270" y="95" fill="#e6f1ff">عرض '+b+'</text>';}
- else if(type==="tri"){area=a*b/2;per=null;label="مثلث (قاعده و ارتفاع)";svg='<path d="M35 160 L255 160 L190 25 Z" fill="rgba(45,212,191,.12)" stroke="#2dd4bf" stroke-width="3"/><text x="145" y="185" text-anchor="middle" fill="#e6f1ff">قاعده '+a+'</text><text x="195" y="90" fill="#e6f1ff">ارتفاع '+b+'</text>';}
- else if(type==="circle"){area=Math.PI*a*a;per=2*Math.PI*a;label="دایره";svg='<circle cx="145" cy="95" r="70" fill="rgba(34,211,238,.12)" stroke="#22d3ee" stroke-width="3"/><line x1="145" y1="95" x2="215" y2="95" stroke="#e6f1ff" stroke-width="2"/><text x="175" y="85" fill="#e6f1ff">r='+a+'</text>'; }
- else {area=6*a*a;vol=a*a*a;per=null;label="مکعب";svg='<path d="M65 60 L165 25 L245 65 L145 100 Z M65 60 L65 155 L145 195 L145 100 M145 100 L245 65 L245 160 L145 195 M65 155 L165 120 L245 160 M165 25 L165 120" fill="rgba(45,212,191,.12)" stroke="#2dd4bf" stroke-width="2"/><text x="110" y="48" fill="#e6f1ff">ضلع '+a+'</text>';}
- $("shapeVisual").innerHTML='<svg viewBox="0 0 310 210" role="img" aria-label="'+label+'">'+svg+'</svg>';let result="شکل: "+label+" · مساحت سطح/ناحیه: "+fmt(area);if(per!==null)result+=" · محیط/محیط دایره: "+fmt(per);if(vol!==null)result+=" · حجم: "+fmt(vol);if(type==="tri")result+=" · محیط با قاعده و ارتفاع به‌تنهایی قابل محاسبه نیست."; $("shapeResult").textContent=result;
-}
-$("calcShape").addEventListener("click",shape);$("shapeType").addEventListener("change",()=>{const type=$("shapeType").value;$("shapeA").previousElementSibling.textContent=type==="circle"?"شعاع":type==="cube"?"طول ضلع":"اندازهٔ اول";shape();});
-calculate();graph();fraction();numberLine();shape();
-})();
-</script>
+<!-- ================= PROGRESS ================= -->
+<section class="page" id="page-progress">
+<div class="section"><h2 data-en="My progress">پیشرفت من</h2><span class="muted" id="saveStatus"></span></div>
+<div class="progress-grid"><div class="card" id="domainBars"></div>
+<div class="card"><h3 data-en="My notes">یادداشت‌های من</h3><p class="muted" data-en="Notes are saved on this device (and in the project's data folder when the local server or desktop app is running).">یادداشت‌ها روی همین دستگاه ذخیره می‌شوند (و وقتی سرور محلی یا نسخهٔ دسکتاپ اجرا شود، در پوشهٔ data پروژه هم).</p>
+<textarea id="studyNotes" rows="7" placeholder="فرمول‌ها، نکته‌ها، اشتباهات و سؤال‌هایی که هنوز داری..." data-en-placeholder="Formulas, tips, mistakes and open questions..."></textarea>
+<div class="row-btns"><button class="btn" id="saveNotes" data-en="Save notes">ذخیرهٔ یادداشت‌ها</button><button class="btn alt" id="exportData" data-en="Export backup (JSON)">خروجی پشتیبان JSON</button><label class="btn alt" for="importData" data-en="Restore backup">بازیابی پشتیبان</label><input id="importData" type="file" accept=".json,application/json" hidden><button class="btn alt danger" id="resetAll" data-en="Reset progress">بازنشانی پیشرفت</button></div>
+<p class="muted" id="backupStatus"></p></div></div>
+<div class="section"><h2 data-en="Library: Persian handbooks">کتابخانه: کتابچه‌های فارسی</h2><span class="muted" data-en="Longer reading for each area (in Persian)">مطالعهٔ تکمیلی هر حوزه</span></div>
+<div class="library">
+<a href="chapters/00-arithmetic-foundations.md" target="_blank" rel="noopener noreferrer"><b>00</b><span data-en="Arithmetic foundations">حساب پایه و اعداد</span></a>
+<a href="chapters/01-algebra-and-modeling.md" target="_blank" rel="noopener noreferrer"><b>01</b><span data-en="Algebra and modeling">جبر و مدل‌سازی</span></a>
+<a href="chapters/02-geometry-and-measurement.md" target="_blank" rel="noopener noreferrer"><b>02</b><span data-en="Geometry and measurement">هندسه و اندازه‌گیری</span></a>
+<a href="chapters/03-probability-and-statistics.md" target="_blank" rel="noopener noreferrer"><b>03</b><span data-en="Probability and statistics">احتمال و آمار</span></a>
+<a href="chapters/04-linear-algebra.md" target="_blank" rel="noopener noreferrer"><b>04</b><span data-en="Linear algebra">جبر خطی</span></a>
+<a href="chapters/05-python-data-analysis.md" target="_blank" rel="noopener noreferrer"><b>05</b><span data-en="Python for data analysis">پایتون برای تحلیل داده</span></a>
+<a href="chapters/06-calculus-optimization.md" target="_blank" rel="noopener noreferrer"><b>06</b><span data-en="Calculus and optimization">حسابان و بهینه‌سازی</span></a>
+<a href="chapters/07-sql-for-data-analysis.md" target="_blank" rel="noopener noreferrer"><b>07</b><span data-en="SQL for data analysis">SQL برای تحلیل داده</span></a>
+<a href="chapters/08-machine-learning-foundations.md" target="_blank" rel="noopener noreferrer"><b>08</b><span data-en="Machine learning foundations">مبانی یادگیری ماشین</span></a>
+<a href="chapters/09-exploratory-data-analysis.md" target="_blank" rel="noopener noreferrer"><b>09</b><span data-en="Exploratory data analysis">تحلیل اکتشافی داده</span></a>
+<a href="chapters/10-feature-engineering-model-evaluation.md" target="_blank" rel="noopener noreferrer"><b>10</b><span data-en="Feature engineering and model evaluation">مهندسی ویژگی و ارزیابی مدل</span></a>
+<a href="chapters/11-inferential-statistics-ab-testing.md" target="_blank" rel="noopener noreferrer"><b>11</b><span data-en="Inferential statistics and A/B testing">استنباط آماری و آزمون A/B</span></a>
+<a href="chapters/12-probability-distributions-simulation.md" target="_blank" rel="noopener noreferrer"><b>12</b><span data-en="Probability distributions and simulation">توزیع‌های احتمال و شبیه‌سازی</span></a>
+<a href="chapters/13-linear-and-logistic-regression.md" target="_blank" rel="noopener noreferrer"><b>13</b><span data-en="Linear and logistic regression">رگرسیون خطی و لجستیک</span></a>
+<a href="chapters/14-trees-and-ensembles.md" target="_blank" rel="noopener noreferrer"><b>14</b><span data-en="Trees and ensembles">درخت تصمیم و مدل‌های ترکیبی</span></a>
+<a href="chapters/15-clustering-and-pca.md" target="_blank" rel="noopener noreferrer"><b>15</b><span data-en="Clustering and PCA">خوشه‌بندی و PCA</span></a>
+<a href="chapters/16-time-series-forecasting.md" target="_blank" rel="noopener noreferrer"><b>16</b><span data-en="Time series forecasting">سری زمانی و پیش‌بینی</span></a>
+<a href="chapters/17-end-to-end-deployment-monitoring.md" target="_blank" rel="noopener noreferrer"><b>17</b><span data-en="Deployment and monitoring">استقرار و پایش مدل</span></a>
+</div>
+</section>
 
-<script>
-(function(){
-"use strict";
-const $=id=>document.getElementById(id);
-function solveLinear(){
- const l=$("eqLeft").value.trim(),r=$("eqRight").value.trim(),out=$("equationResult");
- try{
-  const f=x=>parseMath(l,{x})-parseMath(r,{x}),b=f(0),at1=f(1),at2=f(2),a=at1-b;
-  if(Math.abs((at2-b)-2*a)>1e-7*Math.max(1,Math.abs(at2),Math.abs(b)))throw Error("این ابزار فقط معادله‌های خطی را حل می‌کند.");
-  if(Math.abs(a)<1e-10){out.textContent=Math.abs(b)<1e-10?"هر دو طرف در نمونه‌های بررسی‌شده برابرند؛ معادله ممکن است بی‌نهایت جواب داشته باشد.":"ضریب x صفر است و تساوی برقرار نمی‌شود؛ معادله جواب ندارد.";return;}
-  const x=-b/a;out.innerHTML='<div class="math-value" dir="ltr">x = '+fmt(x)+'</div><ol><li>معادله را به شکل f(x) = سمت چپ − سمت راست = ۰ تبدیل کن.</li><li>در x=0 مقدار ثابت به دست می‌آید: '+fmt(b)+'.</li><li>ضریب x از f(1)−f(0) به دست می‌آید: '+fmt(a)+'.</li><li>حل ax+b=0: x=−b/a='+fmt(x)+'.</li><li>جایگذاری جواب را در معادلهٔ اصلی بررسی کن.</li></ol>';
- }catch(e){out.textContent="خطا: "+e.message;}
-}
-$("solveEquation").addEventListener("click",solveLinear);
-let geoPoints=[],geoN=7;
-function renderGeo(){
- const svg=$("geoBoard"),NS="http://www.w3.org/2000/svg",w=420,h=360,pad=35,dx=(w-pad*2)/(geoN-1),dy=(h-pad*2)/(geoN-1);svg.innerHTML="";
- const el=(tag,attrs)=>{const n=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));svg.appendChild(n);return n;};
- for(let r=0;r<geoN;r++)for(let c=0;c<geoN;c++){const x=pad+c*dx,y=pad+r*dy;el("line",{x1:x,y1:pad,x2:x,y2:h-pad,stroke:"#1b2b42","stroke-width":"1"});el("line",{x1:pad,y1:y,x2:w-pad,y2:y,stroke:"#1b2b42","stroke-width":"1"});}
- if(geoPoints.length>1){const points=geoPoints.map(p=>(pad+p.c*dx)+","+(pad+p.r*dy)).join(" ");el(geoPoints.length>2?"polygon":"polyline",{points,fill:geoPoints.length>2?"rgba(34,211,238,.15)":"none",stroke:"#22d3ee","stroke-width":"3","stroke-linejoin":"round"});}
- geoPoints.forEach((p,i)=>{const x=pad+p.c*dx,y=pad+p.r*dy;el("circle",{cx:x,cy:y,r:8,fill:"#f472b6",stroke:"#0a1524","stroke-width":"2"});const t=el("text",{x:x+10,y:y-10,fill:"#e6f1ff","font-size":"12"});t.textContent=String(i+1);});
- for(let r=0;r<geoN;r++)for(let c=0;c<geoN;c++){const exists=geoPoints.some(p=>p.r===r&&p.c===c);const circle=el("circle",{cx:pad+c*dx,cy:pad+r*dy,r:exists?0:5,fill:"#2dd4bf",stroke:"#2dd4bf",cursor:"pointer","data-r":r,"data-c":c});circle.addEventListener("click",()=>{if(geoPoints.some(p=>p.r===r&&p.c===c))return;geoPoints.push({r,c});renderGeo();});}
- let area=0,per=0;if(geoPoints.length>=2){for(let i=0;i<geoPoints.length;i++){const p=geoPoints[i],q=geoPoints[(i+1)%geoPoints.length];per+=Math.hypot(q.c-p.c,q.r-p.r);}if(geoPoints.length>=3)for(let i=0;i<geoPoints.length;i++){const p=geoPoints[i],q=geoPoints[(i+1)%geoPoints.length];area+=p.c*q.r-q.c*p.r;}area=Math.abs(area)/2;}
- $("geoResult").textContent=geoPoints.length<3?"رأس‌های انتخاب‌شده: "+geoPoints.length+"؛ برای محاسبهٔ مساحت حداقل سه نقطه لازم است.":("تعداد رأس‌ها: "+geoPoints.length+" · مساحت شبکه‌ای: "+fmt(area)+" واحد مربع · محیط تقریبی/دقیق شبکه‌ای: "+fmt(per)+" واحد");
-}
-$("geoSize").addEventListener("change",()=>{geoN=Number($("geoSize").value);geoPoints=[];renderGeo();});$("geoUndo").addEventListener("click",()=>{geoPoints.pop();renderGeo();});$("geoClear").addEventListener("click",()=>{geoPoints=[];renderGeo();});renderGeo();
-})();
-</script>
-<script>
-/* Dashboard: XP, levels, daily streak heatmap, next lesson, top-bar menus */
-(function(){
-"use strict";
-const $=id=>document.getElementById(id),fa=n=>new Intl.NumberFormat("fa-IR").format(n);
-const xpb=(n,pre="")=>"<bdi dir=\"ltr\">"+pre+fa(n)+" XP</bdi>";
-const XP_LESSON=120,XP_CORRECT=30,XP_PRACTICE=20;
-const quotes=[
- ["قطره قطره جمع گردد، وانگهی دریا شود.","ضرب‌المثل فارسی"],
- ["توانا بود هر که دانا بود.","فردوسی"],
- ["پرسیدن عیب نیست، ندانستن عیب است.","ضرب‌المثل فارسی"],
- ["رهرو آن است که آهسته و پیوسته رود.","ضرب‌المثل فارسی"],
- ["در ریاضیات، هنرِ طرح پرسش ارزشمندتر از حل آن است.","گئورگ کانتور"],
- ["کار نیکو کردن از پر کردن است.","ضرب‌المثل فارسی"],
- ["عدد، زبانی است که جهان با آن سخن می‌گوید.","برگرفته از اندیشهٔ فیثاغورسیان"]
-];
-const dayKey=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-const state=()=>(typeof S==="object"&&S)?S:{};
-function xpOf(s){return (s.done||[]).length*XP_LESSON+Number(s.correct||0)*XP_CORRECT+(s.practiceAnswered||[]).length*XP_PRACTICE+Math.min(Number(s.solved||0),400)*5+Number(s.reviewXP||0)+(s.placement?50:0)+Math.min(Number(s.pyRuns||0),100)*2;}
-const levelStart=l=>50*l*(l-1); /* سطح ۱: ۰، سطح ۲: ۱۰۰، سطح ۳: ۳۰۰ ... */
-function levelOf(xp){let l=1;while(levelStart(l+1)<=xp)l++;return l;}
-function activity(){const s=state();if(!s.activity||typeof s.activity!=="object"||Array.isArray(s.activity))s.activity={};return s.activity;}
-function streak(){const a=activity(),d=new Date();let n=0;if(!a[dayKey(d)])d.setDate(d.getDate()-1);while(a[dayKey(d)]){n++;d.setDate(d.getDate()-1);}return n;}
-function curveFor(cat){
- const W=320,H=170,cx=160,cy=118,sx=24,sy=22;let f,label;
- switch(cat){
-  case "جبر":f=x=>.55*x*x-1.6;label="y = ax² + bx + c";break;
-  case "پایه":f=x=>.6*x+.4;label="y = mx + b";break;
-  case "هندسه":f=null;label="A = ½ · b · h";break;
-  case "احتمال":case "آمار":f=x=>4.2*Math.exp(-x*x/2)-1.4;label="N(μ, σ²)";break;
-  case "حسابان":f=x=>.12*x*x*x-.9*x;label="f′(x) = lim Δy/Δx";break;
-  case "برنامه‌نویسی":f=x=>1.4*Math.sin(x*1.3);label="mean = sum / len";break;
-  default:f=null;label="ŷ = w·x + b";
- }
- let grid="";for(let i=-6;i<=6;i++){grid+=`<line x1="${cx+i*sx}" y1="18" x2="${cx+i*sx}" y2="${H-8}" />`;}for(let j=-4;j<=2;j++){grid+=`<line x1="20" y1="${cy+j*sy}" x2="${W-20}" y2="${cy+j*sy}" />`;}
- let body="";
- if(f){let p="";for(let i=0;i<=120;i++){const x=-3.4+i*6.8/120,y=f(x),X=cx+x*sx*1.6,Y=cy-y*sy;if(Y<6||Y>H-4)continue;p+=(p?"L":"M")+X.toFixed(1)+" "+Y.toFixed(1);}body=`<path d="${p}" class="cv"/>`;}
- else if(cat==="هندسه"){body=`<path d="M92 ${cy} L228 ${cy} L190 40 Z" class="cv" fill="rgba(34,211,238,.08)"/><line x1="190" y1="40" x2="190" y2="${cy}" stroke="#67e8f9" stroke-dasharray="4 4"/>`;}
- else{const pts=[[-2.6,-1.2],[-2,-.6],[-1.4,-.9],[-.8,-.1],[-.2,.1],[.4,.7],[1,.4],[1.6,1.3],[2.2,1.1],[2.8,1.9]];body=`<path d="M${cx-3*sx*1.6} ${cy+1.5*sy} L${cx+3*sx*1.6} ${cy-2.2*sy}" class="cv"/>`+pts.map(([x,y])=>`<circle cx="${cx+x*sx*1.6}" cy="${cy-y*sy}" r="4" fill="#67e8f9"/>`).join("");}
- return `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><filter id="glw" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
- <g stroke="rgba(56,189,248,.13)" stroke-width="1">${grid}</g>
- <g stroke="rgba(230,241,255,.55)" stroke-width="1.4"><line x1="20" y1="${cy}" x2="${W-20}" y2="${cy}"/><line x1="${cx}" y1="12" x2="${cx}" y2="${H-6}"/></g>
- <g fill="none" stroke="#22d3ee" stroke-width="4" stroke-linecap="round" filter="url(#glw)" style="--x:0">${body}</g>
- <g><rect x="${W-130}" y="22" width="118" height="28" rx="7" fill="rgba(8,20,34,.9)" stroke="rgba(34,211,238,.35)"/><text x="${W-71}" y="41" text-anchor="middle" fill="#67e8f9" font-size="12" font-family="ui-monospace,monospace" direction="ltr">${label}</text></g></svg>`;
-}
-function nextLesson(){const s=state();return (L.find(l=>!(s.done||[]).includes(l[0])))||null;}
-function renderDash(){
- const s=state();if(!$("ringFill"))return;
- const xp=xpOf(s),lv=levelOf(xp),a=levelStart(lv),b=levelStart(lv+1),frac=(xp-a)/(b-a);
- $("levelNum").textContent=fa(lv);$("levelNum2").textContent=fa(lv);$("xpTotal").innerHTML=xpb(xp);
- $("xpToNext").innerHTML=xpb(b-xp)+" تا سطح "+fa(lv+1);
- $("ringFill").style.strokeDashoffset=(314.16*(1-Math.max(.02,frac))).toFixed(2);
- const name=(typeof s.name==="string"&&s.name.trim())||"دوست من";
- $("welcomeName").textContent=name;$("menuName").textContent=name;$("avatarInitial").textContent=name.trim().charAt(0)||"؟";
- $("menuLevel").innerHTML="سطح "+fa(lv)+" · "+xpb(xp);
- /* استریک و نقشهٔ حرارتی: ستون‌ها هفته‌ها (شنبه تا جمعه) */
- const act=activity(),st=streak(),today=new Date();today.setHours(0,0,0,0);
- $("streakNum").textContent=fa(st);
- $("streakMsg").textContent=act[dayKey(today)]?"عالی! امروز هم تمرین کردی 🔥":(st?"ادامه بده! امروز یک تمرین کوتاه انجام بده 🔥":"امروز اولین قدم را بردار! 🔥");
- const dow=(today.getDay()+1)%7,start=new Date(today);start.setDate(start.getDate()-dow-7*11);
- let cells="";for(let i=0;i<84;i++){const d=new Date(start);d.setDate(start.getDate()+i);const k=dayKey(d),v=act[k]||0,future=d>today,lvl=future?0:v>=6?4:v>=4?3:v>=2?2:v>=1?1:0;
-  cells+=`<i data-l="${lvl}"${k===dayKey(today)?' class="today"':""}${future?' style="opacity:.25"':""} title="${d.toLocaleDateString("fa-IR")} — ${fa(v)} فعالیت"></i>`;}
- $("heatGrid").innerHTML=cells;
- $("heatWeeks").innerHTML=Array.from({length:12},(_,i)=>`<span>${i%2===0?fa(i+1):""}</span>`).join("");
- /* درس بعدی */
- const n=nextLesson();
- if(n){$("nextTitle").textContent=n[2]+" · "+n[1];$("nextDesc").textContent=n[4]+" — "+n[7];$("nextArt").innerHTML=curveFor(n[2]);$("continue").firstChild.textContent="شروع ";}
- else{$("nextTitle").textContent="همهٔ درس‌های آغازین تمام شد!";$("nextDesc").textContent="حالا وقت ساختن یک پروژهٔ واقعی با Python و انتشار آن در GitHub است.";$("nextArt").innerHTML=curveFor("داده‌کاوی");$("continue").firstChild.textContent="مرور دوباره ";}
- /* اعلان‌ها */
- const notes=[];
- if(!act[dayKey(today)])notes.push(["امروز هنوز تمرین نکرده‌ای",st?"برای حفظ استریک "+fa(st)+" روزه یک سؤال حل کن.":"با یک تمرین کوتاه استریک را شروع کن.","practice"]);
- if(n)notes.push(["درس پیشنهادی: "+n[1],n[4],"courses"]);
- notes.push(["تا سطح "+fa(lv+1)+": "+xpb(b-xp),"هر درس "+fa(XP_LESSON)+" و هر پاسخ صحیح "+fa(XP_CORRECT)+" XP دارد.","progress"]);
- $("bellMenu").innerHTML=notes.map(x=>`<button class="item" data-go="${x[2]}"><span class="note" style="padding:0">${x[0]}<small>${x[1]}</small></span></button>`).join("");
- $("bellMenu").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{closeMenus();go(b.dataset.go);});
- $("bellDot").hidden=!!act[dayKey(today)];
- const q=quotes[Math.floor(today.getTime()/864e5)%quotes.length];$("quoteText").textContent=q[0];$("quoteBy").textContent="— "+q[1];
-}
-function toast(html){let t=$("xpToast");if(!t){t=document.createElement("div");t.id="xpToast";t.className="toast";t.setAttribute("role","status");document.body.appendChild(t);}t.innerHTML=html;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2600);}
-/* ثبت فعالیت هنگام افزایش XP */
-let lastXp=xpOf(state()),lastLv=levelOf(lastXp);
-const prevSave=window.save;
-window.save=function(){
- const s=state(),xp=xpOf(s);
- if(xp>lastXp){const a=activity(),k=dayKey(new Date());a[k]=(a[k]||0)+1;const lv=levelOf(xp);toast(lv>lastLv?"🎉 به <b>سطح "+fa(lv)+"</b> رسیدی!":"<b>"+xpb(xp-lastXp,"+")+"</b> · ادامه بده!");lastLv=lv;}
- lastXp=xp;
- if(typeof prevSave==="function")prevSave.apply(this,arguments);
- renderDash();
-};
-const prevStats=window.stats;
-window.stats=function(){if(typeof prevStats==="function")prevStats.apply(this,arguments);const x=xpOf(state());if(x<lastXp){lastXp=x;lastLv=levelOf(x);}renderDash();};
-/* منوها */
-function closeMenus(){document.querySelectorAll(".menu.open").forEach(m=>m.classList.remove("open"));document.querySelectorAll("[aria-expanded=true]").forEach(b=>b.setAttribute("aria-expanded","false"));}
-function toggle(btn,menu){const open=!menu.classList.contains("open");closeMenus();if(open){menu.classList.add("open");btn.setAttribute("aria-expanded","true");}}
-$("bellBtn").onclick=e=>{e.stopPropagation();toggle($("bellBtn"),$("bellMenu"));};
-$("avatarBtn").onclick=e=>{e.stopPropagation();$("nameInput").value=state().name||"";toggle($("avatarBtn"),$("avatarMenu"));};
-document.querySelectorAll(".menu").forEach(m=>m.addEventListener("click",e=>e.stopPropagation()));
-$("avatarMenu").querySelectorAll("[data-page],#reset").forEach(b=>b.addEventListener("click",closeMenus));
-document.addEventListener("click",closeMenus);document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenus();});
-$("nameForm").onsubmit=e=>{e.preventDefault();state().name=$("nameInput").value.trim().slice(0,30);window.save();closeMenus();};
-/* جست‌وجوی سراسری */
-const gs=$("globalSearch");
-gs.addEventListener("keydown",e=>{if(e.key==="Enter"){go("courses");$("search").value=gs.value;courses();}});
-gs.addEventListener("input",()=>{if(document.getElementById("page-courses").classList.contains("active")){$("search").value=gs.value;courses();}});
-document.querySelector(".brand").addEventListener("click",e=>e.preventDefault());
-window.academyToast=toast;window.academyRender=renderDash;window.academyXp=()=>xpOf(state());window.academyLevel=()=>levelOf(xpOf(state()));window.academyStreak=streak;window.academyDayKey=dayKey;
-renderDash();
-const pg=decodeURIComponent(location.hash.slice(1));if(pg&&pg!=="home"&&pg!=="lesson"&&document.getElementById("page-"+pg))go(pg);
-})();
-</script>
+<p class="foot" data-en="Works offline · progress is saved on this device">نسخهٔ آفلاین · پیشرفت روی همین دستگاه ذخیره می‌شود</p>
+</main>
+
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/nerdamer/nerdamer.min.js"></script>
+<script src="assets/solver/core.js"></script>
+<script src="assets/solver/algebra.js"></script>
+<script src="assets/solver/calculus.js"></script>
+<script src="assets/solver/matrix.js"></script>
+<script src="assets/solver/stats.js"></script>
+<script src="assets/solver/graph.js"></script>
+<script src="assets/curriculum/skills.js"></script>
+<script src="assets/curriculum/lessons.js"></script>
+<script src="assets/learn/md.js"></script>
+<script src="assets/learn/check.js"></script>
+<script src="assets/learn/practice.js"></script>
 <script src="assets/learn/review-bank.js"></script>
-<script src="assets/learn/extra.js"></script>
+<script src="assets/learn/problem-ui.js"></script>
+<script src="assets/app/store.js"></script>
+<script src="assets/app/shell.js"></script>
+<script src="assets/learn/learn.js"></script>
+<script src="assets/learn/review.js"></script>
 <script src="assets/pwa.js"></script>
-</body></html>
+</body>
+</html>
