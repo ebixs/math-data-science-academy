@@ -81,7 +81,7 @@
       }
       const h = t.match(/^(#{1,4})\s+(.*)$/);
       if (h) {
-        flush(); const lv = Math.min(4, h[1].length + 1);
+        flush(); const lv = Math.max(2, Math.min(4, h[1].length));
         const id = "h-" + out.length;
         out.push("<h" + lv + ' id="' + id + '">' + inline(h[2]) + "</h" + lv + ">"); i++; continue;
       }

@@ -4,7 +4,7 @@
   "use strict";
   const $ = id => document.getElementById(id);
   const NS = "http://www.w3.org/2000/svg";
-  const fa = n => new Intl.NumberFormat("fa-IR").format(n);
+  const fa = n => window.I18N.num(n), tr = window.I18N.T;
   const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
   const svgPoint = (svg, ev) => { const p = svg.createSVGPoint(); p.x = ev.clientX; p.y = ev.clientY; return p.matrixTransform(svg.getScreenCTM().inverse()); };
 
@@ -12,12 +12,12 @@
   const S = 46; /* side length */
   const h3 = Math.sqrt(3) / 2;
   const SHAPES = {
-    hex: { name: "شش‌ضلعی", color: "#fbbf24", tri: 6, pts: [[S, 0], [S / 2, S * h3], [-S / 2, S * h3], [-S, 0], [-S / 2, -S * h3], [S / 2, -S * h3]] },
-    trap: { name: "ذوزنقه", color: "#fb7185", tri: 3, pts: [[S, 0], [S / 2, S * h3], [-S / 2, S * h3], [-S, 0]].map(([x, y]) => [x, y - S * h3 / 2]) },
-    rhom: { name: "لوزی", color: "#38bdf8", tri: 2, pts: [[0, -S * h3], [S / 2, 0], [0, S * h3], [-S / 2, 0]].map(([x, y]) => [x * 1, y]) },
-    tri: { name: "مثلث", color: "#4ade80", tri: 1, pts: [[0, -S * h3 * 2 / 3], [S / 2, S * h3 / 3], [-S / 2, S * h3 / 3]] },
-    sq: { name: "مربع", color: "#fb923c", tri: null, pts: [[-S / 2, -S / 2], [S / 2, -S / 2], [S / 2, S / 2], [-S / 2, S / 2]] },
-    thin: { name: "لوزی باریک", color: "#e9d5a6", tri: null, pts: [[0, -S * Math.cos(Math.PI / 12)], [S * Math.sin(Math.PI / 12), 0], [0, S * Math.cos(Math.PI / 12)], [-S * Math.sin(Math.PI / 12), 0]] },
+    hex: { name: tr("شش‌ضلعی", "hexagon"), color: "#fbbf24", tri: 6, pts: [[S, 0], [S / 2, S * h3], [-S / 2, S * h3], [-S, 0], [-S / 2, -S * h3], [S / 2, -S * h3]] },
+    trap: { name: tr("ذوزنقه", "trapezoid"), color: "#fb7185", tri: 3, pts: [[S, 0], [S / 2, S * h3], [-S / 2, S * h3], [-S, 0]].map(([x, y]) => [x, y - S * h3 / 2]) },
+    rhom: { name: tr("لوزی", "rhombus"), color: "#38bdf8", tri: 2, pts: [[0, -S * h3], [S / 2, 0], [0, S * h3], [-S / 2, 0]].map(([x, y]) => [x * 1, y]) },
+    tri: { name: tr("مثلث", "triangle"), color: "#4ade80", tri: 1, pts: [[0, -S * h3 * 2 / 3], [S / 2, S * h3 / 3], [-S / 2, S * h3 / 3]] },
+    sq: { name: tr("مربع", "square"), color: "#fb923c", tri: null, pts: [[-S / 2, -S / 2], [S / 2, -S / 2], [S / 2, S / 2], [-S / 2, S / 2]] },
+    thin: { name: tr("لوزی باریک", "thin rhombus"), color: "#e9d5a6", tri: null, pts: [[0, -S * Math.cos(Math.PI / 12)], [S * Math.sin(Math.PI / 12), 0], [0, S * Math.cos(Math.PI / 12)], [-S * Math.sin(Math.PI / 12), 0]] },
   };
   function patternBlocks() {
     const svg = $("pbBoard"); if (!svg) return;
@@ -34,10 +34,10 @@
         el("polygon", { points: s.pts.map(q => q.join(",")).join(" "), fill: s.color, stroke: p.id === sel ? "#ffffff" : "#0a1524", "stroke-width": p.id === sel ? 3 : 2, "stroke-linejoin": "round", opacity: .95 }, g);
       });
       const tri = pieces.reduce((t, p) => t + (SHAPES[p.k].tri || 0), 0), other = pieces.filter(p => !SHAPES[p.k].tri).length;
-      const hexFrac = tri ? simplifyFrac(tri, 6) : "۰";
-      $("pbOut").innerHTML = `تعداد قطعه‌ها: ${fa(pieces.length)} · مساحت بر حسب مثلث سبز: <b>${fa(tri)}</b> · اگر شش‌ضلعی زرد = ۱ باشد، شکل‌های مثلثی برابرند با <b dir="ltr">${hexFrac}</b>${other ? " · (" + fa(other) + " مربع/لوزی باریک در این شمارش نیست)" : ""}`;
+      const hexFrac = tri ? simplifyFrac(tri, 6) : fa(0);
+      $("pbOut").innerHTML = tr(`تعداد قطعه‌ها: ${fa(pieces.length)} · مساحت بر حسب مثلث سبز: <b>${fa(tri)}</b> · اگر شش‌ضلعی زرد = ۱ باشد، شکل‌های مثلثی برابرند با <b dir="ltr">${hexFrac}</b>`, `Pieces: ${fa(pieces.length)} · area in green triangles: <b>${fa(tri)}</b> · if the yellow hexagon = 1, the triangle-based shapes equal <b dir="ltr">${hexFrac}</b>`) + (other ? tr(" · (" + fa(other) + " مربع/لوزی باریک در این شمارش نیست)", " · (" + fa(other) + " squares/thin rhombi are not counted)") : "");
     }
-    function simplifyFrac(n, d) { const g = (a, b) => b ? g(b, a % b) : a; const k = g(n, d); n /= k; d /= k; if (d === 1) return fa(n); const w = Math.floor(n / d), r = n % d; return (w ? fa(w) + " و " : "") + fa(r) + "/" + fa(d); }
+    function simplifyFrac(n, d) { const g = (a, b) => b ? g(b, a % b) : a; const k = g(n, d); n /= k; d /= k; if (d === 1) return fa(n); const w = Math.floor(n / d), r = n % d; return (w ? fa(w) + tr(" و ", " ") : "") + fa(r) + "/" + fa(d); }
     svg.addEventListener("pointerdown", e => {
       const g = e.target.closest("[data-id]"); if (!g) { sel = null; draw(); return; }
       const id = +g.dataset.id, p = pieces.find(x => x.id === id); sel = id;
@@ -64,7 +64,7 @@
     function draw() {
       svg.innerHTML = "";
       const W = 600, H = 300; svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
-      const cols = [["h", "صدگان", 20, 230], ["t", "دهگان", 260, 190], ["o", "یکان", 460, 120]];
+      const cols = [["h", tr("صدگان", "hundreds"), 20, 230], ["t", tr("دهگان", "tens"), 260, 190], ["o", tr("یکان", "ones"), 460, 120]];
       cols.forEach(([k, name, x0, w]) => {
         el("rect", { x: x0 - 8, y: 8, width: w, height: H - 16, rx: 12, fill: "rgba(255,255,255,.02)", stroke: "rgba(56,189,248,.18)" }, svg);
         const t = el("text", { x: x0 + w / 2 - 8, y: 30, "text-anchor": "middle", fill: "#8aa0bb", "font-size": 14 }, svg); t.textContent = name + " (" + fa(c[k]) + ")";
@@ -74,7 +74,7 @@
       for (let i = 0; i < c.t; i++) { const x = 262 + (i % 9) * 19, y = 44 + Math.floor(i / 9) * 92; if (y > H - 30) break; const g = el("g", { "data-k": "t", style: "cursor:pointer" }, svg); el("rect", { x, y, width: u, height: u * 10, fill: "#f472b6", rx: 2 }, g); for (let j = 1; j < 10; j++) el("line", { x1: x, y1: y + j * u, x2: x + u, y2: y + j * u, stroke: "#0a1524", "stroke-width": .6 }, g); }
       for (let i = 0; i < c.o; i++) { const x = 464 + (i % 5) * 20, y = 44 + Math.floor(i / 5) * 20; if (y > H - 20) break; const g = el("g", { "data-k": "o", style: "cursor:pointer" }, svg); el("rect", { x, y, width: u * 1.6, height: u * 1.6, fill: "#a3e635", rx: 2 }, g); }
       const total = c.h * 100 + c.t * 10 + c.o;
-      $("npOut").innerHTML = `${fa(c.h)} صدتایی + ${fa(c.t)} ده‌تایی + ${fa(c.o)} یکی = <b>${fa(total)}</b>` + (c.t >= 10 || c.o >= 10 ? " · می‌توانی ۱۰ قطعهٔ هم‌نوع را با «گروه‌بندی» عوض کنی." : "");
+      $("npOut").innerHTML = tr(`${fa(c.h)} صدتایی + ${fa(c.t)} ده‌تایی + ${fa(c.o)} یکی = <b>${fa(total)}</b>`, `${c.h} hundreds + ${c.t} tens + ${c.o} ones = <b>${total}</b>`) + (c.t >= 10 || c.o >= 10 ? tr(" · می‌توانی ۱۰ قطعهٔ هم‌نوع را با «گروه‌بندی» عوض کنی.", " · you can swap 10 blocks of one kind with “Regroup”.") : "");
     }
     svg.addEventListener("click", e => { const g = e.target.closest("[data-k]"); if (!g) return; const k = g.dataset.k; if (k === "h") { c.h--; c.t += 10; } else if (k === "t") { c.t--; c.o += 10; } draw(); });
     document.querySelectorAll("[data-np]").forEach(b => b.onclick = () => { const k = b.dataset.np; if (k.startsWith("-")) { const kk = k.slice(1); if (c[kk] > 0) c[kk]--; } else c[k] = Math.min(c[k] + 1, k === "h" ? 9 : 40); draw(); });
@@ -93,11 +93,11 @@
     function draw() {
       const order = { x2: 0, x: 1, 1: 2 };
       const sorted = tiles.map((t, i) => ({ ...t, i })).sort((a, b) => order[a.k] - order[b.k] || b.s - a.s);
-      box.innerHTML = sorted.map(t => `<button class="tile t-${t.k} ${t.s < 0 ? "neg" : ""}" data-i="${t.i}" title="برای حذف کلیک کن" aria-label="${t.s < 0 ? "منفی " : ""}${t.k === "x2" ? "x²" : t.k}">${t.s < 0 ? "−" : ""}${t.k === "x2" ? "x²" : t.k}</button>`).join("") || '<span class="muted">کاشی‌ها را از دکمه‌های بالا اضافه کن.</span>';
+      box.innerHTML = sorted.map(t => `<button class="tile t-${t.k} ${t.s < 0 ? "neg" : ""}" data-i="${t.i}" title="${tr("برای حذف کلیک کن", "Click to remove")}" aria-label="${t.s < 0 ? tr("منفی ", "negative ") : ""}${t.k === "x2" ? "x²" : t.k}">${t.s < 0 ? "−" : ""}${t.k === "x2" ? "x²" : t.k}</button>`).join("") || '<span class="muted">' + tr("کاشی‌ها را از دکمه‌های بالا اضافه کن.", "Add tiles with the buttons above.") + '</span>';
       box.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { tiles.splice(+b.dataset.i, 1); draw(); });
       const n = exprOf(), raw = { x2: [0, 0], x: [0, 0], 1: [0, 0] }; tiles.forEach(t => raw[t.k][t.s > 0 ? 0 : 1]++);
       const pairs = Math.min(raw.x2[0], raw.x2[1]) + Math.min(raw.x[0], raw.x[1]) + Math.min(raw[1][0], raw[1][1]);
-      $("atOut").innerHTML = `عبارت: <bdi dir="ltr" style="direction:ltr;unicode-bidi:isolate;font-weight:700;font-family:Georgia,serif">${fmt(n)}</bdi>` + (pairs ? ` · ${fa(pairs)} جفت صفر (یک کاشی مثبت و منفی هم‌نوع با هم صفر می‌شوند)` : "");
+      $("atOut").innerHTML = tr("عبارت: ", "Expression: ") + `<bdi dir="ltr" style="direction:ltr;unicode-bidi:isolate;font-weight:700;font-family:Georgia,serif">${fmt(n)}</bdi>` + (pairs ? tr(` · ${fa(pairs)} جفت صفر (یک کاشی مثبت و منفی هم‌نوع با هم صفر می‌شوند)`, ` · ${pairs} zero pair(s) (a positive and a negative tile of the same kind cancel)`) : "");
     }
     document.querySelectorAll("[data-at]").forEach(b => b.onclick = () => { const [k, s] = b.dataset.at.split(":"); if (tiles.length < 80) tiles.push({ k, s: +s }); draw(); });
     $("atZero").onclick = () => { ["x2", "x", "1"].forEach(k => { let pos = tiles.filter(t => t.k === k && t.s > 0).length, neg = tiles.filter(t => t.k === k && t.s < 0).length, m = Math.min(pos, neg); for (let r = 0; r < m; r++) { tiles.splice(tiles.findIndex(t => t.k === k && t.s > 0), 1); tiles.splice(tiles.findIndex(t => t.k === k && t.s < 0), 1); } }); draw(); };
@@ -107,8 +107,8 @@
       const m = s.match(/^([+-]?\d*)x\^2/); let a = 0, b = 0, c = 0, rest = s;
       if (m) { a = m[1] === "" || m[1] === "+" ? 1 : m[1] === "-" ? -1 : +m[1]; rest = s.slice(m[0].length); }
       const m2 = rest.match(/^([+-]?\d*)x(?!\^)/); if (m2) { b = m2[1] === "" || m2[1] === "+" ? 1 : m2[1] === "-" ? -1 : +m2[1]; rest = rest.slice(m2[0].length); }
-      if (rest) { if (!/^[+-]?\d+$/.test(rest)) { $("atOut").textContent = "قالب را به شکل ax^2+bx+c بنویس، مثلاً x^2-3x+2"; return; } c = +rest; }
-      if (Math.abs(a) + Math.abs(b) + Math.abs(c) > 60) { $("atOut").textContent = "ضریب‌ها برای نمایش با کاشی خیلی بزرگ‌اند."; return; }
+      if (rest) { if (!/^[+-]?\d+$/.test(rest)) { $("atOut").textContent = tr("قالب را به شکل ax^2+bx+c بنویس، مثلاً x^2-3x+2", "Use the form ax^2+bx+c, e.g. x^2-3x+2"); return; } c = +rest; }
+      if (Math.abs(a) + Math.abs(b) + Math.abs(c) > 60) { $("atOut").textContent = tr("ضریب‌ها برای نمایش با کاشی خیلی بزرگ‌اند.", "The coefficients are too large to show with tiles."); return; }
       tiles = []; [["x2", a], ["x", b], ["1", c]].forEach(([k, n]) => { for (let i = 0; i < Math.abs(n); i++) tiles.push({ k, s: Math.sign(n) }); }); draw();
     };
     draw();
@@ -139,7 +139,7 @@
         x += cw;
       });
       svg.querySelectorAll("text").forEach(t => t.setAttribute("direction", "ltr"));
-      $("amOut").innerHTML = `<span dir="ltr" class="ltr">${a} × ${b} = ${rows.join(" + ")} = <b>${a * b}</b></span><br><span class="note">هر مستطیل یک «حاصل‌ضرب جزئی» است: هر رقم با ارزش مکانی‌اش در هر رقم عدد دیگر ضرب می‌شود؛ مجموع مساحت‌ها جواب ضرب است.</span>`;
+      $("amOut").innerHTML = `<span dir="ltr" class="ltr">${a} × ${b} = ${rows.join(" + ")} = <b>${a * b}</b></span><br><span class="note">${tr("هر مستطیل یک «حاصل‌ضرب جزئی» است: هر رقم با ارزش مکانی‌اش در هر رقم عدد دیگر ضرب می‌شود؛ مجموع مساحت‌ها جواب ضرب است.", "Each rectangle is a partial product: every digit, with its place value, multiplies every digit of the other number; the areas add up to the product.")}</span>`;
     }
     ["amA", "amB"].forEach(id => $(id).addEventListener("input", draw));
     draw();

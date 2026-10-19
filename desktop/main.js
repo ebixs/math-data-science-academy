@@ -35,21 +35,43 @@ function createWindow() {
   win.webContents.on("will-navigate", (e, url) => {
     if (!isInternal(url)) { e.preventDefault(); if (/^https?:\/\//.test(url)) shell.openExternal(url); }
   });
+  win.webContents.on("did-finish-load", () => {
+    win.webContents.executeJavaScript("(window.I18N && I18N.lang) || 'fa'").then(buildMenu).catch(() => { });
+  });
   win.loadURL(ORIGIN + "/index.html");
 }
 
-function buildMenu() {
-  const isMac = process.platform === "darwin";
+/* The menu follows the language chosen inside the app (saved in the page's storage as mdsa.lang). */
+let menuLang = null;
+const M = {
+  fa: { file: "پرونده", home: "خانه", learn: "مسیر یادگیری", review: "مرور روزانه", solver: "حل‌گر گام‌به‌گام", tools: "ابزارهای تعاملی", python: "دفترچهٔ پایتون", progress: "پیشرفت و پشتیبان‌گیری", close: "بستن پنجره", quit: "خروج",
+    edit: "ویرایش", undo: "برگرداندن", redo: "انجام دوباره", cut: "برش", copy: "کپی", paste: "چسباندن", selectAll: "انتخاب همه",
+    view: "نما", reload: "بارگذاری دوباره", resetZoom: "اندازهٔ اصلی", zoomIn: "بزرگ‌نمایی", zoomOut: "کوچک‌نمایی", full: "تمام‌صفحه", dev: "ابزار توسعه‌دهنده", lang: "English",
+    window: "پنجره", help: "راهنما", github: "صفحهٔ پروژه در GitHub", dataDir: "پوشهٔ ذخیرهٔ پیشرفت", title: "آکادمی ریاضی و علم داده" },
+  en: { file: "File", home: "Home", learn: "Learning path", review: "Daily review", solver: "Step-by-step solver", tools: "Interactive tools", python: "Python notebook", progress: "Progress and backup", close: "Close window", quit: "Quit",
+    edit: "Edit", undo: "Undo", redo: "Redo", cut: "Cut", copy: "Copy", paste: "Paste", selectAll: "Select all",
+    view: "View", reload: "Reload", resetZoom: "Actual size", zoomIn: "Zoom in", zoomOut: "Zoom out", full: "Full screen", dev: "Developer tools", lang: "فارسی",
+    window: "Window", help: "Help", github: "Project page on GitHub", dataDir: "Progress data folder", title: "Math & Data Science Academy" },
+};
+function buildMenu(lang) {
+  lang = lang === "en" ? "en" : "fa";
+  if (lang === menuLang) return;
+  menuLang = lang;
+  const t = M[lang], isMac = process.platform === "darwin";
   const go = p => () => win && win.loadURL(ORIGIN + "/" + p);
+  const setLang = () => win && win.webContents.executeJavaScript("window.I18N && I18N.set(" + JSON.stringify(lang === "fa" ? "en" : "fa") + ")").catch(() => { });
   const template = [
     ...(isMac ? [{ role: "appMenu" }] : []),
-    { label: "پرونده", submenu: [{ label: "خانه", accelerator: "CmdOrCtrl+H", click: go("index.html") }, { label: "حل‌گر گام‌به‌گام", accelerator: "CmdOrCtrl+K", click: go("solver.html") }, { label: "ابزارهای تعاملی", click: go("math-tools.html") }, { label: "دفترچهٔ پایتون", click: go("python.html") }, { type: "separator" }, isMac ? { role: "close", label: "بستن پنجره" } : { role: "quit", label: "خروج" }] },
-    { label: "ویرایش", submenu: [{ role: "undo", label: "برگرداندن" }, { role: "redo", label: "انجام دوباره" }, { type: "separator" }, { role: "cut", label: "برش" }, { role: "copy", label: "کپی" }, { role: "paste", label: "چسباندن" }, { role: "selectAll", label: "انتخاب همه" }] },
-    { label: "نما", submenu: [{ role: "reload", label: "بارگذاری دوباره" }, { type: "separator" }, { role: "resetZoom", label: "اندازهٔ اصلی" }, { role: "zoomIn", label: "بزرگ‌نمایی" }, { role: "zoomOut", label: "کوچک‌نمایی" }, { type: "separator" }, { role: "togglefullscreen", label: "تمام‌صفحه" }, { role: "toggleDevTools", label: "ابزار توسعه‌دهنده" }] },
-    { role: "windowMenu", label: "پنجره" },
-    { label: "راهنما", submenu: [{ label: "صفحهٔ پروژه در GitHub", click: () => shell.openExternal("https://github.com/ebixs/math-data-science-academy") }, { label: "پوشهٔ ذخیرهٔ پیشرفت", click: () => shell.openPath(app.getPath("userData")) }] },
+    { label: t.file, submenu: [{ label: t.home, accelerator: "CmdOrCtrl+H", click: go("index.html") }, { label: t.learn, accelerator: "CmdOrCtrl+L", click: go("index.html#learn") }, { label: t.review, click: go("index.html#review") },
+      { label: t.solver, accelerator: "CmdOrCtrl+K", click: go("solver.html") }, { label: t.tools, click: go("math-tools.html") }, { label: t.python, click: go("python.html") }, { label: t.progress, click: go("index.html#progress") },
+      { type: "separator" }, isMac ? { role: "close", label: t.close } : { role: "quit", label: t.quit }] },
+    { label: t.edit, submenu: [{ role: "undo", label: t.undo }, { role: "redo", label: t.redo }, { type: "separator" }, { role: "cut", label: t.cut }, { role: "copy", label: t.copy }, { role: "paste", label: t.paste }, { role: "selectAll", label: t.selectAll }] },
+    { label: t.view, submenu: [{ label: t.lang, click: setLang }, { type: "separator" }, { role: "reload", label: t.reload }, { type: "separator" }, { role: "resetZoom", label: t.resetZoom }, { role: "zoomIn", label: t.zoomIn }, { role: "zoomOut", label: t.zoomOut }, { type: "separator" }, { role: "togglefullscreen", label: t.full }, { role: "toggleDevTools", label: t.dev }] },
+    { role: "windowMenu", label: t.window },
+    { label: t.help, submenu: [{ label: t.github, click: () => shell.openExternal("https://github.com/ebixs/math-data-science-academy") }, { label: t.dataDir, click: () => shell.openPath(app.getPath("userData")) }] },
   ];
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+  if (win) win.setTitle(t.title);
 }
 
 app.whenReady().then(() => {
@@ -61,7 +83,7 @@ app.whenReady().then(() => {
     const r = await handle({ method: request.method, pathname: url.pathname, body });
     return new Response(r.body, { status: r.status, headers: r.headers });
   });
-  buildMenu();
+  buildMenu("fa");
   createWindow();
   app.on("activate", () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
 });

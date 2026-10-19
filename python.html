@@ -2,11 +2,14 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>دفترچهٔ پایتون | آکادمی ریاضی و علم داده</title>
+<title data-en="Python notebook | Math &amp; Data Science Academy">دفترچهٔ پایتون | آکادمی ریاضی و علم داده</title>
 <meta name="theme-color" content="#050b14">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="assets/icons/favicon-32.png"><link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<script src="assets/i18n.js"></script>
 <link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/learn/learn.css">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
 <style>
 .nb-head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:14px}
 .nb-head h1{margin:0;font-size:clamp(22px,3vw,30px)}.nb-head p{margin:2px 0 0;color:var(--muted)}
@@ -31,33 +34,61 @@ textarea.code{width:100%;direction:ltr;text-align:left;font:14px/1.6 ui-monospac
 .df table{border-collapse:collapse;font:13px ui-monospace,monospace}
 .df th,.df td{border:1px solid var(--line);padding:5px 10px;text-align:start}
 .df th{background:rgba(34,211,238,.08);color:var(--accent)}
+.nb-tabs{display:flex;gap:6px;margin:0 0 14px;border-bottom:1px solid var(--line)}
+.nb-tab{border:0;background:none;color:var(--muted);font:inherit;font-size:15px;padding:10px 16px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.nb-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:700}
+.nb-tab b{font-size:12px;background:var(--soft);color:var(--accent);border-radius:999px;padding:0 7px;margin-inline-start:4px}
+.proj-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.proj-card{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:var(--ink);transition:.15s}
+.proj-card:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.proj-card h3{margin:0;font-size:17px}.proj-card p{margin:0 0 6px;line-height:1.8}
+.proj-card.done{border-color:rgba(52,211,153,.4)}
+.proj-ic{font-size:30px}
+.proj-head{margin-bottom:14px}.proj-head h2{margin:8px 0 4px}.proj-head p{margin:4px 0}
+.proj-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.md-cell{font-size:15px;line-height:2;padding:16px 20px}
+.md-cell h2{font-size:19px;margin:0 0 6px}.md-cell p{margin:6px 0}
+.md-cell .katex-display{overflow-x:auto;overflow-y:hidden}
+.cell.task{border-color:rgba(251,191,36,.35)}.cell.task.passed{border-color:rgba(52,211,153,.5)}
+.task-h{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px}
+.task-tag{flex:none;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;background:rgba(251,191,36,.14);color:var(--gold)}
+.cell.passed .task-tag{background:var(--good-bg);color:var(--good)}
+.task-q p{margin:0}
+.verdict{padding:8px 12px;border-radius:10px;margin-top:6px;font-family:var(--font);direction:inherit;text-align:start}
+html[dir=rtl] .cout .verdict{direction:rtl;text-align:right}
+.sol{margin-top:8px}.sol pre{direction:ltr;text-align:left;background:rgba(3,10,19,.7);border:1px dashed var(--line-2);border-radius:10px;padding:10px 12px;font:13px/1.6 ui-monospace,monospace;white-space:pre-wrap}
 .help{margin-top:18px}
 .help code{font-size:12px}
 </style>
 </head>
 <body>
 <header class="topbar">
-<a class="brand" href="index.html"><span class="brand-mark">∑</span><span class="brand-text">آکادمی ریاضی و علم داده</span></a>
-<nav class="mainnav" aria-label="بخش‌های اصلی">
-<a class="nav" href="index.html#home"><svg class="i" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg><span>خانه</span></a>
-<a class="nav" href="index.html#courses"><svg class="i" viewBox="0 0 24 24"><path d="M2 5h7a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H2z"/><path d="M22 5h-7a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span>درس‌ها</span></a>
-<a class="nav" href="solver.html"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h7M7.5 3.5v7M13 17h7M4 17l5 0M14 4l6 6M20 4l-6 6"/></svg><span>حل‌گر</span></a>
-<a class="nav" href="index.html#practice"><svg class="i" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><span>تمرینگاه</span></a>
-<a class="nav" href="index.html#review"><svg class="i" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg><span>مرور روزانه</span></a>
-<a class="nav" href="index.html#mathlab"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h8"/></svg><span>آزمایشگاه</span></a>
-<a class="nav" href="math-tools.html"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>ابزارها</span></a>
-<a class="nav active" aria-current="page" href="python.html"><svg class="i" viewBox="0 0 24 24"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12"/></svg><span>پایتون</span></a>
-<a class="nav" href="index.html#achievements"><svg class="i" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg><span>دستاوردها</span></a>
+<a class="brand" href="index.html"><span class="brand-mark">∑</span><span class="brand-text" data-en="Math &amp; Data Science Academy">آکادمی ریاضی و علم داده</span></a>
+<nav class="mainnav" aria-label="بخش‌های اصلی" data-en-aria-label="Main sections">
+<a class="nav" href="index.html#home"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg><span data-en="Home">خانه</span></a>
+<a class="nav" href="index.html#learn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5h7a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H2z"/><path d="M22 5h-7a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span data-en="Learn">مسیر یادگیری</span></a>
+<a class="nav" href="solver.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h7M7.5 3.5v7M13 17h7M4 17l5 0M14 4l6 6M20 4l-6 6"/></svg><span data-en="Solver">حل‌گر</span></a>
+<a class="nav" href="index.html#review"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg><span data-en="Review">مرور روزانه</span></a>
+<a class="nav" href="math-tools.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span data-en="Tools">ابزارها</span></a>
+<a class="nav active" href="python.html" aria-current="page"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12"/></svg><span data-en="Python">پایتون</span></a>
+<a class="nav" href="index.html#achievements"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg><span data-en="Achievements">دستاوردها</span></a>
+<a class="nav" href="index.html#progress"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg><span data-en="Progress">پیشرفت</span></a>
 </nav>
-</header>
+<div class="top-actions" data-lang-slot></div></header>
 <main class="shell">
-<div class="nb-head"><div><h1>دفترچهٔ پایتون</h1><p>پایتون واقعی در مرورگر (Pyodide): NumPy، pandas و matplotlib برای تمرین تحلیل داده.</p></div>
-<div class="nb-tools"><button class="btn" id="runAll">▶ اجرای همه</button><button class="btn alt" id="addCell">+ سلول</button><button class="btn alt" id="clearOut">پاک کردن خروجی‌ها</button><button class="btn alt" id="restart">شروع دوبارهٔ حافظه</button><button class="btn alt" id="dlPy">دانلود ‎.py</button><button class="btn alt" id="dlIpynb">دانلود ‎.ipynb</button></div></div>
-<div class="status" id="pyStatus" data-kind="">پایتون هنوز بارگذاری نشده است. با اولین اجرا بارگذاری می‌شود. <button class="btn alt" id="warm" style="padding:3px 10px;font-size:12px;margin:0 6px">الان بارگذاری کن</button></div>
-<div class="samples"><span class="muted">نمونه‌ها:</span><span id="samples" style="display:contents"></span></div>
+<div class="nb-head"><div><h1 data-en="Python notebook">دفترچهٔ پایتون</h1><p data-en="Real Python in your browser (Pyodide): NumPy, pandas and matplotlib — plus guided projects with real datasets and automatic checks.">پایتون واقعی در مرورگر (Pyodide): NumPy، pandas و matplotlib — به‌همراه پروژه‌های راهنمادار با دادهٔ واقعی و بررسی خودکار.</p></div>
+<div class="nb-tools" id="dlRow"><button class="btn" id="runAll" data-en="▶ Run all">▶ اجرای همه</button><span id="freeTools" style="display:contents"><button class="btn alt" id="addCell" data-en="+ Cell">+ سلول</button></span><button class="btn alt" id="clearOut" data-en="Clear outputs">پاک کردن خروجی‌ها</button><button class="btn alt" id="restart" data-en="Restart kernel">شروع دوبارهٔ حافظه</button><button class="btn alt" id="dlPy" data-en="Download .py">دانلود ‎.py</button><button class="btn alt" id="dlIpynb" data-en="Download .ipynb">دانلود ‎.ipynb</button></div></div>
+<div class="nb-tabs" role="tablist"><button class="nb-tab active" role="tab" data-view="free" data-en="Free notebook">دفترچهٔ آزاد</button><button class="nb-tab" role="tab" data-view="projects"><span data-en="Data projects">پروژه‌های داده</span><b id="projCount"></b></button></div>
+<div class="status" id="pyStatus" data-kind=""><span data-en="Python isn't loaded yet; it loads on the first run.">پایتون هنوز بارگذاری نشده است. با اولین اجرا بارگذاری می‌شود.</span> <button class="btn alt" id="warm" style="padding:3px 10px;font-size:12px;margin:0 6px" data-en="Load it now">الان بارگذاری کن</button></div>
+<div class="samples" id="samplesRow"><span class="muted" data-en="Examples:">نمونه‌ها:</span><span id="samples" style="display:contents"></span></div>
+<div class="proj-list" id="projList" hidden></div>
+<div class="card proj-head" id="projHead" hidden></div>
 <div class="cells" id="cells"></div>
-<div class="card help"><h3 style="margin-top:0">راهنما</h3><p class="muted"><code>Ctrl/⌘ + Enter</code> اجرای سلول · <code>Shift + Enter</code> اجرا و رفتن به سلول بعد · <code>Tab</code> چهار فاصله. متغیرها بین سلول‌ها مشترک‌اند. آخرین عبارت هر سلول به‌صورت خودکار نمایش داده می‌شود، جدول‌های pandas به شکل جدول و نمودارهای matplotlib به شکل تصویر. کدها خودکار در همین دستگاه ذخیره می‌شوند. در نسخهٔ وب، اولین بارگذاری به اینترنت نیاز دارد؛ نسخهٔ نصبی دسکتاپ پایتون را همراه خودش دارد.</p></div>
+<div class="card help"><h3 style="margin-top:0" data-en="Help">راهنما</h3><p class="muted" data-en-html="&lt;code&gt;Ctrl/⌘ + Enter&lt;/code&gt; runs a cell · &lt;code&gt;Shift + Enter&lt;/code&gt; runs and moves to the next cell · &lt;code&gt;Tab&lt;/code&gt; inserts four spaces. Variables are shared between cells. The last expression of each cell is displayed automatically: pandas tables as tables and matplotlib figures as images. Your code is saved automatically on this device. On the web, the first load needs an internet connection; the desktop app ships with Python built in."><code>Ctrl/⌘ + Enter</code> اجرای سلول · <code>Shift + Enter</code> اجرا و رفتن به سلول بعد · <code>Tab</code> چهار فاصله. متغیرها بین سلول‌ها مشترک‌اند. آخرین عبارت هر سلول به‌صورت خودکار نمایش داده می‌شود، جدول‌های pandas به شکل جدول و نمودارهای matplotlib به شکل تصویر. کدها خودکار در همین دستگاه ذخیره می‌شوند. در نسخهٔ وب، اولین بارگذاری به اینترنت نیاز دارد؛ نسخهٔ نصبی دسکتاپ پایتون را همراه خودش دارد.</p></div>
 </main>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/learn/md.js"></script>
+<script src="assets/python/projects.js"></script>
 <script src="assets/python/notebook.js"></script>
 <script src="assets/pwa.js"></script>
 </body>
