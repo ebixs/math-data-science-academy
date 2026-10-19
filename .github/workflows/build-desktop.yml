@@ -88,3 +88,13 @@ jobs:
             `xattr -cr "/Applications/Math Data Science Academy.app"`
 
             پیشرفت و یادداشت‌ها در پوشهٔ دادهٔ برنامه روی همان دستگاه ذخیره می‌شوند. دفترچهٔ پایتون (NumPy، pandas، matplotlib) بدون اینترنت کار می‌کند.
+
+            ## Install (English)
+
+            **Windows:** download and run `Math-Data-Science-Academy-Setup-*.exe` (SmartScreen: "More info" → "Run anyway").
+            **macOS:** open the `.dmg`, drag the app to Applications, then right-click → "Open" the first time (or run `xattr -cr "/Applications/Math Data Science Academy.app"`).
+            The app is available in Persian and English; switch the language from the top bar.
+
+            ---
+            توسعه‌دهنده: ابراهیم سلیمی — تمامی حقوق نشر و استفادهٔ این نرم‌افزار محفوظ است و انتشار این نرم‌افزار بدون اطلاع سازنده پیگرد قانونی دارد.
+            Developer: Ebrahim Salimi — all rights reserved.
