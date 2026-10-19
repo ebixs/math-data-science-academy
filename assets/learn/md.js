@@ -173,8 +173,8 @@
         const ys = []; const [a, b] = spec.range;
         fns().forEach(fn => { for (let i = 0; i <= 120; i++) { const y = fn.f(a + (b - a) * i / 120); if (Number.isFinite(y)) ys.push(y); } });
         if (!ys.length) return; ys.sort((p, q) => p - q);
-        let lo = ys[Math.floor(ys.length * 0.03)], hi = ys[Math.floor(ys.length * 0.97)]; const pad = Math.max(1, (hi - lo) * 0.15);
-        lo = Math.min(lo - pad, -1); hi = Math.max(hi + pad, 1);
+        let lo = ys[Math.floor(ys.length * 0.03)], hi = ys[Math.floor(ys.length * 0.97)]; const pad = Math.max(0.05, (hi - lo) * 0.15);
+        lo = Math.min(lo - pad, 0); hi = Math.max(hi + pad, 0);
         plot.view = { x0: a, x1: b, y0: lo, y1: hi };
       }
       spec.params.forEach(p => {

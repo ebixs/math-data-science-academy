@@ -41,7 +41,7 @@ CUR.skills.forEach(s => {
 /* practice generators */
 const perturb = p => {
   switch (p.type) {
-    case "num": { const v = typeof p.ans === "number" ? p.ans : p.ans.num(); return String(v * 1.1 + 1.37); }
+    case "num": { const v = typeof p.ans === "number" ? p.ans : p.ans.num(); let w = v * 1.1 + 1.37; const tol = (p.opts && p.opts.tol) || 0; if (Math.abs(w - v) <= 3 * tol) w = v + 1 + 10 * tol; return String(w); }
     case "set": return p.ans.length ? p.ansStr + ", 987" : "5";
     case "expr": return "(" + p.ansStr + ") + x + 1";
     case "choice": return String((p.ans + 1) % p.choices.length);
