@@ -1,8 +1,8 @@
 {
   "name": "math-data-science-academy",
   "productName": "Math Data Science Academy",
-  "version": "1.0.0",
-  "description": "آکادمی ریاضی و علم داده — آموزش ریاضی از صفر تا علم داده با حل‌گر گام‌به‌گام، ابزارهای تعاملی و دفترچهٔ پایتون",
+  "version": "1.1.0",
+  "description": "آکادمی ریاضی و علم داده — Math & Data Science Academy: learn math from zero to data science (Persian/English)",
   "author": "Ebrahim Salimi <ebrahimsalimi123@gmail.com>",
   "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://github.com/ebixs/math-data-science-academy",
@@ -10,7 +10,7 @@
   "main": "desktop/main.js",
   "scripts": {
     "start": "electron .",
-    "test": "node tests/engine.test.js && node tests/desktop.test.js",
+    "test": "node tests/engine.test.js && MDSA_LANG=en node tests/engine.test.js && node tests/learn.test.js && MDSA_LANG=en node tests/learn.test.js && node tests/desktop.test.js",
     "pyodide": "node desktop/fetch-pyodide.mjs",
     "dist": "electron-builder --publish never",
     "dist:mac": "electron-builder --mac --publish never",
@@ -42,6 +42,7 @@
       "README.md",
       "CURRICULUM.md",
       "SOURCES.md",
+      "LICENSE",
       "!**/*.map",
       "!**/.DS_Store"
     ],

@@ -79,7 +79,7 @@
     const body = $("lessonBody");
     body.innerHTML = (md ? MD.render(md) : `<p class="muted">${tr("درس این مهارت هنوز نوشته نشده است.", "This lesson hasn't been written yet.")}</p>`) +
       `<div class="lesson-end"><p>${tr("درس را خواندی؟ حالا با تمرین‌های بی‌پایان مهارتت را محکم کن.", "Done reading? Now lock it in with endless practice.")}</p><button class="btn big" id="toPractice">${tr("شروع تمرین", "Start practicing")} <span class="arrow">←</span></button>
-      <a class="btn alt" href="solver.html">${tr("حل‌گر گام‌به‌گام", "Step-by-step solver")}</a></div>`;
+      <a class="btn alt" href="solver.html">${tr("حل‌گر گام‌به‌گام", "Step-by-step solver")}</a>${(window.PROJECTS || []).filter(p => p.skills.includes(id)).map(p => `<a class="btn alt" href="python.html#project/${p.id}">${esc(p.icon)} ${tr("پروژهٔ داده: ", "Data project: ")}${esc(I.lang === "en" ? p.title[1] : p.title[0])}</a>`).join("")}</div>`;
     MD.mount(body);
     const toc = MD.toc(body);
     $("lessonToc").innerHTML = `<h3>${tr("در این درس", "In this lesson")}</h3>` + (toc.length ? `<ol>${toc.map(h => `<li class="l${h.level}"><a href="#" data-to="${h.id}">${esc(h.text)}</a></li>`).join("")}</ol>` : "") +

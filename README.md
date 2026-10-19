@@ -1,129 +1,112 @@
-# آکادمی ریاضی و علم داده
+# Math & Data Science Academy
 
-اپلیکیشن آموزشی فارسی و راست‌چین برای یادگیری ریاضی و ورود مرحله‌ای به علم داده؛ از مبانی ریاضی تا آمار، جبر خطی، پایتون، SQL، تحلیل داده و یادگیری ماشین.
+**English** · [فارسی](README.fa.md)
 
-## نصب روی مک و ویندوز (نسخهٔ دسکتاپ)
+An offline-first app for learning mathematics **from zero to data science**, in **Persian or English** (switch any time from the top bar). It combines a structured learning path with deep lessons, endless auto-graded practice, spaced review, a step-by-step solver, interactive manipulatives and a real Python notebook with guided data projects.
 
-آخرین نسخه را از صفحهٔ [Releases](https://github.com/ebixs/math-data-science-academy/releases/latest) دانلود کن:
+> **Developer: Ebrahim Salimi** — All publication and usage rights of this software are reserved. Publishing this software without the developer's knowledge is subject to legal action. See [LICENSE](LICENSE).
 
-- **ویندوز:** `Math-Data-Science-Academy-Setup-<نسخه>.exe` را اجرا کن. اگر SmartScreen هشدار داد: «More info» ← «Run anyway».
-- **مک (Apple Silicon و Intel):** فایل `.dmg` را باز کن و برنامه را به Applications بکش. بار اول روی برنامه راست‌کلیک کن و «Open» را بزن. اگر باز نشد، در Terminal اجرا کن:
+## Install (macOS and Windows)
+
+Download the latest version from [Releases](https://github.com/ebixs/math-data-science-academy/releases/latest):
+
+- **Windows:** run `Math-Data-Science-Academy-Setup-<version>.exe`. If SmartScreen warns: "More info" → "Run anyway".
+- **macOS (Apple Silicon and Intel):** open the `.dmg` and drag the app to Applications. The first time, right-click the app and choose "Open". If it still won't open, run in Terminal:
   `xattr -cr "/Applications/Math Data Science Academy.app"`
 
-نسخهٔ دسکتاپ کاملاً آفلاین است (حتی دفترچهٔ پایتون با NumPy، pandas و matplotlib) و پیشرفت را در پوشهٔ دادهٔ برنامه ذخیره می‌کند (منوی «راهنما ← پوشهٔ ذخیرهٔ پیشرفت»).
+The desktop app works fully offline — including the Python notebook with NumPy, pandas and matplotlib — and stores progress in the app's data folder (menu "Help → Progress data folder"). The menu follows the language chosen in the app.
 
-### نصب از مرورگر (PWA)
+**Install from the browser (PWA):** open the app over `https` or the local server and use "Install" in Chrome/Edge (or the profile menu → "Install the app on this device"). After the first load it works offline.
 
-وقتی برنامه را با سرور محلی یا از یک آدرس https باز می‌کنی، در Chrome یا Edge از نوار آدرس (یا منوی پروفایل ← «نصب برنامه روی این دستگاه») آن را نصب کن. پس از اولین بارگذاری بدون اینترنت هم کار می‌کند.
+## What's inside
 
-## اجرا از روی کد
+### Learning path (`index.html`)
+- **64 skills in 8 areas** — arithmetic foundations, algebra, geometry & trigonometry, discrete math & logic, probability, statistics, linear algebra, calculus & optimization (including multivariable calculus, gradient descent and convex optimization).
+- **Prerequisite map**: every skill lists what it needs and what it unlocks. Three goals — school math, university math, data science & ML — each build a personalized path in prerequisite order.
+- **Deep bilingual lessons** for every skill: intuition, definitions, worked examples with hidden solutions, common mistakes, "try it yourself" questions, a data-science connection and **interactive graphs with sliders**. Foundation lessons are the most detailed.
+- **Endless auto-graded practice**: a problem generator for every skill (numbers, fractions, expressions, equation sets, inequalities, points and matrices are all checked symbolically/numerically), hints and full step-by-step solutions. **Mastery = 8 correct of your last 10 answers.**
+- **Adaptive placement test** (binary search through each area) that marks the skills you already know.
+- **Daily review** with spaced repetition (Leitner boxes at 1, 3, 7, 14, 30, 60 days), concept questions and a daily challenge.
+- XP, levels, streak heat map, 25 achievements, a progress page per area, notes, JSON backup/restore.
 
-### macOS
+### Python notebook and data projects (`python.html`)
+Real Python in the browser (Pyodide) with NumPy, pandas and matplotlib, `.py`/`.ipynb` export, and **six guided projects on real datasets**, each with tasks that are **checked automatically**:
 
-نیازمندی: Python 3 (بدون کتابخانهٔ جانبی).
+| project | dataset | math used |
+|---|---|---|
+| Descriptive statistics | diabetes (442 patients) | mean, median, SD, z-scores, correlation |
+| Monte Carlo | simulated | combinatorics, birthday problem, CLT |
+| Regression from scratch | diabetes | loss, partial derivatives, gradient descent, normal equations |
+| PCA | wine (178 samples, 13 features) | covariance, eigenvectors, SVD |
+| CO₂ trend | Mauna Loa monthly CO₂ 1958–2001 | least squares, derivatives, seasonality |
+| k-nearest neighbours | iris | distances, accuracy, confusion matrix |
+
+Dataset sources and licenses: [assets/data/README.md](assets/data/README.md).
+
+### Step-by-step solver (`solver.html`)
+Arithmetic, algebra (simplify, expand, factor), equations and inequalities of many kinds, systems (Gaussian elimination), calculus (derivatives, integrals, limits, tangents, extrema, Taylor series), matrices (determinant, inverse, RREF, eigenvalues) and statistics — with interactive graphs, a math keyboard, live preview, history and shareable links. Explanations are bilingual.
+
+### Interactive tools (`math-tools.html`)
+Hundred chart, ten frames, fraction bar, number line, clock, money, bead rack, geoboard, vocabulary cards, scratchpad, pattern blocks, base-ten blocks, algebra tiles and the area model of multiplication.
+
+## Run from source
+
+Requirements: Python 3 (no extra packages).
 
 ```bash
-chmod +x start_local.command
-./start_local.command
+./start_local.command        # macOS (or: python3 server.py)
+start_local.bat              # Windows
 ```
 
-اگر مرورگر خودکار باز نشد، http://127.0.0.1:8000 را باز کن. برای توقف سرور `Control+C` را بزن. روش جایگزین: `python3 server.py`
+Then open http://127.0.0.1:8000. With the local server, progress is also saved to `data/progress.json` (don't commit that file).
 
-### Windows
+### Build the desktop app
 
-روی `start_local.bat` دوبار کلیک کن. Python 3 باید نصب باشد.
-
-### ساخت نسخهٔ دسکتاپ
-
-نیازمندی: Node.js 22.
+Requirements: Node.js 22.
 
 ```bash
 npm install
-npm start                     # اجرای برنامهٔ دسکتاپ
-node desktop/fetch-pyodide.mjs   # (اختیاری) پایتون آفلاین برای دفترچه
-npm run dist:mac              # یا dist:win
+npm start                        # run the desktop app
+node desktop/fetch-pyodide.mjs   # optional: offline Python for the notebook
+npm run dist:mac                 # or dist:win
 ```
 
-با تغییر `version` در `package.json` و push روی شاخهٔ main (یا push یک برچسب مثل `v1.0.1`، یا اجرای دستی workflow «Build desktop apps» در تب Actions)، GitHub Actions نصب‌کننده‌های مک و ویندوز را می‌سازد و در Releases منتشر می‌کند.
+Changing `version` in `package.json` and pushing to `main` makes GitHub Actions build the macOS and Windows installers and publish a release.
 
-## برنامهٔ درسی و کتابچه‌ها
+## Editing lessons
 
-- [برنامهٔ درسی جامع و ترتیب پیش‌نیازها](CURRICULUM.md)
-- [منابع آموزشی و نقشهٔ تطبیق محتوا](SOURCES.md)
-- [فصل ۰۰ — حساب پایه و اعداد](chapters/00-arithmetic-foundations.md)
-- [فصل ۰۱ — جبر و مدل‌سازی](chapters/01-algebra-and-modeling.md)
-- [فصل ۰۲ — هندسه و اندازه‌گیری](chapters/02-geometry-and-measurement.md)
-- [فصل ۰۳ — احتمال و آمار](chapters/03-probability-and-statistics.md)
-- [فصل ۰۴ — جبر خطی](chapters/04-linear-algebra.md)
-- [فصل ۰۵ — پایتون برای تحلیل داده](chapters/05-python-data-analysis.md)
-- [فصل ۰۶ — حسابان و بهینه‌سازی](chapters/06-calculus-optimization.md)
-- [فصل ۰۷ — SQL برای تحلیل داده](chapters/07-sql-for-data-analysis.md)
-- [فصل ۰۸ — مبانی یادگیری ماشین](chapters/08-machine-learning-foundations.md)
-- [فصل ۰۹ — تحلیل اکتشافی داده](chapters/09-exploratory-data-analysis.md)
-- [فصل ۱۰ — مهندسی ویژگی و ارزیابی مدل](chapters/10-feature-engineering-model-evaluation.md)
-- [فصل ۱۱ — استنباط آماری و آزمون A/B](chapters/11-inferential-statistics-ab-testing.md)
-- [فصل ۱۲ — توزیع‌های احتمال و شبیه‌سازی](chapters/12-probability-distributions-simulation.md)
-- [فصل ۱۳ — رگرسیون خطی و لجستیک](chapters/13-linear-and-logistic-regression.md)
-- [فصل ۱۴ — درخت تصمیم و مدل‌های ترکیبی](chapters/14-trees-and-ensembles.md)
-- [فصل ۱۵ — خوشه‌بندی و PCA](chapters/15-clustering-and-pca.md)
-- [فصل ۱۶ — سری زمانی و پیش‌بینی](chapters/16-time-series-forecasting.md)
-- [فصل ۱۷ — استقرار و پایش مدل](chapters/17-end-to-end-deployment-monitoring.md)
-
-## امکانات برنامه
-
-### حل‌گر گام‌به‌گام (`solver.html`)
-- **حساب و اعداد:** ترتیب عملیات مرحله‌به‌مرحله، کسرها، توان و رادیکال، عوامل اول، ب.م.م و ک.م.م
-- **جبر:** ساده‌سازی، بسط، تجزیه و ساده‌کردن کسرهای جبری
-- **معادله و نامعادله:** خطی، درجه دو، چندجمله‌ای، کسری، قدرمطلق، رادیکالی، نمایی، لگاریتمی، مثلثاتی؛ نامعادله با جدول تعیین علامت
-- **دستگاه معادلات** با حذف گاوسی
-- **حسابان:** مشتق با نمایش قاعده‌ها، انتگرال نامعین/معین/ناسره (جایگذاری، جزءبه‌جزء، کسرهای جزئی)، حد (هوپیتال)، خط مماس، اکسترمم، سری تیلور
-- **ماتریس:** دترمینان، وارون، ضرب، RREF، Ax = b، مقادیر و بردارهای ویژه
-- **آمار و احتمال:** آمار توصیفی، رگرسیون، ترکیب/جایگشت، توزیع دوجمله‌ای و نرمال
-- نمودار تعاملی (زوم، جابه‌جایی، ردیابی، ریشه‌ها و اکسترمم‌ها)، صفحه‌کلید ریاضی، پیش‌نمایش زندهٔ فرمول، تاریخچه، دفترچه، کپی LaTeX، پیوند اشتراک و «مسئلهٔ مشابه» برای تمرین
-
-### یادگیری
-- داشبورد با سطح و XP، استریک روزانه و نقشهٔ حرارتی ۱۲ هفته، «درس بعدی» و حل سریع از صفحهٔ خانه
-- ۱۲ حوزهٔ اصلی و ۱۶۸ درس خرد، تمرینگاه پنج‌گانه، راهنمایی مرحله‌ای و پاسخ تشریحی
-- **مرور روزانه** با تکرار فاصله‌دار (جعبهٔ لایتنر) و **آزمون تعیین سطح**
-- **۱۸ نشان دستاورد**
-- **دفترچهٔ پایتون** (Pyodide): NumPy، pandas، matplotlib، خروجی ‎.py و ‎.ipynb
-- نقشهٔ راه Data Science، یادداشت کلی و اختصاصی هر درس، پشتیبان JSON
-
-### ابزارهای دست‌ورزی (`math-tools.html`)
-جدول ۱۰۰تایی، قاب ده‌تایی، نوار کسر، خط اعداد، ساعت، پول آموزشی، میلهٔ مهره‌ای، تختهٔ هندسه، کارت واژگان، تختهٔ یادداشت، بلوک‌های الگو، قطعات ده‌دهی، کاشی‌های جبری و مدل مساحت ضرب.
-
-همه‌چیز بدون اینترنت کار می‌کند (به‌جز اولین بارگذاری پایتون در نسخهٔ وب). وضعیت هم‌ترازی و کارهای باقی‌مانده: [REFERENCE_PARITY_ROADMAP.md](REFERENCE_PARITY_ROADMAP.md).
-
-## ذخیره‌سازی روی سیستم
-
-وقتی برنامه را با `start_local.command` یا `python3 server.py` اجرا کنی، پیشرفت و یادداشت‌ها از طریق سرور محلی در `data/progress.json` ذخیره می‌شوند. پوشهٔ `data` هنگام اولین ذخیره ساخته می‌شود.
-
-**فایل محلی `data/progress.json` را به GitHub ارسال نکن**؛ ممکن است یادداشت‌ها یا اطلاعات شخصی داشته باشد. اگر `index.html` را مستقیماً با آدرس `file://` باز کنی، ذخیره در پوشهٔ پروژه در دسترس نیست؛ از سرور محلی استفاده کن. برای انتقال بین دستگاه‌ها، خروجی JSON بگیر و آن را در دستگاه دیگر بازیابی کن.
-
-## آزمون‌ها
+Lessons live in `content/lessons/<skill-id>.<fa|en>.md` (Markdown + KaTeX math + teaching blocks such as `:::def`, `:::example … --- …`, `:::mistake`, `:::try`, `:::graph`). After editing, rebuild the bundle:
 
 ```bash
-python3 scripts/validate_curriculum.py   # ساختار فصل‌ها
-python3 scripts/check_inline_js.py       # نحو JavaScript
-node tests/engine.test.js                # بیش از ۹۰ مسئلهٔ مرجع حل‌گر + رندر KaTeX همهٔ مراحل
-node tests/desktop.test.js               # امنیت و API نسخهٔ دسکتاپ
-python3 -m unittest discover tests       # API سرور محلی
+python3 scripts/build_content.py
 ```
 
-پس از افزودن یا تغییر نام فایل‌های برنامه، `python3 scripts/build_sw.py` را برای به‌روزرسانی حافظهٔ آفلاین اجرا کن.
+## Tests
 
-## ساختار مهم مخزن
+```bash
+node tests/engine.test.js && MDSA_LANG=en node tests/engine.test.js   # solver: answers + KaTeX for every step
+node tests/learn.test.js  && MDSA_LANG=en node tests/learn.test.js    # curriculum, every lesson, every practice generator
+node tests/desktop.test.js                                            # desktop request handler
+python3 scripts/validate_curriculum.py && python3 scripts/check_inline_js.py
+python3 -m unittest discover tests                                    # local progress API
+```
 
-- `index.html` — داشبورد، درس‌ها، تمرینگاه، مرور روزانه، دستاوردها
-- `solver.html` — حل‌گر گام‌به‌گام؛ موتور در `assets/solver/` (`core`، `algebra`، `calculus`، `matrix`، `stats`، `graph`، `ui`)
-- `math-tools.html` — ابزارهای دست‌ورزی؛ ابزارهای جدید در `assets/tools/`
-- `python.html` — دفترچهٔ پایتون (`assets/python/`)
-- `assets/theme.css` — تم مشترک؛ `assets/learn/` — مرور روزانه، آزمون تعیین سطح، دستاوردها
-- `assets/vendor/` — کتابخانه‌های آفلاین: KaTeX (MIT)، nerdamer (Apache-2.0)، فونت وزیرمتن (OFL)
-- `desktop/` — برنامهٔ دسکتاپ Electron؛ `build/icon.png` — آیکون
-- `manifest.webmanifest`، `sw.js` — نصب PWA و حالت آفلاین
-- `server.py` — سرور محلی و API ذخیره‌سازی؛ `data/progress.json` — اطلاعات محلی
-- `chapters/` — کتابچه‌های آموزشی تکمیلی
-- `tests/`، `scripts/` — آزمون‌ها و ابزارهای بررسی
+After adding or renaming app files, run `python3 scripts/build_sw.py` to refresh the offline cache.
 
-کتابچه‌ها نسخه‌های مستقل اولیه‌اند و باید به‌صورت مرحله‌ای با بازبینی محاسبات، پاسخ‌نامه‌ها، مثال‌های کدنویسی و تعاملات برنامه توسعه یابند. پیوند به منابع آموزشی به معنی تأیید رسمی آکادمی از سوی دانشگاه‌ها یا شرکت‌ها نیست.
+## Repository layout
+
+- `index.html` — dashboard, learning path, skill pages, review, achievements, progress
+- `assets/app/` — store (progress, mastery, XP) and shell (router, dashboard)
+- `assets/curriculum/` — skill graph (`skills.js`) and the generated lesson bundle (`lessons.js`)
+- `assets/learn/` — Markdown renderer, answer checker, practice generators, problem UI, review/placement/achievements
+- `assets/i18n.js` — language switch and the developer credit shown on every page
+- `content/lessons/` — lesson sources in Persian and English
+- `solver.html` + `assets/solver/` — step-by-step solver engine
+- `python.html` + `assets/python/` — notebook and projects; `assets/data/` — datasets
+- `math-tools.html` + `assets/tools/` — manipulatives
+- `desktop/` — Electron app; `server.py` — local server; `chapters/` — longer Persian handbooks
+- `tests/`, `scripts/` — tests and build tools
+
+## License
+
+© 2026 Ebrahim Salimi. All rights reserved — see [LICENSE](LICENSE). Bundled third-party components keep their own licenses: KaTeX (MIT), nerdamer (Apache-2.0), Vazirmatn (OFL), Pyodide (MPL-2.0).

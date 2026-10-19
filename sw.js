@@ -1,7 +1,7 @@
 /* Offline service worker: precaches the app shell, serves same-origin files cache-first
    (refreshing in the background), and caches fonts / Pyodide from CDNs after first use.
    Bump VERSION when releasing so clients pick up new files. */
-const VERSION = "mdsa-v1.0.0";
+const VERSION = "mdsa-v1.1.0";
 const SHELL = [
  "./",
  "index.html",
@@ -10,6 +10,7 @@ const SHELL = [
  "python.html",
  "manifest.webmanifest",
  "assets/theme.css",
+ "assets/i18n.js",
  "assets/pwa.js",
  "assets/solver/algebra.js",
  "assets/solver/calculus.js",
@@ -19,10 +20,25 @@ const SHELL = [
  "assets/solver/matrix.js",
  "assets/solver/stats.js",
  "assets/solver/ui.js",
- "assets/learn/extra.js",
+ "assets/learn/check.js",
+ "assets/learn/learn.js",
+ "assets/learn/md.js",
+ "assets/learn/practice.js",
+ "assets/learn/problem-ui.js",
  "assets/learn/review-bank.js",
+ "assets/learn/review.js",
  "assets/tools/manipulatives.js",
  "assets/python/notebook.js",
+ "assets/python/projects.js",
+ "assets/app/shell.js",
+ "assets/app/store.js",
+ "assets/curriculum/lessons.js",
+ "assets/curriculum/skills.js",
+ "assets/learn/learn.css",
+ "assets/data/co2_monthly.csv",
+ "assets/data/diabetes.csv",
+ "assets/data/iris.csv",
+ "assets/data/wine.csv",
  "assets/vendor/katex/katex.min.css",
  "assets/vendor/katex/katex.min.js",
  "assets/vendor/nerdamer/nerdamer.min.js",

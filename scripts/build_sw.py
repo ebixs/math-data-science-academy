@@ -13,9 +13,11 @@ def rel(paths):
     return [p.relative_to(ROOT).as_posix() for p in sorted(paths)]
 
 
-files = ["./", "index.html", "solver.html", "math-tools.html", "python.html", "manifest.webmanifest", "assets/theme.css", "assets/pwa.js"]
-for folder in ["solver", "learn", "tools", "python"]:
+files = ["./", "index.html", "solver.html", "math-tools.html", "python.html", "manifest.webmanifest", "assets/theme.css", "assets/i18n.js", "assets/pwa.js"]
+for folder in ["solver", "learn", "tools", "python", "app", "curriculum"]:
     files += rel((ROOT / "assets" / folder).glob("*.js"))
+files += rel((ROOT / "assets/learn").glob("*.css"))
+files += rel((ROOT / "assets/data").glob("*.csv"))
 files += ["assets/vendor/katex/katex.min.css", "assets/vendor/katex/katex.min.js", "assets/vendor/nerdamer/nerdamer.min.js"]
 files += rel((ROOT / "assets/vendor/katex/fonts").glob("*.woff2"))
 files += rel((ROOT / "assets/vendor/vazirmatn").glob("*.woff2"))

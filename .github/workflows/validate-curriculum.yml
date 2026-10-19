@@ -24,8 +24,18 @@ jobs:
         run: python scripts/validate_curriculum.py
       - name: Check inline JavaScript syntax
         run: python scripts/check_inline_js.py
-      - name: Test math engine (answers + KaTeX rendering of every step)
-        run: node tests/engine.test.js
+      - name: Lessons bundle is up to date
+        run: |
+          python scripts/build_content.py
+          git diff --exit-code assets/curriculum/lessons.js
+      - name: Test math engine in Persian and English (answers + KaTeX rendering of every step)
+        run: |
+          node tests/engine.test.js
+          MDSA_LANG=en node tests/engine.test.js
+      - name: Test curriculum, lessons, practice generators and answer checking (both languages)
+        run: |
+          node tests/learn.test.js
+          MDSA_LANG=en node tests/learn.test.js
       - name: Test desktop request handler
         run: node tests/desktop.test.js
       - name: Test local progress API
