@@ -107,6 +107,8 @@ After adding or renaming app files, run `python3 scripts/build_sw.py` to refresh
 - `desktop/` — Electron app; `server.py` — local server; `chapters/` — longer Persian handbooks
 - `tests/`, `scripts/` — tests and build tools
 
-## License
+## License and contact
 
 © 2026 Ebrahim Salimi. All rights reserved — see [LICENSE](LICENSE). Bundled third-party components keep their own licenses: KaTeX (MIT), nerdamer (Apache-2.0), Vazirmatn (OFL), Pyodide (MPL-2.0).
+
+**Want to use, share or build on this app?** Please get in touch first: [ebrahimxsalimibani@gmail.com](mailto:ebrahimxsalimibani@gmail.com). Questions, bug reports and feedback are welcome at the same address or in [GitHub Issues](https://github.com/ebixs/math-data-science-academy/issues).
