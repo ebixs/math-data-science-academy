@@ -7,8 +7,8 @@ An offline-first app for learning mathematics **from zero to data science**, in 
 > **Developer: Ebrahim Salimi** — All publication and usage rights of this software are reserved. Publishing this software without the developer's knowledge is subject to legal action. See [LICENSE](LICENSE).
 
 <p align="center">
-  <a href="docs/demo/math-academy-demo.mp4"><img src="docs/demo/math-academy-demo.jpg" alt="Math & Data Science Academy: 60-second walkthrough of the desktop app (click to play)" width="860"></a>
-  <br><sub>▶ <a href="docs/demo/math-academy-demo.mp4">Watch the 60-second walkthrough</a> · desktop app, recorded from the real interface</sub>
+  <a href="docs/demo/math-academy-demo.mp4"><img src="docs/demo/math-academy-demo.jpg" alt="Math & Data Science Academy: promo video of the desktop app (click to play)" width="860"></a>
+  <br><sub>▶ <a href="docs/demo/math-academy-demo.mp4">Watch the promo video (38 s, with sound)</a> · built from the real app interface</sub>
 </p>
 
 ## Install (macOS and Windows)

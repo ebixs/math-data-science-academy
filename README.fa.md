@@ -9,8 +9,8 @@
 > **توسعه‌دهنده: ابراهیم سلیمی** — تمامی حقوق نشر و استفادهٔ این نرم‌افزار محفوظ است و انتشار این نرم‌افزار بدون اطلاع سازنده پیگرد قانونی دارد. [LICENSE](LICENSE) را ببین.
 
 <p align="center">
-  <a href="docs/demo/math-academy-demo.mp4"><img src="docs/demo/math-academy-demo.jpg" alt="آکادمی ریاضی و علم داده: ویدیوی ۶۰ ثانیه‌ای از برنامه‌ی دسکتاپ (برای پخش کلیک کنید)" width="860"></a>
-  <br><sub>▶ <a href="docs/demo/math-academy-demo.mp4">تماشای ویدیوی ۶۰ ثانیه‌ای</a> · ضبط‌شده از محیط واقعی برنامه</sub>
+  <a href="docs/demo/math-academy-demo.mp4"><img src="docs/demo/math-academy-demo.jpg" alt="آکادمی ریاضی و علم داده: ویدیوی معرفی برنامهٔ دسکتاپ (برای پخش کلیک کنید)" width="860"></a>
+  <br><sub>▶ <a href="docs/demo/math-academy-demo.mp4">تماشای ویدیوی معرفی (۳۸ ثانیه، با صدا)</a> · ساخته‌شده از محیط واقعی برنامه</sub>
 </p>
 
 ## نصب روی مک و ویندوز
