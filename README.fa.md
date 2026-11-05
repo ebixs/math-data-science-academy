@@ -8,6 +8,11 @@
 
 > **توسعه‌دهنده: ابراهیم سلیمی** — تمامی حقوق نشر و استفادهٔ این نرم‌افزار محفوظ است و انتشار این نرم‌افزار بدون اطلاع سازنده پیگرد قانونی دارد. [LICENSE](LICENSE) را ببین.
 
+<p align="center">
+  <a href="docs/demo/math-academy-demo.mp4"><img src="docs/demo/math-academy-demo.jpg" alt="آکادمی ریاضی و علم داده: ویدیوی ۶۰ ثانیه‌ای از برنامه‌ی دسکتاپ (برای پخش کلیک کنید)" width="860"></a>
+  <br><sub>▶ <a href="docs/demo/math-academy-demo.mp4">تماشای ویدیوی ۶۰ ثانیه‌ای</a> · ضبط‌شده از محیط واقعی برنامه</sub>
+</p>
+
 ## نصب روی مک و ویندوز
 
 آخرین نسخه را از صفحهٔ [Releases](https://github.com/ebixs/math-data-science-academy/releases/latest) دانلود کن:
@@ -99,8 +104,10 @@ python3 -m unittest discover tests                                    # API سر
 
 [برنامهٔ درسی جامع](CURRICULUM.md) · [منابع آموزشی](SOURCES.md) · ۱۸ کتابچهٔ فارسی در پوشهٔ [chapters](chapters/) (حساب پایه تا استقرار و پایش مدل).
 
-## مجوز
+## مجوز و تماس
 
 © ۲۰۲۶ ابراهیم سلیمی. تمامی حقوق محفوظ است — [LICENSE](LICENSE) را ببین. کتابخانه‌های جانبی مجوز خودشان را دارند: KaTeX (MIT)، nerdamer (Apache-2.0)، وزیرمتن (OFL) و Pyodide (MPL-2.0).
 
 </div>
+
+**می‌خواهی از این برنامه استفاده کنی، آن را منتشر کنی یا روی آن کار کنی؟** لطفاً قبلش پیام بده: [ebrahimxsalimibani@gmail.com](mailto:ebrahimxsalimibani@gmail.com). سؤال، گزارش خطا و پیشنهاد هم به همین نشانی یا در [GitHub Issues](https://github.com/ebixs/math-data-science-academy/issues) خوش‌آمد است.
